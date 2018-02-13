@@ -11,6 +11,7 @@ public class Test extends JApplet
 	public Test()
 	{
 		System.out.println("Java");
+		System.out.println("Modifed");
 	}
 	//single variable constructor
 	public Test(String s)
