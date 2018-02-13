@@ -103,8 +103,7 @@ public class CustomerEntry extends JPanel implements ActionListener,FocusListene
 	public CustomerEntry(MainPage mpg){
 		this.mpg = mpg;
 		customer_controller = new CustomerController();
-		System.out.println("hi this is test");
-		System.out.println("hi this new is test");
+System.out.println("welcome to java world");
 		bg = new ButtonGroup();
 		text_list = new ArrayList<JTextField>();
 		GridBagLayout gridBagLayout = new GridBagLayout();
