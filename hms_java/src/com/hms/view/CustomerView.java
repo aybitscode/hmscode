@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.hms.model.Customer;
 import com.hms.services.CustomerService;
-import com.hotelmanagement.MainPage;
 
 public class CustomerView {
 	
@@ -79,13 +78,6 @@ public class CustomerView {
 	{
 		Customer customer = customerService.getCustomerByPhone(mobilePhone);
 		String s2 = "ADMIN";
-//		if(MainPage.user_role == null)
-//			CustomerEntry.btnSubmit.setVisible(false);
-//		else if(MainPage.user_role.equals(s2))
-//			CustomerEntry.btnSubmit.setVisible(true);
-//		else
-//			CustomerEntry.btnSubmit.setVisible(false);
-
 		
 		int numRows = tableModel.getRowCount();
 		for (int i=numRows;i>0;i--) {
