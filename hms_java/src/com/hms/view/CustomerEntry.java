@@ -87,7 +87,7 @@ public class CustomerEntry extends JPanel implements ActionListener,FocusListene
 	Object[][] dat;
 	int rows=0;
 		
- 
+
 	List<JTextField> text_list;
 	private JLabel lblViewAll;
 	private JLabel lblCustomerDetails;
@@ -103,6 +103,7 @@ public class CustomerEntry extends JPanel implements ActionListener,FocusListene
 	public CustomerEntry(MainPage mpg){
 		this.mpg = mpg;
 		customer_controller = new CustomerController();
+		System.out.println("hi this is test");
 		bg = new ButtonGroup();
 		text_list = new ArrayList<JTextField>();
 		GridBagLayout gridBagLayout = new GridBagLayout();
