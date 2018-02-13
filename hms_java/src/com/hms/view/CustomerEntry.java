@@ -94,6 +94,7 @@ public class CustomerEntry extends JPanel implements ActionListener,FocusListene
 	private JCheckBox chckbxNew;
 	GridBagConstraints gbc_componentContainer;
 	JPanel searchPanel;
+	
 	JComboBox comboSearch; 
 	JButton btnViewAll;
 	JLabel lblCustomerMobile;
