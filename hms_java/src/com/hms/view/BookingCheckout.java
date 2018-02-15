@@ -790,7 +790,8 @@ public class BookingCheckout extends JPanel implements ActionListener, FocusList
 								extra_person = Double.parseDouble(text_extrabed.getText());
 								
 								
-								booking_cost = days*(room_cost+facilities_cost+extra_person);
+								//booking_cost = days*(room_cost+facilities_cost+extra_person);
+								booking_cost = room_cost+facilities_cost+extra_person;
 							   
 								if(checkCouponInDB(""+combo_coupon.getSelectedItem()))
 								{ 

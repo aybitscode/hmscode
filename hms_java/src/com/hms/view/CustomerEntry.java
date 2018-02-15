@@ -87,13 +87,14 @@ public class CustomerEntry extends JPanel implements ActionListener,FocusListene
 	Object[][] dat;
 	int rows=0;
 		
- 
+
 	List<JTextField> text_list;
 	private JLabel lblViewAll;
 	private JLabel lblCustomerDetails;
 	private JCheckBox chckbxNew;
 	GridBagConstraints gbc_componentContainer;
 	JPanel searchPanel;
+	
 	JComboBox comboSearch; 
 	JButton btnViewAll;
 	JLabel lblCustomerMobile;
@@ -103,6 +104,7 @@ public class CustomerEntry extends JPanel implements ActionListener,FocusListene
 	public CustomerEntry(MainPage mpg){
 		this.mpg = mpg;
 		customer_controller = new CustomerController();
+System.out.println("welcome to java world java");
 		bg = new ButtonGroup();
 		text_list = new ArrayList<JTextField>();
 		GridBagLayout gridBagLayout = new GridBagLayout();
