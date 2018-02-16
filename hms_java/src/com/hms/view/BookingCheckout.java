@@ -847,6 +847,7 @@ public class BookingCheckout extends JPanel implements ActionListener, FocusList
 			checkOut_controller.generateReport(mpg);	
 			CheckoutContainer objCheckin = new CheckoutContainer(mpg);
 			ViewHandler.updateDashBoard(objCheckin, WelcomeEntry.dashBoardContainer, WelcomeEntry.gbc_bodyPanel, WelcomeEntry.sliderMenu, WelcomeEntry.gbc_sliderMenu);
+			obj_ms.dispose();
 		}
 		else if(e.getSource()==btnAdd)
 		{

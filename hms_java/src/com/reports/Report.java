@@ -67,8 +67,8 @@ public class Report extends JDialog {
         this.reportName = rptName;
     }
  
-    public void callReport(String bookingID, List<String> custList) {
-        JasperPrint jasperPrint = generateReport(bookingID, custList);
+    public void callReport(String bookingID, List<String> custList, String roomNumber) {
+        JasperPrint jasperPrint = generateReport(bookingID, custList, roomNumber);
         JRViewer viewer = new JRViewer(jasperPrint);
         Container c = getContentPane();
         c.add(viewer);
@@ -95,7 +95,7 @@ public class Report extends JDialog {
     }
  
     /** this method will call the report from data source*/
-    public JasperPrint generateReport(String bookingID, List<String> custList) {
+    public JasperPrint generateReport(String bookingID, List<String> custList, String roomNumber) {
             System.out.println("booking id from reports is"+bookingID);
             JasperPrint jasperPrint = null;
             if (hm == null) {
@@ -114,6 +114,7 @@ public class Report extends JDialog {
             	hm.put("customer_mobile", custList.get(1));
             	hm.put("customer_address", custList.get(2));
             	hm.put("gst_number", "SGSG9LK9");
+            	hm.put("roomNumber", roomNumber);
                 jasperPrint = JasperFillManager.fillReport("C:/HotelManagement/oraexe/accdata/db/admin/dbase/Invoice.jasper", hm, con);
             } catch (JRException e) {
                 e.printStackTrace();

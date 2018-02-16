@@ -369,7 +369,7 @@ public class CheckOutService {
 						int rows = MiscellaneousServices.table.getRowCount();
 						int cols = MiscellaneousServices.table.getColumnCount();	
 					con.setAutoCommit(false);
-					PreparedStatement pst_batch = con.prepareStatement("insert into miscellaneous(serviceName, serviceDesc, servicePrice, bookingID, createdDate, employeeID) "+ "values(?,?,?,?,?,?)");
+					PreparedStatement pst_batch = con.prepareStatement("insert into miscellaneous(serviceName, serviceDesc, servicePrice, bookingID, createdDate, employeeID, roomDoorNumber) "+ "values(?,?,?,?,?,?,?)");
 					for(int i=0;i<rows;i++)
 					{
 						for(int j=0;j<cols+1;j++)	
@@ -389,6 +389,7 @@ public class CheckOutService {
 				        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
 				        pst_batch.setDate(5, sqlDate);
 				        pst_batch.setString(6, MainPage.userID);
+				        pst_batch.setString(7, obj_rpt.getRoomNo());
 						pst_batch.addBatch();
 					}
 					pst_batch.executeBatch();
@@ -515,9 +516,10 @@ public class CheckOutService {
 							{ 
 								Date date = (Date) sdf1.parse(creationDate);
 								java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-								PreparedStatement pst_ms = con.prepareStatement("select serviceID, serviceName, serviceDesc, servicePrice from miscellaneous where bookingID = ? and createdDate = ?");
+								PreparedStatement pst_ms = con.prepareStatement("select serviceID, serviceName, serviceDesc, servicePrice from miscellaneous where bookingID = ? and createdDate = ? and roomDoorNumber = ?");
 								pst_ms.setString(1, obj_rpt.getBookingID());
 								pst_ms.setDate(2, sqlDate);
+								pst_ms.setString(3, obj_rpt.getRoomNo());
 								System.out.println("converted sqltimestamp is"+sqlDate);
 								ResultSet rs_ms = pst_ms.executeQuery();
 								int flag = 0;
@@ -729,13 +731,14 @@ public class CheckOutService {
 		CheckOutHistory.lblRows.setText("");
 		CheckOutHistory.lblRows.setText("No. of Rows: "+slno);
 	}
-	public ReportDetails retrieveCheckOutDetails(String bookingID)
+	public ReportDetails retrieveCheckOutDetails(String bookingID, String roomNumber)
 	{
 		ReportDetails rpt = new ReportDetails();
 		int c_totaladults = 0, c_totalchilds = 0, ch_totaladults = 0, ch_totalchilds = 0, extra_adults = 0, extra_childs = 0, extra_persons = 0;
 		try {
 			PreparedStatement pst = con.prepareStatement(DatabaseConstants.BOOKING_CHECKOUT);
 			pst.setString(1, bookingID);
+			pst.setString(2, roomNumber);
 			ResultSet rk=pst.executeQuery();
 			
 			PreparedStatement pst1 = con.prepareStatement(DatabaseConstants.CUSTOMER_NAMES);
