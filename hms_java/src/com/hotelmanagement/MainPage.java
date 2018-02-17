@@ -857,6 +857,7 @@ public class MainPage extends JFrame implements ChangeListener,MouseListener,Key
 	            public void run() {
 	            	HMSCache.loadApplicationCache();
 	    		new MainPage();
+	    		//Added comment to test git
 	            	if(status==1)
 	            	{
 	            		JOptionPane.showMessageDialog(null, "Server not started consult admin","Error",JOptionPane.ERROR_MESSAGE);
