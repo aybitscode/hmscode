@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
@@ -39,17 +40,24 @@ import javax.swing.text.JTextComponent;
 
 import com.hms.controller.RoomCapacityController;
 import com.hms.controller.RoomCategoryController;
+import com.hms.controller.RoomCategoryController;
+import com.hms.model.RoomCategory;
 import com.hms.model.RoomCategory;
 import com.hms.util.Constants;
 import com.hms.util.DBConnection;
 import com.hms.util.DatabaseConstants;
 import com.hms.util.ExcelExporter;
+import com.hms.util.ScrollUtil;
 import com.hms.util.SearchBoxModel;
+import com.hms.viewhandler.ViewHandler;
 import com.hotelmanagement.MainPage;
 import com.hotelmanagement.SFont;
 import com.hotelmanagement.SetColor;
+import com.hotelmanagement.WelcomeEntry;
+
 import javax.swing.JTextArea;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JCheckBox;
 
 public class RoomCategoryEntry extends JPanel implements ActionListener,FocusListener {
 	/**
@@ -65,7 +73,7 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 	private JLabel lblCapacity;
 	
 	private JComboBox<String> combo_capacity;
-	private JPanel panel;
+	private JPanel componentContainer;
 	private ButtonGroup bg;
 	public static SearchBoxModel sbm_consignCom;
 	
@@ -77,10 +85,9 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 	int rows=0;
 	Statement st;
 	ResultSet rs;
-	private JLabel lblEnterRoomCategoryDetails;
 		
 	private JTextArea text_roomCategoryDesc;
-	private JLabel lblRoomFacilitiesID;	
+	private JLabel lblRoomCategoryID;	
 	private JScrollPane scrollPane;
 	GridBagConstraints gbc_scrollPane;
 	JTable table;
@@ -94,16 +101,27 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 	public static JComboBox combo_search;
 	public static JLabel lblRows;
 	List<String> capacityList;
+	private JLabel lblRoomCategories;
+	private JCheckBox chckbxNew;
+	JPanel searchPanel;
+	JComboBox comboSearch; 
+	JButton btnViewAll;
+	JLabel lblSearch;
+	GridBagConstraints gbc_componentContainer;
+	JButton btnSearch;
+	String facilitiesId;
+	RoomCategoryController objCon;
+	MainPage mpg;
 
-	public RoomCategoryEntry(){
-		
-		
+	public RoomCategoryEntry(){		
+		this.mpg = mpg;
+		objCon = new RoomCategoryController();
 		bg = new ButtonGroup();
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0};
 		setLayout(gridBagLayout);
 		
 		lblRows = new JLabel("Rows");
@@ -162,32 +180,102 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 		gbc_lblCustomerDetails_excel.anchor = GridBagConstraints.EAST;
 		gbc_lblCustomerDetails_excel.gridx = 6;
 		gbc_lblCustomerDetails_excel.gridy = 0;
-		//add(transExcel, gbc_lblCustomerDetails_excel);	
 		
-		panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 1;
-		add(panel, gbc_panel);
-		panel.setLayout(new MigLayout("", "[1px][300]", "[9px][35][10][35][10][42][10][35][][9px]"));
+		lblRoomCategories = new JLabel("Room Category");
+		GridBagConstraints gbc_lblRoomCategories = new GridBagConstraints();
+		gbc_lblRoomCategories.gridwidth = 3;
+		gbc_lblRoomCategories.insets = new Insets(0, 0, 5, 0);
+		gbc_lblRoomCategories.gridx = 0;
+		gbc_lblRoomCategories.gridy = 1;
+		add(lblRoomCategories, gbc_lblRoomCategories);
+		//add(transExcel, gbc_lblCustomerDetails_excel);
+		lblRoomCategories.setFont(new Font("Open Sans", Font.PLAIN, 28));
+		lblRoomCategories.setForeground(new Color(50, 197, 210));
 		
-		lblEnterRoomCategoryDetails = new JLabel("Room Category Details");
-		panel.add(lblEnterRoomCategoryDetails, "cell 0 0 2 1,grow");
+		chckbxNew = new JCheckBox("New");
+		GridBagConstraints gbc_chckbxNew = new GridBagConstraints();
+		gbc_chckbxNew.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxNew.gridx = 1;
+		gbc_chckbxNew.gridy = 2;
+		add(chckbxNew, gbc_chckbxNew);
+		chckbxNew.addActionListener(this);
+		chckbxNew.setSelected(true);
+		searchPanel = new JPanel();
+		searchPanel.setLayout(new MigLayout("", "[79px][150][150][]", "[35px][35px]"));
+		searchPanel.setBackground(new Color(SetColor.bkColor));
+		
+		
+		lblSearch = new JLabel("Room Facility");
+		searchPanel.add(lblSearch, "cell 0 0,alignx right,growy");
+		
+		comboSearch = new JComboBox();
+		comboSearch.setEditable(true);
+		sbm_consignCom = new SearchBoxModel(comboSearch, DatabaseConstants.SELECT_ROOM_CATEGORY_ID);
+		comboSearch.setModel(sbm_consignCom);
+		comboSearch.addItemListener(sbm_consignCom);
+		comboSearch.addPopupMenuListener(sbm_consignCom); 
+		searchPanel.add(comboSearch,  "cell 1 0 2 1,grow");
+		
+		comboSearch.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+
+		    @Override
+		    public void keyReleased(KeyEvent event) {
+		        if (event.getKeyChar() == KeyEvent.VK_ENTER) {
+		            if (((JTextComponent) ((JComboBox) ((Component) event
+		                    .getSource()).getParent()).getEditor()
+		                    .getEditorComponent()).getText().isEmpty())
+		            {
+		            	//customer_controller.populateCustomerList();
+		            }
+		            else
+		            {		    
+		            	btnSave.setText(Constants.UPDATE); 
+		            	RoomCategory obj = objCon. populateForm(""+comboSearch.getSelectedItem());
+		            	setData(obj);
+						remove(searchPanel);	
+						sbm_consignCom.cb.setSelectedItem("");
+						add(componentContainer, gbc_componentContainer);
+						updateUI();
+		            }
+		            	
+		        }
+		    }
+
+
+
+	
+		});
+		
+		btnSearch = new JButton("Search");
+		searchPanel.add(btnSearch, "cell 1 1,grow"); 
+		btnSearch.addActionListener(this);
+		
+		 btnViewAll = new JButton("View All");
+		 searchPanel.add(btnViewAll, "cell 2 1,grow");
+		 btnViewAll.addActionListener(this);
+
+		
+		componentContainer = new JPanel();
+		gbc_componentContainer = new GridBagConstraints();
+		gbc_componentContainer.fill = GridBagConstraints.BOTH;
+		gbc_componentContainer.insets = new Insets(0, 0, 5, 5);
+		gbc_componentContainer.gridx = 1;
+		gbc_componentContainer.gridy = 3;
+		add(componentContainer, gbc_componentContainer);
+		componentContainer.setLayout(new MigLayout("", "[1px][300]", "[9px][35][10][35][10][42][10][35][][9px]"));
 		lblRoomCategory = new JLabel("Room Category");
-		panel.add(lblRoomCategory, "cell 0 1,grow");
+		componentContainer.add(lblRoomCategory, "cell 0 1,grow");
 		
 		text_roomCategory = new JTextField();
-		panel.add(text_roomCategory, "cell 1 1,grow");
+		componentContainer.add(text_roomCategory, "cell 1 1,grow");
 		text_roomCategory.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		text_roomCategory.setColumns(10);
 		
 		lblRoomCategoryType = new JLabel("Category Type");
-		panel.add(lblRoomCategoryType, "cell 0 3,alignx left,aligny center");
+		componentContainer.add(lblRoomCategoryType, "cell 0 3,alignx left,aligny center");
 		
 		text_roomCategoryType = new JComboBox<String>();
-		panel.add(text_roomCategoryType, "cell 1 3,grow");
+		componentContainer.add(text_roomCategoryType, "cell 1 3,grow");
 		text_roomCategoryType.setFont(new Font("Tahoma", Font.PLAIN, 11));
 //		text_roomCategoryType.setInputVerifier(new StringValidator(null, text_roomCategoryType, "Enter only text values"));
 		text_roomCategoryType.addItem("");
@@ -195,7 +283,7 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 		text_roomCategoryType.addItem("NON AC");
 		
 		lblRoomCategoryDesc = new JLabel("Room Category Desc");
-		panel.add(lblRoomCategoryDesc, "cell 0 5,grow");
+		componentContainer.add(lblRoomCategoryDesc, "cell 0 5,grow");
 		
 
 		
@@ -203,15 +291,15 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 		text_roomCategoryDesc.setLineWrap(true);
 		text_roomCategoryDesc.setWrapStyleWord(true);
 		JScrollPane spane = new JScrollPane(text_roomCategoryDesc);
-		panel.add(spane, "cell 1 5,grow");
+		componentContainer.add(spane, "cell 1 5,grow");
 		//text_roomCategoryDesc.setInputVerifier(new StringValidator(null, text_roomCategoryDesc, "Enter only text values"));
 		
 		lblCapacity = new JLabel("Capacity");
-		panel.add(lblCapacity, "cell 0 7,grow");
+		componentContainer.add(lblCapacity, "cell 0 7,grow");
 		
 		
 		combo_capacity = new JComboBox<String>();
-		panel.add(combo_capacity, "cell 1 7,grow");
+		componentContainer.add(combo_capacity, "cell 1 7,grow");
 		RoomCapacityController rcc = new RoomCapacityController();
 		capacityList = rcc.retrieveCapacityName(DatabaseConstants.ROOM_CAPACITY_NAME);
 		for(String item: capacityList)
@@ -280,7 +368,7 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 		
 		
 		btnSave = new JButton("Submit");
-		panel.add(btnSave, "cell 1 9,grow");
+		componentContainer.add(btnSave, "cell 1 9,grow");
 		btnSave.setMnemonic(KeyEvent.VK_B);
 		btnSave.addActionListener(this);
 		uplcColor();
@@ -325,13 +413,20 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 		
 	}
 
-	public void setClear()
+	public void setClear1()
 	{
 		sbm_consignCom.cb.setSelectedItem("");
 		text_roomCategory.setText("");
 		text_roomCategoryDesc.setText("");
 		combo_capacity.setSelectedItem("");
 		text_roomCategoryType.setSelectedItem("");
+	}
+	public void setData(RoomCategory obj)
+	{
+		text_roomCategory.setText(obj.getCategory_ID());
+		text_roomCategoryDesc.setText(obj.getCategory_Desc());
+		combo_capacity.setSelectedItem(obj.getRoom_capacity_ID());
+		text_roomCategoryType.setSelectedItem(obj.getCategory_Name());
 	}
  
 	@Override
@@ -378,7 +473,7 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 					if(s>0)
 					{
 						JOptionPane.showMessageDialog(this,"Category created successfully","Success",JOptionPane.INFORMATION_MESSAGE);
-						setClear();
+						setClear1();
 					}
 					
 				
@@ -397,14 +492,49 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 				{
 					room_category_controller.updateRoomCategory(DatabaseConstants.UPDATE_ROOM_CATEGORY);
 					text_roomCategory.requestFocus(true);
-					setClear();
+					setClear1();
+				}
+				else if(e.getSource()==chckbxNew)
+				{
+					if(chckbxNew.isSelected())
+					{
+						setClear1();
+						btnSave.setText(Constants.SUBMIT); 
+						this.remove(searchPanel);
+						sbm_consignCom.cb.setSelectedItem("");
+						this.add(componentContainer, gbc_componentContainer);
+						this.updateUI();
+					}
+					else
+					{
+						 
+						btnSave.setText(Constants.UPDATE); 
+						this.remove(componentContainer);					
+						this.add(searchPanel, gbc_componentContainer);
+						this.updateUI();
+					}
+					
+				}
+				else if(e.getSource() == btnSearch)
+				{
+					btnSave.setText(Constants.UPDATE); 
+			    	RoomCategory obj = objCon.populateForm(""+comboSearch.getSelectedItem());
+			    	setData(obj);
+					this.remove(searchPanel);
+					sbm_consignCom.cb.setSelectedItem("");
+					this.add(componentContainer, gbc_componentContainer);
+					this.updateUI();
+				}
+				else if(e.getSource() == btnViewAll)
+				{
+			//							WelcomeEntry.active = ViewConstants.REPORTS;
+			//							WelcomeEntry.lblReports.setForeground(new Color(50, 197, 210));
+					ScrollUtil.scroll(WelcomeEntry.scrollPane, SwingConstants.TOP);
+					ViewAllFacilities obj = new ViewAllFacilities(mpg);
+					ViewHandler.updateDashBoard(obj, WelcomeEntry.dashBoardContainer, WelcomeEntry.gbc_bodyPanel, WelcomeEntry.sliderMenu, WelcomeEntry.gbc_sliderMenu);
 				}
 			}
-	
-	private static void throwError(String msg) throws Exception 
-	{
-		    throw new Exception(msg);
-	} 
+ 
 
 	@Override
 	public void focusGained(FocusEvent arg0) {
@@ -450,12 +580,11 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 	}
 	public void uplmtColor()
 	{
-		lblEnterRoomCategoryDetails.setForeground(new Color(SetColor.mtColor));
 	}
 	public void uplbkColor()
 	{
 		setBackground(new Color(SetColor.bkColor));
-		panel.setBackground(new Color(SetColor.bkColor));
+		componentContainer.setBackground(new Color(SetColor.bkColor));
 	}
 	public void uplcFont(String ctFType,int ctfProp,int ctSize)
 	{
@@ -470,7 +599,6 @@ public class RoomCategoryEntry extends JPanel implements ActionListener,FocusLis
 	}
 	public void uplSTFont(String stFType,int stfProp,int stSize)
 	{
-		lblEnterRoomCategoryDetails.setFont(new Font(stFType,stfProp,stSize));
 	}
 	
 	

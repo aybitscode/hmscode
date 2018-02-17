@@ -320,6 +320,27 @@ public class RoomCategoryService {
 		}
 		
 		return lrc;
+	}
+	public RoomCategory populateForm(String roomCategoryId) {
+		// TODO Auto-generated method stub
+		RoomCategory objCategory = new RoomCategory();
+		try { 
+			PreparedStatement pst = con.prepareStatement(DatabaseConstants.ALL_ROOM_CATEGORY_ID);
+			pst.setString(1, roomCategoryId);
+			ResultSet rk = pst.executeQuery();
+			while(rk.next())
+			{	
+						objCategory.setCategory_ID(rk.getString(1));
+						objCategory.setCategory_Name(rk.getString(2));	
+						objCategory.setCategory_Desc(rk.getString(3));	
+						objCategory.setRoom_capacity_ID(rk.getString(4));
+
+			} 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return objCategory;
 	}	
 
 }
