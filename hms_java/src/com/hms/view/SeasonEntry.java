@@ -524,7 +524,7 @@ public class SeasonEntry extends JPanel implements ActionListener,FocusListener 
 				textSeasonName.selectAll();
 				JOptionPane.showMessageDialog(this, "Enter season name", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			else if(DateDifferenceCalculator.calculateDifference(startDate, endDate)<0)
+			else if(DateDifferenceCalculator.calculateDays(startDate, endDate)<0)
 			{	
 				season_start.requestFocus(true);
 				JOptionPane.showMessageDialog(this, "Ending date should be greater that start date", "Failure", JOptionPane.ERROR_MESSAGE);
@@ -552,7 +552,7 @@ public class SeasonEntry extends JPanel implements ActionListener,FocusListener 
 				textSeasonName.selectAll();
 				JOptionPane.showMessageDialog(this, "Enter season name", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			else if(DateDifferenceCalculator.calculateDifference(startDate, endDate)<0)
+			else if(DateDifferenceCalculator.calculateDays(startDate, endDate)<0)
 			{	
 				season_start.requestFocus(true);
 				JOptionPane.showMessageDialog(this, "Ending date should be greater that start date", "Failure", JOptionPane.ERROR_MESSAGE);

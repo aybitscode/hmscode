@@ -284,7 +284,7 @@ System.out.println("the tglbtn length is"+tglbtn.length);
 								BookingCheckout.textBookingId.setText(rstBooked.getString(1));
 //								BookingCheckout.textName.setText(rstBooked.getString(2)+" "+rstBooked.getString(3));
 //								BookingCheckout.textMobile.setText(rstBooked.getString(4)); 
-								BookingCheckout.rptDet = BookingCheckout.checkOut_service.retrieveCheckOutDetails(rstBooked.getString(1));
+								BookingCheckout.rptDet = BookingCheckout.checkOut_service.retrieveCheckOutDetails(rstBooked.getString(1), roomDoorNo);
 								BookingCheckout.checkOut_controller = new CheckOutController(BookingCheckout.rptDet);
 								BookingCheckout.setData(BookingCheckout.rptDet);
 								BookingCheckout.roomNumber = roomDoorNo;

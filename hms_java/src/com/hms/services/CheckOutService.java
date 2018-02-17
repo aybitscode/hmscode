@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +18,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.hms.date.StringToTimeStamp;
 import com.hms.model.CheckOut;
 import com.hms.model.ReportDetails;
 import com.hms.util.BigDecimalType;
 import com.hms.util.Constants;
 import com.hms.util.DBConnection;
 import com.hms.util.DatabaseConstants;
+import com.hms.util.DateDifferenceCalculator;
 import com.hms.view.BookingCheckout;
 import com.hms.view.CheckOutHistory;
 import com.hms.view.MiscellaneousServices;
@@ -295,6 +300,7 @@ public class CheckOutService {
 	
 	public int submitService()
 	{
+       
 		int mis_flag = 0;
 		PreparedStatement pstBook = null;
 		PreparedStatement pst_tax = null;
@@ -308,6 +314,7 @@ public class CheckOutService {
 		booking_gst = booking_cgst+booking_sgst;		
 		booking_net_total = BookingCheckout.booking_cost + booking_gst;
 		gross_total = booking_net_total;
+		List<Double> grossList = new ArrayList<>();
 
 				
 		
@@ -315,11 +322,12 @@ public class CheckOutService {
 			try
 			{
 
-				pstBook=con.prepareStatement("update booking set  grossAmount = ?, couponName = ?, status = ?, paymentMode = ?, invoiceID = ? where bookingID = ? and roomDoorNumber = ?");
+				pstBook=con.prepareStatement("update booking set  grossAmount = ?, couponName = ?, status = ?, paymentMode = ?, invoiceID = ?, employeeID = ? where bookingID = ? and roomDoorNumber = ?");
 				pstBook.setString(1, ""+BigDecimalType.roundDown(gross_total));
 				pstBook.setString(2, ""+BookingCheckout.combo_coupon.getSelectedItem());
 				pstBook.setString(3, Constants.CHECKOUT);
 				pstBook.setString(4, BookingCheckout.rdbtnValue);
+				
 	
 				if(BookingCheckout.rdbtnValue.equals(Constants.CARD))
 				{
@@ -336,9 +344,9 @@ public class CheckOutService {
 					invoiceID =  generateIWTID();
 					pstBook.setString(5, invoiceID);
 				}
-				
-				pstBook.setString(6,obj_rpt.getBookingID());
-				pstBook.setString(7,BookingCheckout.roomNumber);
+				pstBook.setString(6, MainPage.userID);
+				pstBook.setString(7,obj_rpt.getBookingID());
+				pstBook.setString(8,BookingCheckout.roomNumber);
 			}catch(SQLException e){
 				JOptionPane.showMessageDialog(null, e, "Failure", JOptionPane.ERROR_MESSAGE);
 			}
@@ -355,13 +363,13 @@ public class CheckOutService {
 					service_sgst = BookingCheckout.miscellaneous_cost * (0.01*Double.parseDouble(service_sgst_per));
 					service_gst = service_cgst + service_sgst;		
 					service_net_total = BookingCheckout.miscellaneous_cost + service_gst;
-					gross_total = booking_net_total + service_net_total;
+				
 					try
 					{
 						int rows = MiscellaneousServices.table.getRowCount();
 						int cols = MiscellaneousServices.table.getColumnCount();	
 					con.setAutoCommit(false);
-					PreparedStatement pst_batch = con.prepareStatement("insert into miscellaneous(serviceName, serviceDesc, servicePrice, bookingID) "+ "values(?,?,?,?)");
+					PreparedStatement pst_batch = con.prepareStatement("insert into miscellaneous(serviceName, serviceDesc, servicePrice, bookingID, createdDate, employeeID, roomDoorNumber) "+ "values(?,?,?,?,?,?,?)");
 					for(int i=0;i<rows;i++)
 					{
 						for(int j=0;j<cols+1;j++)	
@@ -378,6 +386,10 @@ public class CheckOutService {
 								System.out.println("j value from else"+(j+1));
 							}
 						}
+				        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+				        pst_batch.setDate(5, sqlDate);
+				        pst_batch.setString(6, MainPage.userID);
+				        pst_batch.setString(7, obj_rpt.getRoomNo());
 						pst_batch.addBatch();
 					}
 					pst_batch.executeBatch();
@@ -414,107 +426,212 @@ public class CheckOutService {
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				pst.setTimestamp(3, timestamp);
 				s=pst.executeUpdate();								
-			
 				if(s>0)
-				{
-				int i = 1;
+				{ 
 				PreparedStatement pstDel = con.prepareStatement("delete from reports");
 				int s1 = pstDel.executeUpdate();
 				pstBook.execute();
 				pst_tax.execute();
 				
 				con.setAutoCommit(false);				
-				PreparedStatement pstBatch = con.prepareStatement("insert into reports(slno, particulars, amount) "+ "values(?,?,?)");
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Room Rent");
-				pstBatch.setString(3, obj_rpt.getRoomCost());
-				pstBatch.addBatch();
+				PreparedStatement pstBatch = con.prepareStatement("insert into reports(creationDate, description, requestId, charges, credit, balance, bookingID) "+ "values(?,?,?,?,?,?,?)");
+				
+				int totalDays = 0;
+				System.out.println("CHeckin date iss"+obj_rpt.getCheckinDate());
+				System.out.println("CHeckinout date iss"+obj_rpt.getCheckoutDate());
+		        try {
+					Date a = sdf1.parse(obj_rpt.getCheckinDate());
+					String advanceDate = sdf1.format(a);
+					 Date b = sdf1.parse(obj_rpt.getCheckoutDate());
+				    	System.out.println("a"+a);
+						System.out.println("b"+b);
+						totalDays = (int) DateDifferenceCalculator.calculateDays(a, b);
+		 
+						String creationDate = sdf1.format(a); 
 
-				if(BookingCheckout.extra_person!=0)
-				{
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Extra Person");
-				pstBatch.setString(3,  ""+BigDecimalType.roundDown(BookingCheckout.extra_person));
-				pstBatch.addBatch();
-				}
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Room Facilities Cost");
-				pstBatch.setString(3,obj_rpt.getFacilitiesCost());
-				pstBatch.addBatch();
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "No. of Days");
-				pstBatch.setString(3, obj_rpt.getDays());
-				pstBatch.addBatch();
+				        for(int k=0;k<totalDays;k++)
+			        	{
+		
 
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "CGST @ "+booking_cgst_per+"%");
-				pstBatch.setString(3, ""+BigDecimalType.roundDown(booking_cgst));
-				pstBatch.addBatch();
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "SGST @ "+booking_sgst_per+"%");
-				pstBatch.setString(3, ""+BigDecimalType.roundDown(booking_sgst));
-				pstBatch.addBatch();
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Total GST @ "+booking_gst_per+"%");
-				pstBatch.setString(3, ""+BigDecimalType.roundDown(booking_gst));
-				pstBatch.addBatch();
-				
-				if(mis_flag==1)
-				{
-					PreparedStatement pst_ms = con.prepareStatement("select serviceName, serviceDesc, servicePrice from miscellaneous where bookingID = ?");
-					pst_ms.setString(1, obj_rpt.getBookingID());
-					ResultSet rs_ms = pst_ms.executeQuery();
-					while(rs_ms.next())
-					{
-						pstBatch.setInt(1, i++);
-						pstBatch.setString(2, rs_ms.getString(1)+" "+"("+rs_ms.getString(2)+")");
-						pstBatch.setString(3, rs_ms.getString(3));
-						pstBatch.addBatch();
-	
+							
+							pstBatch.setString(1, creationDate);
+							pstBatch.setString(2, "Room Rent");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4, obj_rpt.getRoomCost());
+							pstBatch.setString(5, "");
+							pstBatch.setString(6, obj_rpt.getRoomCost());
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+
+							if(BookingCheckout.extra_person!=0)
+							{
+							pstBatch.setString(1, creationDate);
+							pstBatch.setString(2, "Extra Person");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4,  ""+BigDecimalType.roundDown(BookingCheckout.extra_person));
+							pstBatch.setString(5, "");
+							pstBatch.setString(6,  ""+BigDecimalType.roundDown(BookingCheckout.extra_person));
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+							}
+							pstBatch.setString(1, creationDate);
+							pstBatch.setString(2, "Room Facilities Cost");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4,obj_rpt.getFacilitiesCost());
+							pstBatch.setString(5, "");
+							pstBatch.setString(6,obj_rpt.getFacilitiesCost());
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+							
+			 
+
+							pstBatch.setString(1, creationDate);
+							pstBatch.setString(2, "CGST @ "+booking_cgst_per+"%");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4, ""+BigDecimalType.roundDown(booking_cgst));
+							pstBatch.setString(5, "");
+							pstBatch.setString(6, ""+BigDecimalType.roundDown(booking_cgst));
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+							
+							pstBatch.setString(1, creationDate);
+							pstBatch.setString(2, "SGST @ "+booking_sgst_per+"%");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4, ""+BigDecimalType.roundDown(booking_sgst));
+							pstBatch.setString(5, "");
+							pstBatch.setString(6, ""+BigDecimalType.roundDown(booking_sgst));
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+							
+							pstBatch.setString(1, creationDate);
+							pstBatch.setString(2, "Total GST @ "+booking_gst_per+"%");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4, ""+BigDecimalType.roundDown(booking_gst));
+							pstBatch.setString(5, "");
+							pstBatch.setString(6, ""+BigDecimalType.roundDown(booking_gst));
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+							
+							if(mis_flag==1)
+							{ 
+								Date date = (Date) sdf1.parse(creationDate);
+								java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+								PreparedStatement pst_ms = con.prepareStatement("select serviceID, serviceName, serviceDesc, servicePrice from miscellaneous where bookingID = ? and createdDate = ? and roomDoorNumber = ?");
+								pst_ms.setString(1, obj_rpt.getBookingID());
+								pst_ms.setDate(2, sqlDate);
+								pst_ms.setString(3, obj_rpt.getRoomNo());
+								System.out.println("converted sqltimestamp is"+sqlDate);
+								ResultSet rs_ms = pst_ms.executeQuery();
+								int flag = 0;
+								while(rs_ms.next())
+								{
+									pstBatch.setString(1, creationDate);
+									pstBatch.setString(2, rs_ms.getString(2)+" "+"("+rs_ms.getString(2)+")");
+									pstBatch.setString(3, rs_ms.getString(1));
+									pstBatch.setString(4, rs_ms.getString(4));
+									pstBatch.setString(5, "");
+									pstBatch.setString(6, rs_ms.getString(4));
+									pstBatch.setString(7, obj_rpt.getBookingID());
+									
+									pstBatch.addBatch();
+									
+									flag = 1;
+									
+								}
+							if(flag == 1)
+							{
+							pstBatch.setString(1, creationDate);	
+							pstBatch.setString(2, "Service TAX "+service_gst_per+"%"+" ("+ service_cgst_per +"% CGST + "+ service_sgst_per +"% SGST)");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4, ""+BigDecimalType.roundDown(service_gst));
+							pstBatch.setString(5, "");
+							pstBatch.setString(6, ""+BigDecimalType.roundDown(service_gst));
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();	
+							gross_total = booking_net_total + service_net_total;
 						
-					}
-					
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Service TAX "+service_gst_per+"%"+" ("+ service_cgst_per +"% CGST + "+ service_sgst_per +"% SGST)");
-				pstBatch.setString(3, ""+BigDecimalType.roundDown(service_gst));
-				pstBatch.addBatch();	
-					
-					
-					
-				}
+							}
+							else 
+							{
+								gross_total = booking_net_total;
+							}
+								
+								
+							}
+				
 
-//				pstBatch.setInt(1, i++);
-//				pstBatch.setString(2, "Net Amount");
-//				pstBatch.setString(3, ""+BigDecimalType.roundDown(booking_net_total));
-//				pstBatch.addBatch();				
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Gross Amount");
-				pstBatch.setString(3, ""+BigDecimalType.roundDown(gross_total));
-				pstBatch.addBatch();
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Coupon Discount "+"("+obj_rpt.getCouponName()+")");
-				pstBatch.setString(3, ""+BigDecimalType.roundDown(Double.parseDouble(obj_rpt.getDiscount())));
-				pstBatch.addBatch();
+//							pstBatch.setInt(1, i++);
+//							pstBatch.setString(2, "Net Amount");
+//							pstBatch.setString(3, ""+BigDecimalType.roundDown(booking_net_total));
+//							pstBatch.addBatch();				
+							pstBatch.setString(1, "");
+							pstBatch.setString(2, "                      Day Total");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4, ""+BigDecimalType.roundDown(gross_total));
+							pstBatch.setString(5, "");
+							pstBatch.setString(6, ""+BigDecimalType.roundDown(gross_total));
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+							
+							
+							pstBatch.setString(1, "");
+							pstBatch.setString(2, "");
+							pstBatch.setString(3, "");
+							pstBatch.setString(4, "");
+							pstBatch.setString(5, "");
+							pstBatch.setString(6, "");
+							pstBatch.setString(7, obj_rpt.getBookingID());
+							pstBatch.addBatch();
+							
+							grossList.add(gross_total);
 
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Advance Amount");
-				pstBatch.setString(3, obj_rpt.getAdvancePaid());
-				pstBatch.addBatch();
+							
+							Calendar c = Calendar.getInstance();
+							c.setTime(sdf1.parse(creationDate));
+							c.add(Calendar.DATE, 1);  // number of days to add
+							creationDate = sdf1.format(c.getTime());  
+							System.out.println("Checkin Increment date is"+creationDate);
+			        	}
+				        
+						pstBatch.setString(1, creationDate);
+						pstBatch.setString(2, "Coupon Discount "+"("+obj_rpt.getCouponName()+")");
+						pstBatch.setString(3, "");
+						pstBatch.setString(4, "");
+						pstBatch.setString(5, "");
+						pstBatch.setString(6, "-"+BigDecimalType.roundDown(Double.parseDouble(obj_rpt.getDiscount())));
+						pstBatch.setString(7, obj_rpt.getBookingID());				
+						pstBatch.addBatch();
+						
+						pstBatch.setString(1, advanceDate);
+						pstBatch.setString(2, "Advance Amount");
+						pstBatch.setString(3, "");
+						pstBatch.setString(4, "");
+						pstBatch.setString(5, obj_rpt.getAdvancePaid());
+						pstBatch.setString(6, "-"+obj_rpt.getAdvancePaid());
+						pstBatch.setString(7, obj_rpt.getBookingID());
+						pstBatch.addBatch();
+						
+						double totalGrossAmount = 0;
+						for(Double grossAmt : grossList)
+						{
+							totalGrossAmount += grossAmt;
+						}
+						
+						balance = totalGrossAmount - Double.parseDouble(obj_rpt.getAdvancePaid());  
+						balance -= Double.parseDouble(obj_rpt.getDiscount());
+						pstBatch.setString(1, "");
+						pstBatch.setString(2, "                      Balance amount to be paid");
+						pstBatch.setString(3, "");
+						pstBatch.setString(4, "");
+						pstBatch.setString(5, "");
+						pstBatch.setString(6, ""+BigDecimalType.roundDown(balance));
+						pstBatch.setString(7, obj_rpt.getBookingID());
+						pstBatch.addBatch();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
 				
-				balance = gross_total - Double.parseDouble(obj_rpt.getAdvancePaid());  
-				balance -= Double.parseDouble(obj_rpt.getDiscount());
-				
-				pstBatch.setInt(1, i++);
-				pstBatch.setString(2, "Balance Amount");
-				pstBatch.setString(3, ""+BigDecimalType.roundDown(balance));   
-				pstBatch.addBatch();
 				
 				pstBatch.executeBatch();
 				con.commit();
@@ -614,13 +731,14 @@ public class CheckOutService {
 		CheckOutHistory.lblRows.setText("");
 		CheckOutHistory.lblRows.setText("No. of Rows: "+slno);
 	}
-	public ReportDetails retrieveCheckOutDetails(String bookingID)
+	public ReportDetails retrieveCheckOutDetails(String bookingID, String roomNumber)
 	{
 		ReportDetails rpt = new ReportDetails();
 		int c_totaladults = 0, c_totalchilds = 0, ch_totaladults = 0, ch_totalchilds = 0, extra_adults = 0, extra_childs = 0, extra_persons = 0;
 		try {
 			PreparedStatement pst = con.prepareStatement(DatabaseConstants.BOOKING_CHECKOUT);
 			pst.setString(1, bookingID);
+			pst.setString(2, roomNumber);
 			ResultSet rk=pst.executeQuery();
 			
 			PreparedStatement pst1 = con.prepareStatement(DatabaseConstants.CUSTOMER_NAMES);

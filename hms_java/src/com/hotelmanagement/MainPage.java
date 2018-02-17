@@ -610,7 +610,7 @@ public class MainPage extends JFrame implements ChangeListener,MouseListener,Key
 	{
 		java.util.Date currentDate = new java.util.Date();
 		System.out.println("Current Date is"+currentDate);
-		int days = (int) DateDifferenceCalculator.calculateDifference(StringToUtilDate.getDate_MMDDYYYY(GetFileCreationDateExample.getFileCD()), currentDate);
+		int days = (int) DateDifferenceCalculator.calculateDays(StringToUtilDate.getDate_MMDDYYYY(GetFileCreationDateExample.getFileCD()), currentDate);
 		if(days > 0)
 		{
 		

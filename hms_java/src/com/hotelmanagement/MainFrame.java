@@ -71,7 +71,7 @@ public class MainFrame {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return DateDifferenceCalculator.calculateDifference(date, currentDate);
+			return DateDifferenceCalculator.calculateDays(date, currentDate);
 	}
 	
 	

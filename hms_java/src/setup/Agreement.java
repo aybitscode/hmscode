@@ -151,8 +151,8 @@ Dimension d=Toolkit.getDefaultToolkit().getScreenSize();
 		if(arg0.getSource()==button_1)
 		{
 			dispose();
-			new Register();
-			//new Install();
+			//new Register();
+			new Install();
 
 		}
 		if(arg0.getSource()==button)
