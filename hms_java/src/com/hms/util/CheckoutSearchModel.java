@@ -207,9 +207,9 @@ public class CheckoutSearchModel extends AbstractListModel implements ComboBoxMo
         System.out.println("the item is"+e.getItem());
 		String bookingID = ""+e.getItem();
 		if(bookingID.trim().length()!=0){
-//       		obj.rptDet = obj.checkOut_service.retrieveCheckOutDetails(bookingID);
-//       		obj.checkOut_controller = new CheckOutController(obj.rptDet);
-//    		obj.setData(obj.rptDet);
+       		obj.rptDet = obj.checkOut_service.retrieveCheckOutDetails(bookingID);
+       		obj.checkOut_controller = new CheckOutController(obj.rptDet);
+    		obj.setData(obj.rptDet);
 		}
     }
 	@Override

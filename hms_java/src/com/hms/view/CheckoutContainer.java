@@ -84,7 +84,7 @@ public class CheckoutContainer extends JPanel {
 		gbc_lblBooked.insets = new Insets(0, 0, 0, 5);
 		gbc_lblBooked.gridx = 2;
 		gbc_lblBooked.gridy = 0;
-		//add(lblBooked, gbc_lblBooked);
+		add(lblBooked, gbc_lblBooked);
 		lblBooked.setText("BOOKED");
 		lblBooked.setForeground(Color.white);
 		
@@ -96,7 +96,7 @@ public class CheckoutContainer extends JPanel {
 		gbc_lblCheckedIn.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblCheckedIn.gridx = 3;
 		gbc_lblCheckedIn.gridy = 0;
-		add(lblCheckedIn, gbc_lblCheckedIn);
+		//add(lblCheckedIn, gbc_lblCheckedIn);
 		lblCheckedIn.setText("CHECKED IN");
 	    //splitPane.setBottomComponent(rightSplitPanel);
 	    

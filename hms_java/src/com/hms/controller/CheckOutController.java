@@ -44,6 +44,6 @@ public class CheckOutController {
 	public void generateReport(MainPage mpg)
 	{
 		Report rpt = new Report(mpg);
-		rpt.callReport(obj_rpt.getBookingID(), retrieveCustomerDetails(), obj_rpt.getRoomNo());
+		rpt.callReport(obj_rpt.getBookingID(), retrieveCustomerDetails());
 	}
 }

@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateDifferenceCalculator {
-	public static long calculateDays(Date startDate, Date endDate)
+	public static long calculateDifference(Date startDate, Date endDate)
 	{
 		long diffDays = 0;
 

@@ -8,74 +8,65 @@ import com.hms.services.CustomerService;
 import com.hms.services.RoomCategoryService;
 
 public class RoomCategoryController {
-	public RoomCategory objRoomCategory;
-	RoomCategoryService roomCategoryService;
+	public RoomCategory obj_roomCategory;
+	RoomCategoryService room_category_service;
 	
-	
-	public RoomCategoryController()
-	{
-		roomCategoryService = new RoomCategoryService();
-	}
 	public RoomCategoryController(RoomCategory obj_roomCategory)
 	{
-		this.objRoomCategory = obj_roomCategory;
-		roomCategoryService = new RoomCategoryService(obj_roomCategory);
+		this.obj_roomCategory = obj_roomCategory;
+		room_category_service = new RoomCategoryService(obj_roomCategory);
 	}
 	public RoomCategoryController(DefaultTableModel tableModel, JTable table)
 	{
-		roomCategoryService = new RoomCategoryService(tableModel, table);
+		room_category_service = new RoomCategoryService(tableModel, table);
 	}
 	public int submitRoom()
 	{
-		return roomCategoryService.submitService();
+		return room_category_service.submitService();
 	}
 	public void retrieveAllRoomCategories(String query)
 	{
-		roomCategoryService.retrieveAllRoomCategories(query);
+		room_category_service.retrieveAllRoomCategories(query);
 	}
 	public void retrieveRoomCategory(String query, String param)
 	{
-		roomCategoryService.retrieveRoomCategory(query, param);
+		room_category_service.retrieveRoomCategory(query, param);
 	}
 	public void updateRoomCategory(String query)
 	{
-		roomCategoryService.updateRoomCategory(query);
+		room_category_service.updateRoomCategory(query);
 	}
 	
 	public void updateCategory(int id, RoomCategory obj_roomCategory)
 	{
-		roomCategoryService.updateService(id, obj_roomCategory);
+		room_category_service.updateService(id, obj_roomCategory);
 	}	
 	public void deleteCategory(int id)
 	{
-		roomCategoryService.deleteService(id);
+		room_category_service.deleteService(id);
 	}
 	
 	public void getFirst()
 	{
 		
-		objRoomCategory =  roomCategoryService.getRoomCategoryFirst();
+		obj_roomCategory =  room_category_service.getRoomCategoryFirst();
 	}
 	
 	public void getLast()
 	{
 		
-		objRoomCategory = roomCategoryService.getRoomCategoryLast();
+		obj_roomCategory = room_category_service.getRoomCategoryLast();
 	}
 	public void getNext()
 	{
 		
-		objRoomCategory = roomCategoryService.getRoomCategoryNext();
+		obj_roomCategory = room_category_service.getRoomCategoryNext();
  
 	}
 	public void getPrevious()
 	{
 		
-		objRoomCategory = roomCategoryService.getRoomCategoryPrevious();
-	}
-	public RoomCategory populateForm(String roomCategoryId) {
-		// TODO Auto-generated method stub
-		return roomCategoryService.populateForm(roomCategoryId);
+		obj_roomCategory = room_category_service.getRoomCategoryPrevious();
 	}	
 
 }

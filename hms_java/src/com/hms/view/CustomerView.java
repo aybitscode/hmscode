@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.hms.model.Customer;
 import com.hms.services.CustomerService;
+import com.hotelmanagement.MainPage;
 
 public class CustomerView {
 	
@@ -123,4 +124,3 @@ public class CustomerView {
 	
 
 }
-
