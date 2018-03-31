@@ -6,9 +6,9 @@ public class Customer {
     private String firstName;
     private String middleName;
     private String lastName;
-    private CustomerAddress address;
+    private CustomerAddress customerAddress;
     private ContactDetails contactDetails;
-    private LegalIdentifiers legalIdentifiers;
+    private CustomerIdentifiers customerIdentifiers;
 
 
     public Customer(){
@@ -17,15 +17,15 @@ public class Customer {
 
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
-                    CustomerAddress address, ContactDetails contactDetails,
-                    LegalIdentifiers legalIdentifiers) {
+                    CustomerAddress customerAddress, ContactDetails contactDetails,
+                    CustomerIdentifiers customerIdentifiers) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.address = address;
+        this.customerAddress = customerAddress;
         this.contactDetails = contactDetails;
-        this.legalIdentifiers = legalIdentifiers;
+        this.customerIdentifiers = customerIdentifiers;
     }
 
     public String getCustomerId() {
@@ -60,12 +60,12 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public CustomerAddress getAddress() {
-        return address;
+    public CustomerAddress getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(CustomerAddress address) {
-        this.address = address;
+    public void setCustomerAddress(CustomerAddress customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
     public ContactDetails getContactDetails() {
@@ -76,11 +76,11 @@ public class Customer {
         this.contactDetails = contactDetails;
     }
 
-    public LegalIdentifiers getLegalIdentifiers() {
-        return legalIdentifiers;
+    public CustomerIdentifiers getCustomerIdentifiers() {
+        return customerIdentifiers;
     }
 
-    public void setLegalIdentifiers(LegalIdentifiers legalIdentifiers) {
-        this.legalIdentifiers = legalIdentifiers;
+    public void setCustomerIdentifiers(CustomerIdentifiers customerIdentifiers) {
+        this.customerIdentifiers = customerIdentifiers;
     }
 }
