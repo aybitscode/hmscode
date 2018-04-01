@@ -1,7 +1,8 @@
 package com.aybits.hms.api.func.customer.beans;
 
-import com.aybits.hms.api.func.common.beans.Address;
+import com.aybits.hms.api.func.common.beans.UserAddress;
 import com.aybits.hms.api.func.common.beans.ContactDetails;
+import com.aybits.hms.api.func.common.beans.UserAddress;
 import com.aybits.hms.api.func.common.beans.UserIdentifier;
 
 public class Customer {
@@ -10,7 +11,7 @@ public class Customer {
     private String firstName;
     private String middleName;
     private String lastName;
-    private Address customerAddress;
+    private UserAddress customerAddress;
     private ContactDetails contactDetails;
     private UserIdentifier userIdentifier;
 
@@ -21,7 +22,7 @@ public class Customer {
 
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
-                    Address customerAddress, ContactDetails contactDetails,
+                    UserAddress customerAddress, ContactDetails contactDetails,
                     UserIdentifier userIdentifier) {
         this.customerId = customerId;
         this.firstName = firstName;
@@ -64,11 +65,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public Address getCustomerAddress() {
+    public UserAddress getCustomerAddress() {
         return customerAddress;
     }
 
-    public void setCustomerAddress(Address customerAddress) {
+    public void setCustomerAddress(UserAddress customerAddress) {
         this.customerAddress = customerAddress;
     }
 

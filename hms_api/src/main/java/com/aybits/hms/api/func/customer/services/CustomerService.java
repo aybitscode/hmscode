@@ -1,11 +1,12 @@
-package com.hms.services;
+package com.aybits.hms.api.func.customer.services;
+
 
 import java.util.ArrayList;
 import java.util.List;
-import com.hms.cache.HMSCache;
-import com.hms.dbutil.HMSDbOperations;
-import com.hms.exception.HMSException;
-import com.hms.model.Customer;
+import com.aybits.hms.api.func.customer.cache.CustomerCache;
+import com.aybits.hms.api.func.customer.dao.CustomerDAO;
+import com.aybits.hms.api.arch.exception.HMSException;
+import com.aybits.hms.api.func.customer.beans.Customer;
 
 public class CustomerService {
 
@@ -18,7 +19,7 @@ public class CustomerService {
 	//	List<Customer> customerList = HMSCache.custCache.getAllCustomers();
 		List<Customer> customerList = new ArrayList<Customer>();
 		try {
-			customerList = HMSDbOperations.getAllCustomers();
+			customerList = CustomerDAO.getAllCustomers();
 		} catch (HMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,28 +31,29 @@ public class CustomerService {
 		//Customer customer = HMSCache.custCache.getCustomerByMobile(mobilePhone);
 		Customer customer = null;
 		try {
-			customer = HMSDbOperations.getCustomerByPhone(mobilePhone);
+			customer = CustomerDAO.getCustomerByPhone(mobilePhone);
 		} catch (HMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 		return customer;
 	}
 	
 	public Boolean addCustomer(Customer customer){
-		HMSDbOperations dbOps = new HMSDbOperations();
+		CustomerDAO dbOps = new CustomerDAO();
 		Boolean isCustomerAdditionSuccessful = dbOps.addCustomer(customer);
+		;CustomerCache customerCache = new CustomerCache();
 		if(isCustomerAdditionSuccessful){
-			HMSCache.custCache.addCustomer(customer);
+			customerCache.addCustomer(customer);
 		}
 		return isCustomerAdditionSuccessful;
 	}
 	
 	public Boolean updateCustomer(Customer customer) throws HMSException{
-		HMSDbOperations dbOps = new HMSDbOperations();
+		CustomerDAO dbOps = new CustomerDAO();
 		Boolean isCustomerUpdateSuccessful = dbOps.updateCustomer(customer);
 		if(isCustomerUpdateSuccessful){
-			HMSCache.custCache.updateCustomer(customer);
+			CustomerCache customerCache = new CustomerCache();
+			customerCache.updateCustomer(customer);
 			System.out.println("Customer Cache update successful");
 		}
 		return isCustomerUpdateSuccessful;
@@ -61,18 +63,18 @@ public class CustomerService {
 
 	public String getCustomerNameByMobile(String mobilePhone){
 		Customer customer = getCustomerByPhone(mobilePhone);
-		return customer.getFirst_name()+" "+customer.getLast_name();
+		return customer.getFirstName()+" "+customer.getLastName();
 	}
 
 	public String getCustomerId(String mobilePhone) {
 		Customer customer = getCustomerByPhone(mobilePhone);
-		return customer.getCustomerID();
+		return customer.getCustomerId();
 	}
 
 	public Customer getCustomerById(String customerId) {
 		//Customer customer = HMSCache.custCache.getCustomerById(customerId);
 		Customer customer = null;
-		customer = HMSDbOperations.getCustomerById(customerId);
+		customer = CustomerDAO.getCustomerById(customerId);
 				
 		return customer;
 	}
