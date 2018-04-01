@@ -1,14 +1,18 @@
 package com.aybits.hms.api.func.customer.beans;
 
+import com.aybits.hms.api.func.common.beans.Address;
+import com.aybits.hms.api.func.common.beans.ContactDetails;
+import com.aybits.hms.api.func.common.beans.UserIdentifier;
+
 public class Customer {
 
     private String customerId;
     private String firstName;
     private String middleName;
     private String lastName;
-    private CustomerAddress customerAddress;
+    private Address customerAddress;
     private ContactDetails contactDetails;
-    private CustomerIdentifiers customerIdentifiers;
+    private UserIdentifier userIdentifier;
 
 
     public Customer(){
@@ -17,15 +21,15 @@ public class Customer {
 
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
-                    CustomerAddress customerAddress, ContactDetails contactDetails,
-                    CustomerIdentifiers customerIdentifiers) {
+                    Address customerAddress, ContactDetails contactDetails,
+                    UserIdentifier userIdentifier) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.customerAddress = customerAddress;
         this.contactDetails = contactDetails;
-        this.customerIdentifiers = customerIdentifiers;
+        this.userIdentifier = userIdentifier;
     }
 
     public String getCustomerId() {
@@ -60,11 +64,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public CustomerAddress getCustomerAddress() {
+    public Address getCustomerAddress() {
         return customerAddress;
     }
 
-    public void setCustomerAddress(CustomerAddress customerAddress) {
+    public void setCustomerAddress(Address customerAddress) {
         this.customerAddress = customerAddress;
     }
 
@@ -76,11 +80,11 @@ public class Customer {
         this.contactDetails = contactDetails;
     }
 
-    public CustomerIdentifiers getCustomerIdentifiers() {
-        return customerIdentifiers;
+    public UserIdentifier getUserIdentifier() {
+        return userIdentifier;
     }
 
-    public void setCustomerIdentifiers(CustomerIdentifiers customerIdentifiers) {
-        this.customerIdentifiers = customerIdentifiers;
+    public void setUserIdentifier(UserIdentifier userIdentifier) {
+        this.userIdentifier = userIdentifier;
     }
 }

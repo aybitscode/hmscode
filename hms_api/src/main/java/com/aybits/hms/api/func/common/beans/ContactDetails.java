@@ -1,7 +1,7 @@
-package com.aybits.hms.api.func.customer.beans;
+package com.aybits.hms.api.func.common.beans;
 
 
-class ContactDetails {
+public class ContactDetails {
 
     private String primaryEmail;
     private String primaryPhone;
