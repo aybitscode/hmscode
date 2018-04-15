@@ -8,6 +8,7 @@ public class HMSErrorCodes {
 	
 	public static final String INVALID_CUSTOMER_ID = "INVALID_CUSTOMER_ID";
 	public static final String INVALID_CUSTOMER_PHONE = "INVALID_CUSTOMER_PHONE";
+	public static final String INVALID_LOGIN_ATTRIBUTES = "INVALID_LOGIN_ATTRIBUTES";
 			
 
 }
