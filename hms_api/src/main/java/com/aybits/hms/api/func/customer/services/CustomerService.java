@@ -41,7 +41,7 @@ public class CustomerService {
 	public Boolean addCustomer(Customer customer){
 		CustomerDAO dbOps = new CustomerDAO();
 		Boolean isCustomerAdditionSuccessful = dbOps.addCustomer(customer);
-		;CustomerCache customerCache = new CustomerCache();
+		CustomerCache customerCache = new CustomerCache();
 		if(isCustomerAdditionSuccessful){
 			customerCache.addCustomer(customer);
 		}

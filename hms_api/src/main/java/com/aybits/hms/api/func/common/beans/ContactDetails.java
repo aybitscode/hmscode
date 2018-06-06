@@ -1,11 +1,18 @@
 package com.aybits.hms.api.func.common.beans;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 public class ContactDetails {
 
+    @JsonProperty("primary_email")
     private String primaryEmail;
+
+    @JsonProperty("primary_phone")
     private String primaryPhone;
+
+    @JsonProperty("secondary_email")
     private String secondaryEmail;
+
+    @JsonProperty("secondary_phone")
     private String secondaryPhone;
 
     public String getPrimaryEmail() {
