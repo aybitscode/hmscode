@@ -1,6 +1,6 @@
 package com.aybits.hms.arch.dbman;
 
-import com.aybits.hms.api.arch.util.HMSConstants;
+import com.aybits.hms.arch.util.HMSConstants;
 
 public class DatabaseConstants {
 

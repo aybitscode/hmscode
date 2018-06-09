@@ -1,6 +1,6 @@
 package com.aybits.hms.func.common.beans;
 
-import com.aybits.hms.api.func.common.util.HMSAPIServiceConstants;
+import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 
 public enum HMSServiceModule {
 

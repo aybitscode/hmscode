@@ -1,6 +1,6 @@
 package com.aybits.hms.func.login.dao;
 
-import com.aybits.hms.api.func.login.beans.LoginSession;
+import com.aybits.hms.func.login.beans.LoginSession;
 import com.aybits.hms.func.login.beans.LoginSession;
 
 import java.util.List;

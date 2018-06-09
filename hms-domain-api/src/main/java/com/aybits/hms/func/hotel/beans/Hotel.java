@@ -1,6 +1,6 @@
 package com.aybits.hms.func.hotel.beans;
 
-import com.aybits.hms.api.func.facilities.beans.Facility;
+import com.aybits.hms.func.facilities.beans.Facility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;

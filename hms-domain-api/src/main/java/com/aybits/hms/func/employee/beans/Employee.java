@@ -1,9 +1,9 @@
 package com.aybits.hms.func.employee.beans;
 
-import com.aybits.hms.api.func.common.beans.ContactDetails;
-import com.aybits.hms.api.func.common.beans.HMSAddress;
-import com.aybits.hms.api.func.common.beans.IdentificationParams;
-import com.aybits.hms.api.func.login.beans.LoginAttributes;
+import com.aybits.hms.func.common.beans.ContactDetails;
+import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.IdentificationParams;
+import com.aybits.hms.func.login.beans.LoginAttributes;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 

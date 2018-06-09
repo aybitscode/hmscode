@@ -5,8 +5,8 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.beans.HMSServiceAction;
 import com.aybits.hms.func.common.beans.HMSServiceModule;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
-import com.aybits.hms.api.func.login.beans.LoginAttributes;
-import com.aybits.hms.api.func.login.dao.LoginDAO;
+import com.aybits.hms.func.login.beans.LoginAttributes;
+import com.aybits.hms.func.login.dao.LoginDAO;
 
 public class LoginProvider implements HMSAPIProvider {
 

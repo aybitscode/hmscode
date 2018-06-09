@@ -1,10 +1,7 @@
 package com.aybits.hms.func.room.beans;
 
-import com.aybits.hms.api.func.facilities.beans.Facility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
-import java.util.List;
 
 @JsonRootName("hms_room")
 public class Room {
@@ -62,14 +59,6 @@ public class Room {
 
     public void setRoomCategory(RoomCategory roomCategory) {
         this.roomCategory = roomCategory;
-    }
-
-    public List<Facility> getRoomFacilities() {
-        return roomFacilities;
-    }
-
-    public void setRoomAmenities(List<Facility> roomFacility) {
-        this.roomAmenities = roomAmenities;
     }
 
 }

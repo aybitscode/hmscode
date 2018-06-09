@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import com.aybits.hms.api.func.customer.beans.Customer;
+import com.aybits.hms.func.customer.beans.Customer;
 
 public class CustomerCache {
 	private HashMap<String, Customer> customerCache = new HashMap<>();
