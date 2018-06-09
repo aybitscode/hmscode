@@ -1,20 +1,5 @@
 package com.aybits.hms.api.func.login.beans;
 
-<<<<<<< HEAD
-public class LoginAttributes {
-
-    private String login;
-    private String password;
-    private String passwordType;
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-=======
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginAttributes {
@@ -33,7 +18,6 @@ public class LoginAttributes {
 
     public void setLoginId(String loginId) {
         this.loginId = loginId;
->>>>>>> adil_develop
     }
 
     public String getPassword() {
@@ -44,19 +28,12 @@ public class LoginAttributes {
         this.password = password;
     }
 
-<<<<<<< HEAD
-    public String getPasswordType() {
+    public PasswordType  getPasswordType() {
         return passwordType;
     }
 
-    public void setPasswordType(String passwordType) {
-=======
-    public PasswordType getPasswordType() {
-        return passwordType;
-    }
 
     public void setPasswordType(PasswordType passwordType) {
->>>>>>> adil_develop
         this.passwordType = passwordType;
     }
 }

@@ -1,19 +1,5 @@
 package com.aybits.hms.api.func.login.beans;
 
-<<<<<<< HEAD
-public class LoginSession{
-
-        private String sessionId;
-        private Long expiryTime;
-        private Long currentTimeStamp;
-
-
-        public Boolean isActive(){
-            return true;
-        }
-
-=======
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginSession{
@@ -48,5 +34,4 @@ public class LoginSession{
         public void setCurrentTimeStamp(Long currentTimeStamp) {
                 this.currentTimeStamp = currentTimeStamp;
         }
->>>>>>> adil_develop
 }

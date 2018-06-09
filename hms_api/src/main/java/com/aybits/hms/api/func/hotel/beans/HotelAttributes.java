@@ -1,16 +1,5 @@
 package com.aybits.hms.api.func.hotel.beans;
 
-<<<<<<< HEAD
-public class HotelAttributes {
-
-        private String hotelName;
-        private String hotelAddress;
-        private String roomCount;
-        private String roomDoorNoFormat;
-        private String employeeCount;
-        private String totalBeds;
-
-=======
 import com.aybits.hms.api.func.common.beans.HMSAddress;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -78,5 +67,4 @@ public class HotelAttributes {
         public void setTotalBeds(String totalBeds) {
                 this.totalBeds = totalBeds;
         }
->>>>>>> adil_develop
 }

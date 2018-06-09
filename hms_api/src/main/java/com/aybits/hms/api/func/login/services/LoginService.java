@@ -15,7 +15,7 @@ public class LoginService implements HMSService {
 
         try {
             LoginAttributes loginAttributes = (LoginAttributes) object;
-            String login = loginAttributes.getLogin();
+            String login = loginAttributes.getLoginId();
             String password = loginAttributes.getPassword();
 
             return validateLogin(login,password);

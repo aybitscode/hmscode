@@ -1,10 +1,7 @@
 package com.aybits.hms.api.func.employee.beans;
 
-<<<<<<< HEAD
-=======
 import com.fasterxml.jackson.annotation.JsonProperty;
 
->>>>>>> adil_develop
 public enum Role{
 
         MASTER_ADMIN(1),
@@ -12,19 +9,13 @@ public enum Role{
         SUPERVISOR(3),
         CSR(4);
 
-<<<<<<< HEAD
-        private int level;
-=======
         @JsonProperty("role_level")
         private final int level;
->>>>>>> adil_develop
 
         Role(int level){
             this.level=level;
         }
 
-<<<<<<< HEAD
-=======
         public int getRoleAsInt() {
                 return level;
         }
@@ -69,5 +60,4 @@ public enum Role{
                 return null;
         }
 
->>>>>>> adil_develop
 }

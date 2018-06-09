@@ -1,15 +1,5 @@
 package com.aybits.hms.api.func.hotel.beans;
 
-<<<<<<< HEAD
-public class Hotel {
-
-    private String hotelId;
-
-    private HotelAttributes hotelAttributes;
-    private HotelConfiguration hotelConfig;
-    private HotelFeatures hotelFeatures;
-
-=======
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Hotel {
@@ -51,15 +41,5 @@ public class Hotel {
     public void setHotelFeatures(HotelFeatures hotelFeatures) {
         this.hotelFeatures = hotelFeatures;
     }
->>>>>>> adil_develop
-
-    public String getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(String hotelId) {
-        this.hotelId = hotelId;
-    }
-
 
 }
