@@ -38,6 +38,8 @@ public class Customer {
     private Date dateCreated;
     @JsonProperty("date_deleted")
     private Date dateDeleted;
+    @JsonProperty("hms_hotel_id")
+    private Integer hotelId;
 
 
 
@@ -49,7 +51,7 @@ public class Customer {
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
                     HMSAddress customerAddress, ContactDetails contactDetails,
-                    IdentificationParams identificationParams,PaymentParams paymentParams) {
+                    IdentificationParams identificationParams,PaymentParams paymentParams,Integer hotelId) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -58,6 +60,7 @@ public class Customer {
         this.contactDetails = contactDetails;
         this.identificationParams = identificationParams;
         this.paymentParams = paymentParams;
+        this.hotelId = hotelId;
     }
 
     public String getCustomerId() {
@@ -165,8 +168,17 @@ public class Customer {
         this.dateDeleted = dateDeleted;
     }
 
+    public Integer getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
+    }
+
     @Override
     public String toString(){
         return HMSJSONParser.convertObjectToJSON(this);
     }
+
 }

@@ -232,10 +232,9 @@ public class CustomerDAO {
 			pst.setString(++i, customer.getCustomerAddress().toString());
 			pst.setString(++i, customer.getIdentificationParams().getIdentifierValue().toString());
 			pst.setString(++i, customer.getPaymentParams().getPaymentType().getPaymentTypeAsString());
-			pst.setString(++i, );
-			pst.setString(++i, "");
-			pst.setString(++i, "");
-			pst.setString(++i, "");
+			pst.setInt(++i, customer.getHotelId());
+			pst.setString(++i,customer.getCustomerStatus().getCustomerStatusAsString());
+			pst.setDate(++i, new java.sql.Date(customer.getDateCreated().getTime()));
 
 			int s=pst.executeUpdate();
 			 connection.commit();
