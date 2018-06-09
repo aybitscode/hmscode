@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.aybits.hms.arch.util.HmsConfig;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 
@@ -17,12 +18,13 @@ public class DBConnection {
     public static final Connection getDBConnection(){
 		try{
 	    		if(null == connection){
-	    			String fileName = "hms_config.properties";
+	    			/*String fileName = "hms_config.properties";
 	    			Properties props = new Properties();
-			        props.load(DBConnection.class.getClassLoader().getResourceAsStream(fileName));
+			        props.load(DBConnection.class.getClassLoader().getResourceAsStream(fileName));*/
+	    			HmsConfig hmsConfig = new HmsConfig();
 		
 			    	//connectSSH(props);
-			    	connectToDataBase(props);
+			    	connectToDataBase(hmsConfig.getHmsConfigProps());
 			    	
 				
 	    		}

@@ -26,7 +26,8 @@ public class LoginDAO {
     }
 
     public Boolean validateLogin(String login,String password){
-        return null;
+
+        return true;
     }
 
 }

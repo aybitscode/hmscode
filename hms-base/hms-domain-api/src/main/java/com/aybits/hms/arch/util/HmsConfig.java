@@ -28,4 +28,10 @@ public class HmsConfig {
     public static String getConfigProperty(String key) {
         return hmsConfigProps.getProperty(key);
     }
+
+    public Properties getHmsConfigProps(){
+        return hmsConfigProps;
+    }
+
+
 }

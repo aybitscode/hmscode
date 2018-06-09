@@ -1,13 +1,15 @@
 package com.aybits.hms.func.login.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName("login_session")
 public class LoginSession{
 
         @JsonProperty("session_id")
         private String sessionId;
-        @JsonProperty("expiry_time")
-        private Long expiryTime;
+        @JsonProperty("expiry_time_in_millis")
+        private Long expiryTimeInMillis;
         @JsonProperty("current_time_in_millis")
         private Long currentTimeStamp;
 
@@ -19,12 +21,12 @@ public class LoginSession{
                 this.sessionId = sessionId;
         }
 
-        public Long getExpiryTime() {
-                return expiryTime;
+        public Long getExpiryTimeInMillis() {
+                return expiryTimeInMillis;
         }
 
-        public void setExpiryTime(Long expiryTime) {
-                this.expiryTime = expiryTime;
+        public void setExpiryTimeInMillis(Long expiryTimeInMillis) {
+                this.expiryTimeInMillis = expiryTimeInMillis;
         }
 
         public Long getCurrentTimeInMillis() {
