@@ -221,6 +221,7 @@ public class CustomerDAO {
 		Boolean additionStatus = false;
 		int i  = 0;
 		try {
+			connection.setAutoCommit(false);
 			pst = connection.prepareStatement(CustomerDBQueries.ADD_CUSTOMER);
 			pst.setString(++i, generateCustomerId());
 			pst.setString(++i, customer.getCorporateId());
@@ -244,7 +245,7 @@ public class CustomerDAO {
 				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			
+			e.printStackTrace();
 		}
 		return additionStatus;
 	}
