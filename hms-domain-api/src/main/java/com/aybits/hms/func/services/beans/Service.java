@@ -8,8 +8,8 @@ public class Service {
     private Integer serviceId;
     @JsonProperty("service_name")
     private String serviceName;
-    @JsonProperty("service_type")
-    private ServiceType serviceType;
+    /*@JsonProperty("service_type")
+    private ServiceType serviceType;*/
     @JsonProperty("service_description")
     private String serviceDescription;
     @JsonProperty("service_availability")
@@ -21,12 +21,12 @@ public class Service {
 
     public Service(Integer serviceId,
                    String serviceName,
-                   ServiceType serviceType,
+                  // ServiceType serviceType,
                    String serviceDescription,
                    Boolean isServiceAvailable) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
-        this.serviceType = serviceType;
+        //this.serviceType = serviceType;
         this.serviceDescription = serviceDescription;
         this.isServiceAvailable = isServiceAvailable;
     }
@@ -47,13 +47,13 @@ public class Service {
         this.serviceName = serviceName;
     }
 
-    public ServiceType getServiceType() {
+   /* public ServiceType getServiceType() {
         return serviceType;
     }
 
     public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
-    }
+    }*/
 
     public String getServiceDescription() {
         return serviceDescription;
