@@ -1,6 +1,6 @@
 package com.aybits.hms.sparkInit;
 
-import com.aybits.hms.common.HmsConfig;
+import com.aybits.hms.arch.util.HmsConfig;
 
 public class HmsRestServiceMain {
 
