@@ -8,7 +8,7 @@ public class LoginSession{
         private String sessionId;
         @JsonProperty("expiry_time")
         private Long expiryTime;
-        @JsonProperty("current_timestamp")
+        @JsonProperty("current_time_in_millis")
         private Long currentTimeStamp;
 
         public String getSessionId() {
@@ -27,11 +27,11 @@ public class LoginSession{
                 this.expiryTime = expiryTime;
         }
 
-        public Long getCurrentTimeStamp() {
+        public Long getCurrentTimeInMillis() {
                 return currentTimeStamp;
         }
 
-        public void setCurrentTimeStamp(Long currentTimeStamp) {
+        public void setCurrentTimeInMillis(Long currentTimeStamp) {
                 this.currentTimeStamp = currentTimeStamp;
         }
 }

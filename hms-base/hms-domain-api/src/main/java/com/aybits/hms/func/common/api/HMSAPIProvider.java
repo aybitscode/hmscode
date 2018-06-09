@@ -6,8 +6,10 @@ import com.aybits.hms.func.common.beans.HMSServiceModule;
 
 public interface HMSAPIProvider {
 
-    public Object init(Object object,HMSServiceModule hmsServiceModule,HMSServiceAction hmsServiceAction) throws HMSException;
+    public Object init(Object object) throws HMSException;
 
-    public Object process(Object object,HMSServiceModule hmsServiceModule,HMSServiceAction hmsServiceAction) throws HMSException;
+    public Object process(Object object) throws HMSException;
+
+    public Object validate(Object object) throws HMSException;
 
 }
