@@ -229,7 +229,7 @@ public class DatabaseConstants {
 
 				
 	//Count On All Tables
-	public static String COUNT_CUSTOMERS = "select count(*) from HMS_customer";
+	public static String COUNT_CUSTOMERS = "select count(*) from customers";
 	public static String COUNT_ROOMS = "select count(*) from rooms";
 	public static String COUNT_COUPONS = "select count(*) from coupons";
 	public static String COUNT_CHECK_IN = "select count(*) from checkin";

@@ -1,6 +1,5 @@
 package com.aybits.hms.func.common.beans;
 
-import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 public class ContactDetails {
 
@@ -46,10 +45,5 @@ public class ContactDetails {
 
     public void setSecondaryPhone(String secondaryPhone) {
         this.secondaryPhone = secondaryPhone;
-    }
-
-    @Override
-    public String toString(){
-        return HMSJSONParser.convertObjectToJSON(this);
     }
 }

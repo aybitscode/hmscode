@@ -221,21 +221,11 @@ public class CustomerDAO {
 		Boolean additionStatus = false;
 		int i  = 0;
 		try {
+			
 			pst = connection.prepareStatement(CustomerDBQueries.ADD_CUSTOMER);
 			pst.setString(++i, generateCustomerId());
-			pst.setString(++i, customer.getCorporateId());
 			pst.setString(++i, customer.getFirstName());
-			pst.setString(++i, customer.getMiddleName());
 			pst.setString(++i, customer.getLastName());
-			pst.setString(++i, customer.getContactDetails().getPrimaryEmail());
-			pst.setString(++i, customer.getContactDetails().getPrimaryPhone());
-			pst.setString(++i, customer.getCustomerAddress().toString());
-			pst.setString(++i, customer.getIdentificationParams().getIdentifierValue().toString());
-			pst.setString(++i, customer.getPaymentParams().getPaymentType().getPaymentTypeAsString());
-			pst.setString(++i, );
-			pst.setString(++i, "");
-			pst.setString(++i, "");
-			pst.setString(++i, "");
 
 			int s=pst.executeUpdate();
 			 connection.commit();
