@@ -8,7 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aybits.hms.api.arch.util.HMSJSONParser;
 import com.aybits.hms.api.func.common.beans.ContactDetails;
+import com.aybits.hms.api.func.common.beans.HMSAddress;
+import com.aybits.hms.api.func.customer.beans.CustomerStatus;
 import com.aybits.hms.api.func.customer.cache.CustomerCache;
 import com.aybits.hms.api.arch.exception.HMSErrorCodes;
 import com.aybits.hms.api.arch.exception.HMSException;
@@ -18,7 +21,8 @@ import com.aybits.hms.api.arch.dbman.DatabaseConstants;
 
 public class CustomerDAO {
 	
-	
+
+
 	private static Connection connection = DBConnection.getDBConnection();
 	
 	
@@ -179,16 +183,34 @@ public class CustomerDAO {
 	
 	
 	private static Customer populateCustomer(ResultSet rs) throws SQLException{
-		Customer customer = new Customer();
-				customer.setCustomerId(rs.getString("CUSTOMERID"));
-				customer.setFirstName(rs.getString("FIRSTNAME"));
-				customer.setLastName(rs.getString("LASTNAME"));
-				customer.setMiddleName(rs.getString("MIDDLENAME"));
+		        Customer customer = new Customer();
+				customer.setCustomerId(rs.getString("CUSTOMER_ID"));
+				customer.setCorporateId(rs.getString("CORPORATE_ID"));
+				customer.setFirstName(rs.getString("FIRST_NAME"));
+				customer.setLastName(rs.getString("LAST_NAME"));
+				customer.setMiddleName(rs.getString("MIDDLE_NAME"));
+
 				ContactDetails cd = new ContactDetails();
 				cd.setPrimaryEmail(rs.getString("EMAIL"));
 				cd.setPrimaryPhone(rs.getString("MOBILE"));
 				customer.setContactDetails(cd);
-		//		rs.getString("ADDRS")
+
+		        String addressJSON = rs.getString("HOME_ADDRESS");
+                HMSAddress customerAddress = (HMSAddress)HMSJSONParser.convertJSONToObject(addressJSON,HMSAddress.class);
+                customer.setCustomerAddress(customerAddress);
+
+                Integer identificationParamId = rs.getInt("IDENTIFICATION_PARAM_ID");
+                Integer paymentParamId = rs.getInt("PAYMENT_PARAM");
+                Integer hmsHotelId = rs.getInt("HMS_HOTEL_ID");
+                Integer customerStatusInt = rs.getInt("CUSTOMER_STATUS");
+
+
+
+                CustomerStatus customerStatus = CustomerStatus.convertIntToCustomerStatus(customerStatusInt);
+                customer.setCustomerStatus(customerStatus);
+
+
+
 
 		return customer;
 		

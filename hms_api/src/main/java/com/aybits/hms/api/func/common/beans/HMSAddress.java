@@ -1,22 +1,41 @@
 package com.aybits.hms.api.func.common.beans;
 
-public class UserAddress{
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class HMSAddress {
+
+    @JsonProperty("building_no")
     private String buildingNo;
+
+    @JsonProperty("apartment_name")
     private String apartmentName;
+
+    @JsonProperty("street")
     private String street;
+
+    @JsonProperty("landmark")
     private String landmark;
+
+    @JsonProperty("locality")
     private String locality;
+
+    @JsonProperty("city")
     private String city;
+
+    @JsonProperty("pin_code")
     private String pinCode;
+
+    @JsonProperty("country")
     private String country;
+
+    @JsonProperty("geo_location")
     private String geoLocation;
 
 
-    public UserAddress() {
+    public HMSAddress() {
     }
-
-    public UserAddress(String buildingNo, String apartmentName, String street, String landmark, String locality, String city, String pinCode, String country, String geoLocation) {
+    public HMSAddress(String buildingNo, String apartmentName, String street, String landmark, String locality, String city, String pinCode, String country, String geoLocation) {
         this.buildingNo = buildingNo;
         this.apartmentName = apartmentName;
         this.street = street;
