@@ -2,28 +2,24 @@ package com.aybits.hms.func.common.beans;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 public class HMSAddress {
 
-    @JsonProperty("building_no")
-    private String buildingNo;
+    @JsonProperty("address_line1")
+    private String addressLine1;
 
-    @JsonProperty("apartment_name")
-    private String apartmentName;
-
-    @JsonProperty("street")
-    private String street;
-
-    @JsonProperty("landmark")
-    private String landmark;
-
-    @JsonProperty("locality")
-    private String locality;
+    @JsonProperty("address_line2")
+    private String addressLine2;
 
     @JsonProperty("city")
     private String city;
 
+    @JsonProperty("state")
+    private String state;
+
     @JsonProperty("pin_code")
+
     private String pinCode;
 
     @JsonProperty("country")
@@ -35,56 +31,15 @@ public class HMSAddress {
 
     public HMSAddress() {
     }
-    public HMSAddress(String buildingNo, String apartmentName, String street, String landmark, String locality, String city, String pinCode, String country, String geoLocation) {
-        this.buildingNo = buildingNo;
-        this.apartmentName = apartmentName;
-        this.street = street;
-        this.landmark = landmark;
-        this.locality = locality;
+    public HMSAddress(String addressLine1,String addressLine2,String city, String pinCode, String state, String country, String geoLocation) {
+
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
         this.city = city;
         this.pinCode = pinCode;
+        this.state = state;
         this.country = country;
         this.geoLocation = geoLocation;
-    }
-
-    public String getBuildingNo() {
-        return buildingNo;
-    }
-
-    public void setBuildingNo(String buildingNo) {
-        this.buildingNo = buildingNo;
-    }
-
-    public String getApartmentName() {
-        return apartmentName;
-    }
-
-    public void setApartmentName(String apartmentName) {
-        this.apartmentName = apartmentName;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getLandmark() {
-        return landmark;
-    }
-
-    public void setLandmark(String landmark) {
-        this.landmark = landmark;
-    }
-
-    public String getLocality() {
-        return locality;
-    }
-
-    public void setLocality(String locality) {
-        this.locality = locality;
     }
 
     public String getCity() {
@@ -103,6 +58,15 @@ public class HMSAddress {
         this.pinCode = pinCode;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
     public String getCountry() {
         return country;
     }
@@ -117,5 +81,21 @@ public class HMSAddress {
 
     public void setGeoLocation(String geoLocation) {
         this.geoLocation = geoLocation;
+    }
+
+    public String getAddressLine1() {
+        return addressLine1;
+    }
+
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
     }
 }

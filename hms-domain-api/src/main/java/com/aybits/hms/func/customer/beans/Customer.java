@@ -1,12 +1,13 @@
 package com.aybits.hms.func.customer.beans;
 
-import com.aybits.hms.api.func.common.beans.ContactDetails;
-import com.aybits.hms.api.func.common.beans.HMSAddress;
-import com.aybits.hms.api.func.common.beans.IdentificationParams;
+import com.aybits.hms.func.common.beans.ContactDetails;
+import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.IdentificationParams;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.Date;
-
+@JsonRootName("customer")
 public class Customer {
 
     @JsonProperty("customer_id")
@@ -19,7 +20,7 @@ public class Customer {
     private String middleName;
     @JsonProperty("last_name")
     private String lastName;
-    @JsonProperty("address")
+    @JsonProperty("customer_address")
     private HMSAddress customerAddress;
     @JsonProperty("contact_details")
     private ContactDetails contactDetails;

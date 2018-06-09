@@ -8,19 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aybits.hms.api.arch.util.HMSJSONParser;
-import com.aybits.hms.api.func.common.beans.ContactDetails;
-import com.aybits.hms.api.func.common.beans.HMSAddress;
-import com.aybits.hms.api.func.customer.beans.CustomerStatus;
-import com.aybits.hms.api.func.customer.cache.CustomerCache;
-import com.aybits.hms.api.arch.exception.HMSErrorCodes;
-import com.aybits.hms.api.arch.exception.HMSException;
-import com.aybits.hms.api.func.customer.beans.Customer;
-import com.aybits.hms.api.arch.dbman.DBConnection;
-import com.aybits.hms.api.arch.dbman.DatabaseConstants;
-import com.aybits.hms.func.customer.beans.Customer;
+import com.aybits.hms.arch.util.HMSJSONParser;
+import com.aybits.hms.func.common.beans.ContactDetails;
+import com.aybits.hms.func.common.beans.HMSAddress;
 import com.aybits.hms.func.customer.beans.CustomerStatus;
 import com.aybits.hms.func.customer.cache.CustomerCache;
+import com.aybits.hms.arch.exception.HMSErrorCodes;
+import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.func.customer.beans.Customer;
+import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DatabaseConstants;
 
 public class CustomerDAO {
 	
@@ -55,7 +52,7 @@ public class CustomerDAO {
 				while(rs.next()){
 					customer = populateCustomer(rs);
 					System.out.println("\nPopulating customer["+customer.getCustomerId()+"] in CustomerCache");
-					customerCache.addCustomer(customer);
+					//customerCache.addCustomer(customer);
 				}
 			}else{
 				throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
