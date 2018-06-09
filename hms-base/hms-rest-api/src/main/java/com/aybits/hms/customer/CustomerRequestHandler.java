@@ -5,7 +5,6 @@ import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.func.customer.api.CustomerService;
 import com.aybits.hms.func.customer.beans.Customer;
-import jdk.nashorn.internal.parser.JSONParser;
 import spark.Request;
 import spark.Response;
 
