@@ -1,0 +1,15 @@
+com\aybits\hms\bookings\BookingRequestHandler.class
+sparkInit\HmsRestHttpService.class
+common\HmsRequestHandler.class
+com\aybits\hms\sparkInit\HmsRestServiceMain.class
+com\aybits\hms\common\HmsRequestHandler.class
+bookings\BookingRequestHandler.class
+com\aybits\hms\login\LoginRequestHandler.class
+com\aybits\hms\sparkInit\HmsRestHttpService.class
+sparkInit\HmsRestServiceStartup.class
+com\aybits\hms\sparkInit\HmsRestServiceStartup.class
+common\HmsConfig.class
+com\aybits\hms\customer\CustomerRequestHandler.class
+com\aybits\hms\common\HmsConfig.class
+login\LoginRequestHandler.class
+sparkInit\HmsRestServiceMain.class

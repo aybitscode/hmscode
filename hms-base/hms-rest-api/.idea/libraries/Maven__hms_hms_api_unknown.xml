@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: hms:hms-api:unknown">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/hms/hms-api/unknown/hms-api-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/hms/hms-api/unknown/hms-api-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/hms/hms-api/unknown/hms-api-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
