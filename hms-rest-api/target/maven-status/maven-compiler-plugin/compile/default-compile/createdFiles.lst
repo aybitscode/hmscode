@@ -1,6 +1,0 @@
-sparkInit\HmsRestHttpService.class
-common\HmsRequestHandler.class
-login\LoginRequestHandler.class
-sparkInit\HmsRestServiceMain.class
-sparkInit\HmsRestServiceStartup.class
-common\HmsConfig.class
