@@ -17,7 +17,7 @@ public class DBConnection {
     public static final Connection getDBConnection(){
 		try{
 	    		if(null == connection){	
-	    			String fileName = "hms_config.properties";
+	    			String fileName = "hms-config.properties";
 	    			Properties props = new Properties();
 			        props.load(DBConnection.class.getClassLoader().getResourceAsStream(fileName));
 		
