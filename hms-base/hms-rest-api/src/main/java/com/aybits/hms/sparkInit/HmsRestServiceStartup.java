@@ -1,6 +1,6 @@
 package com.aybits.hms.sparkInit;
 
-import com.aybits.hms.common.HmsConfig;
+import com.aybits.hms.arch.util.HmsConfig;
 
 import static spark.Spark.port;
 
@@ -15,7 +15,7 @@ public class HmsRestServiceStartup {
 
     void startSparkServer() {
         try {
-            int port = Integer.parseInt(HmsConfig.getProperty("HMS_PORT"));
+            int port = Integer.parseInt(HmsConfig.getRestProperty("HMS_PORT"));
             System.out.println("starting spark server on port "+port);
             port(port);
         }catch (Exception e){
