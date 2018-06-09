@@ -1,8 +1,10 @@
 package com.aybits.hms.func.customer.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
 import com.aybits.hms.func.common.beans.IdentificationParams;
+import com.aybits.hms.func.payment.beans.PaymentParams;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -26,6 +28,8 @@ public class Customer {
     private ContactDetails contactDetails;
     @JsonProperty("identification_params")
     private IdentificationParams identificationParams;
+    @JsonProperty("payment_params")
+    private PaymentParams paymentParams;
     @JsonProperty("customer_status")
     private CustomerStatus customerStatus;
     @JsonProperty("date_modified")
@@ -34,6 +38,8 @@ public class Customer {
     private Date dateCreated;
     @JsonProperty("date_deleted")
     private Date dateDeleted;
+    @JsonProperty("hms_hotel_id")
+    private Integer hotelId;
 
 
 
@@ -44,8 +50,10 @@ public class Customer {
 
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
+
                     HMSAddress customerAddress, ContactDetails contactDetails,
-                    IdentificationParams identificationParams) {
+                    IdentificationParams identificationParams, PaymentParams paymentParams, Integer hotelId) {
+
         this.customerId = customerId;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -53,6 +61,9 @@ public class Customer {
         this.customerAddress = customerAddress;
         this.contactDetails = contactDetails;
         this.identificationParams = identificationParams;
+        this.paymentParams = paymentParams;
+        this.hotelId = hotelId;
+
     }
 
     public String getCustomerId() {
@@ -127,4 +138,51 @@ public class Customer {
     public void setCustomerStatus(CustomerStatus customerStatus) {
         this.customerStatus = customerStatus;
     }
+
+    public PaymentParams getPaymentParams() {
+        return paymentParams;
+    }
+
+    public void setPaymentParams(PaymentParams paymentParams) {
+        this.paymentParams = paymentParams;
+    }
+
+    public Date getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(Date dateModified) {
+        this.dateModified = dateModified;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Date getDateDeleted() {
+        return dateDeleted;
+    }
+
+    public void setDateDeleted(Date dateDeleted) {
+        this.dateDeleted = dateDeleted;
+    }
+
+    public Integer getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON(this);
+    }
+
+
 }

@@ -1,11 +1,11 @@
 package com.aybits.hms.customer;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.func.common.beans.ContactDetails;
-import com.aybits.hms.func.common.beans.IdentificationParams;
-import com.aybits.hms.func.common.beans.IdentifierType;
+import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.func.customer.api.CustomerService;
 import com.aybits.hms.func.customer.beans.Customer;
+import jdk.nashorn.internal.parser.JSONParser;
 import spark.Request;
 import spark.Response;
 
@@ -15,28 +15,83 @@ public class CustomerRequestHandler implements HmsRequestHandler {
     @Override
     public String handleRequest(Request request, Response response) {
         System.out.println("Customer request handler invoked");
+
+        String action = request.pathInfo().split("/")[2];
+        String message = "";
+        switch (action) {
+            case "add":
+                message = addCustomer(request);
+                break;
+            case "update":
+                message = updateCustomer(request);
+                break;
+            case "get":
+                message = getCustomer(request);
+                break;
+            case "getAll":
+                message = getAllCustomers(request);
+                break;
+        }
+        return message;
+    }
+
+    private String addCustomer(Request request) {
         System.out.println("adding new customer");
-        CustomerService customerService = new CustomerService();
+        try {
+            String jsonString = request.body().toString();
+            CustomerService customerService = new CustomerService();
+            Customer customer = (Customer) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
+            boolean result = customerService.addCustomer(customer);
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(customer, result));
+        } catch (Exception e) {
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while adding customer", false));
+        }
+    }
 
-        Customer customer = new Customer();
-        customer.setFirstName("Mahaboob");
-        customer.setMiddleName("Mahaboob");
-        customer.setLastName("Mahaboob");
-        ContactDetails contactDetails = new ContactDetails();
-        contactDetails.setPrimaryEmail("kmb.noor@gmail.com");
-        contactDetails.setPrimaryPhone("8861522542");
-        customer.setContactDetails(contactDetails);
-        IdentificationParams identificationParams = new IdentificationParams();
-        identificationParams.setIdentifierType(IdentifierType.AADHAR_CARD);
-        identificationParams.setIdentifierValue(88);
-        customer.setIdentificationParams(identificationParams);
+    private String updateCustomer(Request request) {
+        System.out.println("updating customer");
+        try {
+            String jsonString = request.body().toString();
+            CustomerService customerService = new CustomerService();
+            Customer customer = (Customer) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
+            boolean result = customerService.updateCustomer(customer);
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(customer, result));
+        } catch (Exception e) {
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while updating customer", false));
+        }
+    }
 
-        customer.setCustomerId("1000");
+    private String getCustomer(Request request) {
+        System.out.println("get customer");
+        try {
+            String jsonString = request.body().toString();
+            CustomerService customerService = new CustomerService();
+            Customer customer = (Customer) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
+            Customer result = customerService.getCustomerById(customer.getCustomerId());
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
+        } catch (Exception e) {
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting customer data", false));
+        }
+    }
 
-        customerService.addCustomer(customer);
+    private String getAllCustomers(Request request) {
+        System.out.println("get all customers");
+        try {
+            CustomerService customerService = new CustomerService();
+            List<Customer> result = customerService.getAllCustomers();
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
+        } catch (Exception e) {
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting all customer data", false));
+        }
+    }
 
-        List<Customer> list = customerService.getAllCustomers();
-        System.out.println("customer list" + list);
-        return null;
+    private HmsResponse getHmsResponse(Object responseData, boolean result) {
+        HmsResponse response;
+        if (result) {
+            response = new HmsResponse(200, "SUCCESS", responseData);
+        } else {
+            response = new HmsResponse(401, "FAILED", responseData);
+        }
+        return response;
     }
 }

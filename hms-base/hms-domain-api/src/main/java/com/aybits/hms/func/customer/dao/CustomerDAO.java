@@ -221,11 +221,23 @@ public class CustomerDAO {
 		Boolean additionStatus = false;
 		int i  = 0;
 		try {
-			
+
+			connection.setAutoCommit(false);
+
 			pst = connection.prepareStatement(CustomerDBQueries.ADD_CUSTOMER);
 			pst.setString(++i, generateCustomerId());
 			pst.setString(++i, customer.getFirstName());
 			pst.setString(++i, customer.getLastName());
+
+			pst.setString(++i, customer.getContactDetails().getPrimaryEmail());
+			pst.setString(++i, customer.getContactDetails().getPrimaryPhone());
+			pst.setString(++i, customer.getCustomerAddress().toString());
+			pst.setString(++i, customer.getIdentificationParams().getIdentifierValue().toString());
+			pst.setString(++i, customer.getPaymentParams().getPaymentType().getPaymentTypeAsString());
+			pst.setInt(++i, customer.getHotelId());
+			pst.setString(++i,customer.getCustomerStatus().getCustomerStatusAsString());
+			pst.setDate(++i, new java.sql.Date(customer.getDateCreated().getTime()));
+
 
 			int s=pst.executeUpdate();
 			 connection.commit();
@@ -235,7 +247,7 @@ public class CustomerDAO {
 				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			
+			e.printStackTrace();
 		}
 		return additionStatus;
 	}

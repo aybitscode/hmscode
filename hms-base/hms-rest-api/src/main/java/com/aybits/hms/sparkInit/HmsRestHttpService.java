@@ -20,6 +20,12 @@ public class HmsRestHttpService {
         registerPostApi("/booking/add", new BookingRequestHandler());
 
         registerPostApi("/customer/add", new CustomerRequestHandler());
+
+        registerPostApi("/customer/update", new CustomerRequestHandler());
+
+        registerPostApi("/customer/get", new CustomerRequestHandler());
+
+        registerPostApi("/customer/getAll", new CustomerRequestHandler());
     }
 
     private static void registerPostApi(String apiPath, HmsRequestHandler requestHandler) {
