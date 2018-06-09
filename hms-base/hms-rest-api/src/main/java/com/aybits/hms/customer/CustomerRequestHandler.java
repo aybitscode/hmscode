@@ -5,15 +5,18 @@ import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.func.customer.api.CustomerService;
 import com.aybits.hms.func.customer.beans.Customer;
+import com.aybits.hms.login.LoginRequestHandler;
+import org.apache.log4j.Logger;
 import spark.Request;
 import spark.Response;
 
 import java.util.List;
 
 public class CustomerRequestHandler implements HmsRequestHandler {
+    static Logger Log = Logger.getLogger(CustomerRequestHandler.class);
     @Override
     public String handleRequest(Request request, Response response) {
-        System.out.println("Customer request handler invoked");
+        Log.info("Customer request handler invoked");
 
         String action = request.pathInfo().split("/")[2];
         String message = "";
@@ -35,7 +38,7 @@ public class CustomerRequestHandler implements HmsRequestHandler {
     }
 
     private String addCustomer(Request request) {
-        System.out.println("adding new customer");
+        Log.info("adding new customer");
         try {
             String jsonString = request.body().toString();
             CustomerService customerService = new CustomerService();
@@ -48,7 +51,7 @@ public class CustomerRequestHandler implements HmsRequestHandler {
     }
 
     private String updateCustomer(Request request) {
-        System.out.println("updating customer");
+        Log.info("updating customer");
         try {
             String jsonString = request.body().toString();
             CustomerService customerService = new CustomerService();
@@ -61,7 +64,7 @@ public class CustomerRequestHandler implements HmsRequestHandler {
     }
 
     private String getCustomer(Request request) {
-        System.out.println("get customer");
+        Log.info("get customer");
         try {
             String jsonString = request.body().toString();
             CustomerService customerService = new CustomerService();
@@ -74,7 +77,7 @@ public class CustomerRequestHandler implements HmsRequestHandler {
     }
 
     private String getAllCustomers(Request request) {
-        System.out.println("get all customers");
+        Log.info("get all customers");
         try {
             CustomerService customerService = new CustomerService();
             List<Customer> result = customerService.getAllCustomers();
