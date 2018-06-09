@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hms-domain-api/hms-domain-api.iml" filepath="$PROJECT_DIR$/hms-domain-api/hms-domain-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hms-rest-api/hms-rest-api.iml" filepath="$PROJECT_DIR$/hms-rest-api/hms-rest-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hms-web-app.iml" filepath="$PROJECT_DIR$/hms-web-app.iml" />
+    </modules>
+  </component>
+</project>
