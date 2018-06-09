@@ -50,8 +50,10 @@ public class Customer {
 
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
+
                     HMSAddress customerAddress, ContactDetails contactDetails,
-                    IdentificationParams identificationParams,PaymentParams paymentParams,Integer hotelId) {
+                    IdentificationParams identificationParams, PaymentParams paymentParams, Integer hotelId) {
+
         this.customerId = customerId;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -61,6 +63,7 @@ public class Customer {
         this.identificationParams = identificationParams;
         this.paymentParams = paymentParams;
         this.hotelId = hotelId;
+
     }
 
     public String getCustomerId() {
@@ -180,5 +183,6 @@ public class Customer {
     public String toString(){
         return HMSJSONParser.convertObjectToJSON(this);
     }
+
 
 }

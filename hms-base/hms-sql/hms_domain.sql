@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `hms_local` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `hms_local`;
--- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: hms_local
 -- ------------------------------------------------------
--- Server version	5.7.22-0ubuntu18.04.1
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,15 +35,6 @@ CREATE TABLE `hms_admin_event_log` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_admin_event_log`
---
-
-LOCK TABLES `hms_admin_event_log` WRITE;
-/*!40000 ALTER TABLE `hms_admin_event_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_admin_event_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_billing_info`
 --
 
@@ -70,15 +61,6 @@ CREATE TABLE `hms_billing_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_billing_info`
---
-
-LOCK TABLES `hms_billing_info` WRITE;
-/*!40000 ALTER TABLE `hms_billing_info` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_billing_info` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_booking_info`
 --
 
@@ -101,15 +83,6 @@ CREATE TABLE `hms_booking_info` (
   UNIQUE KEY `invoice_id_UNIQUE` (`invoice_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_booking_info`
---
-
-LOCK TABLES `hms_booking_info` WRITE;
-/*!40000 ALTER TABLE `hms_booking_info` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_booking_info` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_corporate`
@@ -142,15 +115,6 @@ CREATE TABLE `hms_corporate` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_corporate`
---
-
-LOCK TABLES `hms_corporate` WRITE;
-/*!40000 ALTER TABLE `hms_corporate` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_corporate` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_customer`
 --
 
@@ -158,42 +122,29 @@ DROP TABLE IF EXISTS `hms_customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_customer` (
-  `CUSTOMER_ID` int(64) NOT NULL AUTO_INCREMENT,
-  `CORPORATE_ID` int(64) DEFAULT NULL,
+  `CUSTOMER_ID` varchar(64) NOT NULL,
+  `CORPORATE_ID` varchar(64) DEFAULT NULL,
   `FIRST_NAME` varchar(100) NOT NULL,
   `MIDDLE_NAME` varchar(45) NOT NULL,
   `LAST_NAME` varchar(60) NOT NULL,
   `EMAIL` varchar(60) NOT NULL,
   `MOBILE` int(20) NOT NULL,
   `HOME_ADDRESS` varchar(2000) DEFAULT NULL,
-  `IDENTIFICATION_PARAM_ID` int(32) NOT NULL,
-  `PAYMENT_PARAM` int(32) DEFAULT NULL,
+  `IDENTIFICATION_PARAM_ID` varchar(64) NOT NULL,
+  `PAYMENT_PARAM` varchar(64) DEFAULT NULL,
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `hms_hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel id created in the hms_hotel table',
   `customer_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `login_id` varchar(45) NOT NULL COMMENT 'The Login ID of a given user which they set in the hms solution',
   `DATE_UPDATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_DELETED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`CUSTOMER_ID`),
   UNIQUE KEY `user_id_UNIQUE` (`CUSTOMER_ID`),
   UNIQUE KEY `IDENTIFICATION_PARAM_ID_UNIQUE` (`IDENTIFICATION_PARAM_ID`),
   UNIQUE KEY `MOBILE_UNIQUE` (`MOBILE`),
-  UNIQUE KEY `login_id_UNIQUE` (`login_id`),
-  UNIQUE KEY `hms_hotel_id_UNIQUE` (`hms_hotel_id`),
-  UNIQUE KEY `PAYMENT_PARAM_UNIQUE` (`PAYMENT_PARAM`),
   KEY `customer_idx` (`CUSTOMER_ID`) USING HASH KEY_BLOCK_SIZE=1024
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='This table holds the information of all the customer data.';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_customer`
---
-
-LOCK TABLES `hms_customer` WRITE;
-/*!40000 ALTER TABLE `hms_customer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_customer` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_customization`
@@ -208,15 +159,6 @@ CREATE TABLE `hms_customization` (
   PRIMARY KEY (`hotel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_customization`
---
-
-LOCK TABLES `hms_customization` WRITE;
-/*!40000 ALTER TABLE `hms_customization` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_customization` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_employee`
@@ -252,15 +194,6 @@ CREATE TABLE `hms_employee` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_employee`
---
-
-LOCK TABLES `hms_employee` WRITE;
-/*!40000 ALTER TABLE `hms_employee` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_employee` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_events`
 --
 
@@ -279,15 +212,6 @@ CREATE TABLE `hms_events` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_events`
---
-
-LOCK TABLES `hms_events` WRITE;
-/*!40000 ALTER TABLE `hms_events` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_events` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_facilities`
 --
 
@@ -303,15 +227,6 @@ CREATE TABLE `hms_facilities` (
   UNIQUE KEY `facility_key_UNIQUE` (`facility_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This table defines the facilities that are provided for a given hotel';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_facilities`
---
-
-LOCK TABLES `hms_facilities` WRITE;
-/*!40000 ALTER TABLE `hms_facilities` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_facilities` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_hotel`
@@ -336,15 +251,6 @@ CREATE TABLE `hms_hotel` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_hotel`
---
-
-LOCK TABLES `hms_hotel` WRITE;
-/*!40000 ALTER TABLE `hms_hotel` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_hotel` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_hotel_room`
 --
 
@@ -365,15 +271,6 @@ CREATE TABLE `hms_hotel_room` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_hotel_room`
---
-
-LOCK TABLES `hms_hotel_room` WRITE;
-/*!40000 ALTER TABLE `hms_hotel_room` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_hotel_room` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_hotel_staff`
 --
 
@@ -392,15 +289,6 @@ CREATE TABLE `hms_hotel_staff` (
   UNIQUE KEY `role_id_UNIQUE` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_hotel_staff`
---
-
-LOCK TABLES `hms_hotel_staff` WRITE;
-/*!40000 ALTER TABLE `hms_hotel_staff` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_hotel_staff` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_identification_params`
@@ -424,15 +312,6 @@ CREATE TABLE `hms_identification_params` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_identification_params`
---
-
-LOCK TABLES `hms_identification_params` WRITE;
-/*!40000 ALTER TABLE `hms_identification_params` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_identification_params` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_inventory_event_log`
 --
 
@@ -454,15 +333,6 @@ CREATE TABLE `hms_inventory_event_log` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_inventory_event_log`
---
-
-LOCK TABLES `hms_inventory_event_log` WRITE;
-/*!40000 ALTER TABLE `hms_inventory_event_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_inventory_event_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_inventory_item_group`
 --
 
@@ -475,15 +345,6 @@ CREATE TABLE `hms_inventory_item_group` (
   UNIQUE KEY `item_group_name_UNIQUE` (`item_group_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_inventory_item_group`
---
-
-LOCK TABLES `hms_inventory_item_group` WRITE;
-/*!40000 ALTER TABLE `hms_inventory_item_group` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_inventory_item_group` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_inventory_items`
@@ -513,15 +374,6 @@ CREATE TABLE `hms_inventory_items` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_inventory_items`
---
-
-LOCK TABLES `hms_inventory_items` WRITE;
-/*!40000 ALTER TABLE `hms_inventory_items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_inventory_items` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_system_params`
 --
 
@@ -537,15 +389,6 @@ CREATE TABLE `hms_system_params` (
   UNIQUE KEY `param_description_UNIQUE` (`param_description`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This table holds the details for the system level configuration of the hms data';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_system_params`
---
-
-LOCK TABLES `hms_system_params` WRITE;
-/*!40000 ALTER TABLE `hms_system_params` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_system_params` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_user`
@@ -581,15 +424,6 @@ CREATE TABLE `hms_user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_user`
---
-
-LOCK TABLES `hms_user` WRITE;
-/*!40000 ALTER TABLE `hms_user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_user_event_log`
 --
 
@@ -611,15 +445,6 @@ CREATE TABLE `hms_user_event_log` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_user_event_log`
---
-
-LOCK TABLES `hms_user_event_log` WRITE;
-/*!40000 ALTER TABLE `hms_user_event_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_user_event_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_user_identification_param_metadata`
 --
 
@@ -636,15 +461,6 @@ CREATE TABLE `hms_user_identification_param_metadata` (
   UNIQUE KEY `param_group_id_UNIQUE` (`param_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This defines the identification parameters and their attributes like - PASSPORT NO, PAN CARD, Aadhar Card Number and the size of these parameters and their other attributes.';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_user_identification_param_metadata`
---
-
-LOCK TABLES `hms_user_identification_param_metadata` WRITE;
-/*!40000 ALTER TABLE `hms_user_identification_param_metadata` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_user_identification_param_metadata` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_user_identification_params`
@@ -667,15 +483,6 @@ CREATE TABLE `hms_user_identification_params` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_user_identification_params`
---
-
-LOCK TABLES `hms_user_identification_params` WRITE;
-/*!40000 ALTER TABLE `hms_user_identification_params` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_user_identification_params` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_user_privileges`
 --
 
@@ -691,15 +498,6 @@ CREATE TABLE `hms_user_privileges` (
   UNIQUE KEY `privilege_key_UNIQUE` (`privilege_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_user_privileges`
---
-
-LOCK TABLES `hms_user_privileges` WRITE;
-/*!40000 ALTER TABLE `hms_user_privileges` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_user_privileges` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hms_user_role`
@@ -719,15 +517,6 @@ CREATE TABLE `hms_user_role` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_user_role`
---
-
-LOCK TABLES `hms_user_role` WRITE;
-/*!40000 ALTER TABLE `hms_user_role` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_user_role` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_version_info`
 --
 
@@ -745,16 +534,7 @@ CREATE TABLE `hms_version_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_version_info`
---
-
-LOCK TABLES `hms_version_info` WRITE;
-/*!40000 ALTER TABLE `hms_version_info` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_version_info` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Temporary table structure for view `successful_bookings_current_month_view`
+-- Temporary view structure for view `successful_bookings_current_month_view`
 --
 
 DROP TABLE IF EXISTS `successful_bookings_current_month_view`;
@@ -780,7 +560,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `successful_bookings_view`
+-- Temporary view structure for view `successful_bookings_view`
 --
 
 DROP TABLE IF EXISTS `successful_bookings_view`;
@@ -858,4 +638,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-09 17:10:58
+-- Dump completed on 2018-06-10  1:08:59
