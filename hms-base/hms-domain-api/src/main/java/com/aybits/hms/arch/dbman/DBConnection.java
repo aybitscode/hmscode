@@ -17,6 +17,7 @@ public class DBConnection {
     
     public static final Connection getDBConnection(){
 		try{
+
 	    		if(null == connection){
 	    			/*String fileName = "hms_config.properties";
 	    			Properties props = new Properties();
