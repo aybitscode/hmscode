@@ -12,8 +12,7 @@ public class HmsRestServiceMain {
     }
 
     void initConfiguration(){
-        System.out.println("Loading properties from hms-rest.properties file.");
-        Log.debug("Loading properties from hms-rest.properties file.");
+        Log.info("Loading properties from hms-rest.properties file.");
         HmsConfig hmsConfig = new HmsConfig();
     }
 

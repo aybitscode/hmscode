@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.aybits.hms.arch.util.HmsConfig;
+import com.aybits.hms.func.customer.dao.CustomerDAO;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import org.apache.log4j.Logger;
 
 
 public class DBConnection {
-
+    static Logger Log = Logger.getLogger(DBConnection.class);
     private static Connection connection = null;
     private static final String driverName = "com.mysql.jdbc.Driver";
     private static Integer connectionCount = 0;
@@ -74,8 +76,8 @@ public class DBConnection {
 
             connection = dataSource.getConnection();
             }
-            System.out.print("Connection to server successful!:" + connection + "\n\n");
-            System.out.print("Connection["+connectionCount+"] established successfully");
+            Log.info("Connection to server successful!:" + connection + "\n\n");
+            Log.info("Connection["+connectionCount+"] established successfully");
             connectionCount++;
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +87,7 @@ public class DBConnection {
     public static void closeDBConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
-                System.out.println("Closing Database Connection");
+                Log.info("Closing Database Connection");
                 connection.close();
             }
         } catch (SQLException e) {
