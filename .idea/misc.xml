@@ -4,7 +4,9 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/hms_api/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/hms_api/pom.xml" />
+        <option value="$PROJECT_DIR$/hms_swings/pom.xml" />
       </list>
     </option>
   </component>

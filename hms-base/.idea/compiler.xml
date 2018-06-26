@@ -7,7 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="hms-domain-api" />
+        <module name="hms-rest-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hms-base" target="1.5" />
+      <module name="hms-domain-api" target="10" />
+      <module name="hms-rest-api" target="10" />
+    </bytecodeTargetLevel>
   </component>
 </project>
