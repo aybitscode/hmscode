@@ -4,7 +4,7 @@ import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("hms_room")
+@JsonRootName("room")
 public class Room {
 
     @JsonProperty("hotel_id")
@@ -15,19 +15,23 @@ public class Room {
         private Integer roomDoorNumber;
     @JsonProperty("room_category")
         private RoomCategory roomCategory;
-
-
-
+    @JsonProperty("room_status")
+        private RoomStatus roomStatus;
 
     public Room() {
         super();
     }
 
-    public Room(Integer hotelId, Integer roomId, Integer roomDoorNumber, RoomCategory roomCategory) {
+    public Room(Integer hotelId,
+                Integer roomId,
+                Integer roomDoorNumber,
+                RoomCategory roomCategory,
+                RoomStatus roomStatus) {
         this.hotelId = hotelId;
         this.roomId = roomId;
         this.roomDoorNumber = roomDoorNumber;
         this.roomCategory = roomCategory;
+        this.roomStatus = roomStatus;
     }
 
     public Integer getHotelId() {
@@ -60,6 +64,14 @@ public class Room {
 
     public void setRoomCategory(RoomCategory roomCategory) {
         this.roomCategory = roomCategory;
+    }
+
+    public RoomStatus getRoomStatus() {
+        return roomStatus;
+    }
+
+    public void setRoomStatus(RoomStatus roomStatus) {
+        this.roomStatus = roomStatus;
     }
 
     @Override

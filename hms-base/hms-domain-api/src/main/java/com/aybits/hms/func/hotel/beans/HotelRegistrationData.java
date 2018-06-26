@@ -1,10 +1,11 @@
 package com.aybits.hms.func.hotel.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("hotel_registration_data")
-public class HotelRegistrationData {
+class HotelRegistrationData {
 
     @JsonProperty("hotel_id")
     private String hotelId;
@@ -129,5 +130,10 @@ public class HotelRegistrationData {
 
     public void setPfRegistrationId(String pfRegistrationId) {
         this.pfRegistrationId = pfRegistrationId;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }

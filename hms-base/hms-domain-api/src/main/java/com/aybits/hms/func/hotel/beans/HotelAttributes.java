@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 
 @JsonRootName("hotel_attributes")
-public class HotelAttributes {
+class HotelAttributes {
 
         @JsonProperty("hotel_name")
         private String hotelName;
@@ -92,6 +92,22 @@ public class HotelAttributes {
 
         public void setTotalBeds(Integer totalBeds) {
                 this.totalBeds = totalBeds;
+        }
+
+        public String getHotelRating() {
+                return hotelRating;
+        }
+
+        public void setHotelRating(String hotelRating) {
+                this.hotelRating = hotelRating;
+        }
+
+        public String getHotelLogo() {
+                return hotelLogo;
+        }
+
+        public void setHotelLogo(String hotelLogo) {
+                this.hotelLogo = hotelLogo;
         }
 
         @Override

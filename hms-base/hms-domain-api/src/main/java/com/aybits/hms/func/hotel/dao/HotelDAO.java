@@ -12,6 +12,7 @@ import com.aybits.hms.func.facilities.dao.FacilityDAO;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
+import com.mysql.jdbc.Statement;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -32,11 +33,24 @@ public class HotelDAO {
     private static final String GET_HOTEL_BY_EMPLOYEE_ID = "select * from hms_hotel where hotel_id = (select hotel_id from " +
             "hms_employee where employee_id = ?)";
 
-    private static final String INSERT_HOTEL = "";
+    private static final String INSERT_NEW_HOTEL =  "insert into hms_hotel(" +
+                                                "hotel_id," +
+                                                "hotel_name," +
+                                                "hotel_address," +
+                                                "hotel_registration_data," +
+                                                "hotel_rating," +
+                                                "hotel_logo,"+
+                                                "hotel_room_doorno_format" +
+                                                "hotel_staff_count," +
+                                                "hotel_room_count," +
+                                                "hotel_bed_count)"+
+                                                "values(?,?,?,?,?,?,?,?,?,?)";
 
 
 
     public Boolean insertHotelDetails(Hotel hotel) throws HMSException{
+
+        Boolean isHotelAdditionSuccessful = false;
 
         if (connection == null) {
             throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
@@ -44,15 +58,39 @@ public class HotelDAO {
 
 
         PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try{
+            if (connection != null) {
+                connection.setAutoCommit(false);
+                stmt = connection.prepareStatement(INSERT_NEW_HOTEL);
+                stmt.setString(1, hotel.getHotelId());
+                stmt.setString(2,hotel.getHotelAttributes().getHotelName());
+                stmt.setString(3,hotel.getHotelAttributes().getHotelAddress().toString());
+                stmt.setString(4,hotel.getHotelRegistrationData().toString());
+                stmt.setString(5,hotel.getHotelAttributes().getHotelRating());
+                stmt.setString(6,hotel.getHotelAttributes().getHotelLogo());
+                stmt.setString(7,hotel.getHotelAttributes().getRoomDoorNoFormat());
+                stmt.setInt(8,hotel.getHotelAttributes().getEmployeeCount());
+                stmt.setInt(9,hotel.getHotelAttributes().getRoomCount());
+                stmt.setInt(10,hotel.getHotelAttributes().getTotalBeds());
 
+                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                int rowsAffected = stmt.executeUpdate();
+                if (1 == rowsAffected){
+                    isHotelAdditionSuccessful = true;
+                }
+
+                Log.info("\nHotel[" + hotel.getHotelId() + "] successfully added to the DB");
+
+            } else {
+                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE, "No DB Connections available");
+            }
         }catch(SQLException se){
 
         }finally{
-
+            return isHotelAdditionSuccessful;
         }
-
 
     }
 
