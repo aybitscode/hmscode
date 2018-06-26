@@ -1,6 +1,7 @@
 package com.aybits.hms.func.payment.beans;
 
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PaymentParams {
@@ -44,5 +45,10 @@ public class PaymentParams {
 
     public void setPaymentDescription(String paymentDescription) {
         this.paymentDescription = paymentDescription;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }

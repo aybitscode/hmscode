@@ -1,27 +1,24 @@
 package com.aybits.hms.func.customer.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DatabaseConstants;
+import com.aybits.hms.arch.exception.HMSErrorCodes;
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.beans.CustomerStatus;
 import com.aybits.hms.func.customer.cache.CustomerCache;
-import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.func.customer.beans.Customer;
-import com.aybits.hms.arch.dbman.DBConnection;
-import com.aybits.hms.arch.dbman.DatabaseConstants;
+import org.apache.log4j.Logger;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAO {
-	
 
+	static Logger Log = Logger.getLogger(CustomerDAO.class);
 
 	private static Connection connection = DBConnection.getDBConnection();
 	
@@ -51,7 +48,7 @@ public class CustomerDAO {
 				Customer customer = null;
 				while(rs.next()){
 					customer = populateCustomer(rs);
-					System.out.println("\nPopulating customer["+customer.getCustomerId()+"] in CustomerCache");
+					Log.info("\nPopulating customer["+customer.getCustomerId()+"] in CustomerCache");
 					//customerCache.addCustomer(customer);
 				}
 			}else{
@@ -104,7 +101,7 @@ public class CustomerDAO {
 				Customer customer = null;
 				while(rs.next()){
 					customer = populateCustomer(rs);
-					System.out.println("\nPopulating customer["+customer.getCustomerId()+"] in CustomerCache");
+					Log.info("\nPopulating customer["+customer.getCustomerId()+"] in CustomerCache");
 					customers.add(customer);
 				}
 			}else{
@@ -154,7 +151,7 @@ public class CustomerDAO {
 				rs = stmt.executeQuery();
 				while(rs.next()){
 					customer = populateCustomer(rs);
-					System.out.println("\nPopulating customer["+customer.getCustomerId()+"] in Customer Object");
+					Log.info("\nPopulating customer["+customer.getCustomerId()+"] in Customer Object");
 				}
 			}else{
 				throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
@@ -271,7 +268,7 @@ public class CustomerDAO {
 			int s=pst.executeUpdate();
 			if(s>0){
 				updateStatus = true;
-				System.out.println("Customer Record updated successfully");
+				Log.info("Customer Record updated successfully");
 
 				connection.commit();
 			}
@@ -353,7 +350,7 @@ public class CustomerDAO {
 				rs = stmt.executeQuery();
 				while(rs.next()){
 					customer = populateCustomer(rs);
-					System.out.println("\nPopulating customer["+customer.getCustomerId()+"] in Customer Object");
+					Log.info("\nPopulating customer["+customer.getCustomerId()+"] in Customer Object");
 				}
 			}else{
 				throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);

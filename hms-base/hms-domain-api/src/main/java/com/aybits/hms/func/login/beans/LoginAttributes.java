@@ -1,7 +1,10 @@
 package com.aybits.hms.func.login.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName("login_attributes")
 public class LoginAttributes {
 
 
@@ -35,5 +38,10 @@ public class LoginAttributes {
 
     public void setPasswordType(PasswordType passwordType) {
         this.passwordType = passwordType;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }

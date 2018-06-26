@@ -1,5 +1,6 @@
 package com.aybits.hms.func.room.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.amenities.beans.Amenity;
 import com.aybits.hms.func.facilities.beans.Facility;
 import com.aybits.hms.func.services.beans.Service;
@@ -142,5 +143,10 @@ public class RoomCategory {
 
     public void setRoomService(List<Service> roomService) {
         this.roomService = roomService;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }

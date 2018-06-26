@@ -1,0 +1,225 @@
+package com.aybits.hms.func.hotel.dao;
+
+import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.exception.HMSErrorCodes;
+import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSJSONParser;
+import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
+import com.aybits.hms.func.customer.dao.CustomerDAO;
+import com.aybits.hms.func.facilities.beans.Facility;
+import com.aybits.hms.func.facilities.dao.FacilityDAO;
+import com.aybits.hms.func.hotel.beans.Hotel;
+import com.aybits.hms.func.hotel.beans.HotelAttributes;
+import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
+import org.apache.log4j.Logger;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+public class HotelDAO {
+
+    static Logger Log = Logger.getLogger(CustomerDAO.class);
+
+    private static Connection connection = DBConnection.getDBConnection();
+
+    private static final String GET_HOTEL_BY_HOTELID = "select * from hms_hotel where hotel_id = ?";
+    private static final String GET_HOTEL_BY_EMPLOYEE_LOGIN = "select * from hms_hotel where hotel_id = (select hotel_id from " +
+            "hms_employee where login_id = ?)";
+    private static final String GET_HOTEL_BY_EMPLOYEE_ID = "select * from hms_hotel where hotel_id = (select hotel_id from " +
+            "hms_employee where employee_id = ?)";
+
+    private static final String INSERT_HOTEL = "";
+
+
+
+    public Boolean insertHotelDetails(Hotel hotel) throws HMSException{
+
+        if (connection == null) {
+            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
+        }
+
+
+        PreparedStatement stmt = null;
+
+        try{
+
+        }catch(SQLException se){
+
+        }finally{
+
+        }
+
+
+    }
+
+    public Hotel fetchHotelByEmployeeId(String employeeId) throws HMSException {
+
+        if (connection == null) {
+            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
+        }
+
+        Hotel hotel = new Hotel();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            if (connection != null) {
+                connection.setAutoCommit(false);
+                stmt = connection.prepareStatement(GET_HOTEL_BY_EMPLOYEE_ID);
+                stmt.setString(1, employeeId);
+                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                rs = stmt.executeQuery();
+
+                hotel = populateHotel(rs);
+                Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
+
+            } else {
+                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE, "No DB Connections available");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+        } finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return hotel;
+        }
+    }
+
+    public Hotel fetchHotelByEmployeeLogin(String employeeLogin) throws HMSException {
+
+        if (connection == null) {
+            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
+        }
+
+        Hotel hotel = new Hotel();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            if (connection != null) {
+                connection.setAutoCommit(false);
+                stmt = connection.prepareStatement(GET_HOTEL_BY_EMPLOYEE_LOGIN);
+                stmt.setString(1, employeeLogin);
+                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                rs = stmt.executeQuery();
+
+                hotel = populateHotel(rs);
+                Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
+
+            } else {
+                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE, "No DB Connections available");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+        } finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return hotel;
+        }
+    }
+
+    public Hotel fetchHotelByHotelId(Integer hotelId) throws HMSException {
+        if (connection == null) {
+            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
+        }
+
+        Hotel hotel = new Hotel();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            if (connection != null) {
+                connection.setAutoCommit(false);
+                stmt = connection.prepareStatement(GET_HOTEL_BY_HOTELID);
+                stmt.setInt(1, hotelId);
+                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                rs = stmt.executeQuery();
+
+                hotel = populateHotel(rs);
+                Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
+
+            } else {
+                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE, "No DB Connections available");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+        } finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return hotel;
+        }
+    }
+
+    private Hotel populateHotel(ResultSet rs) throws SQLException {
+
+        String hotelId                  = rs.getString("HOTEL_ID");
+        String hotelName                = rs.getString("HOTEL_NAME");
+        String hotelRating              = rs.getString("HOTEL_RATING");
+        String hotelLogo                = rs.getString("HOTEL_LOGO");
+        String hotelRoomDoorNoFormat    = rs.getString("HOTEL_ROOM_DOORNO_FORMAT");
+
+        HMSAddress hotelAddress = (HMSAddress)HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"),HMSAddress.class);
+        HotelRegistrationData hotelRegistrationData = (HotelRegistrationData)HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_REGISTRATION_DATA"),HotelRegistrationData.class);
+        List<Facility> facilities = null;
+
+        Integer hotelBedCount = rs.getInt("HOTEL_BED_COUNT");
+        Integer hotelStaffCount = rs.getInt("HOTEL_STAFF_COUNT");
+        Integer hotelRoomCount  = rs.getInt("HOTEL_ROOM_COUNT");
+
+        HotelAttributes hotelAttributes = new HotelAttributes(  hotelName,
+                                                                hotelRating,
+                                                                hotelLogo,
+                                                                hotelRoomDoorNoFormat,
+                                                                hotelRoomCount,
+                                                                hotelStaffCount,
+                                                                hotelBedCount,
+                                                                hotelAddress);
+
+
+        FacilityDAO facilityDAO = new FacilityDAO();
+        List<Facility> hotelFacilities = facilityDAO.fetchFacilitiesByType(HMSAPIServiceConstants.HOTEL_FACILITY);
+
+        return new Hotel(hotelId,hotelAttributes,hotelRegistrationData,hotelFacilities);
+    }
+
+    
+
+
+}

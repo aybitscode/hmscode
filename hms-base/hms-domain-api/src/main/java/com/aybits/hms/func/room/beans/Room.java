@@ -1,5 +1,6 @@
 package com.aybits.hms.func.room.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -59,6 +60,11 @@ public class Room {
 
     public void setRoomCategory(RoomCategory roomCategory) {
         this.roomCategory = roomCategory;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 
 }

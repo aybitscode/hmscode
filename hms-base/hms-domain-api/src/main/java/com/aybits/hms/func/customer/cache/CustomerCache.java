@@ -1,11 +1,8 @@
 package com.aybits.hms.func.customer.cache;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import com.aybits.hms.func.customer.beans.Customer;
+
+import java.util.*;
 
 public class CustomerCache {
 	private HashMap<String, Customer> customerCache = new HashMap<>();

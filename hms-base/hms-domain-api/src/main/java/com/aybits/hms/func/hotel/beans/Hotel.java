@@ -1,23 +1,22 @@
 package com.aybits.hms.func.hotel.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.facilities.beans.Facility;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.List;
 
+@JsonRootName("hotel")
 public class Hotel {
 
 
     @JsonProperty("hotel_id")
     private String hotelId;
-    @JsonProperty("hotel_features")
-    private HotelFeatures hotelFeatures;
-    @JsonProperty("hotel_registration_no")
-    private String registrationNo;
-    @JsonProperty("hotel_gst_no")
-    private String gstNo;
-    @JsonProperty("tax_config_id")
-    private String taxConfigId;
+    @JsonProperty("hotel_attributes")
+    private HotelAttributes hotelAttributes;
+    @JsonProperty("hotel_registration_data")
+    private HotelRegistrationData hotelRegistrationData;
     @JsonProperty("hotel_facilities")
     private List<Facility> hotelFacilities;
 
@@ -25,16 +24,12 @@ public class Hotel {
     }
 
     public Hotel(String hotelId,
-                 HotelFeatures hotelAttributes,
-                 String registrationNo,
-                 String gstNo,
-                 String taxConfigId,
+                 HotelAttributes hotelAttributes,
+                 HotelRegistrationData hotelRegistrationData,
                  List<Facility> hotelFacilities) {
         this.hotelId = hotelId;
-        this.hotelFeatures = hotelAttributes;
-        this.registrationNo = registrationNo;
-        this.gstNo = gstNo;
-        this.taxConfigId = taxConfigId;
+        this.hotelAttributes = hotelAttributes;
+        this.hotelRegistrationData = hotelRegistrationData;
         this.hotelFacilities = hotelFacilities;
     }
 
@@ -46,36 +41,12 @@ public class Hotel {
         this.hotelId = hotelId;
     }
 
-    public String getRegistrationNo() {
-        return registrationNo;
+    public HotelAttributes getHotelAttributes() {
+        return hotelAttributes;
     }
 
-    public void setRegistrationNo(String registrationNo) {
-        this.registrationNo = registrationNo;
-    }
-
-    public String getGstNo() {
-        return gstNo;
-    }
-
-    public void setGstNo(String gstNo) {
-        this.gstNo = gstNo;
-    }
-
-    public String getTaxConfigId() {
-        return taxConfigId;
-    }
-
-    public void setTaxConfigId(String taxConfigId) {
-        this.taxConfigId = taxConfigId;
-    }
-
-    public HotelFeatures getHotelFeatures() {
-        return hotelFeatures;
-    }
-
-    public void setHotelFeatures(HotelFeatures hotelFeatures) {
-        this.hotelFeatures = hotelFeatures;
+    public void setHotelAttributes(HotelAttributes hotelAttributes) {
+        this.hotelAttributes = hotelAttributes;
     }
 
     public List<Facility> getHotelFacilities() {
@@ -84,6 +55,20 @@ public class Hotel {
 
     public void setHotelFacilities(List<Facility> hotelFacilities) {
         this.hotelFacilities = hotelFacilities;
+    }
+
+    public HotelRegistrationData getHotelRegistrationData() {
+        return hotelRegistrationData;
+    }
+
+    public void setHotelRegistrationData(HotelRegistrationData hotelRegistrationData) {
+        this.hotelRegistrationData = hotelRegistrationData;
+    }
+
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 
 }

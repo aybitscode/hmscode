@@ -26,6 +26,13 @@ public class HMSAPIServiceConstants {
     public static final String DELETE_ALL = "DELETE_ALL";
     public static final String UPSERT = "UPSERT";
 
+    /**************** HMS_CONSTANTS ************************************
+     * These constants are commonly used in all of the functional modules
+     * of HMS
+     */
+    public static final String HOTEL_FACILITY = "HOTEL_FACILITY";
+    public static final String ROOM_FACILITY  = "ROOM_FACILITY";
+
 
 }
 

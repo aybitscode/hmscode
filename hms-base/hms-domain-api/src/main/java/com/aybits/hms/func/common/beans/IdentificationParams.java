@@ -1,5 +1,6 @@
 package com.aybits.hms.func.common.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IdentificationParams {
@@ -35,5 +36,10 @@ public class IdentificationParams {
 
     public void setIdentifierValue(Integer identifierValue) {
         this.identifierValue = identifierValue;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }
