@@ -158,30 +158,26 @@ DROP TABLE IF EXISTS `hms_customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_customer` (
-  `CUSTOMER_ID` int(64) NOT NULL AUTO_INCREMENT,
-  `CORPORATE_ID` int(64) DEFAULT NULL,
+  `CUSTOMER_ID` varchar(64) NOT NULL,
+  `CORPORATE_ID` varchar(64) DEFAULT NULL,
   `FIRST_NAME` varchar(100) NOT NULL,
   `MIDDLE_NAME` varchar(45) NOT NULL,
   `LAST_NAME` varchar(60) NOT NULL,
   `EMAIL` varchar(60) NOT NULL,
   `MOBILE` int(20) NOT NULL,
   `HOME_ADDRESS` varchar(2000) DEFAULT NULL,
-  `IDENTIFICATION_PARAM_ID` int(32) NOT NULL,
-  `PAYMENT_PARAM` int(32) DEFAULT NULL,
+  `IDENTIFICATION_PARAM_ID` varchar(64) NOT NULL,
+  `PAYMENT_PARAM` varchar(64) DEFAULT NULL,
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `hms_hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel id created in the hms_hotel table',
   `customer_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `login_id` varchar(45) NOT NULL COMMENT 'The Login ID of a given user which they set in the hms solution',
   `DATE_UPDATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_DELETED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`CUSTOMER_ID`),
   UNIQUE KEY `user_id_UNIQUE` (`CUSTOMER_ID`),
   UNIQUE KEY `IDENTIFICATION_PARAM_ID_UNIQUE` (`IDENTIFICATION_PARAM_ID`),
   UNIQUE KEY `MOBILE_UNIQUE` (`MOBILE`),
-  UNIQUE KEY `login_id_UNIQUE` (`login_id`),
-  UNIQUE KEY `hms_hotel_id_UNIQUE` (`hms_hotel_id`),
-  UNIQUE KEY `PAYMENT_PARAM_UNIQUE` (`PAYMENT_PARAM`),
   KEY `customer_idx` (`CUSTOMER_ID`) USING HASH KEY_BLOCK_SIZE=1024
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='This table holds the information of all the customer data.';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -226,7 +222,7 @@ DROP TABLE IF EXISTS `hms_employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_employee` (
-  `EMPLOYEE_ID` int(64) NOT NULL AUTO_INCREMENT,
+  `EMPLOYEE_ID` int(64) NOT NULL,
   `FIRST_NAME` varchar(100) NOT NULL,
   `MIDDLE_NAME` varchar(45) NOT NULL,
   `LAST_NAME` varchar(60) NOT NULL,
@@ -235,8 +231,9 @@ CREATE TABLE `hms_employee` (
   `HOME_ADDRESS` varchar(2000) DEFAULT NULL,
   `IDENTIFICATION_PARAM` int(32) NOT NULL,
   `employee_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
-  `login_id` varchar(45) NOT NULL COMMENT 'The Login ID of a given user which they set in the hms solution',
+  `login_id` varchar(100) NOT NULL COMMENT 'The Login ID of a given user which they set in the hms solution',
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `password` varchar(100) DEFAULT NULL,
   `hms_hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel_id created in the hms_hotel table.',
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_UPDATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -321,17 +318,18 @@ DROP TABLE IF EXISTS `hms_hotel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_hotel` (
-  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
+  `hotel_id` varchar(32) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `hotel_name` varchar(100) NOT NULL COMMENT 'Hotel Name of the given hotel',
   `hotel_address` varchar(500) NOT NULL COMMENT 'Address of the given hotel',
   `hotel_rating` varchar(45) DEFAULT NULL COMMENT 'Rating of the hotel - whether it is 5-star,3-star,2-star etc',
-  `hotel_registration_data` varbinary(1000) DEFAULT NULL COMMENT 'Registration Details of a given hotel w.r.t authorities',
-  `hotel_geo_location` varchar(45) NOT NULL COMMENT 'Location co-ordinates of the hotel on location maps',
+  `hotel_registration_data` varchar(2000) DEFAULT NULL COMMENT 'Registration Details of a given hotel w.r.t authorities',
   `hotel_staff_count` int(64) NOT NULL COMMENT 'total no. of staff working in the hotel',
+  `hotel_room_count` int(64) DEFAULT NULL,
+  `hotel_bed_count` int(64) DEFAULT NULL,
+  `hotel_logo` varchar(100) DEFAULT NULL,
+  `hotel_room_doorno_format` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`hotel_id`),
-  UNIQUE KEY `hotel_id_UNIQUE` (`hotel_id`),
-  UNIQUE KEY `hotel_geo_location_UNIQUE` (`hotel_geo_location`),
-  UNIQUE KEY `hotel_registration_info_UNIQUE` (`hotel_registration_data`)
+  UNIQUE KEY `hotel_id_UNIQUE` (`hotel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This is the primary table to store all the information regarding entity - Hotel in the HMS Solution';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -381,14 +379,14 @@ DROP TABLE IF EXISTS `hms_hotel_staff`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_hotel_staff` (
-  `hotel_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `hotel_id` varchar(32) NOT NULL,
+  `employee_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   `role_privilege_list` varchar(1000) NOT NULL COMMENT 'The Role Privilege List refers to the list of privileges that are associated to a given user. This list is from the hms_role_privileges table.',
   `date_created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT 'This column indicates when the hotel to user mapping row was created',
   PRIMARY KEY (`hotel_id`),
   UNIQUE KEY `hotel_id_UNIQUE` (`hotel_id`),
-  UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  UNIQUE KEY `user_id_UNIQUE` (`employee_id`),
   UNIQUE KEY `role_id_UNIQUE` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -410,7 +408,7 @@ DROP TABLE IF EXISTS `hms_identification_params`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_identification_params` (
-  `IDENTIFICATION_PARAM_ID` int(64) NOT NULL AUTO_INCREMENT,
+  `IDENTIFICATION_PARAM_ID` varchar(64) NOT NULL,
   `IDENTIFICATION_PARAM_TYPE` varchar(64) NOT NULL,
   `IDENTIFICATION_PARAM_FILE` varchar(100) NOT NULL,
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -858,4 +856,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-09 17:10:58
+-- Dump completed on 2018-06-28 21:23:14

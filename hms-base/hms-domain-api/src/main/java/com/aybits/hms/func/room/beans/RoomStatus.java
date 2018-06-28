@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum RoomStatus {
     
-    ROOM_NOT_AVAILABLE(-1),
-    ROOM_AVAILABLE(1),
-    ROOM_UNDER_MAINTENANCE(-2),
-    ROOM_UNDER_HOUSEKEEPING(-3),
-    ROOM_BOOKED(2),
-    ROOM_CHECKED_IN(3);
+    NOT_AVAILABLE(-1),
+    AVAILABLE(1),
+    UNDER_MAINTENANCE(-2),
+    UNDER_HOUSEKEEPING(-3),
+    BOOKED(2),
+    OCCUPIED(3);
     
     @JsonProperty("room_status")
     private final Integer roomStatus;
