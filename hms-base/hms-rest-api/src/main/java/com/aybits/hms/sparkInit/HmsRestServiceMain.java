@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 public class HmsRestServiceMain {
     Logger Log = Logger.getLogger(HmsRestServiceMain.class);
+
     public static void main(String[] args) throws Exception{
         HmsRestServiceMain serviceMain = new HmsRestServiceMain();
         serviceMain.initConfiguration();

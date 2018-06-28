@@ -1,0 +1,8 @@
+com/aybits/hms/common/HmsResponse.class
+com/aybits/hms/sparkInit/HmsRestServiceStartup.class
+com/aybits/hms/sparkInit/HmsRestServiceMain.class
+com/aybits/hms/bookings/BookingRequestHandler.class
+com/aybits/hms/sparkInit/HmsRestHttpService.class
+com/aybits/hms/customer/CustomerRequestHandler.class
+com/aybits/hms/common/HmsRequestHandler.class
+com/aybits/hms/login/LoginRequestHandler.class
