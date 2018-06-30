@@ -1,18 +1,3 @@
-INFO main com.aybits.hms.sparkInit.HmsRestServiceMain - Loading properties from hms-rest.properties file.
-INFO main com.aybits.hms.sparkInit.HmsRestServiceStartup - starting spark server on port 8090
 INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /login
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /booking/add
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/add
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/update
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/get
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/getAll
-INFO main com.aybits.hms.sparkInit.HmsRestServiceStartup - Spark APIs started.
-INFO main com.aybits.hms.sparkInit.HmsRestServiceMain - Loading properties from hms-rest.properties file.
-INFO main com.aybits.hms.sparkInit.HmsRestServiceStartup - starting spark server on port 8090
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /login
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /booking/add
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/add
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/update
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/get
-INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /customer/getAll
+INFO main com.aybits.hms.sparkInit.HmsRestHttpService - Registering post api for /booking
 INFO main com.aybits.hms.sparkInit.HmsRestServiceStartup - Spark APIs started.
