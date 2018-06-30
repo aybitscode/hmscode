@@ -3,7 +3,8 @@ package com.aybits.hms.func.customer.beans;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
-import com.aybits.hms.func.common.beans.IdentificationParams;
+import com.aybits.hms.func.identificationparams.beans.IdentificationParams;
+import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.payment.beans.PaymentParams;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -31,7 +32,7 @@ public class Customer {
     @JsonProperty("payment_params")
     private PaymentParams paymentParams;
     @JsonProperty("customer_status")
-    private CustomerStatus customerStatus;
+    private Status customerStatus;
     @JsonProperty("date_modified")
     private Date dateModified;
     @JsonProperty("date_created")
@@ -50,7 +51,7 @@ public class Customer {
 
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
-
+                    Status customerStatus,
                     HMSAddress customerAddress, ContactDetails contactDetails,
                     IdentificationParams identificationParams, PaymentParams paymentParams, Integer hotelId) {
 
@@ -63,6 +64,7 @@ public class Customer {
         this.identificationParams = identificationParams;
         this.paymentParams = paymentParams;
         this.hotelId = hotelId;
+        this.customerStatus = customerStatus;
 
     }
 
@@ -131,11 +133,11 @@ public class Customer {
         this.corporateId = corporateId;
     }
 
-    public CustomerStatus getCustomerStatus() {
+    public Status getStatus() {
         return customerStatus;
     }
 
-    public void setCustomerStatus(CustomerStatus customerStatus) {
+    public void setStatus(Status customerStatus) {
         this.customerStatus = customerStatus;
     }
 

@@ -1,4 +1,4 @@
-package com.aybits.hms.func.common.beans;
+package com.aybits.hms.func.identificationparams.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -7,8 +7,8 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.customer.beans.Customer;
-import com.aybits.hms.func.customer.beans.CustomerStatus;
 import com.aybits.hms.func.customer.cache.CustomerCache;
 import org.apache.log4j.Logger;
 
@@ -203,8 +203,8 @@ public class CustomerDAO {
 
 
 
-                CustomerStatus customerStatus = CustomerStatus.convertIntToCustomerStatus(customerStatusInt);
-                customer.setCustomerStatus(customerStatus);
+                Status customerStatus = Status.convertIntToStatus(customerStatusInt);
+                customer.setStatus(customerStatus);
 
 
 
@@ -232,7 +232,7 @@ public class CustomerDAO {
 			pst.setString(++i, customer.getIdentificationParams().getIdentifierValue().toString());
 			pst.setString(++i, customer.getPaymentParams().getPaymentType().getPaymentTypeAsString());
 			pst.setInt(++i, customer.getHotelId());
-			pst.setString(++i,customer.getCustomerStatus().getCustomerStatusAsString());
+			pst.setString(++i,customer.getStatus().getStatusAsString());
 			pst.setDate(++i, new java.sql.Date(customer.getDateCreated().getTime()));
 
 

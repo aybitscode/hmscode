@@ -27,13 +27,16 @@ public class Voucher {
     public Voucher() {
     }
 
-    public Voucher(Integer voucherId, String voucherName, String voucherDescription, Date voucherStartDate, Date voucherExpiryDate, Double voucherDiscount) {
+    public Voucher(Integer voucherId, String voucherName, String voucherDescription,
+                   Date voucherStartDate, Date voucherExpiryDate, Double voucherDiscount,
+                   VoucherStatus voucherStatus) {
         this.voucherId = voucherId;
         this.voucherName = voucherName;
         this.voucherDescription = voucherDescription;
         this.voucherStartDate = voucherStartDate;
         this.voucherExpiryDate = voucherExpiryDate;
         this.voucherDiscount = voucherDiscount;
+        this.voucherStatus = voucherStatus;
     }
 
     public Integer getVoucherId() {
@@ -83,6 +86,15 @@ public class Voucher {
     public void setVoucherDiscount(Double voucherDiscount) {
         this.voucherDiscount = voucherDiscount;
     }
+
+    public VoucherStatus getVoucherStatus() {
+        return voucherStatus;
+    }
+
+    public void setVoucherStatus(VoucherStatus voucherStatus) {
+        this.voucherStatus = voucherStatus;
+    }
+
 
     @Override
     public String toString(){

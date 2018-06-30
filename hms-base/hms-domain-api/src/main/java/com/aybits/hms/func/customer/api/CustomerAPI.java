@@ -8,9 +8,9 @@ import com.aybits.hms.func.customer.dao.CustomerDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerService {
+public class CustomerAPI {
 
-	public CustomerService(){
+	public CustomerAPI(){
 		
 	}
 	

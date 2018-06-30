@@ -3,7 +3,8 @@ package com.aybits.hms.func.room.beans;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.amenities.beans.Amenity;
 import com.aybits.hms.func.facilities.beans.Facility;
-import com.aybits.hms.func.services.beans.Service;
+import com.aybits.hms.func.helpdesk.beans.Service;
+import com.aybits.hms.func.vouchers.beans.Voucher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -19,7 +20,7 @@ public class RoomCategory {
     private String categoryDescription;
     @JsonProperty("bed_count")
     private String bedCount;
-    @JsonProperty("room_price")
+    @JsonProperty("category_price")
     private RoomPrice roomPrice;
     @JsonProperty("room_capacity")
     private RoomCapacity roomCapacity;
@@ -35,6 +36,8 @@ public class RoomCategory {
     private List<Facility> roomFacilities;
     @JsonProperty("room_services")
     private List<Service> roomService;
+    @JsonProperty("applied_vouchers")
+    private List<Voucher> applicableVouchers;
 
     public RoomCategory() {
     }
@@ -152,6 +155,14 @@ public class RoomCategory {
 
     public void setRoomService(List<Service> roomService) {
         this.roomService = roomService;
+    }
+
+    public List<Voucher> getApplicableVouchers() {
+        return applicableVouchers;
+    }
+
+    public void setApplicableVouchers(List<Voucher> applicableVouchers) {
+        this.applicableVouchers = applicableVouchers;
     }
 
     @Override
