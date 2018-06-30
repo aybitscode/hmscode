@@ -3,11 +3,16 @@ package com.aybits.hms.func.customer.cache;
 import com.aybits.hms.func.customer.beans.Customer;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomerCache {
-	private HashMap<String, Customer> customerCache = new HashMap<>();
-	private Map<String, Customer> customerMobileCache = new HashMap<>();
-	private HashSet<String> customerIds = new HashSet<>();
+	private static ConcurrentHashMap<String, Customer> customerCache = new ConcurrentHashMap<>();
+	private static ConcurrentHashMap<String, Customer> customerMobileCache = new ConcurrentHashMap<>();
+	private static HashSet<String> customerIds = new HashSet<>();
+
+	public static Boolean initCache(){
+		return false;
+	}
 
 	public void addCustomer(Customer customer) {
 		if (customerCache.get(String.valueOf(customer.getCustomerId())) == null) {
@@ -57,6 +62,10 @@ public class CustomerCache {
 		ArrayList<String> customerIds = new ArrayList<>();
 		customerIds.addAll(customerCache.keySet());
 		return customerIds;
+	}
+
+	public static ConcurrentHashMap<String, Customer> getCustomerCache(){
+		return customerCache;
 	}
 
 }

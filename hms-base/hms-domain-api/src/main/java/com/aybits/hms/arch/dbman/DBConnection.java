@@ -11,7 +11,8 @@ import org.apache.log4j.Logger;
 
 public class DBConnection {
     static Logger Log = Logger.getLogger(DBConnection.class);
-    private static Connection connection = null;
+
+    private static volatile Connection connection = null;
     private static final String driverName = "com.mysql.jdbc.Driver";
     private static Integer connectionCount = 0;
     private static int JDBC_QUERY_TIMEOUT = 300;
@@ -21,15 +22,16 @@ public class DBConnection {
 		try{
 
 	    		if(null == connection){
-	    			/*String fileName = "hms_config.properties";
+                    synchronized (DBConnection.class) {
+                        /*String fileName = "hms_config.properties";
 	    			Properties props = new Properties();
 			        props.load(DBConnection.class.getClassLoader().getResourceAsStream(fileName));*/
-	    			HmsConfig hmsConfig = new HmsConfig();
-		
-			    	//connectSSH(props);
-			    	connectToDataBase(hmsConfig.getHmsConfigProps());
-			    	
-				
+                        HmsConfig hmsConfig = new HmsConfig();
+
+                        //connectSSH(props);
+                        connectToDataBase(hmsConfig.getHmsConfigProps());
+
+                    }
 	    		}
 		
 		} catch (SQLException e) {

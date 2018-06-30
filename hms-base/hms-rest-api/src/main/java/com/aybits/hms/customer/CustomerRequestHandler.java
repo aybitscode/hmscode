@@ -3,7 +3,7 @@ package com.aybits.hms.customer;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
-import com.aybits.hms.func.customer.api.CustomerService;
+import com.aybits.hms.func.customer.api.CustomerAPI;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.login.LoginRequestHandler;
 import org.apache.log4j.Logger;
@@ -41,9 +41,9 @@ public class CustomerRequestHandler implements HmsRequestHandler {
         Log.info("adding new customer");
         try {
             String jsonString = request.body().toString();
-            CustomerService customerService = new CustomerService();
+            CustomerAPI customerAPI = new CustomerAPI();
             Customer customer = (Customer) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            boolean result = customerService.addCustomer(customer);
+            boolean result = customerAPI.addCustomer(customer);
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(customer, result));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while adding customer", false));
@@ -54,9 +54,9 @@ public class CustomerRequestHandler implements HmsRequestHandler {
         Log.info("updating customer");
         try {
             String jsonString = request.body().toString();
-            CustomerService customerService = new CustomerService();
+            CustomerAPI customerAPI = new CustomerAPI();
             Customer customer = (Customer) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            boolean result = customerService.updateCustomer(customer);
+            boolean result = customerAPI.updateCustomer(customer);
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(customer, result));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while updating customer", false));
@@ -67,9 +67,9 @@ public class CustomerRequestHandler implements HmsRequestHandler {
         Log.info("get customer");
         try {
             String jsonString = request.body().toString();
-            CustomerService customerService = new CustomerService();
+            CustomerAPI customerAPI = new CustomerAPI();
             Customer customer = (Customer) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            Customer result = customerService.getCustomerById(customer.getCustomerId());
+            Customer result = customerAPI.getCustomerById(customer.getCustomerId());
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting customer data", false));
@@ -79,8 +79,8 @@ public class CustomerRequestHandler implements HmsRequestHandler {
     private String getAllCustomers(Request request) {
         Log.info("get all customers");
         try {
-            CustomerService customerService = new CustomerService();
-            List<Customer> result = customerService.getAllCustomers();
+            CustomerAPI customerAPI = new CustomerAPI();
+            List<Customer> result = customerAPI.getAllCustomers();
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting all customer data", false));

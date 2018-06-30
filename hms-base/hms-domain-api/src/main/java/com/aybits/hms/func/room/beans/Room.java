@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class Room {
 
     @JsonProperty("hotel_id")
-        private Integer hotelId;
+        private String hotelId;
     @JsonProperty("room_id")
-        private Integer roomId;
+        private String roomId;
     @JsonProperty("room_door_number")
-        private Integer roomDoorNumber;
+        private String roomDoorNumber;
     @JsonProperty("room_category")
         private RoomCategory roomCategory;
     @JsonProperty("room_status")
@@ -22,9 +22,9 @@ public class Room {
         super();
     }
 
-    public Room(Integer hotelId,
-                Integer roomId,
-                Integer roomDoorNumber,
+    public Room(String hotelId,
+                String roomId,
+                String roomDoorNumber,
                 RoomCategory roomCategory,
                 RoomStatus roomStatus) {
         this.hotelId = hotelId;
@@ -34,27 +34,27 @@ public class Room {
         this.roomStatus = roomStatus;
     }
 
-    public Integer getHotelId() {
+    public String getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(String hotelId) {
         this.hotelId = hotelId;
     }
 
-    public Integer getRoomId() {
+    public String getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(Integer roomId) {
+    public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 
-    public Integer getRoomDoorNumber() {
+    public String getRoomDoorNumber() {
         return roomDoorNumber;
     }
 
-    public void setRoomDoorNumber(Integer roomDoorNumber) {
+    public void setRoomDoorNumber(String roomDoorNumber) {
         this.roomDoorNumber = roomDoorNumber;
     }
 

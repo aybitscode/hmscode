@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 
 @JsonRootName("hotel_attributes")
-class HotelAttributes {
+public class HotelAttributes {
 
         @JsonProperty("hotel_name")
         private String hotelName;

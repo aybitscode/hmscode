@@ -3,7 +3,8 @@ package com.aybits.hms.func.customer.beans;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
-import com.aybits.hms.func.common.beans.IdentificationParams;
+import com.aybits.hms.func.identificationparam.beans.IdentificationParam;
+import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.payment.beans.PaymentParams;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -27,11 +28,11 @@ public class Customer {
     @JsonProperty("contact_details")
     private ContactDetails contactDetails;
     @JsonProperty("identification_params")
-    private IdentificationParams identificationParams;
+    private IdentificationParam identificationParam;
     @JsonProperty("payment_params")
     private PaymentParams paymentParams;
     @JsonProperty("customer_status")
-    private CustomerStatus customerStatus;
+    private Status customerStatus;
     @JsonProperty("date_modified")
     private Date dateModified;
     @JsonProperty("date_created")
@@ -50,9 +51,9 @@ public class Customer {
 
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
-
+                    Status customerStatus,
                     HMSAddress customerAddress, ContactDetails contactDetails,
-                    IdentificationParams identificationParams, PaymentParams paymentParams, Integer hotelId) {
+                    IdentificationParam identificationParam, PaymentParams paymentParams, Integer hotelId) {
 
         this.customerId = customerId;
         this.firstName = firstName;
@@ -60,9 +61,10 @@ public class Customer {
         this.lastName = lastName;
         this.customerAddress = customerAddress;
         this.contactDetails = contactDetails;
-        this.identificationParams = identificationParams;
+        this.identificationParam = identificationParam;
         this.paymentParams = paymentParams;
         this.hotelId = hotelId;
+        this.customerStatus = customerStatus;
 
     }
 
@@ -114,12 +116,12 @@ public class Customer {
         this.contactDetails = contactDetails;
     }
 
-    public IdentificationParams getIdentificationParams() {
-        return identificationParams;
+    public IdentificationParam getIdentificationParam() {
+        return identificationParam;
     }
 
-    public void setIdentificationParams(IdentificationParams identificationParams) {
-        this.identificationParams = identificationParams;
+    public void setIdentificationParam(IdentificationParam identificationParam) {
+        this.identificationParam = identificationParam;
     }
 
 
@@ -131,11 +133,11 @@ public class Customer {
         this.corporateId = corporateId;
     }
 
-    public CustomerStatus getCustomerStatus() {
+    public Status getStatus() {
         return customerStatus;
     }
 
-    public void setCustomerStatus(CustomerStatus customerStatus) {
+    public void setStatus(Status customerStatus) {
         this.customerStatus = customerStatus;
     }
 
