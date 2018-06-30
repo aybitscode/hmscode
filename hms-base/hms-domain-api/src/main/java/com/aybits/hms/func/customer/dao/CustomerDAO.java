@@ -229,7 +229,7 @@ public class CustomerDAO {
 			pst.setString(++i, customer.getContactDetails().getPrimaryEmail());
 			pst.setString(++i, customer.getContactDetails().getPrimaryPhone());
 			pst.setString(++i, customer.getCustomerAddress().toString());
-			pst.setString(++i, customer.getIdentificationParams().getIdentifierValue().toString());
+			pst.setString(++i, customer.getIdentificationParam().getIdentifierValue().toString());
 			pst.setString(++i, customer.getPaymentParams().getPaymentType().getPaymentTypeAsString());
 			pst.setInt(++i, customer.getHotelId());
 			pst.setString(++i,customer.getStatus().getStatusAsString());

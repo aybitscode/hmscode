@@ -1,4 +1,4 @@
-package com.aybits.hms.func.vouchers.beans;
+package com.aybits.hms.func.voucher.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

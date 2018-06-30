@@ -1,4 +1,4 @@
-package com.aybits.hms.func.vouchers.beans;
+package com.aybits.hms.func.voucher.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import java.util.Date;
 public class Voucher {
 
     @JsonProperty("voucher_id")
-    private Integer voucherId;
+    private String voucherId;
     @JsonProperty("voucher_name")
     private String voucherName;
     @JsonProperty("voucher_description")
@@ -27,7 +27,7 @@ public class Voucher {
     public Voucher() {
     }
 
-    public Voucher(Integer voucherId, String voucherName, String voucherDescription,
+    public Voucher(String voucherId, String voucherName, String voucherDescription,
                    Date voucherStartDate, Date voucherExpiryDate, Double voucherDiscount,
                    VoucherStatus voucherStatus) {
         this.voucherId = voucherId;
@@ -39,11 +39,11 @@ public class Voucher {
         this.voucherStatus = voucherStatus;
     }
 
-    public Integer getVoucherId() {
+    public String getVoucherId() {
         return voucherId;
     }
 
-    public void setVoucherId(Integer voucherId) {
+    public void setVoucherId(String voucherId) {
         this.voucherId = voucherId;
     }
 

@@ -1,7 +1,7 @@
-package com.aybits.hms.func.vouchers.dao;
+package com.aybits.hms.func.voucher.dao;
 
-import com.aybits.hms.func.vouchers.beans.Voucher;
-import com.aybits.hms.func.vouchers.beans.VoucherStatus;
+import com.aybits.hms.func.voucher.beans.Voucher;
+import com.aybits.hms.func.voucher.beans.VoucherStatus;
 
 import java.util.List;
 

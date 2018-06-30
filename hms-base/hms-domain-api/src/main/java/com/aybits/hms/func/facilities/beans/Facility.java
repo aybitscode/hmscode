@@ -1,7 +1,7 @@
 package com.aybits.hms.func.facilities.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.vouchers.beans.Voucher;
+import com.aybits.hms.func.voucher.beans.Voucher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 

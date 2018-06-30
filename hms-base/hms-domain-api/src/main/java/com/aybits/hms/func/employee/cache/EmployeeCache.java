@@ -2,12 +2,17 @@ package com.aybits.hms.func.employee.cache;
 
 import com.aybits.hms.func.employee.beans.Employee;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EmployeeCache {
 
-    private HashMap<String, Employee> employeeCache = new HashMap<>();
-    private Map<String, Employee> employeeMobileCache = new HashMap<>();
+    private static ConcurrentHashMap<String, Employee> employeeCache = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, Employee> employeeMobileCache = new ConcurrentHashMap<>();
     private HashSet<String> employeeIds = new HashSet<>();
+
+    public static Boolean initCache(){
+        return false;
+    }
 
     public void addEmployee(Employee employee) {
         if (employeeCache.get(String.valueOf(employee.getEmpId())) == null) {
@@ -57,5 +62,9 @@ public class EmployeeCache {
         ArrayList<String> employeeIds = new ArrayList<>();
         employeeIds.addAll(employeeCache.keySet());
         return employeeIds;
+    }
+
+    public static ConcurrentHashMap<String,Employee> getEmployeeCache(){
+        return employeeCache;
     }
 }

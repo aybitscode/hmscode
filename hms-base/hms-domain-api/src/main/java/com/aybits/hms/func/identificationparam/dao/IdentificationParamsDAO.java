@@ -1,6 +1,6 @@
-package com.aybits.hms.func.identificationparams.dao;
+package com.aybits.hms.func.identificationparam.dao;
 
-import com.aybits.hms.func.identificationparams.beans.IdentificationParams;
+import com.aybits.hms.func.identificationparam.beans.IdentificationParams;
 
 public class IdentificationParamsDAO {
 

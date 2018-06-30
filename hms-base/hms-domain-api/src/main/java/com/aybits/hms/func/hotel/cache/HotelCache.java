@@ -3,12 +3,16 @@ package com.aybits.hms.func.hotel.cache;
 import com.aybits.hms.func.hotel.beans.Hotel;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class HotelCache {
 
-    private HashMap<String, Hotel> hotelCache = new HashMap<>();
-    private HashSet<String> hotelIds = new HashSet<>();
+    private static ConcurrentHashMap<String, Hotel> hotelCache = new ConcurrentHashMap<>();
+    private static HashSet<String> hotelIds = new HashSet<>();
 
+    public static Boolean initCache(){
+        return false;
+    }
     public void addHotel(Hotel hotel) {
         if (hotelCache.get(String.valueOf(hotel.getHotelId())) == null) {
             hotelIds.add(hotel.getHotelId());
@@ -42,5 +46,9 @@ public class HotelCache {
         ArrayList<String> hotelIds = new ArrayList<>();
         hotelIds.addAll(hotelCache.keySet());
         return hotelIds;
+    }
+
+    public static ConcurrentHashMap<String,Hotel> getHotelCache(){
+        return hotelCache;
     }
 }

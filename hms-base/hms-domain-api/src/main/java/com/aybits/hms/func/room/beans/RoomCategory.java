@@ -4,7 +4,7 @@ import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.amenities.beans.Amenity;
 import com.aybits.hms.func.facilities.beans.Facility;
 import com.aybits.hms.func.helpdesk.beans.Service;
-import com.aybits.hms.func.vouchers.beans.Voucher;
+import com.aybits.hms.func.voucher.beans.Voucher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -12,60 +12,61 @@ import java.util.List;
 
 @JsonRootName("room_category")
 public class RoomCategory {
-    @JsonProperty("category_id")
-    private Integer categoryId;
-    @JsonProperty("category_name")
+    @JsonProperty("room_category_id")
+    private String categoryId;
+    @JsonProperty("room_category_name")
     private String categoryName;
-    @JsonProperty("category_desc")
+    @JsonProperty("room_category_desc")
     private String categoryDescription;
     @JsonProperty("bed_count")
     private String bedCount;
-    @JsonProperty("category_price")
+    @JsonProperty("category_room_count")
+    private Integer roomCount;
+    @JsonProperty("room_category_price")
     private RoomPrice roomPrice;
-    @JsonProperty("room_capacity")
+    @JsonProperty("room_category_capacity")
     private RoomCapacity roomCapacity;
     @JsonProperty("adult_occupancy")
     private Integer adultOccupancy;
     @JsonProperty("child_occupancy")
     private Integer childOccupancy;
-    @JsonProperty("room_facilites")
-    private List<Facility> facilities;
-    @JsonProperty("room_amenities")
-    private List<Amenity> roomAmenities;
-    @JsonProperty("room_facilities")
-    private List<Facility> roomFacilities;
-    @JsonProperty("room_services")
-    private List<Service> roomService;
-    @JsonProperty("applied_vouchers")
-    private List<Voucher> applicableVouchers;
+    @JsonProperty("room_category_amenities")
+    private List<Amenity> categoryAmenities;
+    @JsonProperty("room_category_facilities")
+    private List<Facility> categoryFacilities;
+    @JsonProperty("room_category_services")
+    private List<Service> categoryServices;
+    @JsonProperty("room_category_vouchers")
+    private List<Voucher> categoryVouchers;
+    @JsonProperty("is_category_available")
+    private Boolean isCategoryAvailable;
 
     public RoomCategory() {
     }
 
-    public RoomCategory(Integer categoryId, String categoryName, String categoryDescription,
-                        String bedCount, RoomPrice roomPrice, RoomCapacity roomCapacity,
-                        Integer adultOccupancy, Integer childOccupancy,
-                        List<Facility> facilities, List<Amenity> roomAmenities, List<Facility> roomFacilities,
-                        List<Service> roomService) {
+    public RoomCategory(String categoryId, String categoryName, String categoryDescription, String bedCount, Integer roomCount, RoomPrice roomPrice, RoomCapacity roomCapacity, Integer adultOccupancy, Integer childOccupancy, List<Amenity> categoryAmenities, List<Facility> categoryFacilities, List<Service> categoryServices, List<Voucher> categoryVouchers, Boolean isCategoryAvailable) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
         this.bedCount = bedCount;
+        this.roomCount = roomCount;
         this.roomPrice = roomPrice;
         this.roomCapacity = roomCapacity;
         this.adultOccupancy = adultOccupancy;
         this.childOccupancy = childOccupancy;
-        this.facilities = facilities;
-        this.roomAmenities = roomAmenities;
-        this.roomFacilities = roomFacilities;
-        this.roomService = roomService;
+        this.categoryAmenities = categoryAmenities;
+        this.categoryFacilities = categoryFacilities;
+        this.categoryServices = categoryServices;
+        this.categoryVouchers = categoryVouchers;
+        this.isCategoryAvailable = isCategoryAvailable;
     }
 
-    public Integer getCategoryId() {
+
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -125,45 +126,55 @@ public class RoomCategory {
         this.childOccupancy = childOccupancy;
     }
 
-    public List<Facility> getFacilities() {
-        return facilities;
+    public List<Amenity> getCategoryAmenities() {
+        return categoryAmenities;
     }
 
-    public void setFacilities(List<Facility> facilities) {
-        this.facilities = facilities;
+    public void setCategoryAmenities(List<Amenity> categoryAmenities) {
+        this.categoryAmenities = categoryAmenities;
     }
 
-    public List<Amenity> getRoomAmenities() {
-        return roomAmenities;
+    public List<Facility> getCategoryFacilities() {
+        return categoryFacilities;
     }
 
-    public void setRoomAmenities(List<Amenity> roomAmenities) {
-        this.roomAmenities = roomAmenities;
+    public void setCategoryFacilities(List<Facility> categoryFacilities) {
+        this.categoryFacilities = categoryFacilities;
     }
 
-    public List<Facility> getRoomFacilities() {
-        return roomFacilities;
+    public List<Service> getCategoryServices() {
+        return categoryServices;
     }
 
-    public void setRoomFacilities(List<Facility> roomFacilities) {
-        this.roomFacilities = roomFacilities;
+    public void setCategoryServices(List<Service> categoryServices) {
+        this.categoryServices = categoryServices;
     }
 
-    public List<Service> getRoomService() {
-        return roomService;
+    public List<Voucher> getCategoryVouchers() {
+        return categoryVouchers;
     }
 
-    public void setRoomService(List<Service> roomService) {
-        this.roomService = roomService;
+    public void setCategoryVouchers(List<Voucher> categoryVouchers) {
+        this.categoryVouchers = categoryVouchers;
     }
 
-    public List<Voucher> getApplicableVouchers() {
-        return applicableVouchers;
+    public Integer getRoomCount() {
+        return roomCount;
     }
 
-    public void setApplicableVouchers(List<Voucher> applicableVouchers) {
-        this.applicableVouchers = applicableVouchers;
+    public void setRoomCount(Integer roomCount) {
+        this.roomCount = roomCount;
     }
+
+    public Boolean getCategoryAvailable() {
+        return isCategoryAvailable;
+    }
+
+    public void setCategoryAvailable(Boolean categoryAvailable) {
+        isCategoryAvailable = categoryAvailable;
+    }
+
+
 
     @Override
     public String toString(){

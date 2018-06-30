@@ -1,4 +1,4 @@
-package com.aybits.hms.func.identificationparams.beans;
+package com.aybits.hms.func.identificationparam.beans;
 
 public enum IdentifierType {
 

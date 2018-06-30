@@ -3,7 +3,7 @@ package com.aybits.hms.func.employee.beans;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
-import com.aybits.hms.func.identificationparams.beans.IdentificationParams;
+import com.aybits.hms.func.identificationparam.beans.IdentificationParam;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.login.beans.LoginAttributes;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,8 +29,8 @@ public class Employee {
         private ContactDetails contactDetails;
     @JsonProperty("employee_address")
         private HMSAddress employeeAddress;
-    @JsonProperty("identification_params")
-        private IdentificationParams identificationParams;
+    @JsonProperty("identification_param")
+        private IdentificationParam identificationParam;
     @JsonProperty("employee_status")
         private Status employeeStatus;
     @JsonProperty("date_modified")
@@ -48,7 +48,7 @@ public class Employee {
 
     public Employee(String empId, LoginAttributes loginAttributes, Role role,
                     ContactDetails contactDetails, HMSAddress employeeAddress,
-                    IdentificationParams identificationParams,
+                    IdentificationParam identificationParam,
                     Status employeeStatus, Date dateModified, Date dateCreated, Date dateDeleted,
                     Integer hotelId) {
         this.empId = empId;
@@ -56,7 +56,7 @@ public class Employee {
         this.role = role;
         this.contactDetails = contactDetails;
         this.employeeAddress = employeeAddress;
-        this.identificationParams = identificationParams;
+        this.identificationParam = identificationParam;
         this.employeeStatus = employeeStatus;
         this.dateModified = dateModified;
         this.dateCreated = dateCreated;
@@ -96,12 +96,12 @@ public class Employee {
         this.employeeAddress = hmsAddress;
     }
 
-    public IdentificationParams getIdentificationParams() {
-        return identificationParams;
+    public IdentificationParam getIdentificationParam() {
+        return identificationParam;
     }
 
-    public void setIdentificationParams(IdentificationParams identificationParams) {
-        this.identificationParams = identificationParams;
+    public void setIdentificationParam(IdentificationParam identificationParam) {
+        this.identificationParam = identificationParam;
     }
 
     public LoginAttributes getLoginAttributes() {

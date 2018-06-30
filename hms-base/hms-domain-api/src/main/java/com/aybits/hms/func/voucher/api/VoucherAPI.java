@@ -1,4 +1,4 @@
-package com.aybits.hms.func.vouchers.api;
+package com.aybits.hms.func.voucher.api;
 
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.api.HMSAPIProvider;

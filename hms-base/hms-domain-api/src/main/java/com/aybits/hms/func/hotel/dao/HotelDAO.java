@@ -6,13 +6,11 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.HMSAddress;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
-import com.aybits.hms.func.customer.dao.CustomerDAO;
 import com.aybits.hms.func.facilities.beans.Facility;
 import com.aybits.hms.func.facilities.dao.FacilityDAO;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
-import com.mysql.jdbc.Statement;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -23,7 +21,7 @@ import java.util.List;
 
 public class HotelDAO {
 
-    static Logger Log = Logger.getLogger(CustomerDAO.class);
+    static Logger Log = Logger.getLogger(HotelDAO.class);
 
     private static Connection connection = DBConnection.getDBConnection();
 
