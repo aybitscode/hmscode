@@ -1,157 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
   <component name="ChangeListManager">
-    <list default="true" id="fe78f77a-e4a8-4744-8840-c4f2839f9a81" name="Default" comment="Merge branch 'adil_develop' into basha_develop&#10;&#10;# Conflicts:&#10;#&#9;hms-base/.idea/misc.xml&#10;#&#9;hms-base/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/dbman/DBConnection.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/dbman/DatabaseConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSErrorCodes.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSException.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HMSConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HMSJSONParser.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HmsConfig.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/amenities/beans/Amenity.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/api/HMSAPIProvider.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/api/HMSAPIValidator.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/ContactDetails.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSAddress.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSServiceAction.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSServiceModule.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentificationParams.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentifierType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/util/HMSAPIServiceConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/corporate/beans/Corporate.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/api/CustomerService.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/beans/Customer.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/beans/CustomerStatus.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/cache/CustomerCache.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDAO.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDBQueries.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Employee.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Role.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/facilities/beans/Facility.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/Hotel.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/HotelFeatures.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/api/LoginAPI.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginAttributes.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginSession.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/PasswordType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDAO.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDBQueries.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentParams.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/Room.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCapacity.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCategory.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomPrice.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomStatus.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/services/beans/Service.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/Voucher.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/VoucherStatus.class&#10;#&#9;hms-base/hms-domain-api/target/failsafe-reports/failsafe-summary.xml&#10;#&#9;hms-base/hms-domain-api/target/hms-api-sources.jar&#10;#&#9;hms-base/hms-domain-api/target/hms-api.jar&#10;#&#9;hms-base/hms-domain-api/target/maven-archiver/pom.properties&#10;#&#9;hms-base/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst&#10;#&#9;hms-base/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst&#10;#&#9;hms-base/hms-rest-api/hms-rest-api.iml&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/bookings/BookingRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/common/HmsRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/common/HmsResponse.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/customer/CustomerRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/login/LoginRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestHttpService.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceMain.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceStartup.class&#10;#&#9;hms-base/hms-rest-api/target/hms-rest-api.jar&#10;#&#9;hms-base/hms-rest-api/target/maven-archiver/pom.properties&#10;#&#9;hms-base/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst&#10;#&#9;hms-base/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst">
-      <change afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-base.iml~adil_develop" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-base.iml~adil_develop_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSRandomAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/facilities/dao/FacilityDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/api/HotelAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelAttributes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelRegistrationData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/dao/HotelDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/api/RoomAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hms-domain-api/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hms_sql/hms-domain.sql.BKP_28jun18" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C:/hms/logs/hms.log" beforeDir="false" afterPath="$PROJECT_DIR$/C:/hms/logs/hms.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-base.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-base.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/hms-domain-api.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/hms-domain-api.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/README" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/README" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/dbman/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/dbman/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/dbman/DatabaseConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/dbman/DatabaseConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/exception/HMSErrorCodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/exception/HMSErrorCodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/exception/HMSException.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/exception/HMSException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSJSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSJSONParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HmsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HmsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/amenities/beans/Amenity.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/amenities/beans/Amenity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/api/HMSAPIProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/api/HMSAPIProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/api/HMSAPIValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/api/HMSAPIValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/ContactDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/ContactDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSAddress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSServiceAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSServiceAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSServiceModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSServiceModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/IdentificationParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/IdentificationParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/IdentifierType.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/IdentifierType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/util/HMSAPIServiceConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/util/HMSAPIServiceConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/corporate/beans/Corporate.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/corporate/beans/Corporate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/api/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/api/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/beans/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/beans/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/beans/CustomerStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/beans/CustomerStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/cache/CustomerCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/cache/CustomerCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDBQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDBQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/beans/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/beans/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/beans/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/beans/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/facilities/beans/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/facilities/beans/Facility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/Hotel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelFeatures.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/api/LoginAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/api/LoginAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginAttributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/PasswordType.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/PasswordType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/dao/LoginDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/dao/LoginDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/dao/LoginDBQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/dao/LoginDBQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/payment/beans/PaymentParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/payment/beans/PaymentParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/payment/beans/PaymentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/payment/beans/PaymentType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCapacity.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCapacity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomPrice.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomPrice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/services/beans/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/services/beans/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/vouchers/beans/Voucher.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/vouchers/beans/Voucher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/vouchers/beans/VoucherStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/vouchers/beans/VoucherStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-rest.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-rest.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSErrorCodes.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSErrorCodes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/amenities/beans/Amenity.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/amenities/beans/Amenity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/ContactDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/ContactDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSAddress.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSAddress.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentificationParams.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentificationParams.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/util/HMSAPIServiceConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/common/util/HMSAPIServiceConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/corporate/beans/Corporate.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/corporate/beans/Corporate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/customer/api/CustomerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/customer/api/CustomerService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/customer/cache/CustomerCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/customer/cache/CustomerCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/facilities/beans/Facility.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/facilities/beans/Facility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/Hotel.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/Hotel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/HotelFeatures.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/api/LoginAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/api/LoginAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginAttributes.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginAttributes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginSession.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginSession.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentParams.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentParams.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCapacity.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCapacity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCategory.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCategory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/services/beans/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/services/beans/Service.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/Voucher.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/Voucher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/hms-config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/hms-config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/hms-rest.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/hms-rest.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/classes/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/classes/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/failsafe-reports/failsafe-summary.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/hms-api-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/hms-api.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/hms-domain-api-1.0-20180628-1625.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_8_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_8_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_8_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_8_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__hms_hms_api_unknown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__hms_hms_api_unknown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/customer/CustomerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/customer/CustomerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/bookings/BookingRequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/bookings/BookingRequestHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/login/LoginRequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/login/LoginRequestHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestHttpService.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestHttpService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceStartup.class" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceStartup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/hms-rest-api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/hms-rest-api.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hms-domain-api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hms-domain-api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hms_sql/hms-domain.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../hms_sql/hms-domain.sql" afterDir="false" />
+    <list default="true" id="05c18ff5-e23c-4941-8936-1f440b1d1134" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/target/" />
-    <ignored path="$PROJECT_DIR$/hms-rest-api/target/" />
     <ignored path="$PROJECT_DIR$/hms-domain-api/target/" />
+    <ignored path="$PROJECT_DIR$/hms-rest-api/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -160,12 +15,33 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HmsConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsConfig.java">
+    <leaf>
+      <file leaf-file-name="EmployeeRequestHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/Employee/EmployeeRequestHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state relative-caret-position="163">
+              <caret line="15" column="57" lean-forward="true" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HMSJSONParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSJSONParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="25">
+              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmployeeAPI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/api/EmployeeAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="625">
+              <caret line="64" column="41" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -173,239 +49,109 @@
       <file leaf-file-name="HmsRequestHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsRequestHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+            <state relative-caret-position="75">
+              <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HmsResponse.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsResponse.java">
+      <file leaf-file-name="HmsRestServiceMain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="encodings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BookingRequestHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="8490">
+              <caret line="566" column="10" lean-forward="true" selection-start-line="566" selection-start-column="10" selection-end-line="566" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CustomerDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java">
+      <file leaf-file-name="HmsRestServiceStartup.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="70" column="38" lean-forward="true" selection-start-line="70" selection-start-column="38" selection-end-line="70" selection-end-column="38" />
+            <state relative-caret-position="240">
+              <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2938#2948#0" expanded="true" />
+                <element signature="e#1941#1942#0" expanded="true" />
+                <element signature="e#1998#1999#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HotelDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/dao/HotelDAO.java">
+      <file leaf-file-name="HmsRestHttpService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="55" lean-forward="true" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+            <state relative-caret-position="30">
+              <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hms.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/C:/hms/logs/hms.log">
+      <file leaf-file-name="LoginRequestHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hms-rest.properties" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-rest.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="13" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HotelRegistrationData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelRegistrationData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1943#1944#0" expanded="true" />
-                <element signature="e#1973#1974#0" expanded="true" />
-                <element signature="e#2019#2020#0" expanded="true" />
-                <element signature="e#2057#2058#0" expanded="true" />
-                <element signature="e#2103#2104#0" expanded="true" />
-                <element signature="e#2145#2146#0" expanded="true" />
-                <element signature="e#2215#2216#0" expanded="true" />
-                <element signature="e#2277#2278#0" expanded="true" />
-                <element signature="e#2320#2321#0" expanded="true" />
-                <element signature="e#2359#2360#0" expanded="true" />
-                <element signature="e#2423#2424#0" expanded="true" />
-                <element signature="e#2479#2480#0" expanded="true" />
-                <element signature="e#2524#2525#0" expanded="true" />
-                <element signature="e#2565#2566#0" expanded="true" />
-                <element signature="e#2633#2634#0" expanded="true" />
-                <element signature="e#2693#2694#0" expanded="true" />
-                <element signature="e#2735#2736#0" expanded="true" />
-                <element signature="e#2773#2774#0" expanded="true" />
-                <element signature="e#2835#2836#0" expanded="true" />
-                <element signature="e#2889#2890#0" expanded="true" />
-                <element signature="e#2936#2937#0" expanded="true" />
-                <element signature="e#2979#2980#0" expanded="true" />
-                <element signature="e#3157#3158#0" expanded="true" />
-                <element signature="e#3195#3196#0" expanded="true" />
-                <element signature="e#3257#3258#0" expanded="true" />
-                <element signature="e#3311#3312#0" expanded="true" />
-                <element signature="e#3352#3353#0" expanded="true" />
-                <element signature="e#3389#3390#0" expanded="true" />
-                <element signature="e#3449#3450#0" expanded="true" />
-                <element signature="e#3501#3502#0" expanded="true" />
-                <element signature="e#3537#3538#0" expanded="true" />
-                <element signature="e#3569#3570#0" expanded="true" />
-                <element signature="e#3619#3620#0" expanded="true" />
-                <element signature="e#3661#3662#0" expanded="true" />
-                <element signature="e#3705#3706#0" expanded="true" />
-                <element signature="e#3745#3746#0" expanded="true" />
-                <element signature="e#3811#3812#0" expanded="true" />
-                <element signature="e#3869#3870#0" expanded="true" />
-                <element signature="e#3912#3913#0" expanded="true" />
-                <element signature="e#3951#3952#0" expanded="true" />
-                <element signature="e#4015#4016#0" expanded="true" />
-                <element signature="e#4071#4072#0" expanded="true" />
-                <element signature="e#4116#4117#0" expanded="true" />
-                <element signature="e#4186#4187#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HotelAttributes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelAttributes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>getRoomCapacityAsInt</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>getRoomCapacity</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="basha_develop" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/api/LoginProvider.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/resources/db_props/hms_config.properties" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HmsConfig.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/dbman/DBConnection.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/ContactDetails.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSAddress.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/IdentificationParams.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/corporate/beans/Corporate.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/services/beans/Service.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/vouchers/beans/Voucher.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/payment/beans/PaymentParams.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelFeatures.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginAttributes.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/amenities/beans/Amenity.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/dao/LoginDAO.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/beans/Employee.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/api/HMSAPIProvider.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/api/HotelAPI.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-config.properties" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/api/LoginAPI.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginSession.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/exception/HMSErrorCodes.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSUtilAPI.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSRandomAPI.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelRegistration.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/Hotel.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/facilities/beans/Facility.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/util/HMSAPIServiceConstants.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/facilities/dao/FacilityDAO.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/dao/HotelDAO.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/Room.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCategory.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCapacity.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/api/RoomAPI.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomStatus.java" />
-        <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java" />
-        <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/common/HmsRequestHandler.java" />
         <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsRequestHandler.java" />
+        <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/bookings/BookingRequestHandler.java" />
+        <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java" />
         <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java" />
-        <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java" />
+        <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/Employee/EmployeeRequestHandler.java" />
         <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java" />
         <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelAttributes.java" />
-        <option value="$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelRegistrationData.java" />
-        <option value="$PROJECT_DIR$/C:/hms/logs/hms.log" />
+        <option value="$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java" />
       </list>
     </option>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <expand />
-      <select />
-    </treeState>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="314" />
+    <option name="y" value="73" />
     <option name="width" value="976" />
-    <option name="height" value="1038" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
+    <option name="height" value="676" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -416,24 +162,6 @@
             <path>
               <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
               <item name="hms-base" type="462c0819:PsiDirectoryNode" />
-              <item name="C:" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hms-base" type="462c0819:PsiDirectoryNode" />
-              <item name="C:" type="462c0819:PsiDirectoryNode" />
-              <item name="hms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hms-base" type="462c0819:PsiDirectoryNode" />
-              <item name="C:" type="462c0819:PsiDirectoryNode" />
-              <item name="hms" type="462c0819:PsiDirectoryNode" />
-              <item name="logs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hms-base" type="462c0819:PsiDirectoryNode" />
               <item name="hms-domain-api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -485,7 +213,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hms" type="462c0819:PsiDirectoryNode" />
               <item name="func" type="462c0819:PsiDirectoryNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
+              <item name="customer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
@@ -496,8 +224,8 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hms" type="462c0819:PsiDirectoryNode" />
               <item name="func" type="462c0819:PsiDirectoryNode" />
-              <item name="hotel" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="customer" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
@@ -505,7 +233,11 @@
               <item name="hms-domain-api" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hms" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="customer" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
@@ -532,18 +264,34 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hms-base" type="462c0819:PsiDirectoryNode" />
+              <item name="hms-rest-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hms-base" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hms-base" type="462c0819:PsiDirectoryNode" />
+              <item name="hms-rest-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hms" type="462c0819:PsiDirectoryNode" />
+              <item name="sparkInit" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
-  </component>
-  <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -558,23 +306,17 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-    </configuration>
-    <configuration name="Unnamed" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="sparkInit.HmsRestServiceMain" />
+    <configuration name="HmsRestServiceMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.aybits.hms.sparkInit.HmsRestServiceMain" />
       <module name="hms-rest-api" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.aybits.hms.sparkInit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
     </configuration>
-=======
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="75" />
-    <option name="y" value="44" />
-    <option name="width" value="1281" />
-    <option name="height" value="704" />
-  </component>
-  <component name="RunManager">
->>>>>>> 464db300df8f12c59a386ce0f7343accd6062baa
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -616,609 +358,206 @@
       <properties />
       <listeners />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.HmsRestServiceMain" />
+      </list>
+    </recent_temporary>
   </component>
-<<<<<<< HEAD
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fe78f77a-e4a8-4744-8840-c4f2839f9a81" name="Default" comment="" />
-      <created>1528548158967</created>
+      <changelist id="05c18ff5-e23c-4941-8936-1f440b1d1134" name="Default" comment="" />
+      <created>1530371236537</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1528548158967</updated>
+      <updated>1530371236537</updated>
     </task>
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="678" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="2" />
-      <window_info anchor="bottom" id="TODO" order="10" weight="0.32844037" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49924242" weight="0.47339448" />
-      <window_info anchor="right" id="Palette&#9;" order="0" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5007576" side_tool="true" weight="0.32844037" />
-      <window_info anchor="right" id="Maven Projects" order="1" weight="0.21212122" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49924242" visible="true" weight="0.34862384" />
-      <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.49924242" weight="0.32844037" />
-      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49545455" weight="0.3266055" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.2219697" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.3295082" />
-      <window_info id="Learn" order="7" />
-      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
-      <window_info id="UI Designer" order="0" />
-      <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4478595" />
-      <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info anchor="right" id="Palette" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="6" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="0" weight="0.32930845" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.28484848" />
-      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="5" weight="0.4" />
+      <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.49924242" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.32930845" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="UI Designer" order="0" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4478595" />
-      <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info id="Learn" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="0" />
+      <window_info anchor="bottom" id="Messages" order="3" weight="0.32844037" />
+      <window_info anchor="right" id="Palette&#9;" order="1" />
+      <window_info id="Image Layers" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="bottom" id="Version Control" order="2" />
+      <window_info anchor="bottom" id="Run" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="0" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Designer" order="0" />
+      <window_info content_ui="combo" id="Project" order="6" weight="0.3098485" />
+      <window_info auto_hide="true" id="Learn" order="2" weight="0.32954547" />
+      <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
+      <window_info id="UI Designer" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="5" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5037879" side_tool="true" weight="0.32786885" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49621212" weight="0.32786885" />
-      <window_info anchor="right" id="Maven Projects" order="1" weight="0.21212122" />
-      <window_info id="Favorites" order="1" side_tool="true" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="bottom" id="Run" order="6" />
+      <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.3098485" />
+      <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="5" type="SLIDING" weight="0.4" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="0" />
+      <window_info id="UI Designer" order="1" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
+      <window_info auto_hide="true" id="Learn" order="2" weight="0.32954547" />
+      <window_info anchor="right" id="Palette&#9;" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="2" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info anchor="bottom" id="Find" order="5" />
+      <window_info active="true" anchor="bottom" id="Messages" order="3" visible="true" weight="0.32844037" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge branch 'adil_develop' into basha_develop&#10;&#10;# Conflicts:&#10;#&#9;hms-base/.idea/misc.xml&#10;#&#9;hms-base/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/dbman/DBConnection.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/dbman/DatabaseConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSErrorCodes.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSException.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HMSConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HMSJSONParser.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HmsConfig.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/amenities/beans/Amenity.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/api/HMSAPIProvider.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/api/HMSAPIValidator.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/ContactDetails.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSAddress.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSServiceAction.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSServiceModule.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentificationParams.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentifierType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/util/HMSAPIServiceConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/corporate/beans/Corporate.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/api/CustomerService.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/beans/Customer.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/beans/CustomerStatus.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/cache/CustomerCache.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDAO.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDBQueries.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Employee.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Role.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/facilities/beans/Facility.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/Hotel.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/HotelFeatures.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/api/LoginAPI.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginAttributes.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginSession.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/PasswordType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDAO.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDBQueries.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentParams.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/Room.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCapacity.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCategory.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomPrice.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomStatus.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/services/beans/Service.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/Voucher.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/VoucherStatus.class&#10;#&#9;hms-base/hms-domain-api/target/failsafe-reports/failsafe-summary.xml&#10;#&#9;hms-base/hms-domain-api/target/hms-api-sources.jar&#10;#&#9;hms-base/hms-domain-api/target/hms-api.jar&#10;#&#9;hms-base/hms-domain-api/target/maven-archiver/pom.properties&#10;#&#9;hms-base/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst&#10;#&#9;hms-base/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst&#10;#&#9;hms-base/hms-rest-api/hms-rest-api.iml&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/bookings/BookingRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/common/HmsRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/common/HmsResponse.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/customer/CustomerRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/login/LoginRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestHttpService.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceMain.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceStartup.class&#10;#&#9;hms-base/hms-rest-api/target/hms-rest-api.jar&#10;#&#9;hms-base/hms-rest-api/target/maven-archiver/pom.properties&#10;#&#9;hms-base/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst&#10;#&#9;hms-base/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'adil_develop' into basha_develop&#10;&#10;# Conflicts:&#10;#&#9;hms-base/.idea/misc.xml&#10;#&#9;hms-base/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/dbman/DBConnection.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/dbman/DatabaseConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSErrorCodes.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/exception/HMSException.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HMSConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HMSJSONParser.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/arch/util/HmsConfig.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/amenities/beans/Amenity.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/api/HMSAPIProvider.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/api/HMSAPIValidator.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/ContactDetails.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSAddress.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSServiceAction.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/HMSServiceModule.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentificationParams.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/beans/IdentifierType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/common/util/HMSAPIServiceConstants.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/corporate/beans/Corporate.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/api/CustomerService.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/beans/Customer.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/beans/CustomerStatus.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/cache/CustomerCache.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDAO.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/customer/dao/CustomerDBQueries.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Employee.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/employee/beans/Role.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/facilities/beans/Facility.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/Hotel.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/hotel/beans/HotelFeatures.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/api/LoginAPI.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginAttributes.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/LoginSession.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/beans/PasswordType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDAO.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/login/dao/LoginDBQueries.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentParams.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/payment/beans/PaymentType.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/Room.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCapacity.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomCategory.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomPrice.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/room/beans/RoomStatus.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/services/beans/Service.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/Voucher.class&#10;#&#9;hms-base/hms-domain-api/target/classes/com/aybits/hms/func/vouchers/beans/VoucherStatus.class&#10;#&#9;hms-base/hms-domain-api/target/failsafe-reports/failsafe-summary.xml&#10;#&#9;hms-base/hms-domain-api/target/hms-api-sources.jar&#10;#&#9;hms-base/hms-domain-api/target/hms-api.jar&#10;#&#9;hms-base/hms-domain-api/target/maven-archiver/pom.properties&#10;#&#9;hms-base/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst&#10;#&#9;hms-base/hms-domain-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst&#10;#&#9;hms-base/hms-rest-api/hms-rest-api.iml&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java&#10;#&#9;hms-base/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/bookings/BookingRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/common/HmsRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/common/HmsResponse.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/customer/CustomerRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/login/LoginRequestHandler.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestHttpService.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceMain.class&#10;#&#9;hms-base/hms-rest-api/target/classes/com/aybits/hms/sparkInit/HmsRestServiceStartup.class&#10;#&#9;hms-base/hms-rest-api/target/hms-rest-api.jar&#10;#&#9;hms-base/hms-rest-api/target/maven-archiver/pom.properties&#10;#&#9;hms-base/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst&#10;#&#9;hms-base/hms-rest-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/IdentifierType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/corporate/beans/Corporate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="66" column="37" lean-forward="true" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomPrice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/services/beans/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="77" column="5" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/vouchers/beans/Voucher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/beans/Customer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/ContactDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="4" column="27" lean-forward="true" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/payment/beans/PaymentParams.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="52" column="5" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/PasswordType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/amenities/beans/Amenity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginAttributes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/beans/Employee.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/api/HMSAPIProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/api/LoginAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="64" column="69" selection-start-line="64" selection-start-column="69" selection-end-line="64" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/beans/LoginSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="56" column="57" selection-start-line="56" selection-start-column="57" selection-end-line="56" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-10-oracle/lib/src.zip!/java.base/java/util/UUID.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1808">
-          <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSRandomAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/login/dao/LoginDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/exception/HMSErrorCodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="4" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/util/HMSAPIServiceConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="64" selection-start-line="33" selection-start-column="64" selection-end-line="33" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/facilities/dao/FacilityDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="67" selection-start-line="9" selection-start-column="67" selection-end-line="9" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/common/beans/HMSAddress.java">
+    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/api/CustomerService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/facilities/beans/Facility.java">
+    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/api/CustomerAPI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-10-oracle/lib/src.zip!/java.sql/java/sql/PreparedStatement.java">
+    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/bookings/BookingRequestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1448">
-          <caret line="236" column="9" selection-start-line="236" selection-start-column="9" selection-end-line="236" selection-end-column="9" />
+        <state>
+          <caret column="31" selection-start-column="31" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/Hotel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/beans/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="60" column="9" lean-forward="true" selection-start-line="5" selection-end-line="60" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCapacity.java">
+    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="44" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
+          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomCategory.java">
+    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-902">
-          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+        <state relative-caret-position="45">
+          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/Room.java">
+    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HMSJSONParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-377">
-          <caret line="6" column="15" lean-forward="true" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+        <state relative-caret-position="25">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/employee/api/EmployeeAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="64" column="41" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/Employee/EmployeeRequestHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="15" column="57" lean-forward="true" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/api/RoomAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/api/HotelAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#443#444#0" expanded="true" />
-            <element signature="e#470#471#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/room/beans/RoomStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/common/HmsRequestHandler.java">
+    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsRequestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/arch/util/HmsConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestHttpService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="30">
+          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/sparkInit/HmsRestServiceStartup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1941#1942#0" expanded="true" />
+            <element signature="e#1998#1999#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="285">
+          <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/sparkInit/HmsRestServiceStartup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="49" column="66" lean-forward="true" selection-start-line="49" selection-start-column="66" selection-end-line="49" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/login/LoginRequestHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/customer/CustomerRequestHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsRequestHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/common/HmsResponse.java">
+    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hms-rest-api/src/main/java/com/aybits/hms/bookings/BookingRequestHandler.java">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/customer/dao/CustomerDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="70" column="38" lean-forward="true" selection-start-line="70" selection-start-column="38" selection-end-line="70" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2938#2948#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelAttributes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/beans/HotelRegistrationData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1943#1944#0" expanded="true" />
-            <element signature="e#1973#1974#0" expanded="true" />
-            <element signature="e#2019#2020#0" expanded="true" />
-            <element signature="e#2057#2058#0" expanded="true" />
-            <element signature="e#2103#2104#0" expanded="true" />
-            <element signature="e#2145#2146#0" expanded="true" />
-            <element signature="e#2215#2216#0" expanded="true" />
-            <element signature="e#2277#2278#0" expanded="true" />
-            <element signature="e#2320#2321#0" expanded="true" />
-            <element signature="e#2359#2360#0" expanded="true" />
-            <element signature="e#2423#2424#0" expanded="true" />
-            <element signature="e#2479#2480#0" expanded="true" />
-            <element signature="e#2524#2525#0" expanded="true" />
-            <element signature="e#2565#2566#0" expanded="true" />
-            <element signature="e#2633#2634#0" expanded="true" />
-            <element signature="e#2693#2694#0" expanded="true" />
-            <element signature="e#2735#2736#0" expanded="true" />
-            <element signature="e#2773#2774#0" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2889#2890#0" expanded="true" />
-            <element signature="e#2936#2937#0" expanded="true" />
-            <element signature="e#2979#2980#0" expanded="true" />
-            <element signature="e#3157#3158#0" expanded="true" />
-            <element signature="e#3195#3196#0" expanded="true" />
-            <element signature="e#3257#3258#0" expanded="true" />
-            <element signature="e#3311#3312#0" expanded="true" />
-            <element signature="e#3352#3353#0" expanded="true" />
-            <element signature="e#3389#3390#0" expanded="true" />
-            <element signature="e#3449#3450#0" expanded="true" />
-            <element signature="e#3501#3502#0" expanded="true" />
-            <element signature="e#3537#3538#0" expanded="true" />
-            <element signature="e#3569#3570#0" expanded="true" />
-            <element signature="e#3619#3620#0" expanded="true" />
-            <element signature="e#3661#3662#0" expanded="true" />
-            <element signature="e#3705#3706#0" expanded="true" />
-            <element signature="e#3745#3746#0" expanded="true" />
-            <element signature="e#3811#3812#0" expanded="true" />
-            <element signature="e#3869#3870#0" expanded="true" />
-            <element signature="e#3912#3913#0" expanded="true" />
-            <element signature="e#3951#3952#0" expanded="true" />
-            <element signature="e#4015#4016#0" expanded="true" />
-            <element signature="e#4071#4072#0" expanded="true" />
-            <element signature="e#4116#4117#0" expanded="true" />
-            <element signature="e#4186#4187#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/java/com/aybits/hms/func/hotel/dao/HotelDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="55" lean-forward="true" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/C:/hms/logs/hms.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hms-domain-api/src/main/resources/hms-rest.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="13" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="13" />
+        <state relative-caret-position="8490">
+          <caret line="566" column="10" lean-forward="true" selection-start-line="566" selection-start-column="10" selection-end-line="566" selection-end-column="10" />
         </state>
       </provider>
     </entry>
   </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>10</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>hms-base</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
-  </component>
-=======
->>>>>>> 464db300df8f12c59a386ce0f7343accd6062baa
 </project>
