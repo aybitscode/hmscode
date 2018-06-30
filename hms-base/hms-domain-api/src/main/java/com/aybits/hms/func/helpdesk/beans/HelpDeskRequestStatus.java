@@ -2,7 +2,7 @@ package com.aybits.hms.func.helpdesk.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum RequestStatus {
+public enum HelpDeskRequestStatus {
     INVALID(-1),
     CREATED(1),
     ASSIGNED(2),
@@ -12,7 +12,7 @@ public enum RequestStatus {
     @JsonProperty("request_status")
     private final int requestStatus;
 
-    RequestStatus(int requestStatus){
+    HelpDeskRequestStatus(int requestStatus){
         this.requestStatus=requestStatus;
     }
 
@@ -24,37 +24,37 @@ public enum RequestStatus {
         return String.valueOf(requestStatus);
     }
 
-    public static RequestStatus convertIntToRequestStatus(int iRequestStatus) {
-        for (RequestStatus requestStatus : RequestStatus.values()) {
-            if (requestStatus.getRequestStatusAsInt() == iRequestStatus) {
-                return requestStatus;
+    public static HelpDeskRequestStatus convertIntToRequestStatus(int iRequestStatus) {
+        for (HelpDeskRequestStatus helpDeskRequestStatus : HelpDeskRequestStatus.values()) {
+            if (helpDeskRequestStatus.getRequestStatusAsInt() == iRequestStatus) {
+                return helpDeskRequestStatus;
             }
         }
         return null;
     }
 
-    public static RequestStatus convertStringToRequestStatus(String inputRequestStatus) {
-        for (RequestStatus requestStatus : RequestStatus.values()) {
-            if (requestStatus.getRequestStatusAsString().equals(inputRequestStatus)) {
-                return requestStatus;
+    public static HelpDeskRequestStatus convertStringToRequestStatus(String inputRequestStatus) {
+        for (HelpDeskRequestStatus helpDeskRequestStatus : HelpDeskRequestStatus.values()) {
+            if (helpDeskRequestStatus.getRequestStatusAsString().equals(inputRequestStatus)) {
+                return helpDeskRequestStatus;
             }
         }
         return null;
     }
 
-    public static int convertRequestStatusToInt(RequestStatus inputRequestStatus) {
-        for (RequestStatus requestStatus : RequestStatus.values()) {
-            if (requestStatus.getRequestStatusAsInt() == inputRequestStatus.getRequestStatusAsInt()) {
-                return requestStatus.getRequestStatusAsInt();
+    public static int convertRequestStatusToInt(HelpDeskRequestStatus inputHelpDeskRequestStatus) {
+        for (HelpDeskRequestStatus helpDeskRequestStatus : HelpDeskRequestStatus.values()) {
+            if (helpDeskRequestStatus.getRequestStatusAsInt() == inputHelpDeskRequestStatus.getRequestStatusAsInt()) {
+                return helpDeskRequestStatus.getRequestStatusAsInt();
             }
         }
         return -1;
     }
 
-    public static String convertRequestStatusToString(RequestStatus inputRequestStatus) {
-        for (RequestStatus requestStatus : RequestStatus.values()) {
-            if (requestStatus.getRequestStatusAsInt() == inputRequestStatus.getRequestStatusAsInt()) {
-                return requestStatus.getRequestStatusAsString();
+    public static String convertRequestStatusToString(HelpDeskRequestStatus inputHelpDeskRequestStatus) {
+        for (HelpDeskRequestStatus helpDeskRequestStatus : HelpDeskRequestStatus.values()) {
+            if (helpDeskRequestStatus.getRequestStatusAsInt() == inputHelpDeskRequestStatus.getRequestStatusAsInt()) {
+                return helpDeskRequestStatus.getRequestStatusAsString();
             }
         }
         return null;

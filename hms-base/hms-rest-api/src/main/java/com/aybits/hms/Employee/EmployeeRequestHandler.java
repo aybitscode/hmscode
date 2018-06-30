@@ -22,25 +22,25 @@ public class EmployeeRequestHandler implements HmsRequestHandler {
         String action = request.pathInfo().split("/")[2];
         String message = "";
         switch (action) {
-            case "getAllEmployees":
+            case "fetch-all":
                 message = getAllEmployees(request);
                 break;
-            case "getEmployeeByPhone":
+            case "fetch-by-phone":
                 message = getEmployeeByPhone(request);
                 break;
-            case "addEmployee":
+            case "add":
                 message = addEmployee(request);
                 break;
-            case "updateEmployee":
+            case "update":
                 message = updateEmployee(request);
                 break;
             /*case "getEmployeeNameByMobile":
                 message = getEmployeeNameByMobile(request);
                 break;*/
-            case "getEmployeeId":
+            case "fetch-id":
                 message = getEmployeeId(request);
                 break;
-            case "getEmployeeById":
+            case "fetch-by-id":
                 message = getEmployeeById(request);
                 break;
         }
