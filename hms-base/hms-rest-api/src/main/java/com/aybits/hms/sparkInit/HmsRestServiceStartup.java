@@ -1,11 +1,7 @@
-package sparkInit;
+package com.aybits.hms.sparkInit;
 
-<<<<<<< HEAD
 import com.aybits.hms.arch.util.HmsConfig;
 import org.apache.log4j.Logger;
-=======
-import common.HmsConfig;
->>>>>>> adil_develop
 
 import static spark.Spark.port;
 import static spark.Spark.options;
@@ -51,13 +47,8 @@ public class HmsRestServiceStartup {
 
     void startSparkServer() {
         try {
-<<<<<<< HEAD
             int port = Integer.parseInt(HmsConfig.getRestProperty("HMS_PORT"));
-            log.info("starting spark server on port "+port);
-=======
-            int port = Integer.parseInt(HmsConfig.getProperty("HMS_PORT"));
             System.out.println("starting spark server on port "+port);
->>>>>>> adil_develop
             port(port);
             enableCORS("*", "*", "*");
         }catch (Exception e){

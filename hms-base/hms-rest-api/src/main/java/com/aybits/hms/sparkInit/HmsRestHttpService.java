@@ -1,16 +1,12 @@
-package sparkInit;
+package com.aybits.hms.sparkInit;
 
-<<<<<<< HEAD
+
 import com.aybits.hms.bookings.BookingRequestHandler;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.customer.CustomerRequestHandler;
 import com.aybits.hms.login.LoginRequestHandler;
 import org.apache.log4j.Logger;
-=======
-import bookings.BookingRequestHandler;
-import common.HmsRequestHandler;
-import login.LoginRequestHandler;
->>>>>>> adil_develop
+
 
 import static spark.Spark.get;
 import static spark.Spark.post;

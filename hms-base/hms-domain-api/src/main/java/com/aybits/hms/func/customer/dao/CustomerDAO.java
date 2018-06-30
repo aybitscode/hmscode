@@ -10,20 +10,12 @@ import com.aybits.hms.func.common.beans.HMSAddress;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.beans.CustomerStatus;
 import com.aybits.hms.func.customer.cache.CustomerCache;
-<<<<<<< HEAD
-import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.func.customer.beans.Customer;
-import com.aybits.hms.arch.dbman.DBConnection;
-import com.aybits.hms.arch.dbman.DatabaseConstants;
-import org.apache.log4j.Logger;
-=======
+
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> adil_develop
 
 public class CustomerDAO {
 

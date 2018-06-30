@@ -1,4 +1,4 @@
-package common;
+package com.aybits.hms.common;
 
 import spark.*;
 
