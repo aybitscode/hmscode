@@ -1,5 +1,6 @@
 package com.aybits.hms.func.facilities.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -16,6 +17,8 @@ public class Facility {
         private Boolean facilityAvailability;
         @JsonProperty("is_chargeable")
         private Boolean isChargeable;
+        @JsonProperty("facility_type")
+        private String facilityType;
 
 
         public Facility() {
@@ -27,6 +30,7 @@ public class Facility {
                 this.facilityDescription = facilityDescription;
                 this.facilityAvailability = facilityAvailability;
                 this.isChargeable = isChargeable;
+                this.facilityType = facilityType;
         }
 
         public String getFacilityId() {
@@ -67,5 +71,10 @@ public class Facility {
 
         public void setChargeable(Boolean chargeable) {
                 isChargeable = chargeable;
+        }
+
+        @Override
+        public String toString(){
+                return HMSJSONParser.convertObjectToJSON((Object)this);
         }
 }

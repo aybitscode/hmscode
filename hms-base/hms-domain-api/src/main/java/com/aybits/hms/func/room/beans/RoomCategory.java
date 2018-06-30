@@ -1,21 +1,31 @@
 package com.aybits.hms.func.room.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.amenities.beans.Amenity;
 import com.aybits.hms.func.facilities.beans.Facility;
 import com.aybits.hms.func.services.beans.Service;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.List;
 
+@JsonRootName("room_category")
 public class RoomCategory {
-
+    @JsonProperty("category_id")
     private Integer categoryId;
+    @JsonProperty("category_name")
     private String categoryName;
+    @JsonProperty("category_desc")
     private String categoryDescription;
+    @JsonProperty("bed_count")
     private String bedCount;
+    @JsonProperty("room_price")
     private RoomPrice roomPrice;
+    @JsonProperty("room_capacity")
     private RoomCapacity roomCapacity;
+    @JsonProperty("adult_occupancy")
     private Integer adultOccupancy;
+    @JsonProperty("child_occupancy")
     private Integer childOccupancy;
     @JsonProperty("room_facilites")
     private List<Facility> facilities;
@@ -142,5 +152,10 @@ public class RoomCategory {
 
     public void setRoomService(List<Service> roomService) {
         this.roomService = roomService;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }

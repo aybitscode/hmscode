@@ -1,5 +1,6 @@
 package com.aybits.hms.func.corporate.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -59,5 +60,10 @@ public class Corporate {
 
     public void setCorporateContactDetails(ContactDetails corporateContactDetails) {
         this.corporateContactDetails = corporateContactDetails;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }

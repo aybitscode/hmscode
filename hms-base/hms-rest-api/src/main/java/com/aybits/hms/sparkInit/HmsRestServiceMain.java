@@ -1,10 +1,15 @@
-package com.aybits.hms.sparkInit;
+package sparkInit;
 
-import com.aybits.hms.arch.util.HmsConfig;
-import org.apache.log4j.Logger;
+import common.HmsConfig;
+
+import java.io.FileReader;
+import java.util.Properties;
 
 public class HmsRestServiceMain {
+<<<<<<< HEAD
     Logger Log = Logger.getLogger(HmsRestServiceMain.class);
+=======
+>>>>>>> adil_develop
 
     public static void main(String[] args) throws Exception{
         HmsRestServiceMain serviceMain = new HmsRestServiceMain();
@@ -12,8 +17,13 @@ public class HmsRestServiceMain {
         serviceMain.startServicesInSpark(args);
     }
 
+<<<<<<< HEAD
     void initConfiguration(){
         Log.info("Loading properties from hms-rest.properties file.");
+=======
+    void initConfiguration() throws Exception{
+        System.out.println("Loading properties from hms-rest.properties file.");
+>>>>>>> adil_develop
         HmsConfig hmsConfig = new HmsConfig();
     }
 

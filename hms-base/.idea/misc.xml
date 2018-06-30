@@ -8,6 +8,6 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="10" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/hms-rest-api/target" />
+    <output url="file://$PROJECT_DIR$/classes" />
   </component>
 </project>

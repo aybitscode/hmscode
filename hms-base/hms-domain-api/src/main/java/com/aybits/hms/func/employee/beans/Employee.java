@@ -1,12 +1,14 @@
 package com.aybits.hms.func.employee.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
 import com.aybits.hms.func.common.beans.IdentificationParams;
 import com.aybits.hms.func.login.beans.LoginAttributes;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
-
+@JsonRootName("employee")
 public class Employee {
 
 
@@ -61,5 +63,10 @@ public class Employee {
 
         public void setIdentificationParams(IdentificationParams identificationParams) {
             this.identificationParams = identificationParams;
+        }
+
+        @Override
+        public String toString(){
+            return HMSJSONParser.convertObjectToJSON((Object)this);
         }
 }

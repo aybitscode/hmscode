@@ -1,5 +1,6 @@
 package com.aybits.hms.func.services.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Service {
@@ -69,5 +70,10 @@ public class Service {
 
     public void setServiceAvailable(Boolean serviceAvailable) {
         isServiceAvailable = serviceAvailable;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }

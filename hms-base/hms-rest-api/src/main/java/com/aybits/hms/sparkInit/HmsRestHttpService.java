@@ -1,10 +1,16 @@
-package com.aybits.hms.sparkInit;
+package sparkInit;
 
+<<<<<<< HEAD
 import com.aybits.hms.bookings.BookingRequestHandler;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.customer.CustomerRequestHandler;
 import com.aybits.hms.login.LoginRequestHandler;
 import org.apache.log4j.Logger;
+=======
+import bookings.BookingRequestHandler;
+import common.HmsRequestHandler;
+import login.LoginRequestHandler;
+>>>>>>> adil_develop
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -18,15 +24,7 @@ public class HmsRestHttpService {
     public void registerHttpAPIs() {
         registerPostApi("/login", new LoginRequestHandler());
 
-        registerPostApi("/booking/add", new BookingRequestHandler());
-
-        registerPostApi("/customer/add", new CustomerRequestHandler());
-
-        registerPostApi("/customer/update", new CustomerRequestHandler());
-
-        registerPostApi("/customer/get", new CustomerRequestHandler());
-
-        registerPostApi("/customer/getAll", new CustomerRequestHandler());
+        registerPostApi("/booking", new BookingRequestHandler());
     }
 
     private static void registerPostApi(String apiPath, HmsRequestHandler requestHandler) {

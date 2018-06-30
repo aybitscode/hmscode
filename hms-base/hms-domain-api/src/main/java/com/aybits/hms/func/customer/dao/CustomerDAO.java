@@ -1,24 +1,29 @@
 package com.aybits.hms.func.customer.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DatabaseConstants;
+import com.aybits.hms.arch.exception.HMSErrorCodes;
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.beans.CustomerStatus;
 import com.aybits.hms.func.customer.cache.CustomerCache;
+<<<<<<< HEAD
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.arch.dbman.DBConnection;
 import com.aybits.hms.arch.dbman.DatabaseConstants;
 import org.apache.log4j.Logger;
+=======
+import org.apache.log4j.Logger;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> adil_develop
 
 public class CustomerDAO {
 

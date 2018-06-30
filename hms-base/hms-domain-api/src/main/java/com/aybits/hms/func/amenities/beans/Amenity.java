@@ -1,7 +1,10 @@
 package com.aybits.hms.func.amenities.beans;
 
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName("amenity")
 public class Amenity {
 
     @JsonProperty("amenity_id")
@@ -43,5 +46,10 @@ public class Amenity {
 
     public void setAmenityDescription(String amenityDescription) {
         this.amenityDescription = amenityDescription;
+    }
+
+    @Override
+    public String toString(){
+        return HMSJSONParser.convertObjectToJSON((Object)this);
     }
 }
