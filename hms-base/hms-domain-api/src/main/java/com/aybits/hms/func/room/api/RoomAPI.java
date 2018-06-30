@@ -50,4 +50,5 @@ public class RoomAPI implements HMSAPIProvider {
     public Boolean validate(Object object) throws HMSException {
         return null;
     }
+
 }
