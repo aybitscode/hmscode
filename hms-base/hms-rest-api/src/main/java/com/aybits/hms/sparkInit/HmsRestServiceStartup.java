@@ -1,5 +1,6 @@
-package sparkInit;
+package com.aybits.hms.sparkInit;
 
+import com.aybits.hms.sparkInit.HmsRestHttpService;
 import common.HmsConfig;
 
 import static spark.Spark.port;

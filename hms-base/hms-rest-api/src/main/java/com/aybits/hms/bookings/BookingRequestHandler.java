@@ -1,6 +1,6 @@
-package bookings;
+package com.aybits.hms.bookings;
 
-import common.HmsRequestHandler;
+import com.aybits.hms.common.HmsRequestHandler;
 import spark.Request;
 import spark.Response;
 

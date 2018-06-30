@@ -1,7 +1,7 @@
-package login;
+package com.aybits.hms.login;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import common.HmsRequestHandler;
+import com.aybits.hms.common.HmsRequestHandler;
 import spark.Request;
 import spark.Response;
 
