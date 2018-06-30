@@ -16,6 +16,8 @@ public class Corporate {
     private HMSAddress corporateAddress;
     @JsonProperty("contact_details")
     private ContactDetails corporateContactDetails;
+    @JsonProperty("contact_person")
+    private String corporateContactPerson;
 
 
     public Corporate() {
@@ -23,11 +25,13 @@ public class Corporate {
 
     public Corporate(String corporateId, String corporateName,
                      HMSAddress corporateAddress,
-                     ContactDetails corporateContactDetails) {
+                     ContactDetails corporateContactDetails,
+                     String corporateContactPerson) {
         this.corporateId = corporateId;
         this.corporateName = corporateName;
         this.corporateAddress = corporateAddress;
         this.corporateContactDetails = corporateContactDetails;
+        this.corporateContactPerson = corporateContactPerson;
     }
 
     public String getCorporateId() {
@@ -60,6 +64,14 @@ public class Corporate {
 
     public void setCorporateContactDetails(ContactDetails corporateContactDetails) {
         this.corporateContactDetails = corporateContactDetails;
+    }
+
+    public String getCorporateContactPerson() {
+        return corporateContactPerson;
+    }
+
+    public void setCorporateContactPerson(String corporateContactPerson) {
+        this.corporateContactPerson = corporateContactPerson;
     }
 
     @Override
