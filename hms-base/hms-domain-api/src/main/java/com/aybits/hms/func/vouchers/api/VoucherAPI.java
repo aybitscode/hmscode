@@ -20,5 +20,5 @@ public class VoucherAPI implements HMSAPIProvider {
         return null;
     }
 
-    
+
 }
