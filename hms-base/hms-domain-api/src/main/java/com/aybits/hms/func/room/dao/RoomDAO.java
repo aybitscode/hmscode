@@ -23,7 +23,7 @@ public class RoomDAO {
     }
 
     public Boolean addRoom(Room room) throws HMSException{
-
+/*
         PreparedStatement pst;
         Boolean additionStatus = false;
         int i  = 0;
@@ -56,7 +56,7 @@ public class RoomDAO {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return additionStatus;
+        return additionStatus;*/
 
         return true;
     }

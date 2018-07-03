@@ -1,34 +1,34 @@
 package com.aybits.hms.func.identificationparam.dao;
 
-import com.aybits.hms.func.identificationparam.beans.IdentificationParams;
+import com.aybits.hms.func.identificationparam.beans.IdentificationParam;
 
 public class IdentificationParamsDAO {
 
     /**
      *  insertIdentityParams
      */
-     public Boolean insertIdentificationParams(IdentificationParams identificationParams){
+     public Boolean insertIdentificationParams(IdentificationParam identificationParams){
          return false;
     }
 
     /**
      * updateIdentityParams
      */
-     public Boolean updateIdentificationParams(IdentificationParams identificationParams){
+     public Boolean updateIdentificationParams(IdentificationParam identificationParams){
         return false;
      }
 
     /**
      * deleteIdentityParams
      */
-    public Boolean deleteIdentificationParams(IdentificationParams identificationParams){
+    public Boolean deleteIdentificationParams(IdentificationParam identificationParams){
         return false;
     }
 
     /**
      * fetchIdentityParams
      */
-    public IdentificationParams fetchIdentificationParams(Integer identificationParamId){
+    public IdentificationParam fetchIdentificationParams(Integer identificationParamId){
         return null;
     }
 

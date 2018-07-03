@@ -1,4 +1,4 @@
-package sparkInit;
+package com.aybits.hms.sparkInit;
 
 import common.HmsConfig;
 
