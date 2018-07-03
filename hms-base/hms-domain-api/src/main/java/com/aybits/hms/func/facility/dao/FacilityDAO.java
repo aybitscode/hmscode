@@ -1,6 +1,6 @@
-package com.aybits.hms.func.facilities.dao;
+package com.aybits.hms.func.facility.dao;
 
-import com.aybits.hms.func.facilities.beans.Facility;
+import com.aybits.hms.func.facility.beans.Facility;
 
 import java.util.List;
 

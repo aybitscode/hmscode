@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `hms_local` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `hms_local`;
 -- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
 --
--- Host: localhost    Database: hms_local
+-- Host: 127.0.0.1    Database: hms_local
 -- ------------------------------------------------------
--- Server version	5.7.22-0ubuntu18.04.1
+-- Server version	5.7.22-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,9 +23,9 @@ DROP TABLE IF EXISTS `hms_admin_event_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_admin_event_log` (
-  `admin_id` int(11) NOT NULL,
-  `hotel_id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
+  `admin_id` varchar(60) NOT NULL,
+  `hotel_id` varchar(20) NOT NULL,
+  `event_id` varchar(60) NOT NULL,
   `event_log` varchar(500) NOT NULL,
   `event_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`admin_id`)
@@ -51,22 +49,22 @@ DROP TABLE IF EXISTS `hms_billing_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_billing_info` (
-  `invoice_id` int(11) NOT NULL,
-  `booking_id` int(11) NOT NULL,
+  `invoice_id` varchar(60) NOT NULL,
+  `booking_id` varchar(60) NOT NULL,
   `room_rent` decimal(5,0) NOT NULL,
   `facilities_charges` decimal(5,0) NOT NULL,
   `miscellaneous_charges` decimal(5,0) NOT NULL,
-  `coupon_id` int(11) NOT NULL,
+  `coupon_id` varchar(60) NOT NULL,
   `payment_option` varchar(45) NOT NULL,
   `total_amount` decimal(5,0) NOT NULL,
   `date_created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `tax_amount` decimal(5,0) NOT NULL COMMENT 'The total applicable tax amount - service tax , CST, GST etc applicable on the current bill',
-  `date_updated` timestamp(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
-  `invoice_barcode` varchar(45) NOT NULL,
+  `date_updated` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `invoice_barcode` varchar(100) NOT NULL,
   PRIMARY KEY (`invoice_id`),
   UNIQUE KEY `invoice_id_UNIQUE` (`invoice_id`),
   UNIQUE KEY `coupon_id_UNIQUE` (`coupon_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,18 +84,18 @@ DROP TABLE IF EXISTS `hms_booking_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_booking_info` (
-  `user_id` int(11) NOT NULL,
-  `hotel_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
+  `customer_id` varchar(60) NOT NULL,
+  `hotel_id` varchar(60) NOT NULL,
+  `room_id` varchar(60) NOT NULL,
   `checkin_date` datetime NOT NULL,
-  `booking_id` int(11) NOT NULL COMMENT 'The entire billing details are mapped to this id - bill_id which is a foreign key to the billing_info table ',
+  `booking_id` varchar(60) NOT NULL COMMENT 'The entire billing details are mapped to this id - bill_id which is a foreign key to the billing_info table ',
   `checkout_date` datetime DEFAULT NULL COMMENT 'This refers to the check-in and check-out details and the no of rooms booked by an individual user.',
-  `invoice_id` int(11) NOT NULL,
-  `booking_status` int(11) NOT NULL COMMENT 'The Booking status is - 0 - undetermined, 1 - confirmed,2 - cancelled.',
+  `invoice_id` varchar(60) NOT NULL,
+  `booking_status` varchar(60) NOT NULL COMMENT 'The Booking status is - 0 - undetermined, 1 - confirmed,2 - cancelled.',
   `date_created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `date_updated` timestamp(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
-  PRIMARY KEY (`user_id`,`hotel_id`,`room_id`),
-  UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  `date_updated` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  PRIMARY KEY (`booking_id`,`hotel_id`,`room_id`),
+  UNIQUE KEY `customer_id_UNIQUE` (`customer_id`),
   UNIQUE KEY `invoice_id_UNIQUE` (`invoice_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -119,14 +117,14 @@ DROP TABLE IF EXISTS `hms_corporate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_corporate` (
-  `CORPORATE_ID` int(64) NOT NULL AUTO_INCREMENT,
+  `CORPORATE_ID` varchar(60) NOT NULL,
   `COMPANY_NAME` varchar(100) DEFAULT NULL,
   `EMAIL` varchar(60) DEFAULT NULL,
   `OFFICE_PHONE` varchar(20) DEFAULT NULL,
   `MOBILE` int(20) DEFAULT NULL,
   `OFFICE_ADDRESS` varchar(2000) DEFAULT NULL,
-  `IDENTIFICATION_PARAM` int(32) NOT NULL,
-  `PAYMENT_PARAM` int(32) DEFAULT NULL,
+  `IDENTIFICATION_PARAM` varchar(60) NOT NULL,
+  `PAYMENT_PARAM` varchar(60) DEFAULT NULL,
   `company_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -135,10 +133,12 @@ CREATE TABLE `hms_corporate` (
   PRIMARY KEY (`CORPORATE_ID`),
   UNIQUE KEY `user_id_UNIQUE` (`CORPORATE_ID`),
   UNIQUE KEY `IDENTIFICATION_PARAM_UNIQUE` (`IDENTIFICATION_PARAM`),
+  UNIQUE KEY `CORPORATE_ID_UNIQUE` (`CORPORATE_ID`),
   UNIQUE KEY `MOBILE_UNIQUE` (`MOBILE`),
   UNIQUE KEY `PAYMENT_PARAM_UNIQUE` (`PAYMENT_PARAM`),
-  KEY `customer_idx` (`CORPORATE_ID`) USING HASH KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='This table holds the information of all the corporate data.';
+  KEY `customer_idx` (`CORPORATE_ID`) USING HASH KEY_BLOCK_SIZE=1024,
+  KEY `corporate_index` (`CORPORATE_ID`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='This table holds the information of all the corporate data.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,16 +158,16 @@ DROP TABLE IF EXISTS `hms_customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_customer` (
-  `CUSTOMER_ID` varchar(64) NOT NULL,
-  `CORPORATE_ID` varchar(64) DEFAULT NULL,
+  `CUSTOMER_ID` varchar(60) NOT NULL,
+  `CORPORATE_ID` varchar(60) DEFAULT NULL,
   `FIRST_NAME` varchar(100) NOT NULL,
   `MIDDLE_NAME` varchar(45) NOT NULL,
   `LAST_NAME` varchar(60) NOT NULL,
   `EMAIL` varchar(60) NOT NULL,
   `MOBILE` int(20) NOT NULL,
   `HOME_ADDRESS` varchar(2000) DEFAULT NULL,
-  `IDENTIFICATION_PARAM_ID` varchar(64) NOT NULL,
-  `PAYMENT_PARAM` varchar(64) DEFAULT NULL,
+  `IDENTIFICATION_PARAM_ID` varchar(60) NOT NULL,
+  `PAYMENT_PARAM` varchar(60) DEFAULT NULL,
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `hms_hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel id created in the hms_hotel table',
   `customer_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
@@ -178,8 +178,10 @@ CREATE TABLE `hms_customer` (
   UNIQUE KEY `user_id_UNIQUE` (`CUSTOMER_ID`),
   UNIQUE KEY `IDENTIFICATION_PARAM_ID_UNIQUE` (`IDENTIFICATION_PARAM_ID`),
   UNIQUE KEY `MOBILE_UNIQUE` (`MOBILE`),
-  KEY `customer_idx` (`CUSTOMER_ID`) USING HASH KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='This table holds the information of all the customer data.';
+  KEY `customer_idx` (`CUSTOMER_ID`) USING HASH KEY_BLOCK_SIZE=1024,
+  KEY `fk_hms_corporate_id_idx` (`CORPORATE_ID`),
+  KEY `fk_hms_customer_1_idx` (`CORPORATE_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='This table holds the information of all the customer data.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +201,7 @@ DROP TABLE IF EXISTS `hms_customization`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_customization` (
-  `hotel_id` int(11) NOT NULL,
+  `hotel_id` varchar(60) NOT NULL,
   `customization_map` varchar(1000) NOT NULL COMMENT 'This customization maps holds parameters to the corresponding mongo_db schema which hold the binary files, logos, images, and other details. This is a JSON and should accept only JSON based information in this map.',
   PRIMARY KEY (`hotel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -222,17 +224,18 @@ DROP TABLE IF EXISTS `hms_employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_employee` (
-  `EMPLOYEE_ID` int(64) NOT NULL,
+  `EMPLOYEE_ID` varchar(60) NOT NULL,
   `FIRST_NAME` varchar(100) NOT NULL,
   `MIDDLE_NAME` varchar(45) NOT NULL,
   `LAST_NAME` varchar(60) NOT NULL,
   `EMAIL` varchar(60) NOT NULL,
   `MOBILE` int(20) NOT NULL,
   `HOME_ADDRESS` varchar(2000) DEFAULT NULL,
-  `IDENTIFICATION_PARAM` int(32) NOT NULL,
+  `IDENTIFICATION_PARAM` varchar(60) NOT NULL,
   `employee_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
-  `login_id` varchar(100) NOT NULL COMMENT 'The Login ID of a given user which they set in the hms solution',
+  `login_id` varchar(60) NOT NULL COMMENT 'The Login ID of a given user which they set in the hms solution',
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `employee_role` varchar(60) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `hms_hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel_id created in the hms_hotel table.',
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -245,7 +248,7 @@ CREATE TABLE `hms_employee` (
   UNIQUE KEY `login_id_UNIQUE` (`login_id`),
   UNIQUE KEY `hms_hotel_id_UNIQUE` (`hms_hotel_id`),
   KEY `EMPLOYEE_IDx` (`EMPLOYEE_ID`) USING HASH KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='This table holds the information of all the customer data.';
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='This table holds the information of all the customer data.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,16 +261,16 @@ LOCK TABLES `hms_employee` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `hms_events`
+-- Table structure for table `hms_event`
 --
 
-DROP TABLE IF EXISTS `hms_events`;
+DROP TABLE IF EXISTS `hms_event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `hms_events` (
-  `event_key` varchar(45) NOT NULL,
+CREATE TABLE `hms_event` (
+  `event_key` varchar(60) NOT NULL,
   `event_description` varchar(1000) NOT NULL,
-  `event_id` int(11) NOT NULL,
+  `event_id` varchar(60) NOT NULL,
   `event_type` varchar(45) NOT NULL COMMENT 'event_type denotes whether it is an admin event or it is an user event.',
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_key_UNIQUE` (`event_key`),
@@ -276,38 +279,43 @@ CREATE TABLE `hms_events` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_events`
+-- Dumping data for table `hms_event`
 --
 
-LOCK TABLES `hms_events` WRITE;
-/*!40000 ALTER TABLE `hms_events` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_events` ENABLE KEYS */;
+LOCK TABLES `hms_event` WRITE;
+/*!40000 ALTER TABLE `hms_event` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hms_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `hms_facilities`
+-- Table structure for table `hms_facility`
 --
 
-DROP TABLE IF EXISTS `hms_facilities`;
+DROP TABLE IF EXISTS `hms_facility`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `hms_facilities` (
-  `facility_id` int(11) NOT NULL COMMENT 'The unique identifier to identify the facility assigned',
+CREATE TABLE `hms_facility` (
+  `facility_id` varchar(60) NOT NULL COMMENT 'The unique identifier to identify the facility assigned',
   `facility_key` varchar(45) NOT NULL COMMENT 'The key to define the facility to show during reporting etc.',
   `facility_description` varchar(100) NOT NULL,
+  `facility_availability` int(11) NOT NULL DEFAULT '1',
+  `is_facility_chargeable` int(11) NOT NULL DEFAULT '0',
+  `facility_type` int(11) NOT NULL,
+  `facility_price` double NOT NULL DEFAULT '0',
+  `applicable_voucher_id` varchar(60) NOT NULL,
   PRIMARY KEY (`facility_id`,`facility_key`),
   UNIQUE KEY `facility_id_UNIQUE` (`facility_id`),
   UNIQUE KEY `facility_key_UNIQUE` (`facility_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This table defines the facilities that are provided for a given hotel';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='This table defines the facilities that are provided for a given hotel';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hms_facilities`
+-- Dumping data for table `hms_facility`
 --
 
-LOCK TABLES `hms_facilities` WRITE;
-/*!40000 ALTER TABLE `hms_facilities` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_facilities` ENABLE KEYS */;
+LOCK TABLES `hms_facility` WRITE;
+/*!40000 ALTER TABLE `hms_facility` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hms_facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -318,11 +326,11 @@ DROP TABLE IF EXISTS `hms_hotel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_hotel` (
-  `hotel_id` varchar(32) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
+  `hotel_id` varchar(60) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `hotel_name` varchar(100) NOT NULL COMMENT 'Hotel Name of the given hotel',
   `hotel_address` varchar(500) NOT NULL COMMENT 'Address of the given hotel',
   `hotel_rating` varchar(45) DEFAULT NULL COMMENT 'Rating of the hotel - whether it is 5-star,3-star,2-star etc',
-  `hotel_registration_data` varchar(2000) DEFAULT NULL COMMENT 'Registration Details of a given hotel w.r.t authorities',
+  `hotel_registration_data` varchar(2000) NOT NULL COMMENT 'Registration Details of a given hotel w.r.t authorities',
   `hotel_staff_count` int(64) NOT NULL COMMENT 'total no. of staff working in the hotel',
   `hotel_room_count` int(64) DEFAULT NULL,
   `hotel_bed_count` int(64) DEFAULT NULL,
@@ -330,7 +338,7 @@ CREATE TABLE `hms_hotel` (
   `hotel_room_doorno_format` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`hotel_id`),
   UNIQUE KEY `hotel_id_UNIQUE` (`hotel_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This is the primary table to store all the information regarding entity - Hotel in the HMS Solution';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='This is the primary table to store all the information regarding entity - Hotel in the HMS Solution';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,16 +358,16 @@ DROP TABLE IF EXISTS `hms_hotel_room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_hotel_room` (
-  `hotel_id` int(64) NOT NULL,
-  `room_id` int(64) NOT NULL,
+  `hotel_id` varchar(60) NOT NULL,
+  `room_id` varchar(60) NOT NULL,
   `room_facilities` varchar(1000) NOT NULL,
   `room_occupancy` int(64) NOT NULL COMMENT 'The maximum capacity of the room to be occupied, max value can be defined for this room depending on the admin input',
   `room_status` int(11) NOT NULL COMMENT 'This column indicates whether the room is - 0 - room_not_available, 1 - available, 2 - booked, 3 - blocked_for_renovation',
-  `room_category_id` int(11) NOT NULL COMMENT 'Room category defines the category of the room',
+  `room_category_id` varchar(60) NOT NULL COMMENT 'Room category defines the category of the room',
   PRIMARY KEY (`room_id`,`hotel_id`),
   UNIQUE KEY `hotel_id_UNIQUE` (`hotel_id`),
   UNIQUE KEY `room_id_UNIQUE` (`room_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This table stores the information regarding the hotel and room mapping and the details associated with individual hotel rooms like - facilities, room category, occupancy, ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='This table stores the information regarding the hotel and room mapping and the details associated with individual hotel rooms like - facilities, room category, occupancy, ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,35 +380,6 @@ LOCK TABLES `hms_hotel_room` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `hms_hotel_staff`
---
-
-DROP TABLE IF EXISTS `hms_hotel_staff`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `hms_hotel_staff` (
-  `hotel_id` varchar(32) NOT NULL,
-  `employee_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `role_privilege_list` varchar(1000) NOT NULL COMMENT 'The Role Privilege List refers to the list of privileges that are associated to a given user. This list is from the hms_role_privileges table.',
-  `date_created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT 'This column indicates when the hotel to user mapping row was created',
-  PRIMARY KEY (`hotel_id`),
-  UNIQUE KEY `hotel_id_UNIQUE` (`hotel_id`),
-  UNIQUE KEY `user_id_UNIQUE` (`employee_id`),
-  UNIQUE KEY `role_id_UNIQUE` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `hms_hotel_staff`
---
-
-LOCK TABLES `hms_hotel_staff` WRITE;
-/*!40000 ALTER TABLE `hms_hotel_staff` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hms_hotel_staff` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hms_identification_params`
 --
 
@@ -408,8 +387,8 @@ DROP TABLE IF EXISTS `hms_identification_params`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_identification_params` (
-  `IDENTIFICATION_PARAM_ID` varchar(64) NOT NULL,
-  `IDENTIFICATION_PARAM_TYPE` varchar(64) NOT NULL,
+  `IDENTIFICATION_PARAM_ID` varchar(60) NOT NULL,
+  `IDENTIFICATION_PARAM_TYPE` varchar(60) NOT NULL,
   `IDENTIFICATION_PARAM_FILE` varchar(100) NOT NULL,
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -418,7 +397,7 @@ CREATE TABLE `hms_identification_params` (
   PRIMARY KEY (`IDENTIFICATION_PARAM_ID`),
   UNIQUE KEY `IDENTIFICATION_PARAM_ID_UNIQUE` (`IDENTIFICATION_PARAM_ID`),
   KEY `id_param_idx` (`IDENTIFICATION_PARAM_ID`) USING HASH KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='This table holds the information of all the customer data.';
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='This table holds the information of all the customer data.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -438,7 +417,7 @@ DROP TABLE IF EXISTS `hms_inventory_event_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hms_inventory_event_log` (
-  `hotel_id` int(11) NOT NULL,
+  `hotel_id` varchar(60) NOT NULL,
   `inventory_event_id` int(11) NOT NULL,
   `inventory_event_log` varchar(1000) NOT NULL,
   `date_created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -517,6 +496,41 @@ CREATE TABLE `hms_inventory_items` (
 LOCK TABLES `hms_inventory_items` WRITE;
 /*!40000 ALTER TABLE `hms_inventory_items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hms_inventory_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hms_room_category`
+--
+
+DROP TABLE IF EXISTS `hms_room_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hms_room_category` (
+  `category_id` varchar(60) NOT NULL,
+  `category_name` varchar(120) DEFAULT NULL,
+  `category_description` varchar(400) DEFAULT NULL,
+  `bed_count` int(11) DEFAULT NULL,
+  `category_price` double NOT NULL DEFAULT '0',
+  `room_count` int(11) DEFAULT NULL,
+  `room_capacity` int(11) DEFAULT NULL,
+  `adult_occupancy` int(11) DEFAULT NULL,
+  `child_occupancy` int(11) DEFAULT NULL,
+  `category_facilities` varchar(1000) DEFAULT NULL,
+  `category_amenities` varchar(1000) DEFAULT NULL,
+  `category_services` varchar(1000) DEFAULT NULL,
+  `category_vouchers` varchar(1000) DEFAULT NULL,
+  `is_category_active` int(11) DEFAULT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hms_room_category`
+--
+
+LOCK TABLES `hms_room_category` WRITE;
+/*!40000 ALTER TABLE `hms_room_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hms_room_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -713,7 +727,7 @@ CREATE TABLE `hms_user_role` (
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `role_id_UNIQUE` (`role_id`),
   UNIQUE KEY `role_name_UNIQUE` (`role_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='The hms_user_role maps the user created in hms_user to a specific role assigned. This role is subject to some predefined authorization and authentication privileges and the roles can be altered only by super or master admin';
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='The hms_user_role maps the user created in hms_user to a specific role assigned. This role is subject to some predefined authorization and authentication privileges and the roles can be altered only by super or master admin';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -749,6 +763,34 @@ CREATE TABLE `hms_version_info` (
 LOCK TABLES `hms_version_info` WRITE;
 /*!40000 ALTER TABLE `hms_version_info` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hms_version_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hms_voucher`
+--
+
+DROP TABLE IF EXISTS `hms_voucher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hms_voucher` (
+  `voucher_id` varchar(60) NOT NULL,
+  `voucher_name` varchar(60) DEFAULT NULL,
+  `voucher_description` varchar(200) DEFAULT NULL,
+  `voucher_expiry_date` datetime(6) DEFAULT NULL,
+  `voucer_start_date` datetime(6) DEFAULT NULL,
+  `voucher_discount` double DEFAULT NULL,
+  `vouhcer_status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`voucher_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hms_voucher`
+--
+
+LOCK TABLES `hms_voucher` WRITE;
+/*!40000 ALTER TABLE `hms_voucher` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hms_voucher` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -856,4 +898,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-28 21:23:14
+-- Dump completed on 2018-07-03 22:14:19

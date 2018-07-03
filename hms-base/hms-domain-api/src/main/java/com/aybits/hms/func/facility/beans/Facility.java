@@ -1,48 +1,47 @@
-package com.aybits.hms.func.facilities.beans;
+package com.aybits.hms.func.facility.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.voucher.beans.Voucher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import java.util.List;
-
 @JsonRootName("facility")
 public class Facility {
 
         @JsonProperty("facility_id")
         private String  facilityId;
-        @JsonProperty("facility_message_key")
-        private String  facilityMessageKey;
+        @JsonProperty("facility_name")
+        private String facilityName;
         @JsonProperty("facility_description")
         private String  facilityDescription;
         @JsonProperty("facility_availability")
-        private Boolean facilityAvailability;
+        private Boolean isFacilityAvailable;
         @JsonProperty("is_chargeable")
         private Boolean isChargeable;
         @JsonProperty("facility_type")
-        private String facilityType;
+        private FacilityType facilityType;
         @JsonProperty("facility_price")
         private Double facilityPrice;
         @JsonProperty("applicable_voucher")
-        private List<Voucher> voucherList;
+        private Voucher voucher;
 
         public Facility() {
         }
 
-        public Facility(String facilityId, String facilityMessageKey, String facilityDescription,
-                        Boolean facilityAvailability,
+        public Facility(String facilityId, String facilityName, String facilityDescription,
+                        FacilityType facilityType,
+                        Boolean isFacilityAvailable,
                         Boolean isChargeable,
                         Double facilityPrice,
-                        List<Voucher> voucherList) {
+                        Voucher voucher) {
                 this.facilityId = facilityId;
-                this.facilityMessageKey = facilityMessageKey;
+                this.facilityName = facilityName;
                 this.facilityDescription = facilityDescription;
-                this.facilityAvailability = facilityAvailability;
+                this.isFacilityAvailable = isFacilityAvailable;
                 this.isChargeable = isChargeable;
                 this.facilityType = facilityType;
                 this.facilityPrice = facilityPrice;
-                this.voucherList = voucherList;
+                this.voucher = voucher;
         }
 
         public String getFacilityId() {
@@ -53,12 +52,12 @@ public class Facility {
                 this.facilityId = facilityId;
         }
 
-        public String getFacilityMessageKey() {
-                return facilityMessageKey;
+        public String getFacilityName() {
+                return facilityName;
         }
 
-        public void setFacilityMessageKey(String facilityMessageKey) {
-                this.facilityMessageKey = facilityMessageKey;
+        public void setFacilityName(String facilityName) {
+                this.facilityName = facilityName;
         }
 
         public String getFacilityDescription() {
@@ -69,19 +68,19 @@ public class Facility {
                 this.facilityDescription = facilityDescription;
         }
 
-        public Boolean getFacilityAvailability() {
-                return facilityAvailability;
+        public Boolean getIsFacilityAvailable() {
+                return isFacilityAvailable;
         }
 
-        public void setFacilityAvailability(Boolean facilityAvailability) {
-                this.facilityAvailability = facilityAvailability;
+        public void setIsFacilityAvailable(Boolean isFacilityAvailable) {
+                this.isFacilityAvailable = isFacilityAvailable;
         }
 
-        public String getFacilityType() {
+        public FacilityType getFacilityType() {
                 return facilityType;
         }
 
-        public void setFacilityType(String facilityType) {
+        public void setFacilityType(FacilityType facilityType) {
                 this.facilityType = facilityType;
         }
 
@@ -93,12 +92,12 @@ public class Facility {
                 this.facilityPrice = facilityPrice;
         }
 
-        public List<Voucher> getVoucherList() {
-                return voucherList;
+        public Voucher getVoucher() {
+                return voucher;
         }
 
-        public void setVoucherList(List<Voucher> voucherList) {
-                this.voucherList = voucherList;
+        public void setVoucher(Voucher voucher) {
+                this.voucher = voucher;
         }
 
         public Boolean getChargeable() {

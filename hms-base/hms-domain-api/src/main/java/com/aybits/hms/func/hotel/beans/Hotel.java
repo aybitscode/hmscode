@@ -1,7 +1,7 @@
 package com.aybits.hms.func.hotel.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.facilities.beans.Facility;
+import com.aybits.hms.func.facility.beans.Facility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 

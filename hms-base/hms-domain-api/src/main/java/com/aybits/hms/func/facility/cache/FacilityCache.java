@@ -1,6 +1,6 @@
-package com.aybits.hms.func.facilities.cache;
+package com.aybits.hms.func.facility.cache;
 
-import com.aybits.hms.func.facilities.beans.Facility;
+import com.aybits.hms.func.facility.beans.Facility;
 
 import java.util.*;
 

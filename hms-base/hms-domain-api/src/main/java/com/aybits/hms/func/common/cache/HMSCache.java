@@ -2,7 +2,7 @@ package com.aybits.hms.func.common.cache;
 
 import com.aybits.hms.func.customer.cache.CustomerCache;
 import com.aybits.hms.func.employee.cache.EmployeeCache;
-import com.aybits.hms.func.facilities.cache.FacilityCache;
+import com.aybits.hms.func.facility.cache.FacilityCache;
 import com.aybits.hms.func.hotel.cache.HotelCache;
 import com.aybits.hms.func.identificationparam.cache.IdentificationParamCache;
 import com.aybits.hms.func.room.cache.RoomCache;

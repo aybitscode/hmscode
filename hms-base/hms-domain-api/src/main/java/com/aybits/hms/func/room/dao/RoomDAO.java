@@ -7,24 +7,22 @@ import com.aybits.hms.func.room.beans.Room;
 import com.aybits.hms.func.room.beans.RoomCategory;
 import com.aybits.hms.func.room.beans.RoomStatus;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class RoomDAO {
 
     Connection connection  = DBConnection.getDBConnection();
 
-    public List<Room> fetchRoomsByHotelId(String hotelId) throws HMSException {
+    public List<Room> getRoomsByHotelId(String hotelId) throws HMSException {
         return null;
     }
 
-    public Room fetchRoomByRoomId(String roomId) throws HMSException{
+    public Room getRoomByRoomId(String roomId) throws HMSException{
         return null;
     }
 
-    public Boolean insertRoom(Room room) throws HMSException{
+    public Boolean addRoom(Room room) throws HMSException{
 
         PreparedStatement pst;
         Boolean additionStatus = false;
@@ -35,7 +33,7 @@ public class RoomDAO {
 
             pst = connection.prepareStatement(RoomDBQueries.ADD_ROOM);
             pst.setString(++i, generateRoomId());
-            pst.setString(++i, customer.getFirstName());
+            pst.setString(++i, room.getFirstName());
             pst.setString(++i, customer.getLastName());
 
             pst.setString(++i, customer.getContactDetails().getPrimaryEmail());
@@ -80,8 +78,6 @@ public class RoomDAO {
     }
 
 
-    private String generateRoomId(){
-        return null;
-    }
+
 
 }
