@@ -4,11 +4,15 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
 import com.aybits.hms.func.hotel.beans.Hotel;
+import com.aybits.hms.func.hotel.cache.HotelCache;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
+
+import java.util.List;
 
 public class HotelAPI implements HMSAPIProvider {
 
-    private HotelDAO hotelDAO = new HotelDAO();
+    HotelCache hotelCache = new HotelCache();
+    HotelDAO hotelDAO = new HotelDAO();
 
     @Override
     public Object init(Object object) {
@@ -19,8 +23,17 @@ public class HotelAPI implements HMSAPIProvider {
         return null;
     }
 
+    public List<Hotel> fetchAllHotels()  {
+       return hotelCache.fetchAllHotels();
+
+    }
+
+    public Hotel fetchHotelByHotelId(String hotelId){
+        return hotelCache.fetchHotelById(hotelId);
+    }
 
     public Hotel fetchHotelDetails(String employeeId) {
+
         Hotel hotel = null;
         try{
             hotel = hotelDAO.fetchHotelByEmployeeId(employeeId);
@@ -31,12 +44,12 @@ public class HotelAPI implements HMSAPIProvider {
         }
     }
 
-    public Hotel fetchHotelDetails(Integer hotelId){
+    public Hotel fetchHotelByEmployeeId(String employeeId){
         Hotel hotel = null;
         try{
-            hotel = hotelDAO.fetchHotelByHotelId(hotelId);
+            hotel = hotelDAO.fetchHotelByHotelId(employeeId);
         }catch(Exception e){
-            throw new HMSException(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Invalid Hotel ID");
+            throw new HMSException(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Hotel Details not available for given emploeeId");
         }finally{
             return hotel;
         }

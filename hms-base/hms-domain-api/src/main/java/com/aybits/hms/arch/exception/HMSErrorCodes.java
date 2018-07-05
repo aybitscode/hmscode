@@ -11,6 +11,7 @@ public class HMSErrorCodes {
 	public static final String INVALID_CUSTOMER_PHONE = "INVALID_CUSTOMER_PHONE";
 	public static final String INVALID_LOGIN_ATTRIBUTES = "INVALID_LOGIN_ATTRIBUTES";
     public static final String INVALID_HOTEL_ATTRIBUTES = "INVALID_HOTEL_ATTRIBUTES";
+    public static final String HOTEL_DETAILS_UNAVAILABLE = "HOTEL_DETAILS_UNAVAILABLE";
 	public static final String INVALID_ROOM_ATTRIBUTES = "INVALID_ROOM_ATTRIBUTES";
 
     public static final String INVALID_EMPLOYEE_ID = "INVALID_EMPLOYEE_ID";

@@ -21,7 +21,7 @@ public class HmsRestHttpService {
     public void registerHttpAPIs() {
         registerPostApi("/login", new LoginRequestHandler());
 
-        registerPostApi("/booking", new BookingRequestHandler());
+        registerPostApi("/quickbooking", new BookingRequestHandler());
 
         registerPostApi("/employee", new EmployeeRequestHandler());
     }

@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelDAO {
@@ -25,10 +26,11 @@ public class HotelDAO {
 
     private static Connection connection = DBConnection.getDBConnection();
 
-    private static final String GET_HOTEL_BY_HOTELID = "select * from hms_hotel where hotel_id = ?";
-    private static final String GET_HOTEL_BY_EMPLOYEE_LOGIN = "select * from hms_hotel where hotel_id = (select hotel_id from " +
+    private static final String FETCH_HOTEL_BY_HOTELID = "select * from hms_hotel where hotel_id = ?";
+    private static final String FETCH_ALL_HOTELS = "select * from hms_hotel";
+    private static final String FETCH_HOTEL_BY_EMPLOYEE_LOGIN = "select * from hms_hotel where hotel_id = (select hotel_id from " +
             "hms_employee where login_id = ?)";
-    private static final String GET_HOTEL_BY_EMPLOYEE_ID = "select * from hms_hotel where hotel_id = (select hotel_id from " +
+    private static final String FETCH_HOTEL_BY_EMPLOYEE_ID = "select * from hms_hotel where hotel_id = (select hotel_id from " +
             "hms_employee where employee_id = ?)";
 
     private static final String INSERT_NEW_HOTEL =  "insert into hms_hotel(" +
@@ -46,7 +48,7 @@ public class HotelDAO {
 
 
 
-    public Boolean insertHotelDetails(Hotel hotel) throws HMSException{
+    public Boolean addHotel(Hotel hotel) throws HMSException{
 
         Boolean isHotelAdditionSuccessful = false;
 
@@ -106,7 +108,7 @@ public class HotelDAO {
 
             if (connection != null) {
                 connection.setAutoCommit(false);
-                stmt = connection.prepareStatement(GET_HOTEL_BY_EMPLOYEE_ID);
+                stmt = connection.prepareStatement(FETCH_HOTEL_BY_EMPLOYEE_ID);
                 stmt.setString(1, employeeId);
                 stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
                 rs = stmt.executeQuery();
@@ -150,7 +152,7 @@ public class HotelDAO {
 
             if (connection != null) {
                 connection.setAutoCommit(false);
-                stmt = connection.prepareStatement(GET_HOTEL_BY_EMPLOYEE_LOGIN);
+                stmt = connection.prepareStatement(FETCH_HOTEL_BY_EMPLOYEE_LOGIN);
                 stmt.setString(1, employeeLogin);
                 stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
                 rs = stmt.executeQuery();
@@ -180,7 +182,49 @@ public class HotelDAO {
         }
     }
 
-    public Hotel fetchHotelByHotelId(Integer hotelId) throws HMSException {
+    public List<Hotel> fetchAllHotels() throws HMSException{
+
+        List<Hotel> hotels = new ArrayList<Hotel>();
+        if (connection == null) {
+            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
+        }
+
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        try
+        {
+            if (connection != null) {
+                connection.setAutoCommit(false);
+                stmt = connection.prepareStatement(FETCH_ALL_HOTELS);
+                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                rs = stmt.executeQuery();
+                while(rs.next()){
+                    Hotel hotel = populateHotel(rs);
+                    hotels.add(hotel);
+                }
+            }
+
+        }catch(SQLException sqle){
+            // TODO Auto-generated catch block
+            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+        }finally{
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            }
+            return hotels;
+        }
+
+
+
+    }
+    public Hotel fetchHotelByHotelId(String hotelId) throws HMSException {
         if (connection == null) {
             throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
         }
@@ -193,8 +237,8 @@ public class HotelDAO {
 
             if (connection != null) {
                 connection.setAutoCommit(false);
-                stmt = connection.prepareStatement(GET_HOTEL_BY_HOTELID);
-                stmt.setInt(1, hotelId);
+                stmt = connection.prepareStatement(FETCH_HOTEL_BY_HOTELID);
+                stmt.setString(1, hotelId);
                 stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
                 rs = stmt.executeQuery();
 

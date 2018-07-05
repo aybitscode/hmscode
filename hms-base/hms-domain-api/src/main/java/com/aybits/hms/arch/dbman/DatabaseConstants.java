@@ -134,34 +134,34 @@ public class DatabaseConstants {
 	public static String CUSTOMER_NAME_ADDRS = "select firstName, lastName, addrs from customers where mobile = ?";
 	//Table Billing
 	public static String BILLING_DETAILS = "select booking_cgst, booking_sgst, service_cgst, service_sgst, extraBedCharges from billing where invoiceID = ?";
-	//Table booking
-	public static String INSERT_BOOKING = "insert into booking(bookingID, bookingDate, bookedDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights, status) "+ "values(?,?,?,?,?,?,?,?,?,?,?)";
-	public static String ALL_BOOKING_ID = "select * from booking where bookingID = ?";
-	public static String BOOKING_CANCEL = "select bookingID, bookedDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights, status from booking where bookingID = ?";
-	public static String ALL_BOOKING_CHECKIN_ADVANCE = "select b1.bookingID, bookedDate, checkInDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights, grossAmount, couponName, status, paymentMode, invoiceID,  totalAdults, totalChilds, advanceAmt from booking b1 inner join checkin c1 on b1.bookingID = c1.bookingID where b1.bookingID = ?";
-	public static String ALL_BOOKING_PAYMENTMODE = "select * from booking where paymentMode = ?";
-	//public static String ALL_BOOKING_PAYMENTMODE_IT = "select * from booking where paymentMode = ? and invoiceID like 'IT%'";
-	public static String CREATE_TABLE = "SELECT create_time FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'hotel' AND table_name = 'booking'";
-	//public static String ALL_BOOKING_PAYMENTMODE_IN = "select * from booking where paymentMode = ? and invoiceID like 'IN%'";
-	public static String SELECT_ALL_BOOKING = "select * from booking";
-	public static String CHECKOUT_BOOKING_ID = "select bookingID from booking where status = ?";
-	public static String BOOKING_ID = "select bookingID from booking";
-	public static String BOOKING_ID_CANCEL = "select bookingID from booking where status = 'CANCELED'";
-	public static String BOOKING_ID_USER = "select bookingID from booking where invoiceID is null or invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%'";
-	public static String SELECT_CANCELLED_BOOKING = "select bookingID from booking where status = ?";
-	public static String ALL_BOOKING_STATUS = "select * from booking where status = ?";
-	public static String BOOKING_ID_BOOKED = "select bookingID from booking where status = ?";
-	public static String TABLE_BOOKING_COLS = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile order by bookingID desc";
-	public static String TABLE_BOOKING_COLS_USER = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile where invoiceID is null or invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by bookingID desc";
-	public static String TABLE_BOOKING_ID = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile where bookingID = ?";
-	public static String TABLE_BOOKING_ID_CANCEL = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, status from booking b1 inner join customers c1 on b1.mobile = c1.mobile where bookingID = ?";
-	public static String TABLE_BOOKING_MODE = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile where paymentMode = ? order by bookingID desc";
-	public static String TABLE_BOOKING_STATUS = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile where status = ? order by bookingID desc";
-	public static String TABLE_BOOKING_CANCEL = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, status from booking b1 inner join customers c1 on b1.mobile = c1.mobile where status = ? order by bookingID desc";
-	public static String TABLE_BOOKING_STATUS_USER = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile where status = ? and invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by bookingID desc";
-	public static String TABLE_BOOKING_MODE_CASH_TAX = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile where paymentMode = ? and invoiceID like '"+ HMSConstants.PREFIX_CASH+"%' order by bookingID desc";
-	public static String TABLE_BOOKING_MODE_TAX_LESS = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from booking b1 inner join customers c1 on b1.mobile = c1.mobile where paymentMode = ? and invoiceID like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by bookingID desc";
-	public static String UPDATE_TABLE_BOOKING = "update booking set " +
+	//Table quickbooking
+	public static String INSERT_BOOKING = "insert into quickbooking(bookingID, bookingDate, bookedDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights, status) "+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+	public static String ALL_BOOKING_ID = "select * from quickbooking where bookingID = ?";
+	public static String BOOKING_CANCEL = "select bookingID, bookedDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights, status from quickbooking where bookingID = ?";
+	public static String ALL_BOOKING_CHECKIN_ADVANCE = "select b1.bookingID, bookedDate, checkInDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights, grossAmount, couponName, status, paymentMode, invoiceID,  totalAdults, totalChilds, advanceAmt from quickbooking b1 inner join checkin c1 on b1.bookingID = c1.bookingID where b1.bookingID = ?";
+	public static String ALL_BOOKING_PAYMENTMODE = "select * from quickbooking where paymentMode = ?";
+	//public static String ALL_BOOKING_PAYMENTMODE_IT = "select * from quickbooking where paymentMode = ? and invoiceID like 'IT%'";
+	public static String CREATE_TABLE = "SELECT create_time FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'hotel' AND table_name = 'quickbooking'";
+	//public static String ALL_BOOKING_PAYMENTMODE_IN = "select * from quickbooking where paymentMode = ? and invoiceID like 'IN%'";
+	public static String SELECT_ALL_BOOKING = "select * from quickbooking";
+	public static String CHECKOUT_BOOKING_ID = "select bookingID from quickbooking where status = ?";
+	public static String BOOKING_ID = "select bookingID from quickbooking";
+	public static String BOOKING_ID_CANCEL = "select bookingID from quickbooking where status = 'CANCELED'";
+	public static String BOOKING_ID_USER = "select bookingID from quickbooking where invoiceID is null or invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%'";
+	public static String SELECT_CANCELLED_BOOKING = "select bookingID from quickbooking where status = ?";
+	public static String ALL_BOOKING_STATUS = "select * from quickbooking where status = ?";
+	public static String BOOKING_ID_BOOKED = "select bookingID from quickbooking where status = ?";
+	public static String TABLE_BOOKING_COLS = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile order by bookingID desc";
+	public static String TABLE_BOOKING_COLS_USER = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where invoiceID is null or invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by bookingID desc";
+	public static String TABLE_BOOKING_ID = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where bookingID = ?";
+	public static String TABLE_BOOKING_ID_CANCEL = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, status from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where bookingID = ?";
+	public static String TABLE_BOOKING_MODE = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where paymentMode = ? order by bookingID desc";
+	public static String TABLE_BOOKING_STATUS = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where status = ? order by bookingID desc";
+	public static String TABLE_BOOKING_CANCEL = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, status from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where status = ? order by bookingID desc";
+	public static String TABLE_BOOKING_STATUS_USER = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where status = ? and invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by bookingID desc";
+	public static String TABLE_BOOKING_MODE_CASH_TAX = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where paymentMode = ? and invoiceID like '"+ HMSConstants.PREFIX_CASH+"%' order by bookingID desc";
+	public static String TABLE_BOOKING_MODE_TAX_LESS = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, bookingTotalNights, grossAmount, status, paymentMode from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where paymentMode = ? and invoiceID like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by bookingID desc";
+	public static String UPDATE_TABLE_BOOKING = "update quickbooking set " +
 			"bookingID = ?, " +
 			"mobile = ?, "+
 			"bookingDate = ?, " +
@@ -176,7 +176,7 @@ public class DatabaseConstants {
 			"finalAmount = ?,"+
 			"status = ? "+			
 			"where bookingID = ?";
-	public static String UPDATE_BOOKING = "update booking set " +
+	public static String UPDATE_BOOKING = "update quickbooking set " +
 			"bookingID = ?, " +
 			"bookingDate = ?, " +
 			"bookedDate = ?, " +
@@ -192,39 +192,39 @@ public class DatabaseConstants {
 			"paymentMode = ?,"+
 			"invoiceID = ?"+
 			"where bookingID = ?";
-	public static String SELECT_CHECKIN_BOOKING_ID = "select bookingID from booking where status = '"+ HMSConstants.CHECKIN+"'";
-	public static String UPDATE_BOOKING_STATUS = "update booking set status = ? where bookingID = ? and roomDoorNumber = ?";
-	public static String ROONO_BOOKING = "select roomDoorNumber from booking where bookingID = ?";
-	//public static String ROOMNO_BOOKED_CHECKEDIN = "select roomDoorNumber, status from booking where bookedDate = ? and status = ?";
-	public static String ROOMNO_BOOKED_CHECKEDIN = "select roomDoorNumber, bookedDate, checkoutDate, status from booking where status = ?";
-	public static String BOOKING_CHECKOUT = "select t1.bookingID, bookedDate, t2.checkinDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights,advanceAmt from booking t1 inner join checkin t2 on t1.bookingID = t2.bookingID where t1.bookingID = ?";
-	public static String CANCEL_BOOKING = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, roomCategoryID, roomDoorNumber, bookingTotalNights, bookingRoomCost, facilitiesCost from booking b1 inner join customers c1 on b1.mobile = c1.mobile where bookingID = ? and roomDoorNumber = ?";
-	public static String CURRENT_BOOKED_DATE = "select bookingID, bookedDate, roomCategoryID, roomDoorNumber, mobile from booking where bookedDate between DATE_ADD(current_date() , INTERVAL '00:00:01' HOUR_SECOND) and DATE_ADD(current_date() , INTERVAL '23:59:59' HOUR_SECOND) and status ='"+ HMSConstants.BOOKED+"'";
-	public static String CURRENT_CHECKOUT_DATE = "select bookingID, checkoutDate, roomCategoryID, roomDoorNumber, mobile from booking where checkoutDate between DATE_ADD(current_date() , INTERVAL '00:00:01' HOUR_SECOND) and DATE_ADD(current_date() , INTERVAL '23:59:59' HOUR_SECOND) and status = '"+ HMSConstants.CHECKIN+"'";
-	public static String CURRENT_CANCEL = "select bookingID, checkoutDate, roomCategoryID, roomDoorNumber, mobile from booking where checkoutDate <= current_timestamp() and status = '"+ HMSConstants.BOOKED+"'";
+	public static String SELECT_CHECKIN_BOOKING_ID = "select bookingID from quickbooking where status = '"+ HMSConstants.CHECKIN+"'";
+	public static String UPDATE_BOOKING_STATUS = "update quickbooking set status = ? where bookingID = ? and roomDoorNumber = ?";
+	public static String ROONO_BOOKING = "select roomDoorNumber from quickbooking where bookingID = ?";
+	//public static String ROOMNO_BOOKED_CHECKEDIN = "select roomDoorNumber, status from quickbooking where bookedDate = ? and status = ?";
+	public static String ROOMNO_BOOKED_CHECKEDIN = "select roomDoorNumber, bookedDate, checkoutDate, status from quickbooking where status = ?";
+	public static String BOOKING_CHECKOUT = "select t1.bookingID, bookedDate, t2.checkinDate, checkoutDate, roomCategoryID, roomDoorNumber, mobile, bookingRoomCost, facilitiesCost, bookingTotalNights,advanceAmt from quickbooking t1 inner join checkin t2 on t1.bookingID = t2.bookingID where t1.bookingID = ?";
+	public static String CANCEL_BOOKING = "select bookingID, firstName, lastName, b1.mobile, bookingDate, bookedDate, checkoutDate, roomCategoryID, roomDoorNumber, bookingTotalNights, bookingRoomCost, facilitiesCost from quickbooking b1 inner join customers c1 on b1.mobile = c1.mobile where bookingID = ? and roomDoorNumber = ?";
+	public static String CURRENT_BOOKED_DATE = "select bookingID, bookedDate, roomCategoryID, roomDoorNumber, mobile from quickbooking where bookedDate between DATE_ADD(current_date() , INTERVAL '00:00:01' HOUR_SECOND) and DATE_ADD(current_date() , INTERVAL '23:59:59' HOUR_SECOND) and status ='"+ HMSConstants.BOOKED+"'";
+	public static String CURRENT_CHECKOUT_DATE = "select bookingID, checkoutDate, roomCategoryID, roomDoorNumber, mobile from quickbooking where checkoutDate between DATE_ADD(current_date() , INTERVAL '00:00:01' HOUR_SECOND) and DATE_ADD(current_date() , INTERVAL '23:59:59' HOUR_SECOND) and status = '"+ HMSConstants.CHECKIN+"'";
+	public static String CURRENT_CANCEL = "select bookingID, checkoutDate, roomCategoryID, roomDoorNumber, mobile from quickbooking where checkoutDate <= current_timestamp() and status = '"+ HMSConstants.BOOKED+"'";
 	//Multiple RoomBooking
-	//public static final String MULTIPLE_FREE_ROOMS = "SELECT roomDoorNumber, bookingID FROM hotel.booking where bookedDate between ? and ? and checkoutDate between ? and ? and  status =?";
-	//public static final String MULTIPLE_FREE_ROOMS = "select roomDoorNumber, bookingID from booking where status = '"+HMSConstants.BOOKED+"'"+" and bookingID not in ( select bookingID from booking where bookedDate < ? and checkoutDate < ? and status = '"+HMSConstants.BOOKED+"'"+" or bookedDate > ? and checkoutDate > ? and status = '"+HMSConstants.BOOKED+"')";
-	public static final String SELECTED_DATE_ROOMS_BOOKED = "select roomDoorNumber, bookingID from booking where status = '"+ HMSConstants.BOOKED+"'"+" and bookingID not in ( select bookingID from booking where bookedDate < ? and checkoutDate < ? and status = '"+ HMSConstants.BOOKED+"'"+" or bookedDate > ? and checkoutDate > ? and status = '"+ HMSConstants.BOOKED+"')";
-	public static final String SELECTED_DATE_ROOMS_CHECKEDIN = "select roomDoorNumber, bookingID from booking where status = '"+ HMSConstants.CHECKIN+"'"+" and bookingID not in ( select bookingID from booking where bookedDate < ? and checkoutDate < ? and status = '"+ HMSConstants.CHECKIN+"'"+" or bookedDate > ? and checkoutDate > ? and status = '"+ HMSConstants.CHECKIN+"')";
+	//public static final String MULTIPLE_FREE_ROOMS = "SELECT roomDoorNumber, bookingID FROM hotel.quickbooking where bookedDate between ? and ? and checkoutDate between ? and ? and  status =?";
+	//public static final String MULTIPLE_FREE_ROOMS = "select roomDoorNumber, bookingID from quickbooking where status = '"+HMSConstants.BOOKED+"'"+" and bookingID not in ( select bookingID from quickbooking where bookedDate < ? and checkoutDate < ? and status = '"+HMSConstants.BOOKED+"'"+" or bookedDate > ? and checkoutDate > ? and status = '"+HMSConstants.BOOKED+"')";
+	public static final String SELECTED_DATE_ROOMS_BOOKED = "select roomDoorNumber, bookingID from quickbooking where status = '"+ HMSConstants.BOOKED+"'"+" and bookingID not in ( select bookingID from quickbooking where bookedDate < ? and checkoutDate < ? and status = '"+ HMSConstants.BOOKED+"'"+" or bookedDate > ? and checkoutDate > ? and status = '"+ HMSConstants.BOOKED+"')";
+	public static final String SELECTED_DATE_ROOMS_CHECKEDIN = "select roomDoorNumber, bookingID from quickbooking where status = '"+ HMSConstants.CHECKIN+"'"+" and bookingID not in ( select bookingID from quickbooking where bookedDate < ? and checkoutDate < ? and status = '"+ HMSConstants.CHECKIN+"'"+" or bookedDate > ? and checkoutDate > ? and status = '"+ HMSConstants.CHECKIN+"')";
 	
 	//Checkin Table 
-	public static String ALL_CHECKIN_ID = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, checkInDate, totalAdults, totalChilds, advanceAmt from booking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkin c1 on b1.bookingID = c1.bookingID where b1.bookingId = ?";
-	public static String TABLE_CHECK_IN_COLS = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, checkInDate, totalAdults, totalChilds, advanceAmt from booking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkin c1 on b1.bookingID = c1.bookingID where status = '"+ HMSConstants.CHECKIN+"' order by checkInDate desc";
+	public static String ALL_CHECKIN_ID = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, checkInDate, totalAdults, totalChilds, advanceAmt from quickbooking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkin c1 on b1.bookingID = c1.bookingID where b1.bookingId = ?";
+	public static String TABLE_CHECK_IN_COLS = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, checkInDate, totalAdults, totalChilds, advanceAmt from quickbooking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkin c1 on b1.bookingID = c1.bookingID where status = '"+ HMSConstants.CHECKIN+"' order by checkInDate desc";
 	public static String UPDATE_CHECKIN = "update checkin set bookingID = ?, checkInDate = ?, totalAdults = ?, totalChilds = ? advanceAmt = ? where bookingID = ?";
 	public static String INSERT_CHECKIN = "insert into checkin(checkInID, checkInDate, bookingID, totalAdults, totalChilds, advanceAmt, employeeID) "+ "values(?,?,?,?,?,?,?)";
 	
 	public static String CHECKIN_ADULTS_CHILDS = "select totalAdults, totalChilds from checkin where bookingID = ?";
 	
 	//Checkout Table
-	public static String ALL_CHECKOUT_ID = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, c1.checkOutDate from booking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkout c1 on b1.bookingID = c1.bookingID where c1.bookingID = ?";
-	public static String TABLE_CHECKOUT_COLS = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, c1.checkOutDate from booking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkout c1 on b1.bookingID = c1.bookingID where status = '"+ HMSConstants.CHECKOUT+"' order by c1.checkOutDate desc";
-	//public static String TABLE_CHECK_IN_COLS = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, checkInDate, totalAdults, totalChilds, advanceAmt from booking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkin c1 on b1.bookingID = c1.bookingID where status = '"+HMSConstants.CHECKIN+"'";
+	public static String ALL_CHECKOUT_ID = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, c1.checkOutDate from quickbooking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkout c1 on b1.bookingID = c1.bookingID where c1.bookingID = ?";
+	public static String TABLE_CHECKOUT_COLS = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, c1.checkOutDate from quickbooking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkout c1 on b1.bookingID = c1.bookingID where status = '"+ HMSConstants.CHECKOUT+"' order by c1.checkOutDate desc";
+	//public static String TABLE_CHECK_IN_COLS = "select b1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, checkInDate, totalAdults, totalChilds, advanceAmt from quickbooking b1 inner join customers ct on b1.mobile = ct.mobile inner join checkin c1 on b1.bookingID = c1.bookingID where status = '"+HMSConstants.CHECKIN+"'";
 	public static String UPDATE_CHECKOUT = "update checkout set bookingID = ?, checkOutDate = ? where bookingID = ?";
 	public static String SELECT_ALL_CHECK_OUT = "select * from checkout";	
-	public static String TABLE_CHECKOUT_COLS_USER = "select c1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, c1.checkOutDate from checkout c1 inner join booking b1 on c1.bookingID = b1.bookingID inner join customers ct on b1.mobile = ct.mobile where b1.invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by checkOutDate desc";
+	public static String TABLE_CHECKOUT_COLS_USER = "select c1.bookingID, roomDoorNumber, firstName, lastName, b1.mobile, c1.checkOutDate from checkout c1 inner join quickbooking b1 on c1.bookingID = b1.bookingID inner join customers ct on b1.mobile = ct.mobile where b1.invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%' order by checkOutDate desc";
 	public static String SELECT_CHECKOUT_BOOKING_ID = "select bookingID from checkout";
-	public static String SELECT_CHECKOUT_BOOKING_ID_USER = "select c1.bookingID from checkout c1 inner join booking b1 on c1.bookingID = b1.bookingID where b1.invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%'";
+	public static String SELECT_CHECKOUT_BOOKING_ID_USER = "select c1.bookingID from checkout c1 inner join quickbooking b1 on c1.bookingID = b1.bookingID where b1.invoiceID not like '"+ HMSConstants.PREFIX_TAX_LESS+"%'";
 	
 
 				
@@ -234,9 +234,9 @@ public class DatabaseConstants {
 	public static String COUNT_COUPONS = "select count(*) from coupons";
 	public static String COUNT_CHECK_IN = "select count(*) from checkin";
 	public static String COUNT_CHECK_OUT = "select count(*) from checkout";
-	public static String COUNT_INVOICE_CASH = "select count(*) from booking where invoiceID like 'INC%'";
-	public static String COUNT_INVOICE_CARD = "select count(*) from booking where invoiceID like 'INO%'";
-	public static String COUNT_INVOICE_TAXL = "select count(*) from booking where invoiceID like 'IWT%'";
+	public static String COUNT_INVOICE_CASH = "select count(*) from quickbooking where invoiceID like 'INC%'";
+	public static String COUNT_INVOICE_CARD = "select count(*) from quickbooking where invoiceID like 'INO%'";
+	public static String COUNT_INVOICE_TAXL = "select count(*) from quickbooking where invoiceID like 'IWT%'";
 	public static String COUNT_HOTEL = "select count(*) from hotel";
 	public static String COUNT_GST = "select count(*) from tax_rules";
 	public static String COUNT_ROOM_CAPACITY = "select count(*) from roomcapacity";
@@ -244,7 +244,7 @@ public class DatabaseConstants {
 	public static String COUNT_ROOM_FACILITIES = "select count(*) from roomfacilities";
 	public static String COUNT_ROOM_PRICE = "select count(*) from roomprice";
 	public static String COUNT_SEASONS = "select count(*) from seasons";
-	public static String COUNT_BOOKING = "select count(*) from booking";
+	public static String COUNT_BOOKING = "select count(*) from quickbooking";
 	public static String COUNT_EMPLOYEES = "select count(*) from employees";
 	
 	

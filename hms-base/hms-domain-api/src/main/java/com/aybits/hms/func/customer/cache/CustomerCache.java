@@ -15,7 +15,7 @@ public class CustomerCache {
 	}
 
 	public void addCustomer(Customer customer) {
-		if (customerCache.get(String.valueOf(customer.getCustomerId())) == null) {
+		if (customerCache.get(customer.getCustomerId()) == null) {
 			customerIds.add(customer.getCustomerId());
 			customerCache.put(customer.getCustomerId(), customer);
 			addToCustomerMobileCache(customer);
