@@ -21,9 +21,15 @@ public class HmsRestHttpService {
     public void registerHttpAPIs() {
         registerPostApi("/login", new LoginRequestHandler());
 
+<<<<<<< Updated upstream
         registerPostApi("/quickbooking", new BookingRequestHandler());
 
         registerPostApi("/employee", new EmployeeRequestHandler());
+=======
+        registerPostApi("/booking", new BookingRequestHandler());
+
+        registerPostApi("/Employee", new EmployeeRequestHandler());
+>>>>>>> Stashed changes
     }
 
     private static void registerPostApi(String apiPath, HmsRequestHandler requestHandler) {
