@@ -4,7 +4,6 @@ import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
-import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.hotel.api.HotelAPI;
@@ -66,8 +65,8 @@ public class HotelRequestHandler implements HmsRequestHandler {
     private String fetchAllHotels(Request request) {
         Log.info("in fetchAllHotels");
         try {
-            EmployeeAPI employeeAPI = new EmployeeAPI();
-            List<Employee> result = employeeAPI.getAllEmployees();
+            HotelAPI hotelAPI = new HotelAPI();
+            List<Hotel> result = hotelAPI.fetchAllHotels();
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchAllHotels", false));
