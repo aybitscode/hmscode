@@ -10,7 +10,7 @@ public class EmployeeCache {
     private static ConcurrentHashMap<String, Employee> employeeMobileCache = new ConcurrentHashMap<>();
     private HashSet<String> employeeIds = new HashSet<>();
 
-    public static Boolean initCache(){
+    public Boolean initCache(){
         return false;
     }
 

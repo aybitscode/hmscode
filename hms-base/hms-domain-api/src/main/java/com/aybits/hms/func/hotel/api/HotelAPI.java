@@ -9,27 +9,33 @@ import com.aybits.hms.func.hotel.dao.HotelDAO;
 
 import java.util.List;
 
-public class HotelAPI implements HMSAPIProvider {
+public class HotelAPI{
 
     HotelCache hotelCache = new HotelCache();
     HotelDAO hotelDAO = new HotelDAO();
 
-    @Override
-    public Object init(Object object) {
-        return null;
-    }
-    @Override
-    public Object process(Object object) {
-        return null;
-    }
 
     public List<Hotel> fetchAllHotels()  {
-       return hotelCache.fetchAllHotels();
+        List<Hotel> hotels = null;
+        try {
+            hotels = hotelCache.fetchAllHotels();
+        }catch(HMSException he){
+
+        }finally{
+            return hotels;
+        }
 
     }
 
     public Hotel fetchHotelByHotelId(String hotelId){
-        return hotelCache.fetchHotelById(hotelId);
+        Hotel hotel = null;
+        try{
+            hotel = hotelCache.fetchHotelById(hotelId);
+        }catch(HMSException he){
+
+        }finally {
+            return hotel;
+        }
     }
 
     public Hotel fetchHotelDetails(String employeeId) {
@@ -55,13 +61,6 @@ public class HotelAPI implements HMSAPIProvider {
         }
 
     }
-
-
-    @Override
-    public Boolean validate(Object object) throws HMSException {
-        return null;
-    }
-
 
 
 }

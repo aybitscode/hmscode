@@ -14,7 +14,7 @@ public class HotelCache {
     private static volatile HashSet<String> hotelIds = new HashSet<>();
     private static HotelDAO hotelDAO = new HotelDAO();
 
-    public Boolean initCache() throws HMSException{
+    public Boolean initCache(){
 
         Boolean isHotelCacheInitialized = false;
         if(hotelConcurrentHashMap == null){
@@ -29,7 +29,8 @@ public class HotelCache {
                         }
                     }
                 }catch(HMSException e){
-                    throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all hotel details failed");
+                    //LOG Cache Initialization failed
+                  //  throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all hotel details failed");
                 }finally{
                     if(hotelConcurrentHashMap != null && !hotelConcurrentHashMap.keySet().isEmpty()){
                         isHotelCacheInitialized = true;
