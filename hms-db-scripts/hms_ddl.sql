@@ -20,6 +20,7 @@ CREATE TABLE `hms_hotel` (
 
 
 CREATE TABLE `hms_billing_info` (
+   `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `invoice_id` varchar(60) NOT NULL,
   `booking_id` varchar(60) NOT NULL,
   `room_rent` decimal(5,0) NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE `hms_billing_info` (
 /* HMS_ADMIN_EVENT_LOG Table */
 CREATE TABLE `hms_admin_event_log` (
   `admin_id` varchar(60) NOT NULL,
-  `hotel_id` varchar(20) NOT NULL,
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `event_id` varchar(60) NOT NULL,
   `event_log` varchar(500) NOT NULL,
   `event_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
@@ -55,7 +56,7 @@ CREATE TABLE `hms_corporate` (
   `PAYMENT_PARAM` varchar(60) DEFAULT NULL,
   `company_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `hotel_id` int(64) NOT NULL,
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_UPDATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_DELETED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
@@ -63,6 +64,7 @@ CREATE TABLE `hms_corporate` (
 
 /* HMS_VOUCHER Table */
 CREATE TABLE `hms_voucher` (
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `voucher_id` varchar(60) NOT NULL,
   `voucher_name` varchar(60) DEFAULT NULL,
   `voucher_description` varchar(200) DEFAULT NULL,
@@ -82,6 +84,7 @@ CREATE TABLE `hms_system_params` (
 
 /* HMS_ROOM_CATEGORY Table */
 CREATE TABLE `hms_room_category` (
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `category_id` varchar(60) NOT NULL,
   `category_name` varchar(120) DEFAULT NULL,
   `category_description` varchar(400) DEFAULT NULL,
@@ -100,7 +103,7 @@ CREATE TABLE `hms_room_category` (
 
 /* HMS_INVENTORY_ITEMS Table */
 CREATE TABLE `hms_inventory_items` (
-  `hotel_id` int(11) NOT NULL,
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `item_name` varchar(100) NOT NULL,
   `item_count` int(11) NOT NULL,
   `date_created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -120,7 +123,7 @@ CREATE TABLE `hms_inventory_item_group` (
 
 /* HMS_INVENTORY_EVENT_LOG Table */
 CREATE TABLE `hms_inventory_event_log` (
-  `hotel_id` varchar(60) NOT NULL,
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `inventory_event_id` int(11) NOT NULL,
   `inventory_event_log` varchar(1000) NOT NULL,
   `date_created` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -130,6 +133,7 @@ CREATE TABLE `hms_inventory_event_log` (
 
 /* HMS_IDENTIFICATION_PARAMS Table */
 CREATE TABLE `hms_identification_params` (
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `IDENTIFICATION_PARAM_ID` varchar(60) NOT NULL,
   `IDENTIFICATION_PARAM_TYPE` varchar(60) NOT NULL,
   `IDENTIFICATION_PARAM_FILE` varchar(100) NOT NULL,
@@ -152,6 +156,7 @@ CREATE TABLE `hms_hotel_room` (
 
 /* HMS_FACILITY Table */
 CREATE TABLE `hms_facility` (
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `facility_id` varchar(60) NOT NULL COMMENT 'The unique identifier to identify the facility assigned',
   `facility_key` varchar(45) NOT NULL COMMENT 'The key to define the facility to show during reporting etc.',
   `facility_description` varchar(100) NOT NULL,
@@ -187,7 +192,7 @@ CREATE TABLE `hms_employee` (
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `employee_role` varchar(60) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
-  `hms_hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel_id created in the hms_hotel table.',
+  `hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel_id created in the hms_hotel table.',
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_UPDATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_DELETED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
@@ -202,7 +207,7 @@ CREATE TABLE `hms_customization` (
 /* HMS_HOTEL_REGISTRATION_DATA Table */
 CREATE TABLE `hms_hotel_registration_data` (
   `registration_data_id` int(11) NOT NULL,
-  `hotel_id` int(11) NOT NULL,
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `building_permit_no` varchar(200) DEFAULT NULL,
   `fire_safety_permit_no` varchar(200) DEFAULT NULL,
   `police_license_no` varchar(200) DEFAULT NULL,
@@ -227,7 +232,7 @@ CREATE TABLE `hms_customer` (
   `IDENTIFICATION_PARAM_ID` varchar(60) NOT NULL,
   `PAYMENT_PARAM` varchar(60) DEFAULT NULL,
   `DATE_CREATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `hms_hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel id created in the hms_hotel table',
+  `hotel_id` int(64) NOT NULL COMMENT 'This is the foreign key reference to the hotel id created in the hms_hotel table',
   `customer_status` int(11) NOT NULL DEFAULT '0' COMMENT 'This column states whether the user is active, inactive, blocked, deleted - the possible values are 0 - Inactive, 1 - Active, 2 - blocked, 3 - deleted. Default is 0.',
   `DATE_MODIFIED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `DATE_UPDATED` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -237,7 +242,7 @@ CREATE TABLE `hms_customer` (
 /* HMS_BOOKING_INFO */
 CREATE TABLE `hms_booking_info` (
   `customer_id` varchar(60) NOT NULL,
-  `hotel_id` varchar(60) NOT NULL,
+  `hotel_id` int(64) NOT NULL COMMENT 'Unique identifier to identify a given hotel',
   `room_id` varchar(60) NOT NULL,
   `checkin_date` datetime NOT NULL,
   `booking_id` varchar(60) NOT NULL COMMENT 'The entire billing details are mapped to this id - bill_id which is a foreign key to the billing_info table ',
