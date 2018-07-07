@@ -38,22 +38,11 @@ public class HotelAPI{
         }
     }
 
-    public Hotel fetchHotelDetails(String employeeId) {
-
-        Hotel hotel = null;
-        try{
-            hotel = hotelDAO.fetchHotelByEmployeeId(employeeId);
-        }catch(HMSException e){
-            throw new HMSException(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Hotel does not exist for this employee");
-        }finally{
-            return hotel;
-        }
-    }
 
     public Hotel fetchHotelByEmployeeId(String employeeId){
         Hotel hotel = null;
         try{
-            hotel = hotelDAO.fetchHotelByHotelId(employeeId);
+            hotel = hotelDAO.fetchHotelByEmployeeId(employeeId);
         }catch(Exception e){
             throw new HMSException(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Hotel Details not available for given emploeeId");
         }finally{
