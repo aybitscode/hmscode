@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VoucherAPI extends HMSAPIProviderImpl {
 
-    
+
     public Voucher getVoucherDetails(String voucherName){
         return null;
     }
