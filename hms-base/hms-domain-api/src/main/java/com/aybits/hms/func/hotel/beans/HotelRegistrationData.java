@@ -9,39 +9,39 @@ public class HotelRegistrationData {
 
     @JsonProperty("hotel_id")
     private String hotelId;
-    @JsonProperty("hotel_reg_id")
-    private String hotelRegistrationId;
-    @JsonProperty("building_permit_id")
-    private String buildingPermitId;
-    @JsonProperty("fire_safety_permit_id")
-    private String fireSafetyPermitId;
-    @JsonProperty("police_license_id")
-    private String policeLicenseId;
-    @JsonProperty("health_trade_license_id")
-    private String healthTradeLicenseId;
-    @JsonProperty("liquor_license_id")
-    private String liquorLicenseId;
-    @JsonProperty("fssai_license_id")
-    private String fssaiLicenseId;
+    @JsonProperty("hotel_reg_no")
+    private String hotelRegistrationNo;
+    @JsonProperty("building_permit_no")
+    private String buildingPermitNo;
+    @JsonProperty("fire_safety_permit_no")
+    private String fireSafetyPermitNo;
+    @JsonProperty("police_license_no")
+    private String policeLicenseNo;
+    @JsonProperty("health_trade_license_no")
+    private String healthTradeLicenseNo;
+    @JsonProperty("liquor_license_no")
+    private String liquorLicenseNo;
+    @JsonProperty("fssai_license_no")
+    private String fssaiLicenseNo;
     @JsonProperty("gst_no")
-    private String gstNumber;
-    @JsonProperty("esi_reg_id")
-    private String esiRegistrationId;
-    @JsonProperty("epf_reg_id")
-    private String pfRegistrationId;
+    private String gstNo;
+    @JsonProperty("esi_reg_no")
+    private String esiRegistrationNo;
+    @JsonProperty("epf_reg_no")
+    private String pfRegistrationNo;
 
-    public HotelRegistrationData(String hotelId, String hotelRegistrationId, String buildingPermitId, String fireSafetyPermitId, String policeLicenseId, String healthTradeLicenseId, String liquorLicenseId, String fssaiLicenseId, String gstNumber, String esiRegistrationId, String pfRegistrationId) {
+    public HotelRegistrationData(String hotelId, String hotelRegistrationId, String buildingPermitNo, String fireSafetyPermitNo, String policeLicenseNo, String healthTradeLicenseNo, String liquorLicenseNo, String fssaiLicenseNo, String gstNo, String esiRegistrationNo, String pfRegistrationNo) {
         this.hotelId = hotelId;
-        this.hotelRegistrationId = hotelRegistrationId;
-        this.buildingPermitId = buildingPermitId;
-        this.fireSafetyPermitId = fireSafetyPermitId;
-        this.policeLicenseId = policeLicenseId;
-        this.healthTradeLicenseId = healthTradeLicenseId;
-        this.liquorLicenseId = liquorLicenseId;
-        this.fssaiLicenseId = fssaiLicenseId;
-        this.gstNumber = gstNumber;
-        this.esiRegistrationId = esiRegistrationId;
-        this.pfRegistrationId = pfRegistrationId;
+        this.hotelRegistrationNo = hotelRegistrationId;
+        this.buildingPermitNo = buildingPermitNo;
+        this.fireSafetyPermitNo = fireSafetyPermitNo;
+        this.policeLicenseNo = policeLicenseNo;
+        this.healthTradeLicenseNo = healthTradeLicenseNo;
+        this.liquorLicenseNo = liquorLicenseNo;
+        this.fssaiLicenseNo = fssaiLicenseNo;
+        this.gstNo = gstNo;
+        this.esiRegistrationNo = esiRegistrationNo;
+        this.pfRegistrationNo = pfRegistrationNo;
     }
 
     public String getHotelId() {
@@ -52,84 +52,84 @@ public class HotelRegistrationData {
         this.hotelId = hotelId;
     }
 
-    public String getHotelRegistrationId() {
-        return hotelRegistrationId;
+    public String getHotelRegistrationNo() {
+        return hotelRegistrationNo;
     }
 
-    public void setHotelRegistrationId(String hotelRegistrationId) {
-        this.hotelRegistrationId = hotelRegistrationId;
+    public void setHotelRegistrationNo(String hotelRegistrationNo) {
+        this.hotelRegistrationNo = hotelRegistrationNo;
     }
 
-    public String getBuildingPermitId() {
-        return buildingPermitId;
+    public String getBuildingPermitNo() {
+        return buildingPermitNo;
     }
 
-    public void setBuildingPermitId(String buildingPermitId) {
-        this.buildingPermitId = buildingPermitId;
+    public void setBuildingPermitNo(String buildingPermitNo) {
+        this.buildingPermitNo = buildingPermitNo;
     }
 
-    public String getFireSafetyPermitId() {
-        return fireSafetyPermitId;
+    public String getFireSafetyPermitNo() {
+        return fireSafetyPermitNo;
     }
 
-    public void setFireSafetyPermitId(String fireSafetyPermitId) {
-        this.fireSafetyPermitId = fireSafetyPermitId;
+    public void setFireSafetyPermitNo(String fireSafetyPermitNo) {
+        this.fireSafetyPermitNo = fireSafetyPermitNo;
     }
 
-    public String getPoliceLicenseId() {
-        return policeLicenseId;
+    public String getPoliceLicenseNo() {
+        return policeLicenseNo;
     }
 
-    public void setPoliceLicenseId(String policeLicenseId) {
-        this.policeLicenseId = policeLicenseId;
+    public void setPoliceLicenseNo(String policeLicenseNo) {
+        this.policeLicenseNo = policeLicenseNo;
     }
 
-    public String getHealthTradeLicenseId() {
-        return healthTradeLicenseId;
+    public String getHealthTradeLicenseNo() {
+        return healthTradeLicenseNo;
     }
 
-    public void setHealthTradeLicenseId(String healthTradeLicenseId) {
-        this.healthTradeLicenseId = healthTradeLicenseId;
+    public void setHealthTradeLicenseNo(String healthTradeLicenseNo) {
+        this.healthTradeLicenseNo = healthTradeLicenseNo;
     }
 
-    public String getLiquorLicenseId() {
-        return liquorLicenseId;
+    public String getLiquorLicenseNo() {
+        return liquorLicenseNo;
     }
 
-    public void setLiquorLicenseId(String liquorLicenseId) {
-        this.liquorLicenseId = liquorLicenseId;
+    public void setLiquorLicenseNo(String liquorLicenseNo) {
+        this.liquorLicenseNo = liquorLicenseNo;
     }
 
-    public String getFssaiLicenseId() {
-        return fssaiLicenseId;
+    public String getFssaiLicenseNo() {
+        return fssaiLicenseNo;
     }
 
-    public void setFssaiLicenseId(String fssaiLicenseId) {
-        this.fssaiLicenseId = fssaiLicenseId;
+    public void setFssaiLicenseNo(String fssaiLicenseNo) {
+        this.fssaiLicenseNo = fssaiLicenseNo;
     }
 
-    public String getGstNumber() {
-        return gstNumber;
+    public String getGstNo() {
+        return gstNo;
     }
 
-    public void setGstNumber(String gstNumber) {
-        this.gstNumber = gstNumber;
+    public void setGstNo(String gstNo) {
+        this.gstNo = gstNo;
     }
 
-    public String getEsiRegistrationId() {
-        return esiRegistrationId;
+    public String getEsiRegistrationNo() {
+        return esiRegistrationNo;
     }
 
-    public void setEsiRegistrationId(String esiRegistrationId) {
-        this.esiRegistrationId = esiRegistrationId;
+    public void setEsiRegistrationNo(String esiRegistrationNo) {
+        this.esiRegistrationNo = esiRegistrationNo;
     }
 
-    public String getPfRegistrationId() {
-        return pfRegistrationId;
+    public String getPfRegistrationNo() {
+        return pfRegistrationNo;
     }
 
-    public void setPfRegistrationId(String pfRegistrationId) {
-        this.pfRegistrationId = pfRegistrationId;
+    public void setPfRegistrationNo(String pfRegistrationNo) {
+        this.pfRegistrationNo = pfRegistrationNo;
     }
 
     @Override

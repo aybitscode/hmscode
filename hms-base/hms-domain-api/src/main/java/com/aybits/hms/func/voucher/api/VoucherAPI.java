@@ -2,27 +2,14 @@ package com.aybits.hms.func.voucher.api;
 
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.voucher.beans.Voucher;
 
 import java.util.List;
 
-public class VoucherAPI implements HMSAPIProvider {
+public class VoucherAPI extends HMSAPIProviderImpl {
 
-    @Override
-    public Object init(Object object) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public Object process(Object object) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public Object validate(Object object) throws HMSException {
-        return null;
-    }
-
+    
     public Voucher getVoucherDetails(String voucherName){
         return null;
     }

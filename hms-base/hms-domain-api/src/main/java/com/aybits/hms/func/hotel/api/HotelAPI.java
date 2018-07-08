@@ -3,13 +3,14 @@ package com.aybits.hms.func.hotel.api;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.cache.HotelCache;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
 
 import java.util.List;
 
-public class HotelAPI{
+public class HotelAPI extends HMSAPIProviderImpl {
 
     HotelCache hotelCache = new HotelCache();
     HotelDAO hotelDAO = new HotelDAO();

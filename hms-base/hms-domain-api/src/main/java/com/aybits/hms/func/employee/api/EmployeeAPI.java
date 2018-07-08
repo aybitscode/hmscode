@@ -1,13 +1,14 @@
 package com.aybits.hms.func.employee.api;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.employee.dao.EmployeeDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeAPI {
+public class EmployeeAPI extends HMSAPIProviderImpl {
 
     public EmployeeAPI(){
 

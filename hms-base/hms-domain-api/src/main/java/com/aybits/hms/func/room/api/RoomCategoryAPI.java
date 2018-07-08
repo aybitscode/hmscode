@@ -1,4 +1,6 @@
 package com.aybits.hms.func.room.api;
 
-public class RoomCategoryAPI  {
+import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+
+public class RoomCategoryAPI extends HMSAPIProviderImpl {
 }
