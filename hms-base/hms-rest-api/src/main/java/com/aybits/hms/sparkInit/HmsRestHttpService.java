@@ -5,7 +5,9 @@ import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.bookings.BookingRequestHandler;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.customer.CustomerRequestHandler;
+import com.aybits.hms.hotel.HotelRequestHandler;
 import com.aybits.hms.login.LoginRequestHandler;
+import com.aybits.hms.room.RoomRequestHandler;
 import org.apache.log4j.Logger;
 
 
@@ -21,9 +23,13 @@ public class HmsRestHttpService {
     public void registerHttpAPIs() {
         registerPostApi("/login", new LoginRequestHandler());
 
-        registerPostApi("/quickbooking", new BookingRequestHandler());
+        registerPostApi("/quick-booking", new BookingRequestHandler());
 
         registerPostApi("/employee", new EmployeeRequestHandler());
+
+        registerPostApi("/room", new RoomRequestHandler());
+
+        registerPostApi("/hotel", new HotelRequestHandler());
     }
 
     private static void registerPostApi(String apiPath, HmsRequestHandler requestHandler) {

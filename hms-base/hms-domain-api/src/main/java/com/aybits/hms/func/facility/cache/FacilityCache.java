@@ -8,7 +8,7 @@ public class FacilityCache {
     private static HashMap<String, Facility> facilityCache = new HashMap<>();
     private static HashSet<String> facilityIds = new HashSet<>();
 
-    public  static Boolean initCache(){
+    public Boolean initCache(){
         return false;
     }
     public void addFacility(Facility facility) {

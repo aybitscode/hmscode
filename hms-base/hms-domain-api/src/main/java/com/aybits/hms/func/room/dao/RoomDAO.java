@@ -14,11 +14,11 @@ public class RoomDAO {
 
     Connection connection  = DBConnection.getDBConnection();
 
-    public List<Room> getRoomsByHotelId(String hotelId) throws HMSException {
+    public List<Room> fetchRoomsByHotelId(String hotelId) throws HMSException {
         return null;
     }
 
-    public Room getRoomByRoomId(String roomId) throws HMSException{
+    public Room fetchRoomByRoomId(String roomId) throws HMSException{
         return null;
     }
 

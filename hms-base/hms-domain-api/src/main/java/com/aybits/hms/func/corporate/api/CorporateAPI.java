@@ -1,4 +1,6 @@
 package com.aybits.hms.func.corporate.api;
 
-public class CorporateAPI {
+import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+
+public class CorporateAPI extends HMSAPIProviderImpl {
 }

@@ -32,6 +32,14 @@ public class HMSAPIServiceConstants {
      */
     public static final String HOTEL_FACILITY = "HOTEL_FACILITY";
     public static final String ROOM_FACILITY  = "ROOM_FACILITY";
+    public static final String CUSTOMER_CACHE = "CUSTOMER_CACHE";
+    public static final String HOTEL_CACHE = "HOTEL_CACHE";
+    public static final String ROOM_CACHE = "ROOM_CACHE";
+    public static final String ROOM_CATEGORY_CACHE = "ROOM_CATEGORY_CACHE";
+    public static final String VOUCHER_CACHE = "VOUCHER_CACHE";
+    public static final String EMPLOYEE_CACHE = "EMPLOYEE_CACHE";
+    public static final String ID_PARAM_CACHE = "ID_PARAM_CACHE";
+    public static final String FACILITY_CACHE = "FACILITY_CACHE";
 
 
 }

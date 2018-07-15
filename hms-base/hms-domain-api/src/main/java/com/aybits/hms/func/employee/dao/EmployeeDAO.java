@@ -230,7 +230,7 @@ public class EmployeeDAO {
             pst.setString(++i, employee.getContactDetails().getPrimaryEmail());
             pst.setString(++i, employee.getContactDetails().getPrimaryPhone());
             pst.setString(++i, employee.getEmployeeAddress().toString());
-            pst.setString(++i, employee.getIdentificationParams().getIdentifierValue().toString());
+            pst.setString(++i, employee.getIdentificationParam().getIdentifierValue().toString());
             pst.setInt(++i, employee.getHotelId());
             pst.setString(++i,employee.getEmployeeStatus().getStatusAsString());
             pst.setDate(++i, new java.sql.Date(employee.getDateCreated().getTime()));

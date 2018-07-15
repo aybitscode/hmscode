@@ -13,7 +13,7 @@ public class VoucherCache {
     private static ConcurrentHashMap<String, Voucher> voucherCache = new ConcurrentHashMap<>();
     private static HashSet<String> voucherIds = new HashSet<>();
 
-    public static Boolean initCache(){
+    public Boolean initCache(){
         return false;
     }
 

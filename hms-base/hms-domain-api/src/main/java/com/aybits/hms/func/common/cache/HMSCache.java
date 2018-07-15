@@ -1,5 +1,6 @@
 package com.aybits.hms.func.common.cache;
 
+import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.customer.cache.CustomerCache;
 import com.aybits.hms.func.employee.cache.EmployeeCache;
 import com.aybits.hms.func.facility.cache.FacilityCache;
@@ -16,15 +17,15 @@ public class HMSCache {
     private static Boolean isHMSCacheLoaded = false;
     private HashMap<String,Object> hmsCache = new HashMap<>();
 
-    public static Boolean initHMSCache(){
-        Boolean isCustomerCacheLoaded = CustomerCache.initCache();
-        Boolean isEmployeeCacheLoaded = EmployeeCache.initCache();
-        Boolean isHotelCacheLoaded    = HotelCache.initCache();
-        Boolean isRoomCacheLoaded     = RoomCache.initCache();
-        Boolean isRoomCategoryCacheLoaded  = RoomCategoryCache.initCache();
-        Boolean isIdentityParamCacheLoaded = IdentificationParamCache.initCache();
-        Boolean isFacilityCacheLoaded = FacilityCache.initCache();
-        Boolean isVoucherCacheLoaded = VoucherCache.initCache();
+    public Boolean initHMSCache(){
+        Boolean isCustomerCacheLoaded = new CustomerCache().initCache();
+        Boolean isEmployeeCacheLoaded = new EmployeeCache().initCache();
+        Boolean isHotelCacheLoaded    = new HotelCache().initCache();
+        Boolean isRoomCacheLoaded     = new RoomCache().initCache();
+        Boolean isRoomCategoryCacheLoaded  = new RoomCategoryCache().initCache();
+        Boolean isIdentityParamCacheLoaded = new IdentificationParamCache().initCache();
+        Boolean isFacilityCacheLoaded = new FacilityCache().initCache();
+        Boolean isVoucherCacheLoaded = new VoucherCache().initCache();
 
         if(isCustomerCacheLoaded &&
                 isEmployeeCacheLoaded &&
@@ -40,11 +41,11 @@ public class HMSCache {
         return isHMSCacheLoaded;
     }
 
-    public static void reloadHMSCache(){
+    public void reloadHMSCache(){
         initHMSCache();
     }
 
-    public static Boolean isHMSCacheLoaded(){
+    public Boolean isHMSCacheLoaded(){
         return isHMSCacheLoaded;
     }
 
