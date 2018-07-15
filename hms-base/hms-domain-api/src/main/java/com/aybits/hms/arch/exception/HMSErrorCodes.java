@@ -16,6 +16,9 @@ public class HMSErrorCodes {
 
     public static final String INVALID_EMPLOYEE_ID = "INVALID_EMPLOYEE_ID";
 	public static final String INVALID_EMPLOYEE_PHONE = "INVALID_EMPLOYEE_PHONE";
+
+	public static final String HOTEL_ADDITION_FAILED = "HOTEL_ADDITIION_FAILED";
+	public static final String HOTEL_UPDATE_FAILED = "HOTEL_UPDATE_FAILED";
 	public static final String HMS_EXCEPTION = "HMS_EXCEPTION";
 			
 
