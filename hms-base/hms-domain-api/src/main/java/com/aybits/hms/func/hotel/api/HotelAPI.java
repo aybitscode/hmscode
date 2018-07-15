@@ -2,6 +2,7 @@ package com.aybits.hms.func.hotel.api;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.cache.HotelCache;
@@ -23,9 +24,25 @@ public class HotelAPI implements HMSAPIProvider {
         return null;
     }
 
+
+    public Boolean addHotel(Hotel hotel){
+        Boolean isHotelAdditionSuccessful = false;
+        if (hotel.getHotelId() == HMSAPIConstants.TO_BE_GENERATED) {
+            try {
+
+                isHotelAdditionSuccessful = hotelDAO.addHotel(hotel);
+                if(isHotelAdditionSuccessful) {
+                    hotel;
+                }
+            } catch (HMSException e) {
+                log.info("Exception occured while adding hotel");
+                throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
+            }
+        }
+        return isHotelAdditionSuccessful;
+    }
     public List<Hotel> fetchAllHotels()  {
        return hotelCache.fetchAllHotels();
-
     }
 
     public Hotel fetchHotelByHotelId(String hotelId){

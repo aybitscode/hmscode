@@ -4,34 +4,38 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
+import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class HotelCache {
 
-    private static volatile ConcurrentHashMap<String, Hotel> hotelConcurrentHashMap = null;
-    private static volatile HashSet<String> hotelIds = new HashSet<>();
-    private static HotelDAO hotelDAO = new HotelDAO();
+    static Logger log = Logger.getLogger(HotelCache.class);
+    private static final ConcurrentHashMap<String, Hotel> hotelConcurrentHashMap = new ConcurrentHashMap<String,Hotel>();
+    private static final HashSet<String> hotelIds = new HashSet<>();
+    private HotelDAO hotelDAO = new HotelDAO();
 
     public Boolean initCache() throws HMSException{
 
         Boolean isHotelCacheInitialized = false;
-        if(hotelConcurrentHashMap == null){
+        if(hotelConcurrentHashMap.isEmpty()){
                 List<Hotel> hotels = null;
                 try {
-                    synchronized (HotelCache.class) {
                         hotels = hotelDAO.fetchAllHotels();
                         if(!hotels.isEmpty()) {
                             for (Hotel hotel : hotels) {
-                                addHotel(hotel);
+                                hotelIds.add(hotel.getHotelId());
+                                hotelConcurrentHashMap.put(hotel.getHotelId(), hotel);
                             }
                         }
-                    }
+
                 }catch(HMSException e){
                     throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all hotel details failed");
                 }finally{
-                    if(hotelConcurrentHashMap != null && !hotelConcurrentHashMap.keySet().isEmpty()){
+                    if(!hotelConcurrentHashMap.keySet().isEmpty()){
                         isHotelCacheInitialized = true;
                     }
                 }
@@ -40,19 +44,35 @@ public class HotelCache {
 
         return isHotelCacheInitialized;
     }
-    public void addHotel(Hotel hotel) {
-        if (hotelConcurrentHashMap.get(hotel.getHotelId()) == null) {
-            hotelIds.add(hotel.getHotelId());
-            hotelConcurrentHashMap.put(hotel.getHotelId(), hotel);
+
+    public Boolean addHotel(Hotel hotel){
+            Boolean isHotelAdditionSuccessful = false;
+            if (hotelConcurrentHashMap.get(hotel.getHotelId()) == null) {
+                hotelIds.add(hotel.getHotelId());
+                hotelConcurrentHashMap.put(hotel.getHotelId(), hotel);
+                isHotelAdditionSuccessful = true;
+            }
+            return isHotelAdditionSuccessful;
+    }
+
+    public Boolean deleteHotel(String hotelId){
+        Boolean isHotelDeleted = false;
+
+        if (hotelIds.contains(hotelId)) {
+            hotelConcurrentHashMap.remove(hotelId);
+            hotelIds.remove(hotelId);
+            isHotelDeleted = true;
         }
+        return isHotelDeleted;
     }
 
     public void updateHotel(Hotel hotel) {
         String hotelId = hotel.getHotelId();
-        if(hotelIds.contains(hotel.getHotelId())) {
-            hotelConcurrentHashMap.remove(hotelId);
+        if(deleteHotel(hotelId)){
+            addHotel(hotel);
         }
-        hotelConcurrentHashMap.put(hotelId, hotel);
+
+
     }
 
 
@@ -79,7 +99,4 @@ public class HotelCache {
         return hotelIds;
     }
 
-    public static ConcurrentHashMap<String,Hotel> getHotelConcurrentHashMap(){
-        return hotelConcurrentHashMap;
-    }
 }
