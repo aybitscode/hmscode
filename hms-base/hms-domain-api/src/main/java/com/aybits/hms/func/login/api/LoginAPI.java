@@ -3,6 +3,7 @@ package com.aybits.hms.func.login.api;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.login.beans.LoginAttributes;
@@ -10,7 +11,7 @@ import com.aybits.hms.func.login.beans.LoginSession;
 import com.aybits.hms.func.login.dao.LoginDAO;
 
 
-public class LoginAPI implements HMSAPIProvider {
+public class LoginAPI extends HMSAPIProviderImpl {
 
     @Override
     public Object process(Object object) throws HMSException {

@@ -2,13 +2,14 @@ package com.aybits.hms.func.customer.api;
 
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.dao.CustomerDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerAPI {
+public class CustomerAPI extends HMSAPIProviderImpl {
 
 	public CustomerAPI(){
 		
