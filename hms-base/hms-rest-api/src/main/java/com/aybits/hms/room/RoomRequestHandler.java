@@ -13,11 +13,11 @@ import spark.Response;
 import java.util.List;
 
 public class RoomRequestHandler implements HmsRequestHandler {
-    static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
+    static Logger Log = Logger.getLogger(RoomRequestHandler.class);
 
     @Override
     public String handleRequest(Request request, Response response) {
-        Log.info("Employee request handler invoked");
+        Log.info("Room request handler invoked");
 
         String action = request.pathInfo().split("/")[2];
         String message = "";

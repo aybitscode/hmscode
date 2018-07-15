@@ -12,8 +12,6 @@ import com.aybits.hms.func.login.dao.LoginDAO;
 
 public class LoginAPI implements HMSAPIProvider {
 
-
-
     @Override
     public Object process(Object object) throws HMSException {
 
@@ -27,7 +25,6 @@ public class LoginAPI implements HMSAPIProvider {
                 /** If Login is successful generate a new <CODE>{@link com.aybits.hms.func.login.beans.LoginSession}</CODE>
                  * for the user */
                 loginSession = generateLoginSession(loginAttributes);
-
             }
 
         }catch(Exception e){
@@ -36,7 +33,6 @@ public class LoginAPI implements HMSAPIProvider {
             return loginSession;
         }
     }
-
 
     @Override
     public Boolean validate(Object object){
@@ -58,9 +54,8 @@ public class LoginAPI implements HMSAPIProvider {
     }
 
     private LoginSession generateLoginSession(LoginAttributes loginAttributes){
-        String loginId = loginAttributes.getLoginId();
         HotelAPI hotelAPI = new HotelAPI();
-        Hotel hotel = hotelAPI.fetchHotelDetails(loginId);
+        Hotel hotel = hotelAPI.fetchHotelByEmployeeId(loginAttributes.getLoginId());
         LoginSession loginSession = new LoginSession();
         loginSession.setCurrentTimeStamp(System.currentTimeMillis());
         loginSession.setExpiryTimeStamp(System.currentTimeMillis()+(30*60*1000));
