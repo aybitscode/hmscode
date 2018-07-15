@@ -98,4 +98,9 @@ public class HotelAPI extends HMSAPIProviderImpl {
     }
 
 
+    public Boolean setupHotel(Object object){
+        return false;
+    }
+
+
 }
