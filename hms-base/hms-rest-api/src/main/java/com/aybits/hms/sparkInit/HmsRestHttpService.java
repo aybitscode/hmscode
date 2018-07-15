@@ -39,6 +39,7 @@ public class HmsRestHttpService {
         registerPostApi("/hotel/fetch-all-hotels", new HotelRequestHandler());
         registerPostApi("/hotel/fetch-hotel-by-hotel-id", new HotelRequestHandler());
         registerPostApi("/hotel/fetch-hotel-by-emp-id", new HotelRequestHandler());
+        registerPostApi("/hotel/setup-hotel", new HotelRequestHandler());
 
         registerPostApi("/customer/add", new CustomerRequestHandler());
         registerPostApi("/customer/update", new CustomerRequestHandler());

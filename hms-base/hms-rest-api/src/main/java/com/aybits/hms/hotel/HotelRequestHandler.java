@@ -4,7 +4,6 @@ import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
-import com.aybits.hms.func.employee.api.EmployeeAPI;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
@@ -18,7 +17,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
     @Override
     public String handleRequest(Request request, Response response) {
-        Log.info("Employee request handler invoked");
+        Log.info("Hotel request handler invoked");
 
         String action = request.pathInfo().split("/")[2];
         String message = "";
@@ -32,9 +31,14 @@ public class HotelRequestHandler implements HmsRequestHandler {
             case "fetch-hotel-by-emp-id":
                 message = fetchHotelByEmployeeId(request);
                 break;
+            case "setup-hotel":
+                message = upsertHotel(request);
+                break;
         }
         return message;
     }
+
+
 
     private String fetchHotelByHotelId(Request request) {
         Log.info("in fetchHotelByHotelId");
@@ -42,8 +46,9 @@ public class HotelRequestHandler implements HmsRequestHandler {
             String jsonString = request.body().toString();
             HotelAPI hotelAPI = new HotelAPI();
             Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(jsonString, Hotel.class);
-            Hotel result = hotelAPI.fetchHotelByHotelId(hotel.getHotelId());
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
+            String hotelId = hotel.getHotelId();
+            hotel = hotelAPI.fetchHotelByHotelId(hotelId);
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(hotel, true));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchHotelByHotelId", false));
         }
@@ -55,7 +60,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             String jsonString = request.body().toString();
             HotelAPI hotelAPI = new HotelAPI();
             Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Employee.class);
-            Hotel result = hotelAPI.fetchHotelByHotelId(employee.getEmpId());
+            Hotel result = hotelAPI.fetchHotelByEmployeeId(employee.getEmpId());
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchHotelByEmployeeId", false));
@@ -67,6 +72,19 @@ public class HotelRequestHandler implements HmsRequestHandler {
         try {
             HotelAPI hotelAPI = new HotelAPI();
             List<Hotel> result = hotelAPI.fetchAllHotels();
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
+        } catch (Exception e) {
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchAllHotels", false));
+        }
+    }
+
+    private String upsertHotel(Request request) {
+        Log.info("in upsertHotel");
+        try {
+            HotelAPI hotelAPI = new HotelAPI();
+            String jsonString = request.body().toString();
+            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(jsonString, Hotel.class);
+            Boolean result = hotelAPI.upsertHotel(hotel);
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchAllHotels", false));
