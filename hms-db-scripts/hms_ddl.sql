@@ -1,10 +1,22 @@
+CREATE TABLE `hms_hotel` (
+  `hotel_id` int(64) ,
+  `hotel_name` varchar(255) ,
+  `hotel_address` varchar(500) COMMENT 'Address of the given hotel',
+  `hotel_rating` varchar(45) COMMENT 'Rating of the hotel - whether it is 5-star,3-star,2-star etc',
+  `hotel_staff_count` int(10) ,
+  `hotel_room_count` int(64) ,
+  `hotel_bed_count` int(64) ,
+  `hotel_logo` varchar(100) ,
+  `hotel_room_doorno_format` varchar(45) ,
+  `hotel_status` int(11)  COMMENT 'This column saves the status details whether hotel is enabled,active or disabled'
+) COMMENT='This is the primary table to store all the information regarding entity - Hotel in the HMS Solution';
+
 CREATE TABLE `hms_admin_event_log` (
   `admin_id` varchar(60) ,
   `hotel_id` int(64)  COMMENT 'Unique identifier to identify a given hotel',
   `event_id` varchar(60) ,
   `event_log` varchar(500) ,
-  `event_time` timestamp(6),
-  CONSTRAINT `hms_admin_event_log_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hms_hotel` (`hotel_id`)
+  `event_time` timestamp(6)
 )  COMMENT='This table records the events initiated and undertaken by a given admin';
 
 CREATE TABLE `hms_booking_info` (
@@ -115,19 +127,6 @@ CREATE TABLE `hms_facility` (
   `facility_price` double ,
   `applicable_voucher_id` varchar(60) NOT NULL
 ) COMMENT='This table defines the facilities that are provided for a given hotel';
-
-CREATE TABLE `hms_hotel` (
-  `hotel_id` int(64) ,
-  `hotel_name` varchar(255) ,
-  `hotel_address` varchar(500) COMMENT 'Address of the given hotel',
-  `hotel_rating` varchar(45) COMMENT 'Rating of the hotel - whether it is 5-star,3-star,2-star etc',
-  `hotel_staff_count` int(10) ,
-  `hotel_room_count` int(64) ,
-  `hotel_bed_count` int(64) ,
-  `hotel_logo` varchar(100) ,
-  `hotel_room_doorno_format` varchar(45) ,
-  `hotel_status` int(11)  COMMENT 'This column saves the status details whether hotel is enabled,active or disabled'
-) COMMENT='This is the primary table to store all the information regarding entity - Hotel in the HMS Solution';
 
 CREATE TABLE `hms_hotel_registration_data` (
   `registration_data_id` int(11),
