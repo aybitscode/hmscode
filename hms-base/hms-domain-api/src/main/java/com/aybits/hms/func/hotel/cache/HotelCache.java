@@ -47,7 +47,8 @@ public class HotelCache {
         return isHotelCacheInitialized;
     }
 
-    public void addHotel(Hotel hotel) throws HMSException {
+    public Boolean addHotel(Hotel hotel) throws HMSException {
+
         Boolean isHotelAdditionSuccessful = hotelDAO.addHotel(hotel);
         if(isHotelAdditionSuccessful){
             if (hotelConcurrentHashMap.get(hotel.getHotelId()) == null) {
@@ -55,10 +56,11 @@ public class HotelCache {
                 hotelConcurrentHashMap.put(hotel.getHotelId(), hotel);
             }
         }
+        return isHotelAdditionSuccessful;
 
     }
 
-    public void updateHotel(Hotel hotel) throws HMSException {
+    public Boolean updateHotel(Hotel hotel) throws HMSException {
         Boolean isHotelUpdateSuccessful = hotelDAO.updateHotel(hotel);
         if(isHotelUpdateSuccessful) {
             String hotelId = hotel.getHotelId();
@@ -67,6 +69,7 @@ public class HotelCache {
             }
             hotelConcurrentHashMap.put(hotelId, hotel);
         }
+        return isHotelUpdateSuccessful;
     }
 
 
@@ -104,6 +107,22 @@ public class HotelCache {
         ArrayList<String> hotelIds = new ArrayList<>();
         hotelIds.addAll(hotelConcurrentHashMap.keySet());
         return hotelIds;
+    }
+
+
+    public Boolean isHotelPresent(String hotelId){
+        Boolean isHotelPresent = false;
+        Hotel hotel = null;
+        try {
+            hotel = fetchHotelById(hotelId);
+            if(hotel != null && hotel.getHotelId() != null){
+                isHotelPresent = true;
+            }
+        } catch (HMSException e) {
+            log.error("Exception occured while checking if Hotel["+hotel.getHotelId()+"] is present in the system");
+        }
+        return isHotelPresent;
+
     }
 
 }
