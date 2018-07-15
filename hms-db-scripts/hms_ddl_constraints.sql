@@ -1,3 +1,16 @@
+ALTER TABLE hms_hotel CHANGE hotel_id hotel_id  int(64) NOT NULL AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE hms_hotel CHANGE hotel_name hotel_name varchar(255) NOT NULL;
+ALTER TABLE hms_hotel CHANGE hotel_address hotel_address varchar(500) NOT NULL;
+ALTER TABLE hms_hotel CHANGE hotel_rating hotel_rating varchar(45) DEFAULT NULL;
+ALTER TABLE hms_hotel CHANGE hotel_staff_count hotel_staff_count int(10) DEFAULT '0';
+ALTER TABLE hms_hotel CHANGE hotel_room_count hotel_room_count int(64) DEFAULT '0';
+ALTER TABLE hms_hotel CHANGE hotel_bed_count hotel_bed_count int(64) DEFAULT '0';
+ALTER TABLE hms_hotel CHANGE hotel_logo hotel_logo varchar(100) DEFAULT NULL ;
+ALTER TABLE hms_hotel CHANGE hotel_room_doorno_format hotel_room_doorno_format varchar(45) DEFAULT NULL;
+ALTER TABLE hms_hotel CHANGE hotel_status hotel_status int(11) NOT NULL;
+commit;
+
+
 ALTER TABLE hms_admin_event_log CHANGE admin_id admin_id  varchar(60) NOT NULL;
 ALTER TABLE hms_admin_event_log ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_admin_event_log CHANGE event_id event_id  varchar(60) NOT NULL;
@@ -106,18 +119,6 @@ ALTER TABLE hms_facility CHANGE facility_price facility_price double NOT NULL DE
 ALTER TABLE hms_facility CHANGE applicable_voucher_id applicable_voucher_id varchar(60) NOT NULL;
 commit;
 
-ALTER TABLE hms_hotel CHANGE hotel_id hotel_id  int(64) NOT NULL AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE hms_hotel CHANGE hotel_name hotel_name varchar(255) NOT NULL;
-ALTER TABLE hms_hotel CHANGE hotel_address hotel_address varchar(500) NOT NULL;
-ALTER TABLE hms_hotel CHANGE hotel_rating hotel_rating varchar(45) DEFAULT NULL;
-ALTER TABLE hms_hotel CHANGE hotel_staff_count hotel_staff_count int(10) DEFAULT '0';
-ALTER TABLE hms_hotel CHANGE hotel_room_count hotel_room_count int(64) DEFAULT '0';
-ALTER TABLE hms_hotel CHANGE hotel_bed_count hotel_bed_count int(64) DEFAULT '0';
-ALTER TABLE hms_hotel CHANGE hotel_logo hotel_logo varchar(100) DEFAULT NULL ;
-ALTER TABLE hms_hotel CHANGE hotel_room_doorno_format hotel_room_doorno_format varchar(45) DEFAULT NULL;
-ALTER TABLE hms_hotel CHANGE hotel_status hotel_status int(11) NOT NULL;
-commit;
-
 ALTER TABLE hms_hotel_registration_data CHANGE registration_data_id registration_data_id  int(11) NOT NULL PRIMARY KEY;
 ALTER TABLE hms_hotel_registration_data ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_hotel_registration_data CHANGE building_permit_no building_permit_no varchar(200) DEFAULT NULL;
@@ -152,13 +153,15 @@ commit;
 ALTER TABLE hms_inventory_event_log ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_inventory_event_log CHANGE inventory_event_id inventory_event_id  int(11) NOT NULL PRIMARY KEY;
 ALTER TABLE hms_inventory_event_log CHANGE inventory_event_log inventory_event_log varchar(1000) NOT NULL;
-ALTER TABLE hms_identification_params CHANGE date_created date_created timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6);
+ALTER TABLE hms_inventory_event_log CHANGE date_created date_created timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6);
 ALTER TABLE hms_inventory_event_log CHANGE user_id user_id  int(11) NOT NULL;
 commit;
 
 ALTER TABLE hms_inventory_item_group CHANGE item_group_name item_group_name   varchar(100)  NOT NULL PRIMARY KEY;
 ALTER TABLE hms_inventory_item_group CHANGE item_group_description item_group_description  varchar(200)  NOT NULL;
 commit;
+
+
 
 ALTER TABLE hms_inventory_items ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_inventory_items CHANGE item_name item_name  varchar(100)  NOT NULL;
@@ -209,4 +212,3 @@ ALTER TABLE hms_voucher CHANGE voucer_start_date voucer_start_date  datetime(6) 
 ALTER TABLE hms_voucher CHANGE voucher_discount voucher_discount   double DEFAULT NULL;
 ALTER TABLE hms_voucher CHANGE vouhcer_status vouhcer_status   int(11) DEFAULT NULL;
 commit;
-

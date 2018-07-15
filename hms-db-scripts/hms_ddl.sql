@@ -171,6 +171,11 @@ CREATE TABLE `hms_inventory_event_log` (
   `user_id` int(11) 
 ) ;
 
+CREATE TABLE `hms_inventory_item_group` (
+  `item_group_name` varchar(100),
+  `item_group_description` varchar(200)
+) ;
+
 CREATE TABLE `hms_inventory_items` (
   `hotel_id` int(64) COMMENT 'Unique identifier to identify a given hotel',
   `item_name` varchar(100) ,
