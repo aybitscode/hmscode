@@ -27,6 +27,9 @@ public class HotelAttributes {
         private String hotelLogo;
 
 
+        public HotelAttributes(){
+
+        }
 
         public HotelAttributes(String hotelName,
                                String hotelRating,

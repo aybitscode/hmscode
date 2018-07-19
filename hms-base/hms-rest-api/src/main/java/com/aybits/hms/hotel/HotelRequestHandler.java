@@ -22,16 +22,16 @@ public class HotelRequestHandler implements HmsRequestHandler {
         String action = request.pathInfo().split("/")[2];
         String message = "";
         switch (action) {
-            case "fetch-all-hotels":
+            case "fetch-all":
                 message = fetchAllHotels(request);
                 break;
-            case "fetch-hotel-by-hotel-id":
+            case "fetch-by-hotel-id":
                 message = fetchHotelByHotelId(request);
                 break;
-            case "fetch-hotel-by-emp-id":
+            case "fetch-by-emp-id":
                 message = fetchHotelByEmployeeId(request);
                 break;
-            case "setup-hotel":
+            case "setup":
                 message = upsertHotel(request);
                 break;
         }
@@ -89,6 +89,17 @@ public class HotelRequestHandler implements HmsRequestHandler {
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchAllHotels", false));
         }
+    }
+
+
+    private String setupHotel(Request request){
+
+        // TODO Create Hotel
+        // TODO Create RoomCategory
+        // TODO Create Employee Details
+        // TODO Create Tax Rules
+
+        return null;
     }
 
     private HmsResponse getHmsResponse(Object responseData, boolean result) {

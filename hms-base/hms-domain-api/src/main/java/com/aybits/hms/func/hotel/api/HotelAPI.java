@@ -21,7 +21,7 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     private Boolean addHotel(Hotel hotel) throws HMSException {
         Boolean isHotelAdditionSuccessful = false;
-        if (hotel.getHotelId() == HMSAPIConstants.TO_BE_GENERATED) {
+        if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
             try {
                 isHotelAdditionSuccessful = hotelCache.addHotel(hotel);
             } catch (HMSException e) {
