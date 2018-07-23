@@ -74,21 +74,19 @@ public class HotelCache {
 
 
     public Hotel fetchHotelById(String hotelId) throws HMSException {
+        Hotel hotel = null;
         try{
-            Hotel hotel = hotelConcurrentHashMap.get(hotelId);
-            if (hotel != null)
-                return hotel;
-            else{
+            hotel = hotelConcurrentHashMap.get(hotelId);
+            if (hotel == null){
                 hotel = hotelDAO.fetchHotelByHotelId(hotelId);
                 hotel = Objects.requireNonNull(hotel);
                 hotelConcurrentHashMap.put(hotelId,hotel);
-                return hotel;
             }
         }catch(NullPointerException npe){
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "No Hotel Present for the given hotelId["+hotelId+"]");
+             log.info("No Hotel Present for the given hotelId["+hotelId+"]");
+        }finally{
+            return hotel;
         }
-
-
     }
 
 

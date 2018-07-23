@@ -1,7 +1,6 @@
 package com.aybits.hms.func.facility.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.voucher.beans.Voucher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -14,7 +13,7 @@ public class Facility {
         private String facilityName;
         @JsonProperty("facility_description")
         private String  facilityDescription;
-        @JsonProperty("facility_availability")
+        @JsonProperty("is_available")
         private Boolean isFacilityAvailable;
         @JsonProperty("is_chargeable")
         private Boolean isChargeable;
@@ -22,8 +21,6 @@ public class Facility {
         private FacilityType facilityType;
         @JsonProperty("facility_price")
         private Double facilityPrice;
-        @JsonProperty("applicable_voucher")
-        private Voucher voucher;
 
         public Facility() {
         }
@@ -32,8 +29,7 @@ public class Facility {
                         FacilityType facilityType,
                         Boolean isFacilityAvailable,
                         Boolean isChargeable,
-                        Double facilityPrice,
-                        Voucher voucher) {
+                        Double facilityPrice) {
                 this.facilityId = facilityId;
                 this.facilityName = facilityName;
                 this.facilityDescription = facilityDescription;
@@ -41,7 +37,6 @@ public class Facility {
                 this.isChargeable = isChargeable;
                 this.facilityType = facilityType;
                 this.facilityPrice = facilityPrice;
-                this.voucher = voucher;
         }
 
         public String getFacilityId() {
@@ -90,14 +85,6 @@ public class Facility {
 
         public void setFacilityPrice(Double facilityPrice) {
                 this.facilityPrice = facilityPrice;
-        }
-
-        public Voucher getVoucher() {
-                return voucher;
-        }
-
-        public void setVoucher(Voucher voucher) {
-                this.voucher = voucher;
         }
 
         public Boolean getChargeable() {

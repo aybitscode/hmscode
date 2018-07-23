@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("hotel_registration_data")
 public class HotelRegistrationData {
 
-    @JsonProperty("hotel_id")
-    private String hotelId;
     @JsonProperty("hotel_reg_no")
     private String hotelRegistrationNo;
     @JsonProperty("building_permit_no")
@@ -30,8 +28,11 @@ public class HotelRegistrationData {
     @JsonProperty("epf_reg_no")
     private String pfRegistrationNo;
 
-    public HotelRegistrationData(String hotelId, String hotelRegistrationId, String buildingPermitNo, String fireSafetyPermitNo, String policeLicenseNo, String healthTradeLicenseNo, String liquorLicenseNo, String fssaiLicenseNo, String gstNo, String esiRegistrationNo, String pfRegistrationNo) {
-        this.hotelId = hotelId;
+    public HotelRegistrationData(){
+
+    }
+
+    public HotelRegistrationData(String hotelRegistrationId, String buildingPermitNo, String fireSafetyPermitNo, String policeLicenseNo, String healthTradeLicenseNo, String liquorLicenseNo, String fssaiLicenseNo, String gstNo, String esiRegistrationNo, String pfRegistrationNo) {
         this.hotelRegistrationNo = hotelRegistrationId;
         this.buildingPermitNo = buildingPermitNo;
         this.fireSafetyPermitNo = fireSafetyPermitNo;
@@ -42,14 +43,6 @@ public class HotelRegistrationData {
         this.gstNo = gstNo;
         this.esiRegistrationNo = esiRegistrationNo;
         this.pfRegistrationNo = pfRegistrationNo;
-    }
-
-    public String getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(String hotelId) {
-        this.hotelId = hotelId;
     }
 
     public String getHotelRegistrationNo() {

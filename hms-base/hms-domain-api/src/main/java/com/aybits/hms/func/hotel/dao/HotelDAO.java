@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,36 +36,33 @@ public class HotelDAO {
     public Boolean addHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelAdditionSuccessful = false;
-        PreparedStatement stmt;
+        try (PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, hotel.getHotelAttributes().getHotelName());
+            ps.setString(2, hotel.getHotelAttributes().getHotelAddress().toString());
+            ps.setString(3, hotel.getHotelAttributes().getHotelRating());
+            ps.setString(4, hotel.getHotelAttributes().getHotelLogo());
+            ps.setString(5, hotel.getHotelAttributes().getRoomDoorNoFormat());
+            ps.setInt(6, hotel.getHotelAttributes().getEmployeeCount());
+            ps.setInt(7, hotel.getHotelAttributes().getRoomCount());
+            ps.setInt(8, hotel.getHotelAttributes().getTotalBeds());
+            ps.setInt(9,hotel.getHotelStatus().getStatusAsInt());
 
-        try {
-            connection = requireNonNull(connection);
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL);
-            stmt.setString(1, hotel.getHotelId());
-            stmt.setString(2, hotel.getHotelAttributes().getHotelName());
-            stmt.setString(3, hotel.getHotelAttributes().getHotelAddress().toString());
-            stmt.setString(4, hotel.getHotelRegistrationData().toString());
-            stmt.setString(5, hotel.getHotelAttributes().getHotelRating());
-            stmt.setString(6, hotel.getHotelAttributes().getHotelLogo());
-            stmt.setString(7, hotel.getHotelAttributes().getRoomDoorNoFormat());
-            stmt.setInt(8, hotel.getHotelAttributes().getEmployeeCount());
-            stmt.setInt(9, hotel.getHotelAttributes().getRoomCount());
-            stmt.setInt(10, hotel.getHotelAttributes().getTotalBeds());
-
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
-            int rowsAffected = stmt.executeUpdate();
-            if (1 == rowsAffected) {
-                isHotelAdditionSuccessful = true;
+            ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            int numRowsAffected = ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    Long hotelId = rs.getLong(1);
+                    hotel.setHotelId(hotelId.toString());
+                    isHotelAdditionSuccessful = true;
+                    connection.commit();
+                }
+            } catch (SQLException s) {
+                s.printStackTrace();
+            }catch (NullPointerException npe) {
+                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
             }
-
-            Log.info("\nHotel[" + hotel.getHotelId() + "] successfully added to the DB");
-            stmt = requireNonNull(stmt);
-            stmt.close();
-
-        } catch (SQLException se) {
-            // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+        } catch (SQLException e) {
+            e.printStackTrace();
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
@@ -184,7 +182,9 @@ public class HotelDAO {
             rs = stmt.executeQuery();
 
             hotel = populateHotel(rs);
-            Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
+
+            if(null != hotel)
+                Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
 
             rs = requireNonNull(rs);
             stmt = requireNonNull(stmt);
@@ -204,33 +204,43 @@ public class HotelDAO {
 
     private Hotel populateHotel(ResultSet rs) throws SQLException {
 
-        String hotelId = rs.getString("HOTEL_ID");
-        String hotelName = rs.getString("HOTEL_NAME");
-        String hotelRating = rs.getString("HOTEL_RATING");
-        String hotelLogo = rs.getString("HOTEL_LOGO");
-        String hotelRoomDoorNoFormat = rs.getString("HOTEL_ROOM_DOORNO_FORMAT");
+        if (rs.next() == false) {
+            System.out.println("ResultSet is empty in Java");
+            return null;
+        } else {
 
-        HMSAddress hotelAddress = (HMSAddress) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"), HMSAddress.class);
-        HotelRegistrationData hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_REGISTRATION_DATA"), HotelRegistrationData.class);
+            do {
+                String hotelId = rs.getString("HOTEL_ID");
+                String hotelName = rs.getString("HOTEL_NAME");
+                String hotelRating = rs.getString("HOTEL_RATING");
+                String hotelLogo = rs.getString("HOTEL_LOGO");
+                String hotelRoomDoorNoFormat = rs.getString("HOTEL_ROOM_DOORNO_FORMAT");
 
-        Integer hotelBedCount = rs.getInt("HOTEL_BED_COUNT");
-        Integer hotelStaffCount = rs.getInt("HOTEL_STAFF_COUNT");
-        Integer hotelRoomCount = rs.getInt("HOTEL_ROOM_COUNT");
+                HMSAddress hotelAddress = (HMSAddress) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"), HMSAddress.class);
+                HotelRegistrationData hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_REGISTRATION_DATA"), HotelRegistrationData.class);
 
-        HotelAttributes hotelAttributes = new HotelAttributes(hotelName,
-                hotelRating,
-                hotelLogo,
-                hotelRoomDoorNoFormat,
-                hotelRoomCount,
-                hotelStaffCount,
-                hotelBedCount,
-                hotelAddress);
+                Integer hotelBedCount = rs.getInt("HOTEL_BED_COUNT");
+                Integer hotelStaffCount = rs.getInt("HOTEL_STAFF_COUNT");
+                Integer hotelRoomCount = rs.getInt("HOTEL_ROOM_COUNT");
+                Integer hotelStatus    = rs.getInt("HOTEL_STATUS");
+
+                HotelAttributes hotelAttributes = new HotelAttributes(hotelName,
+                        hotelRating,
+                        hotelLogo,
+                        hotelRoomDoorNoFormat,
+                        hotelRoomCount,
+                        hotelStaffCount,
+                        hotelBedCount,
+                        hotelAddress);
 
 
-        FacilityDAO facilityDAO = new FacilityDAO();
-        List<Facility> hotelFacilities = facilityDAO.fetchFacilitiesByType(HMSAPIServiceConstants.HOTEL_FACILITY);
+                FacilityDAO facilityDAO = new FacilityDAO();
+                List<Facility> hotelFacilities = facilityDAO.fetchFacilitiesByType(HMSAPIServiceConstants.HOTEL_FACILITY);
 
-        return new Hotel(hotelId, hotelAttributes, hotelRegistrationData, hotelFacilities);
+                return new Hotel(hotelId, hotelAttributes, hotelRegistrationData, hotelFacilities,Status.convertIntToStatus(hotelStatus));
+
+            } while (rs.next());
+        }
     }
 
     public Boolean updateHotelStatus(String hotelId, Status status) throws HMSException {

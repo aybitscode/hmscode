@@ -23,17 +23,16 @@
       "hotel_logo": ""
     },
     "hotel_registration_data": {
-      "hotel_id": "",
-      "hotel_reg_id": "",
-      "building_permit_id": "",
-      "fire_safety_permit_id": "",
-      "police_license_id": "",
-      "health_trade_license_id": "",
-      "liquor_license_id": "",
-      "fssai_license_id": "",
+      "hotel_reg_no": "",
+      "building_permit_no": "",
+      "fire_safety_permit_no": "",
+      "police_license_no": "",
+      "health_trade_license_no": "",
+      "liquor_license_no": "",
+      "fssai_license_no": "",
       "gst_no": "",
-      "esi_reg_id": "",
-      "epf_reg_id": ""
+      "esi_reg_no": "",
+      "epf_reg_no": ""
     },
     "hotel_facilities": [
       {
@@ -46,6 +45,7 @@
         "facility_price": "",
         "applicable_voucher": ""
       }
-    ]
+    ],
+    "hotel_status" : ""
   }
 }
