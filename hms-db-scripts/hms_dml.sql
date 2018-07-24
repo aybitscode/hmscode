@@ -7,8 +7,7 @@ hotel_room_count,
 hotel_bed_count,
 hotel_logo,
 hotel_room_doorno_format,
-hotel_status,
-hotel_token_id
+hotel_status
 )values(
 'aybits_master',
 '{
@@ -26,7 +25,6 @@ hotel_token_id
 400,
 'images/hotel-logo.png',
 'ROOM 200',
-1,
-'12345abcd'
+1
 );
 
