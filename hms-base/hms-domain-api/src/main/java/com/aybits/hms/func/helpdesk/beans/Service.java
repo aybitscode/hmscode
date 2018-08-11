@@ -2,7 +2,9 @@ package com.aybits.hms.func.helpdesk.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName("service")
 public class Service {
 
     @JsonProperty("service_id")

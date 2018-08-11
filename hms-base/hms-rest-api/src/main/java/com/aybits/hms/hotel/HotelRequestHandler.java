@@ -15,6 +15,7 @@ import java.util.List;
 
 public class HotelRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
+    HotelAPI hotelAPI = new HotelAPI();
     @Override
     public String handleRequest(Request request, Response response) {
         Log.info("Hotel request handler invoked");
@@ -32,7 +33,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 message = fetchHotelByEmployeeId(request);
                 break;
             case "setup":
-                message = upsertHotel(request);
+                message = upsertHotel(request.body());
                 break;
         }
         return message;
@@ -44,7 +45,6 @@ public class HotelRequestHandler implements HmsRequestHandler {
         Log.info("in fetchHotelByHotelId");
         try {
             String jsonString = request.body().toString();
-            HotelAPI hotelAPI = new HotelAPI();
             Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(jsonString, Hotel.class);
             String hotelId = hotel.getHotelId();
             hotel = hotelAPI.fetchHotelByHotelId(hotelId);
@@ -58,7 +58,6 @@ public class HotelRequestHandler implements HmsRequestHandler {
         Log.info("in fetchHotelByEmployeeId");
         try {
             String jsonString = request.body().toString();
-            HotelAPI hotelAPI = new HotelAPI();
             Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Employee.class);
             Hotel result = hotelAPI.fetchHotelByEmployeeId(employee.getEmpId());
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
@@ -70,7 +69,6 @@ public class HotelRequestHandler implements HmsRequestHandler {
     private String fetchAllHotels(Request request) {
         Log.info("in fetchAllHotels");
         try {
-            HotelAPI hotelAPI = new HotelAPI();
             List<Hotel> result = hotelAPI.fetchAllHotels();
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
@@ -78,12 +76,10 @@ public class HotelRequestHandler implements HmsRequestHandler {
         }
     }
 
-    private String upsertHotel(Request request) {
+    private String upsertHotel(String hotelJsonString) {
         Log.info("in upsertHotel");
         try {
-            HotelAPI hotelAPI = new HotelAPI();
-            String jsonString = request.body().toString();
-            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(jsonString, Hotel.class);
+            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(hotelJsonString, Hotel.class);
             Boolean result = hotelAPI.upsertHotel(hotel);
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
@@ -91,13 +87,15 @@ public class HotelRequestHandler implements HmsRequestHandler {
         }
     }
 
-
     private String setupHotel(Request request){
 
         // TODO Create Hotel
         // TODO Create RoomCategory
         // TODO Create Employee Details
         // TODO Create Tax Rules
+
+        upsertHotel();
+
 
         return null;
     }
