@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("facility")
 public class Facility {
 
+        @JsonProperty("hotel_id")
+        private String hotelId;
         @JsonProperty("facility_id")
         private String  facilityId;
         @JsonProperty("facility_name")
@@ -25,11 +27,12 @@ public class Facility {
         public Facility() {
         }
 
-        public Facility(String facilityId, String facilityName, String facilityDescription,
+        public Facility(String hotelId,String facilityId, String facilityName, String facilityDescription,
                         FacilityType facilityType,
                         Boolean isFacilityAvailable,
                         Boolean isChargeable,
                         Double facilityPrice) {
+                this.hotelId = hotelId;
                 this.facilityId = facilityId;
                 this.facilityName = facilityName;
                 this.facilityDescription = facilityDescription;

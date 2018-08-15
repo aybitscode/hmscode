@@ -2,7 +2,7 @@ package com.aybits.hms.func.corporate.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Address;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Corporate {
@@ -13,7 +13,7 @@ public class Corporate {
     @JsonProperty("corporate_name")
     private String corporateName;
     @JsonProperty("address")
-    private HMSAddress corporateAddress;
+    private Address corporateAddress;
     @JsonProperty("contact_details")
     private ContactDetails corporateContactDetails;
     @JsonProperty("contact_person")
@@ -24,7 +24,7 @@ public class Corporate {
     }
 
     public Corporate(String corporateId, String corporateName,
-                     HMSAddress corporateAddress,
+                     Address corporateAddress,
                      ContactDetails corporateContactDetails,
                      String corporateContactPerson) {
         this.corporateId = corporateId;
@@ -50,11 +50,11 @@ public class Corporate {
         this.corporateName = corporateName;
     }
 
-    public HMSAddress getCorporateAddress() {
+    public Address getCorporateAddress() {
         return corporateAddress;
     }
 
-    public void setCorporateAddress(HMSAddress corporateAddress) {
+    public void setCorporateAddress(Address corporateAddress) {
         this.corporateAddress = corporateAddress;
     }
 

@@ -4,7 +4,7 @@ package com.aybits.hms.func.common.beans;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class HMSAddress {
+public class Address {
 
     @JsonProperty("address_line1")
     private String addressLine1;
@@ -29,9 +29,9 @@ public class HMSAddress {
     private String geoLocation;
 
 
-    public HMSAddress() {
+    public Address() {
     }
-    public HMSAddress(String addressLine1,String addressLine2,String city, String pinCode, String state, String country, String geoLocation) {
+    public Address(String addressLine1, String addressLine2, String city, String pinCode, String state, String country, String geoLocation) {
 
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;

@@ -2,7 +2,7 @@ package com.aybits.hms.func.customer.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.identificationparam.beans.IdentificationParam;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.payment.beans.PaymentParams;
@@ -24,7 +24,7 @@ public class Customer {
     @JsonProperty("last_name")
     private String lastName;
     @JsonProperty("customer_address")
-    private HMSAddress customerAddress;
+    private Address customerAddress;
     @JsonProperty("contact_details")
     private ContactDetails contactDetails;
     @JsonProperty("identification_params")
@@ -52,7 +52,7 @@ public class Customer {
 
     public Customer(String customerId, String firstName, String middleName, String lastName,
                     Status customerStatus,
-                    HMSAddress customerAddress, ContactDetails contactDetails,
+                    Address customerAddress, ContactDetails contactDetails,
                     IdentificationParam identificationParam, PaymentParams paymentParams, Integer hotelId) {
 
         this.customerId = customerId;
@@ -100,11 +100,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public HMSAddress getCustomerAddress() {
+    public Address getCustomerAddress() {
         return customerAddress;
     }
 
-    public void setCustomerAddress(HMSAddress customerAddress) {
+    public void setCustomerAddress(Address customerAddress) {
         this.customerAddress = customerAddress;
     }
 

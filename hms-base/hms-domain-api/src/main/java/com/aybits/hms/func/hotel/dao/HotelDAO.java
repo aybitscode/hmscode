@@ -4,7 +4,7 @@ import com.aybits.hms.arch.dbman.DBConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.facility.beans.Facility;
@@ -216,7 +216,7 @@ public class HotelDAO {
                 String hotelLogo = rs.getString("HOTEL_LOGO");
                 String hotelRoomDoorNoFormat = rs.getString("HOTEL_ROOM_DOORNO_FORMAT");
 
-                HMSAddress hotelAddress = (HMSAddress) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"), HMSAddress.class);
+                Address hotelAddress = (Address) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"), Address.class);
                 HotelRegistrationData hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_REGISTRATION_DATA"), HotelRegistrationData.class);
 
                 Integer hotelBedCount = rs.getInt("HOTEL_BED_COUNT");

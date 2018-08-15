@@ -2,6 +2,7 @@ package com.aybits.hms.func.common.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ContactDetails {
 
     @JsonProperty("primary_email")
@@ -15,6 +16,27 @@ public class ContactDetails {
 
     @JsonProperty("secondary_phone")
     private String secondaryPhone;
+
+    @JsonProperty("fax_number")
+    private String faxNumber;
+
+    @JsonProperty("mobile_number")
+    private String mobileNumber;
+
+    public ContactDetails(){
+
+    }
+
+    public ContactDetails(String primaryEmail, String primaryPhone,
+                          String secondaryEmail, String secondaryPhone,
+                          String faxNumber, String mobileNumber) {
+        this.primaryEmail = primaryEmail;
+        this.primaryPhone = primaryPhone;
+        this.secondaryEmail = secondaryEmail;
+        this.secondaryPhone = secondaryPhone;
+        this.faxNumber = faxNumber;
+        this.mobileNumber = mobileNumber;
+    }
 
     public String getPrimaryEmail() {
         return primaryEmail;
@@ -51,5 +73,22 @@ public class ContactDetails {
     @Override
     public String toString(){
         return HMSJSONParser.convertObjectToJSON((Object)this);
+    }
+
+
+    public String getFaxNumber() {
+        return faxNumber;
+    }
+
+    public void setFaxNumber(String faxNumber) {
+        this.faxNumber = faxNumber;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

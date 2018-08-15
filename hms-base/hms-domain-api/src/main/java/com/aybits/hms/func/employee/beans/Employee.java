@@ -2,7 +2,7 @@ package com.aybits.hms.func.employee.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.identificationparam.beans.IdentificationParam;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.login.beans.LoginAttributes;
@@ -28,7 +28,7 @@ public class Employee {
     @JsonProperty("contact_details")
         private ContactDetails contactDetails;
     @JsonProperty("employee_address")
-        private HMSAddress employeeAddress;
+        private Address employeeAddress;
     @JsonProperty("identification_param")
         private IdentificationParam identificationParam;
     @JsonProperty("employee_status")
@@ -47,7 +47,7 @@ public class Employee {
     }
 
     public Employee(String empId, LoginAttributes loginAttributes, Role role,
-                    ContactDetails contactDetails, HMSAddress employeeAddress,
+                    ContactDetails contactDetails, Address employeeAddress,
                     IdentificationParam identificationParam,
                     Status employeeStatus, Date dateModified, Date dateCreated, Date dateDeleted,
                     Integer hotelId) {
@@ -88,12 +88,12 @@ public class Employee {
         this.contactDetails = contactDetails;
     }
 
-    public HMSAddress getHMSAddress() {
+    public Address getHMSAddress() {
         return employeeAddress;
     }
 
-    public void setHMSAddress(HMSAddress hmsAddress) {
-        this.employeeAddress = hmsAddress;
+    public void setHMSAddress(Address address) {
+        this.employeeAddress = address;
     }
 
     public IdentificationParam getIdentificationParam() {
@@ -112,11 +112,11 @@ public class Employee {
         this.loginAttributes = loginAttributes;
     }
 
-    public HMSAddress getEmployeeAddress() {
+    public Address getEmployeeAddress() {
         return employeeAddress;
     }
 
-    public void setEmployeeAddress(HMSAddress employeeAddress) {
+    public void setEmployeeAddress(Address employeeAddress) {
         this.employeeAddress = employeeAddress;
     }
 

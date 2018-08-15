@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("service")
 public class Service {
 
+    @JsonProperty("hotel_id")
+    private String hotelId;
     @JsonProperty("service_id")
     private Integer serviceId;
     @JsonProperty("service_name")
@@ -31,16 +33,19 @@ public class Service {
     }
 
 
-    public Service(Integer serviceId,
-                   String serviceName,
-                  // ServiceType serviceType,
-                   String serviceDescription,
-                   Boolean isServiceAvailable,
-                   Boolean isServiceChargeable,
-                   Double serviceCharge,
-                   Boolean isTaxApplicable,
-                   Double appliedTax
-                ) {
+    public Service(
+            String hotelId,
+            Integer serviceId,
+            String serviceName,
+           // ServiceType serviceType,
+            String serviceDescription,
+            Boolean isServiceAvailable,
+            Boolean isServiceChargeable,
+            Double serviceCharge,
+            Boolean isTaxApplicable,
+            Double appliedTax
+        ) {
+        this.hotelId = hotelId;
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         //this.serviceType = serviceType;
@@ -114,6 +119,15 @@ public class Service {
 
     public void setAppliedTax(Double appliedTax) {
         this.appliedTax = appliedTax;
+    }
+
+
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
     }
 
     @Override

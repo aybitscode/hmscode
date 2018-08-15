@@ -6,7 +6,7 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.employee.cache.EmployeeCache;
@@ -192,7 +192,7 @@ public class EmployeeDAO {
         employee.setContactDetails(cd);
 
         String addressJSON = rs.getString("HOME_ADDRESS");
-        HMSAddress employeeAddress = (HMSAddress)HMSJSONParser.convertJSONToObject(addressJSON,HMSAddress.class);
+        Address employeeAddress = (Address)HMSJSONParser.convertJSONToObject(addressJSON,Address.class);
         employee.setEmployeeAddress(employeeAddress);
 
         Integer identificationParamId = rs.getInt("IDENTIFICATION_PARAM_ID");

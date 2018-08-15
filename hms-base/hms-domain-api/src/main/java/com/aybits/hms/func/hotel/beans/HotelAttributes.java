@@ -1,7 +1,8 @@
 package com.aybits.hms.func.hotel.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.ContactDetails;
+import com.aybits.hms.func.common.beans.Address;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -12,7 +13,9 @@ public class HotelAttributes {
         @JsonProperty("hotel_name")
         private String hotelName;
         @JsonProperty("hotel_address")
-        private HMSAddress hotelAddress;
+        private Address hotelAddress;
+        @JsonProperty("hotel_contact_details")
+        private ContactDetails hotelContactDetails;
         @JsonProperty("hotel_room_count")
         private Integer roomCount;
         @JsonProperty("hotel_room_doorno_format")
@@ -38,7 +41,8 @@ public class HotelAttributes {
                                Integer roomCount,
                                Integer employeeCount,
                                Integer totalBeds,
-                               HMSAddress hotelAddress) {
+                               Address hotelAddress,
+                               ContactDetails hotelContactDetails) {
                 this.hotelName = hotelName;
                 this.hotelAddress = hotelAddress;
                 this.roomCount = roomCount;
@@ -47,6 +51,7 @@ public class HotelAttributes {
                 this.totalBeds = totalBeds;
                 this.hotelRating = hotelRating;
                 this.hotelLogo = hotelLogo;
+                this.hotelContactDetails = hotelContactDetails;
         }
 
         public String getHotelName() {
@@ -57,11 +62,11 @@ public class HotelAttributes {
                 this.hotelName = hotelName;
         }
 
-        public HMSAddress getHotelAddress() {
+        public Address getHotelAddress() {
                 return hotelAddress;
         }
 
-        public void setHotelAddress(HMSAddress hotelAddress) {
+        public void setHotelAddress(Address hotelAddress) {
                 this.hotelAddress = hotelAddress;
         }
 
@@ -111,6 +116,14 @@ public class HotelAttributes {
 
         public void setHotelLogo(String hotelLogo) {
                 this.hotelLogo = hotelLogo;
+        }
+
+        public ContactDetails getHotelContactDetails() {
+                return hotelContactDetails;
+        }
+
+        public void setHotelContactDetails(ContactDetails hotelContactDetails) {
+                this.hotelContactDetails = hotelContactDetails;
         }
 
         @Override

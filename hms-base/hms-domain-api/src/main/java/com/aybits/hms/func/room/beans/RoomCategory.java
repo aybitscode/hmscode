@@ -12,6 +12,8 @@ import java.util.List;
 
 @JsonRootName("room_category")
 public class RoomCategory {
+    @JsonProperty("hotel_id")
+    private String hotelId;
     @JsonProperty("room_category_id")
     private String categoryId;
     @JsonProperty("room_category_name")
@@ -44,7 +46,15 @@ public class RoomCategory {
     public RoomCategory() {
     }
 
-    public RoomCategory(String categoryId, String categoryName, String categoryDescription, String bedCount, Integer roomCount, RoomPrice roomPrice, RoomCapacity roomCapacity, Integer adultOccupancy, Integer childOccupancy, List<Amenity> categoryAmenities, List<Facility> categoryFacilities, List<Service> categoryServices, List<Voucher> categoryVouchers, Boolean isCategoryAvailable) {
+    public RoomCategory(String hotelId,String categoryId,
+                        String categoryName, String categoryDescription,
+                        String bedCount, Integer roomCount,
+                        RoomPrice roomPrice, RoomCapacity roomCapacity,
+                        Integer adultOccupancy, Integer childOccupancy,
+                        List<Amenity> categoryAmenities, List<Facility> categoryFacilities,
+                        List<Service> categoryServices, List<Voucher> categoryVouchers,
+                        Boolean isCategoryAvailable) {
+        this.hotelId = hotelId;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
@@ -174,7 +184,13 @@ public class RoomCategory {
         isCategoryAvailable = categoryAvailable;
     }
 
+    public String getHotelId() {
+        return hotelId;
+    }
 
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
+    }
 
     @Override
     public String toString(){
