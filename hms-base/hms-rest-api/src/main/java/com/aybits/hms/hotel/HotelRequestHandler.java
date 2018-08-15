@@ -33,12 +33,23 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 message = fetchHotelByEmployeeId(request);
                 break;
             case "setup":
-                message = upsertHotel(request.body());
+                message = addHotel(request);
                 break;
+            case "category":
+                message = addRoomCategory(request);
+                break;
+            case "facilities":
+                message = addFacilites(request);
+            case "taxrules":
+                message = addTaxRules(request);
+
         }
         return message;
     }
 
+    private String addFacilites(Request request) {
+        return null;
+    }
 
 
     private String fetchHotelByHotelId(Request request) {
@@ -87,15 +98,30 @@ public class HotelRequestHandler implements HmsRequestHandler {
         }
     }
 
-    private String setupHotel(Request request){
+    private String addHotel(Request request){
 
         // TODO Create Hotel
+
+        upsertHotel(request.toString());
+
+
+        return null;
+    }
+
+    private String addRoomCategory(Request request){
+
         // TODO Create RoomCategory
+        return null;
+    }
+
+    private String addEmployeeDetails(Request request){
         // TODO Create Employee Details
+
+        return null;
+    }
+
+    private String addTaxRules(Request request){
         // TODO Create Tax Rules
-
-        upsertHotel();
-
 
         return null;
     }
