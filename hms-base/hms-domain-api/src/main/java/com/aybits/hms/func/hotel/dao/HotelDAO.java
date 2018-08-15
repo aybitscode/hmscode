@@ -5,20 +5,18 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.Address;
+import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.Status;
-import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
-import com.aybits.hms.func.facility.beans.Facility;
-import com.aybits.hms.func.facility.dao.FacilityDAO;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
+import com.mysql.jdbc.Statement;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +37,14 @@ public class HotelDAO {
         try (PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, hotel.getHotelAttributes().getHotelName());
             ps.setString(2, hotel.getHotelAttributes().getHotelAddress().toString());
-            ps.setString(3, hotel.getHotelAttributes().getHotelRating());
-            ps.setString(4, hotel.getHotelAttributes().getHotelLogo());
-            ps.setString(5, hotel.getHotelAttributes().getRoomDoorNoFormat());
-            ps.setInt(6, hotel.getHotelAttributes().getEmployeeCount());
-            ps.setInt(7, hotel.getHotelAttributes().getRoomCount());
-            ps.setInt(8, hotel.getHotelAttributes().getTotalBeds());
-            ps.setInt(9,hotel.getHotelStatus().getStatusAsInt());
+            ps.setString(3,hotel.getHotelAttributes().getHotelContactDetails().toString());
+            ps.setString(4, hotel.getHotelAttributes().getHotelRating());
+            ps.setString(5, hotel.getHotelAttributes().getHotelLogo());
+            ps.setString(6, hotel.getHotelAttributes().getRoomDoorNoFormat());
+            ps.setInt(7, hotel.getHotelAttributes().getEmployeeCount());
+            ps.setInt(8, hotel.getHotelAttributes().getRoomCount());
+            ps.setInt(9, hotel.getHotelAttributes().getTotalBeds());
+            ps.setInt(10,hotel.getHotelStatus().getStatusAsInt());
 
             ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();
@@ -216,6 +215,7 @@ public class HotelDAO {
                 String hotelLogo = rs.getString("HOTEL_LOGO");
                 String hotelRoomDoorNoFormat = rs.getString("HOTEL_ROOM_DOORNO_FORMAT");
 
+                ContactDetails hotelContactDetails = (ContactDetails) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_CONTACT_DETAILS"), ContactDetails.class);
                 Address hotelAddress = (Address) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"), Address.class);
                 HotelRegistrationData hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_REGISTRATION_DATA"), HotelRegistrationData.class);
 
@@ -224,6 +224,7 @@ public class HotelDAO {
                 Integer hotelRoomCount = rs.getInt("HOTEL_ROOM_COUNT");
                 Integer hotelStatus    = rs.getInt("HOTEL_STATUS");
 
+
                 HotelAttributes hotelAttributes = new HotelAttributes(hotelName,
                         hotelRating,
                         hotelLogo,
@@ -231,13 +232,10 @@ public class HotelDAO {
                         hotelRoomCount,
                         hotelStaffCount,
                         hotelBedCount,
-                        hotelAddress);
+                        hotelAddress,
+                        hotelContactDetails);
 
-
-                FacilityDAO facilityDAO = new FacilityDAO();
-                List<Facility> hotelFacilities = facilityDAO.fetchFacilitiesByType(HMSAPIServiceConstants.HOTEL_FACILITY);
-
-                return new Hotel(hotelId, hotelAttributes, hotelRegistrationData, hotelFacilities,Status.convertIntToStatus(hotelStatus));
+                return new Hotel(hotelId, hotelAttributes, hotelRegistrationData, Status.convertIntToStatus(hotelStatus));
 
             } while (rs.next());
         }
@@ -290,6 +288,7 @@ public class HotelDAO {
 
             stmt.setString(1, hotel.getHotelAttributes().getHotelName());
             stmt.setString(2, hotel.getHotelAttributes().getHotelAddress().toString());
+            stmt.setString(2, hotel.getHotelAttributes().getHotelContactDetails().toString());
             stmt.setString(3, hotel.getHotelRegistrationData().toString());
             stmt.setString(4, hotel.getHotelAttributes().getHotelRating());
             stmt.setString(5, hotel.getHotelAttributes().getHotelLogo());

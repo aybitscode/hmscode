@@ -15,19 +15,19 @@ public class VoucherDAO {
         return true;
     }
 
-    public Voucher fetchVoucher(Integer voucherId){
+    public Voucher fetchVoucher(String hotelId,Integer voucherId){
         return null;
     }
 
-    public List<Voucher> fetchAllVouchers(){
+    public List<Voucher> fetchAllVouchers(String hotelId){
         return null;
     }
 
-    public Boolean updateVoucherPrice(Integer voucherId,Double newVoucherprice){
+    public Boolean updateVoucherPrice(String hotelId,Integer voucherId,Double newVoucherprice){
         return true;
     }
 
-    public Boolean updateVoucherStatus(Integer voucherId,VoucherStatus voucherStatus){
+    public Boolean updateVoucherStatus(String hotelId,Integer voucherId,VoucherStatus voucherStatus){
         return true;
     }
 

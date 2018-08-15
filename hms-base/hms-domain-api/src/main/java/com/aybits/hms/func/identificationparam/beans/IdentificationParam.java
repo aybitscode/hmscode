@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("identification_param")
 public class IdentificationParam {
 
+    @JsonProperty("hotel_id")
+    private String hotelId;
     @JsonProperty("identification_param_id")
     private String identificationParamId;
     @JsonProperty("identifier_binary_data")
@@ -21,12 +23,13 @@ public class IdentificationParam {
 
     }
     
-    public IdentificationParam(String identificationParamId, Byte[] identiferBinaryData,
+    public IdentificationParam(String hotelId,String identificationParamId, Byte[] identiferBinaryData,
                                Integer identifierValue, IdentifierType identifierType) {
         this.identificationParamId = identificationParamId;
         this.identiferBinaryData = identiferBinaryData;
         this.identifierValue = identifierValue;
         this.identifierType = identifierType;
+        this.hotelId = hotelId;
     }
 
 
@@ -62,6 +65,13 @@ public class IdentificationParam {
         this.identificationParamId = identificationParamId;
     }
 
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
+    }
 
     @Override
     public String toString(){

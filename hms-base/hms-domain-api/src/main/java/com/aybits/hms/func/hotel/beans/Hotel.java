@@ -2,11 +2,8 @@ package com.aybits.hms.func.hotel.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.Status;
-import com.aybits.hms.func.facility.beans.Facility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
-import java.util.List;
 
 @JsonRootName("hotel")
 public class Hotel {
@@ -18,8 +15,6 @@ public class Hotel {
     private HotelAttributes hotelAttributes;
     @JsonProperty("hotel_registration_data")
     private HotelRegistrationData hotelRegistrationData;
-    @JsonProperty("hotel_facilities")
-    private List<Facility> hotelFacilities;
     @JsonProperty("hotel_status")
     private Status hotelStatus;
     public Hotel() {
@@ -28,12 +23,10 @@ public class Hotel {
     public Hotel(String hotelId,
                  HotelAttributes hotelAttributes,
                  HotelRegistrationData hotelRegistrationData,
-                 List<Facility> hotelFacilities,
                  Status hotelStatus) {
         this.hotelId = hotelId;
         this.hotelAttributes = hotelAttributes;
         this.hotelRegistrationData = hotelRegistrationData;
-        this.hotelFacilities = hotelFacilities;
         this.hotelStatus = hotelStatus;
     }
 
@@ -51,14 +44,6 @@ public class Hotel {
 
     public void setHotelAttributes(HotelAttributes hotelAttributes) {
         this.hotelAttributes = hotelAttributes;
-    }
-
-    public List<Facility> getHotelFacilities() {
-        return hotelFacilities;
-    }
-
-    public void setHotelFacilities(List<Facility> hotelFacilities) {
-        this.hotelFacilities = hotelFacilities;
     }
 
     public HotelRegistrationData getHotelRegistrationData() {
