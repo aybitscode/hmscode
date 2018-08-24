@@ -18,4 +18,21 @@ public class FacilityDAO {
     public List<Facility> fetchAllFacilities(){
         return null;
     }
+
+    public Boolean addFacility(Facility facility){
+        return true;
+    }
+
+    public Boolean updateFacility(Facility facility){
+        return true;
+    }
+
+    public Boolean deleteFacility(Facility facility){
+        return true;
+    }
+
+    public Boolean updateFacilityStatus(String facilityId,Integer status){
+        return true;
+    }
+
 }
