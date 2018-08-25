@@ -1,0 +1,38 @@
+{
+      "data" : [ {
+        "facility_description" : "Only for men",
+        "facility_id" : "TO_GEN",
+        "facility_name" : "Swimming Pool",
+        "facility_price" : "NIL",
+        "facility_type" : "HOTEL",
+        "is_available" : true,
+        "is_chargeable" : false
+      }, {
+        "facility_description" : "Only for women",
+        "facility_id" : "TO_GEN",
+        "facility_name" : "Gym",
+        "facility_price" : "NIL",
+        "facility_type" : "HOTEL",
+        "is_available" : true,
+        "is_chargeable" : false
+      }, {
+        "facility_description" : "this is room facility",
+        "facility_id" : "TO_GEN",
+        "facility_name" : "Spa",
+        "facility_price" : "NIL",
+        "facility_type" : "Room Facility",
+        "is_available" : true,
+        "is_chargeable" : false
+      }, {
+        "facility_description" : "This is hotel facility",
+        "facility_id" : "TO_GEN",
+        "facility_name" : "PUB",
+        "facility_price" : "NIL",
+        "facility_type" : "Hotel Facility",
+        "is_available" : true,
+        "is_chargeable" : false
+      } ],
+      "entity" : "HOTEL_SETUP",
+      "operation" : "ADD_FACILITIES",
+      "request_id" : "HMS_REQ"
+    }

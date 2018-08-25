@@ -1,0 +1,44 @@
+{
+	"emp_id": "",
+	"first_name": "",
+	"middle_name": "",
+	"last_name": "",
+	"login_attributes": {
+		"login_id": "",
+		"password": "",
+		"password_type": {
+			"password_type": ""
+		}
+	},
+	"emp_role": {
+		"role_level": ""
+	},
+	"contact_details": {
+		"primary_email": "",
+		"primary_phone": "",
+		"secondary_email": "",
+		"secondary_phone": ""
+	},
+	"employee_address": {
+		"address_line1": "",
+		"address_line2": "",
+		"city": "",
+		"state": "",
+		"pin_code": "",
+		"country": "",
+		"geo_location": ""
+	},
+	"identification_param": {
+		"identification_param_id": "",
+		"identifier_binary_data": "",
+		"identifier_value": "",
+		"identifier_type": ""
+	},
+	"employee_status": {
+		"status": ""
+	},
+	"date_modified": "",
+	"date_created": "",
+	"date_deleted": "",
+	"hms_hotel_id": ""
+}
