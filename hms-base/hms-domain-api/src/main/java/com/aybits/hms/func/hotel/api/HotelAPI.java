@@ -19,7 +19,7 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
 
 
-    private String addHotel(Hotel hotel) throws HMSException {
+    public String addHotel(Hotel hotel) throws HMSException {
         String hotelId = null;
         Boolean isHotelAdditionSuccessful = false;
         if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
@@ -69,7 +69,7 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     }
 
-    private Boolean updateHotel(Hotel hotel) throws HMSException {
+    public Boolean updateHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelUpdateSuccessful = false;
         if (hotel.getHotelId() == HMSAPIConstants.TO_BE_GENERATED) try {
