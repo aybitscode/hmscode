@@ -21,6 +21,7 @@ public class HmsRestHttpService {
     private static final String CONTENT_TYPE = "application/json";
 
     public void registerHttpAPIs() {
+
         registerPostApi("/login", new LoginRequestHandler());
         registerPostApi("/quick-booking", new BookingRequestHandler());
         registerPostApi("/employee/fetch-all", new EmployeeRequestHandler());
