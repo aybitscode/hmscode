@@ -1,59 +1,136 @@
 package com.aybits.hms.func.voucher.cache;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.voucher.beans.Voucher;
+import com.aybits.hms.func.voucher.dao.VoucherDAO;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class VoucherCache {
 
 
-    private static ConcurrentHashMap<String, Voucher> voucherCache = new ConcurrentHashMap<>();
-    private static HashSet<String> voucherIds = new HashSet<>();
+    static Logger log = Logger.getLogger(VoucherCache.class);
+    private static final ConcurrentHashMap voucherConcurrentHashMap = new ConcurrentHashMap();
+    private static final HashSet<String> voucherIds = new HashSet<>();
+    private VoucherDAO voucherDAO = new VoucherDAO();
 
-    public Boolean initCache(){
-        return false;
+    public Boolean initCache(String hotelId){
+
+        Boolean isVoucherCacheInitialized = false;
+        if(voucherConcurrentHashMap.isEmpty()){
+            List<Voucher> vouchers = null;
+            try {
+                vouchers = voucherDAO.fetchAllVouchers(hotelId);
+                if(!vouchers.isEmpty()) {
+                    for (Voucher voucher : vouchers) {
+                        voucherIds.add(voucher.getVoucherId());
+                        voucherConcurrentHashMap.put(voucher.getVoucherId(), voucher);
+                    }
+                }
+
+            }catch(HMSException e){
+                //LOG Cache Initialization failed
+                //  throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all voucher details failed");
+            }finally{
+                if(!voucherConcurrentHashMap.keySet().isEmpty()){
+                    isVoucherCacheInitialized = true;
+                }
+            }
+        }
+
+
+        return isVoucherCacheInitialized;
     }
 
-    public void addVoucher(Voucher voucher) {
-        if (voucherCache.get(String.valueOf(voucher.getVoucherId())) == null) {
-            voucherIds.add(voucher.getVoucherId());
-            voucherCache.put(voucher.getVoucherId(), voucher);
+    public Boolean addVoucher(Voucher voucher) throws HMSException {
+
+        Boolean isVoucherAdditionSuccessful = voucherDAO.addVoucher(voucher);
+        if(isVoucherAdditionSuccessful){
+            if (voucherConcurrentHashMap.get(voucher.getVoucherId()) == null) {
+                voucherIds.add(voucher.getVoucherId());
+                voucherConcurrentHashMap.put(voucher.getVoucherId(), voucher);
+            }
+        }
+        return isVoucherAdditionSuccessful;
+
+    }
+
+    public Boolean updateVoucher(Voucher voucher) throws HMSException {
+        Boolean isVoucherUpdateSuccessful = voucherDAO.updateVoucher(voucher);
+        if(isVoucherUpdateSuccessful) {
+            String voucherId = voucher.getVoucherId();
+            if (voucherIds.contains(voucher.getVoucherId())) {
+                voucherConcurrentHashMap.remove(voucherId);
+            }
+            voucherConcurrentHashMap.put(voucherId, voucher);
+        }
+        return isVoucherUpdateSuccessful;
+    }
+
+
+    public Voucher fetchVoucherById(String hotelId,String voucherId) throws HMSException {
+        Voucher voucher = null;
+        try{
+            voucher = (Voucher)voucherConcurrentHashMap.get(voucherId);
+            if (voucher == null){
+                voucher = voucherDAO.fetchVoucher(hotelId,voucherId);
+                voucher = Objects.requireNonNull(voucher);
+                voucherConcurrentHashMap.put(voucherId,voucher);
+            }
+        }catch(NullPointerException npe){
+            log.info("No Voucher Present for the given voucherId["+voucherId+"]");
+        }finally{
+            return voucher;
         }
     }
 
-    public void updateVoucher(Voucher voucher) {
-        String voucherId = voucher.getVoucherId();
-        voucherCache.remove(voucherId);
-        voucherCache.put(voucherId, voucher);
-    }
 
+    public  List<Voucher> fetchAllVouchers(String hotelId) throws HMSException {
 
-    public Voucher getVoucherById(String voucherId) {
-        Voucher voucher = voucherCache.get(voucherId);
-        if (voucher != null)
-            return voucher;
-        else
-            return null;
-    }
-
-
-    public List<Voucher> getAllVouchers() {
+        ArrayList<Object> voucherObjs = new ArrayList<>();
         ArrayList<Voucher> vouchers = new ArrayList<>();
-        vouchers.addAll(voucherCache.values());
+
+        voucherObjs.addAll(voucherConcurrentHashMap.values());
+        if(voucherObjs.isEmpty()){
+            initCache(hotelId);
+            voucherObjs.addAll(voucherConcurrentHashMap.values());
+        }
+        for(Object obj:voucherObjs){
+            Voucher voucher = (Voucher)obj;
+            vouchers.add(voucher);
+        }
         return vouchers;
     }
 
-    public List<String> getAllVoucherIds() {
+    public List<String> fetchAllVoucherIds() {
         ArrayList<String> voucherIds = new ArrayList<>();
-        voucherIds.addAll(voucherCache.keySet());
+        voucherIds.addAll(voucherConcurrentHashMap.keySet());
         return voucherIds;
     }
 
-    public static ConcurrentHashMap<String,Voucher> getVoucherCache(){
-        return voucherCache;
+
+    public Boolean isVoucherPresent(String hotelId,String voucherId){
+        Boolean isVoucherPresent = false;
+        Voucher voucher = null;
+        try {
+            voucher = fetchVoucherById(hotelId,voucherId);
+            if(voucher != null && voucher.getVoucherId() != null){
+                isVoucherPresent = true;
+            }
+        } catch (HMSException e) {
+            log.error("Exception occured while checking if Voucher["+voucher.getHotelId()+":"+voucher.getVoucherId()+"] is present in the system");
+        }
+        return isVoucherPresent;
+
+    }
+
+    public ConcurrentHashMap<String,Voucher> getVoucherCache(){
+        return voucherConcurrentHashMap;
     }
 
 }

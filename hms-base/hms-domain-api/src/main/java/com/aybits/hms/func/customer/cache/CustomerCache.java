@@ -10,7 +10,7 @@ public class CustomerCache {
 	private static ConcurrentHashMap<String, Customer> customerMobileCache = new ConcurrentHashMap<>();
 	private static HashSet<String> customerIds = new HashSet<>();
 
-	public Boolean initCache(){
+	public Boolean initCache(String hotelId){
 		return false;
 	}
 
@@ -64,7 +64,7 @@ public class CustomerCache {
 		return customerIds;
 	}
 
-	public static ConcurrentHashMap<String, Customer> getCustomerCache(){
+	public ConcurrentHashMap<String, Customer> getCustomerCache(){
 		return customerCache;
 	}
 

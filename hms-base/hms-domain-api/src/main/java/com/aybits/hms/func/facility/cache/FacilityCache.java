@@ -1,14 +1,16 @@
 package com.aybits.hms.func.facility.cache;
 
 import com.aybits.hms.func.facility.beans.Facility;
+import com.aybits.hms.func.voucher.beans.Voucher;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FacilityCache {
-    private static HashMap<String, Facility> facilityCache = new HashMap<>();
+    private static ConcurrentHashMap<String, Facility> facilityCache = new ConcurrentHashMap<>();
     private static HashSet<String> facilityIds = new HashSet<>();
 
-    public Boolean initCache(){
+    public Boolean initCache(String hotelId){
         return false;
     }
     public void addFacility(Facility facility) {
@@ -45,7 +47,7 @@ public class FacilityCache {
         return facilityIds;
     }
 
-    public HashMap<String,Facility> getFacilityCache(){
+    public ConcurrentHashMap<String,Facility> getFacilityCache(){
         return facilityCache;
     }
 

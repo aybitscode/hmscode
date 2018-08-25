@@ -6,11 +6,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class EmployeeCache {
 
-    private static ConcurrentHashMap<String, Employee> employeeCache = new ConcurrentHashMap<>();
-    private static ConcurrentHashMap<String, Employee> employeeMobileCache = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String,Employee> employeeCache = new ConcurrentHashMap<String,Employee>();
+    private static ConcurrentHashMap employeeMobileCache = new ConcurrentHashMap();
     private HashSet<String> employeeIds = new HashSet<>();
 
-    public Boolean initCache(){
+    public Boolean initCache(String hotelId){
         return false;
     }
 
@@ -36,7 +36,7 @@ public class EmployeeCache {
     }
 
     public Employee getEmployeeById(String employeeId) {
-        Employee employee = employeeCache.get(employeeId);
+        Employee employee = (Employee)employeeCache.get(employeeId);
         if (employee != null)
             return employee;
         else
@@ -44,7 +44,7 @@ public class EmployeeCache {
     }
 
     public Employee getEmployeeByMobile(String mobileNumber) {
-        Employee employee = employeeMobileCache.get(mobileNumber);
+        Employee employee = (Employee)employeeMobileCache.get(mobileNumber);
         if (employee != null)
             return employee;
         else
@@ -64,7 +64,7 @@ public class EmployeeCache {
         return employeeIds;
     }
 
-    public static ConcurrentHashMap<String,Employee> getEmployeeCache(){
+    public ConcurrentHashMap<String,Employee> getEmployeeCache(){
         return employeeCache;
     }
 }
