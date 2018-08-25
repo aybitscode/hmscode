@@ -8,7 +8,8 @@ CREATE TABLE `hms_hotel` (
   `hotel_bed_count` int(64) ,
   `hotel_logo` varchar(100) ,
   `hotel_room_doorno_format` varchar(45) ,
-  `hotel_status` int(11)  COMMENT 'This column saves the status details whether hotel is enabled,active or disabled'
+  `hotel_status` int(11)  COMMENT 'This column saves the status details whether hotel is enabled,active or disabled',
+  `hotel_contact_details` varchar(500) COMMENT 'Contact Details of given hotel'
 ) COMMENT='This is the primary table to store all the information regarding entity - Hotel in the HMS Solution';
 
 CREATE TABLE `hms_admin_event_log` (

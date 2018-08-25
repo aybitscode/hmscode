@@ -8,6 +8,7 @@ ALTER TABLE hms_hotel CHANGE hotel_bed_count hotel_bed_count int(64) DEFAULT '0'
 ALTER TABLE hms_hotel CHANGE hotel_logo hotel_logo varchar(100) DEFAULT NULL ;
 ALTER TABLE hms_hotel CHANGE hotel_room_doorno_format hotel_room_doorno_format varchar(45) DEFAULT NULL;
 ALTER TABLE hms_hotel CHANGE hotel_status hotel_status int(11) NOT NULL;
+ALTER TABLE hms_hotel CHANGE hotel_contact_details hotel_contact_details varchar(500) NOT NULL;
 commit;
 
 
