@@ -34,7 +34,9 @@ public class HotelDAO {
     public Boolean addHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelAdditionSuccessful = false;
+
         try (PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL, Statement.RETURN_GENERATED_KEYS)) {
+            connection.setAutoCommit(false);
             ps.setString(1, hotel.getHotelAttributes().getHotelName());
             ps.setString(2, hotel.getHotelAttributes().getHotelAddress().toString());
             ps.setString(3,hotel.getHotelAttributes().getHotelContactDetails().toString());

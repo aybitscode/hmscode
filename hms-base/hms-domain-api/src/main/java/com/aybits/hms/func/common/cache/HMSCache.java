@@ -23,6 +23,10 @@ public class HMSCache {
     static Logger log = Logger.getLogger(VoucherCache.class);
     private static final ConcurrentHashMap<String, ConcurrentHashMap> hmsHotelDeepCache = new ConcurrentHashMap<String,ConcurrentHashMap>();
 
+    /**
+     * This API Loads the HMS Cache during application startup
+     * @return
+     */
     public Boolean initHMSCache(){
         HotelCache hotelCache = new HotelCache();
         Boolean isHotelCacheLoaded    = hotelCache.initCache();
