@@ -182,9 +182,7 @@ public class EmployeeDAO {
     private static Employee populateEmployee(ResultSet rs) throws SQLException{
         Employee employee = new Employee();
         employee.setEmpId(rs.getString("EMPLOYEE_ID"));
-        employee.setFirstName(rs.getString("FIRST_NAME"));
-        employee.setLastName(rs.getString("LAST_NAME"));
-        employee.setMiddleName(rs.getString("MIDDLE_NAME"));
+        employee.setEmpFullName(rs.getString("EMPLOYEE_FULL_NAME"));
 
         ContactDetails cd = new ContactDetails();
         cd.setPrimaryEmail(rs.getString("EMAIL"));
@@ -224,8 +222,7 @@ public class EmployeeDAO {
 
             pst = connection.prepareStatement(EmployeeDBQueries.ADD_EMPLOYEE);
             pst.setString(++i, generateEmployeeId());
-            pst.setString(++i, employee.getFirstName());
-            pst.setString(++i, employee.getLastName());
+            pst.setString(++i, employee.getEmpFullName());
 
             pst.setString(++i, employee.getContactDetails().getPrimaryEmail());
             pst.setString(++i, employee.getContactDetails().getPrimaryPhone());
@@ -258,8 +255,7 @@ public class EmployeeDAO {
 
             pst = connection.prepareStatement(EmployeeDBQueries.UPDATE_EMPLOYEE);
 
-            pst.setString(i++, employee.getFirstName());
-            pst.setString(i++, employee.getLastName());
+            pst.setString(i++, employee.getEmpFullName());
             pst.setString(i++, employee.getEmployeeAddress().getCity());
             pst.setString(i++, employee.getContactDetails().getPrimaryEmail());
             pst.setString(i++, employee.getContactDetails().getPrimaryPhone());

@@ -66,7 +66,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 
 	public String getCustomerNameByMobile(String mobilePhone){
 		Customer customer = getCustomerByPhone(mobilePhone);
-		return customer.getFirstName()+" "+customer.getLastName();
+		return customer.getCustomerFullName();
 	}
 
 	public String getCustomerId(String mobilePhone) {

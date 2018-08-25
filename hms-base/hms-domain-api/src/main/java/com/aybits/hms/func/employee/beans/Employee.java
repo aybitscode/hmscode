@@ -15,12 +15,8 @@ import java.util.Date;
 public class Employee {
     @JsonProperty("emp_id")
         private String empId;
-    @JsonProperty("first_name")
-    private String firstName;
-    @JsonProperty("middle_name")
-    private String middleName;
-    @JsonProperty("last_name")
-    private String lastName;
+    @JsonProperty("emp_full_name")
+        private String empFullName;
     @JsonProperty("login_attributes")
         private LoginAttributes loginAttributes;
     @JsonProperty("emp_role")
@@ -160,28 +156,12 @@ public class Employee {
         this.hotelId = hotelId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmpFullName() {
+        return empFullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmpFullName(String empFullName) {
+        this.empFullName = empFullName;
     }
 
     @Override

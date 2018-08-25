@@ -17,12 +17,8 @@ public class Customer {
     private String customerId;
     @JsonProperty("corporate_id")
     private String corporateId;
-    @JsonProperty("first_name")
-    private String firstName;
-    @JsonProperty("middle_name")
-    private String middleName;
-    @JsonProperty("last_name")
-    private String lastName;
+    @JsonProperty("customer_full_name")
+    private String customerFullName;
     @JsonProperty("customer_address")
     private Address customerAddress;
     @JsonProperty("contact_details")
@@ -50,15 +46,13 @@ public class Customer {
     }
 
 
-    public Customer(String customerId, String firstName, String middleName, String lastName,
+    public Customer(String customerId, String customerFullName,
                     Status customerStatus,
                     Address customerAddress, ContactDetails contactDetails,
                     IdentificationParam identificationParam, PaymentParams paymentParams, Integer hotelId) {
 
         this.customerId = customerId;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.customerFullName = customerFullName;
         this.customerAddress = customerAddress;
         this.contactDetails = contactDetails;
         this.identificationParam = identificationParam;
@@ -76,28 +70,12 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getCustomerFullName() {
+        return customerFullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setCustomerFullName(String customerFullName) {
+        this.customerFullName = customerFullName;
     }
 
     public Address getCustomerAddress() {

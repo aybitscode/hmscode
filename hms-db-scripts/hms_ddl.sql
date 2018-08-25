@@ -68,9 +68,7 @@ CREATE  TABLE `hms_corporate` (
 CREATE TABLE `hms_customer` (
   `CUSTOMER_ID` varchar(60) ,
   `CORPORATE_ID` varchar(60) ,
-  `FIRST_NAME` varchar(100),
-  `MIDDLE_NAME` varchar(45),
-  `LAST_NAME` varchar(60) ,
+  `CUSTOMER_FULL_NAME` varchar(300),
   `EMAIL` varchar(60) ,
   `MOBILE` int(20) ,
   `HOME_ADDRESS` varchar(2000) ,
@@ -91,9 +89,7 @@ CREATE TABLE `hms_customization` (
 
 CREATE TABLE `hms_employee` (
   `EMPLOYEE_ID` varchar(60) ,
-  `FIRST_NAME` varchar(100) ,
-  `MIDDLE_NAME` varchar(45) ,
-  `LAST_NAME` varchar(60) ,
+  `EMP_FULL_NAME` varchar(300) ,
   `EMAIL` varchar(60) ,
   `MOBILE` int(20) ,
   `HOME_ADDRESS` varchar(2000) ,
@@ -132,7 +128,7 @@ CREATE TABLE `hms_facility_voucher_map` (
   `hotel_id` int(64) DEFAULT NULL COMMENT 'This column represents the unique hotel ID generated during hotel setup and uniquely identifies the hotel created in hms solution',
   `facility_id` varchar(60) DEFAULT NULL COMMENT 'This column is generated when a facility is created and uniquely represents a facility created in hms solution',
   `voucher_id` varchar(60) DEFAULT NULL COMMENT 'This column represents the voucher created for a given hotel and is mapped to a given hotel''s facility'
-)
+)COMMENT='This table defines the Vouchers associated with a given facility';
 
 
 CREATE TABLE `hms_hotel_registration_data` (

@@ -183,9 +183,7 @@ public class CustomerDAO {
 		        Customer customer = new Customer();
 				customer.setCustomerId(rs.getString("CUSTOMER_ID"));
 				customer.setCorporateId(rs.getString("CORPORATE_ID"));
-				customer.setFirstName(rs.getString("FIRST_NAME"));
-				customer.setLastName(rs.getString("LAST_NAME"));
-				customer.setMiddleName(rs.getString("MIDDLE_NAME"));
+				customer.setCustomerFullName(rs.getString("CUSTOMER_FULL_NAME"));
 
 				ContactDetails cd = new ContactDetails();
 				cd.setPrimaryEmail(rs.getString("EMAIL"));
@@ -223,9 +221,7 @@ public class CustomerDAO {
 
 			pst = connection.prepareStatement(CustomerDBQueries.ADD_CUSTOMER);
 			pst.setString(++i, generateCustomerId());
-			pst.setString(++i, customer.getFirstName());
-			pst.setString(++i, customer.getLastName());
-
+			pst.setString(++i, customer.getCustomerFullName());
 			pst.setString(++i, customer.getContactDetails().getPrimaryEmail());
 			pst.setString(++i, customer.getContactDetails().getPrimaryPhone());
 			pst.setString(++i, customer.getCustomerAddress().toString());
@@ -258,13 +254,13 @@ public class CustomerDAO {
 			
 			pst = connection.prepareStatement(CustomerDBQueries.UPDATE_CUSTOMER);
 
-			pst.setString(i++, customer.getFirstName());
-			pst.setString(i++, customer.getLastName());
+			pst.setString(i++, customer.getCustomerFullName());
 			pst.setString(i++, customer.getCustomerAddress().getCity());
 			pst.setString(i++, customer.getContactDetails().getPrimaryEmail());
 			pst.setString(i++, customer.getContactDetails().getPrimaryPhone());
 			pst.setString(i++, customer.getCustomerAddress().toString());
 			pst.setString(i++, customer.getCustomerId());
+			pst.setInt(i++,customer.getHotelId());
 			int s=pst.executeUpdate();
 			if(s>0){
 				updateStatus = true;

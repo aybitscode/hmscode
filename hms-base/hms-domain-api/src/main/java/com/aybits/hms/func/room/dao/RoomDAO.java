@@ -34,7 +34,7 @@ public class RoomDAO {
             pst = connection.prepareStatement(RoomDBQueries.ADD_ROOM);
             pst.setString(++i, generateRoomId());
             pst.setString(++i, room.getFirstName());
-            pst.setString(++i, customer.getLastName());
+            pst.setString(++i, customer.getCustomerFullName());
 
             pst.setString(++i, customer.getContactDetails().getPrimaryEmail());
             pst.setString(++i, customer.getContactDetails().getPrimaryPhone());
