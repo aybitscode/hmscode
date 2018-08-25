@@ -159,7 +159,7 @@ public class HotelDAO {
             // TODO Auto-generated catch block
             throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
             return hotels;
         }

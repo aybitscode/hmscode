@@ -35,7 +35,7 @@ public class Employee {
         private Date dateCreated;
     @JsonProperty("date_deleted")
         private Date dateDeleted;
-    @JsonProperty("hms_hotel_id")
+    @JsonProperty("hotel_id")
         private Integer hotelId;
 
     public Employee(){
