@@ -3,6 +3,7 @@ package com.aybits.hms.Employee;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.customer.api.CustomerAPI;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
@@ -15,9 +16,23 @@ import java.util.List;
 
 public class EmployeeRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
+
+    @Override
+    public ValidationResult validateRequestData(Request request, Response response) {
+        ValidationResult result = new ValidationResult();
+        result.setCode(100);
+        result.setMessage("In Valida Request");
+        return result;
+    }
+
     @Override
     public String handleRequest(Request request, Response response) {
         Log.info("Employee request handler invoked");
+
+        ValidationResult result = validateRequest(request, response);
+        if (result != null) {
+            return result.getMessage();
+        }
 
         String action = request.pathInfo().split("/")[2];
         String message = "";

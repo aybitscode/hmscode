@@ -4,6 +4,7 @@ import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
@@ -16,9 +17,23 @@ import java.util.List;
 public class HotelRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
     HotelAPI hotelAPI = new HotelAPI();
+
+    @Override
+    public ValidationResult validateRequestData(Request request, Response response) {
+        ValidationResult result = new ValidationResult();
+        result.setCode(100);
+        result.setMessage("In Valida Request");
+        return result;
+    }
+
     @Override
     public String handleRequest(Request request, Response response) {
         Log.info("Hotel request handler invoked");
+
+        ValidationResult result = validateRequest(request, response);
+        if (result != null) {
+            return result.getMessage();
+        }
 
         String action = request.pathInfo().split("/")[2];
         String message = "";
@@ -32,7 +47,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             case "fetch-by-emp-id":
                 message = fetchHotelByEmployeeId(request);
                 break;
-            case "setup":
+            case "hotel":
                 message = addHotel(request);
                 break;
             case "category":
@@ -93,34 +108,36 @@ public class HotelRequestHandler implements HmsRequestHandler {
             Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(hotelJsonString, Hotel.class);
             Boolean result = hotelAPI.upsertHotel(hotel);
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
+
+
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchAllHotels", false));
         }
     }
 
-    private String addHotel(Request request){
+    private String addHotel(Request request) {
 
         // TODO Create Hotel
 
-        upsertHotel(request.toString());
+        upsertHotel(request.body());
 
 
         return null;
     }
 
-    private String addRoomCategory(Request request){
+    private String addRoomCategory(Request request) {
 
         // TODO Create RoomCategory
         return null;
     }
 
-    private String addEmployeeDetails(Request request){
+    private String addEmployeeDetails(Request request) {
         // TODO Create Employee Details
 
         return null;
     }
 
-    private String addTaxRules(Request request){
+    private String addTaxRules(Request request) {
         // TODO Create Tax Rules
 
         return null;
