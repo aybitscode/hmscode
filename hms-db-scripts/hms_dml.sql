@@ -29,7 +29,8 @@ hotel_contact_details
 1,
 '{
                 "fax_number": "9999999999",
-                "mobile_number": "9999999999",
+                "mobile_number1": "9999999999",
+		"mobile_number2": "9999999998",
                 "primary_email": "demo@demo.com",
                 "primary_phone": "9999999999",
                 "secondary_email": "demo@demo.com",
