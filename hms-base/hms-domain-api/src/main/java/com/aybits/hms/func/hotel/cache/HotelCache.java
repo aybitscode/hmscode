@@ -47,7 +47,7 @@ public class HotelCache {
         return isHotelCacheInitialized;
     }
 
-    public Boolean addHotel(Hotel hotel) throws HMSException {
+    public String addHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelAdditionSuccessful = hotelDAO.addHotel(hotel);
         if(isHotelAdditionSuccessful){
@@ -56,7 +56,7 @@ public class HotelCache {
                 hotelConcurrentHashMap.put(hotel.getHotelId(), hotel);
             }
         }
-        return isHotelAdditionSuccessful;
+        return hotel.getHotelId();
 
     }
 

@@ -19,17 +19,18 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
 
 
-    private Boolean addHotel(Hotel hotel) throws HMSException {
+    private String addHotel(Hotel hotel) throws HMSException {
+        String hotelId = null;
         Boolean isHotelAdditionSuccessful = false;
         if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
             try {
-                isHotelAdditionSuccessful = hotelCache.addHotel(hotel);
+                hotelId = hotelCache.addHotel(hotel);
             } catch (HMSException e) {
                 log.info("Exception occured while adding hotel::"+hotel.getHotelId());
                 throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
             }
         }
-        return isHotelAdditionSuccessful;
+        return hotelId;
     }
     public List<Hotel> fetchAllHotels()  {
 
@@ -68,22 +69,6 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     }
 
-    public Boolean upsertHotel(Hotel hotel) throws HMSException{
-
-        String hotelId = hotel.getHotelId();
-        Boolean isHotelPresent = hotelCache.isHotelPresent(hotelId);
-        Boolean isOperationSuccessful = false;
-        if(isHotelPresent){
-            //update Hotel Details
-            isOperationSuccessful = updateHotel(hotel);
-        }else{
-            isOperationSuccessful = addHotel(hotel);
-            //add hotel Details
-
-        }
-        return isOperationSuccessful;
-    }
-
     private Boolean updateHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelUpdateSuccessful = false;
@@ -95,11 +80,6 @@ public class HotelAPI extends HMSAPIProviderImpl {
         }
         return isHotelUpdateSuccessful;
 
-    }
-
-
-    public Boolean setupHotel(Object object){
-        return false;
     }
 
 
