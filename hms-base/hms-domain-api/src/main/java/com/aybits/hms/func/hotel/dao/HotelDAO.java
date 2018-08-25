@@ -26,7 +26,7 @@ public class HotelDAO {
 
     static Logger Log = Logger.getLogger(HotelDAO.class);
 
-    private static Connection connection = DBConnection.getDBConnection();
+    private Connection connection = DBConnection.getDBConnection();
 
 
 
