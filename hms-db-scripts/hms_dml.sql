@@ -7,7 +7,8 @@ hotel_room_count,
 hotel_bed_count,
 hotel_logo,
 hotel_room_doorno_format,
-hotel_status
+hotel_status,
+hotel_contact_details
 )values(
 'aybits_master',
 '{
@@ -15,7 +16,7 @@ hotel_status
 	"address_line2": "Avenue Road",
 	"city": "Bengaluru",
 	"state": "Karnataka",
-	"pincode": "560032",
+	"pin_code": "560032",
 	"country": "India",
 	"geo_location": "{\'lat\':100,\'long\':100}"
 }',
@@ -25,6 +26,14 @@ hotel_status
 400,
 'images/hotel-logo.png',
 'ROOM 200',
-1
+1,
+'{
+                "fax_number": "9999999999",
+                "mobile_number": "9999999999",
+                "primary_email": "demo@demo.com",
+                "primary_phone": "9999999999",
+                "secondary_email": "demo@demo.com",
+                "secondary_phone": "9999999999"
+}'
 );
 
