@@ -13,7 +13,7 @@ public class RoomCategoryCache {
     private static ConcurrentHashMap<String, RoomCategory> roomCategoryCache = new ConcurrentHashMap<>();
     private static HashSet<String> roomCategoryIds = new HashSet<>();
 
-    public Boolean initCache(){
+    public Boolean initCache(String hotelId){
         return false;
     }
 
