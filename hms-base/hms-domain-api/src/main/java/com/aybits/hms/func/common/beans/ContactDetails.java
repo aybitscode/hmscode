@@ -20,8 +20,13 @@ public class ContactDetails {
     @JsonProperty("fax_number")
     private String faxNumber;
 
-    @JsonProperty("mobile_number")
-    private String mobileNumber;
+    @JsonProperty("mobile_number1")
+    private String primaryMobileNumber;
+
+    @JsonProperty("mobile_number2")
+    private String secondaryMobileNumber;
+
+
 
     public ContactDetails(){
 
@@ -29,13 +34,15 @@ public class ContactDetails {
 
     public ContactDetails(String primaryEmail, String primaryPhone,
                           String secondaryEmail, String secondaryPhone,
-                          String faxNumber, String mobileNumber) {
+                          String faxNumber, String primaryMobileNumber,
+                          String secondaryMobileNumber) {
         this.primaryEmail = primaryEmail;
         this.primaryPhone = primaryPhone;
         this.secondaryEmail = secondaryEmail;
         this.secondaryPhone = secondaryPhone;
         this.faxNumber = faxNumber;
-        this.mobileNumber = mobileNumber;
+        this.primaryMobileNumber = primaryMobileNumber;
+        this.secondaryMobileNumber = secondaryMobileNumber;
     }
 
     public String getPrimaryEmail() {
@@ -84,11 +91,21 @@ public class ContactDetails {
         this.faxNumber = faxNumber;
     }
 
-    public String getMobileNumber() {
-        return mobileNumber;
+    public String getPrimaryMobileNumber() {
+        return primaryMobileNumber;
     }
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setPrimaryMobileNumber(String primaryMobileNumber) {
+        this.primaryMobileNumber = primaryMobileNumber;
     }
+
+
+    public String getSecondaryMobileNumber() {
+        return secondaryMobileNumber;
+    }
+
+    public void setSecondaryMobileNumber(String secondaryMobileNumber) {
+        this.secondaryMobileNumber = secondaryMobileNumber;
+    }
+
 }
