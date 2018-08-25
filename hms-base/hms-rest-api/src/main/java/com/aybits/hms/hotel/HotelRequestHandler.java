@@ -32,30 +32,32 @@ public class HotelRequestHandler implements HmsRequestHandler {
 
         ValidationResult result = validateRequest(request, response);
         if (result != null) {
-            return result.getMessage();
+            //return result.getMessage();
         }
 
-        String action = request.pathInfo().split("/")[2];
+        String action = getActionString(request);
+
         String message = "";
+
         switch (action) {
-            case "fetch-all":
+            case "/fetch/all":
                 message = fetchAllHotels(request);
                 break;
-            case "fetch-by-hotel-id":
+            case "/fetch/hotel-id":
                 message = fetchHotelByHotelId(request);
                 break;
-            case "fetch-by-emp-id":
+            case "/fetch/emp-id":
                 message = fetchHotelByEmployeeId(request);
                 break;
-            case "hotel":
+            case "/setup/hotel":
                 message = addHotel(request);
                 break;
-            case "category":
+            case "/setup/category":
                 message = addRoomCategory(request);
                 break;
-            case "facilities":
+            case "/setup/facilities":
                 message = addFacilites(request);
-            case "taxrules":
+            case "/setup/tax-rules":
                 message = addTaxRules(request);
 
         }

@@ -1,5 +1,7 @@
 {
 	"data": {
+		"hotel_id":"TO_BE_GEN",
+		"hotel_status":"ACTIVE",
 		"hotel_attributes": {
 			"hotel_address": {
 				"address_line1": "Thanisandra",
@@ -15,6 +17,7 @@
 				"secondary_email": "mohammed@gmail.com",
 				"secondary_phone": "9999999999"
 			},
+			"hotel_bed_count":"200",
 			"hotel_employee_count": "10",
 			"hotel_name": "HOTEL_EMPIRE",
 			"hotel_rating": "6",
@@ -34,6 +37,6 @@
 		}
 	},
 	"entity": "HOTEL_SETUP",
-	"opeartion": "ADD_HOTEL",
+	"operation": "ADD_HOTEL",
 	"request_id": "HMS_REQ"
 }
