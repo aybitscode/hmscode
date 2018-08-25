@@ -25,7 +25,11 @@ public class HotelAPI extends HMSAPIProviderImpl {
         if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
             try {
                 hotelId = hotelCache.addHotel(hotel);
-            } catch (HMSException e) {
+                if(hotelId == null){
+                    throw new NullPointerException();
+                }
+            } 
+            catch (NullPointerException | HMSException e) {
                 log.info("Exception occured while adding hotel::"+hotel.getHotelId());
                 throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
             }
