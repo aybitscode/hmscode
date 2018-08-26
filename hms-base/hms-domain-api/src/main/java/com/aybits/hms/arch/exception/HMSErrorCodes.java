@@ -21,6 +21,8 @@ public class HMSErrorCodes {
 	public static final String HOTEL_ALREADY_EXISTS  = "HOTEL_ALREADY_EXISTS";
 	public static final String HOTEL_UPDATE_FAILED = "HOTEL_UPDATE_FAILED";
 	public static final String HMS_EXCEPTION = "HMS_EXCEPTION";
-			
+
+	public static final String FACILITY_ADDITION_FAILED = "FACILITY_ADDITIION_FAILED";
+	public static final String FACILITY_UPDATE_FAILED = "FACILITY_UPDATE_FAILED";
 
 }

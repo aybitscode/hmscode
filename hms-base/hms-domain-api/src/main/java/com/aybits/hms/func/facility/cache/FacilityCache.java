@@ -1,6 +1,9 @@
 package com.aybits.hms.func.facility.cache;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.facility.beans.Facility;
+import com.aybits.hms.func.facility.dao.FacilityDAO;
+import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.voucher.beans.Voucher;
 
 import java.util.*;
@@ -9,15 +12,46 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FacilityCache {
     private static ConcurrentHashMap<String, Facility> facilityCache = new ConcurrentHashMap<>();
     private static HashSet<String> facilityIds = new HashSet<>();
+    private FacilityDAO facilityDAO = new FacilityDAO();
 
-    public Boolean initCache(String hotelId){
-        return false;
-    }
-    public void addFacility(Facility facility) {
-        if (facilityCache.get(String.valueOf(facility.getFacilityId())) == null) {
-            facilityIds.add(facility.getFacilityId());
-            facilityCache.put(facility.getFacilityId(), facility);
+    public Boolean initCache(String facilityId){
+        Boolean isFacilityCacheInitialized = false;
+        if(facilityCache.isEmpty()){
+            List<Facility> facilities = null;
+            try {
+                facilities = facilityDAO.fetchAllFacilities();
+                if(!facilities.isEmpty()) {
+                    for (Facility facility : facilities) {
+                        facilityIds.add(facility.getFacilityId());
+                        facilityCache.put(facility.getFacilityId(), facility);
+                    }
+                }
+
+            }catch(Exception e){
+                //LOG Cache Initialization failed
+                //  throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all hotel details failed");
+            }finally{
+                if(!facilityCache.keySet().isEmpty()){
+                    isFacilityCacheInitialized = true;
+                }
+            }
         }
+
+        return isFacilityCacheInitialized;
+    }
+
+    public String addFacility(Facility[] facilities) throws HMSException
+    {
+        Boolean isFacilityAdditionSuccessful = facilityDAO.addFacility(facilities);
+        if(isFacilityAdditionSuccessful){
+            for(Facility facility : facilities){
+                if (facilityCache.get(facility.getFacilityId()) == null) {
+                    facilityIds.add(facility.getFacilityId());
+                    facilityCache.put(facility.getFacilityId(), facility);
+                }
+            }
+        }
+        return facility.getFacilityId();
     }
 
     public void updateFacility(Facility facility) {

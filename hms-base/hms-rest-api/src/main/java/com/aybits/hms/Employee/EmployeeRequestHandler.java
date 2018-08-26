@@ -141,12 +141,12 @@ public class EmployeeRequestHandler implements HmsRequestHandler {
     }
 
     private HmsResponse getHmsResponse(Object responseData, boolean result) {
-        HmsResponse response;
-        if (result) {
-            response = new HmsResponse(200, "SUCCESS", responseData);
+        HmsResponse response = null;
+       /* if (result) {
+            response = new HmsResponse(200, "SUCCESS", responseData, null, null, "SUCCESS");
         } else {
-            response = new HmsResponse(401, "FAILED", responseData);
-        }
+            response = new HmsResponse(200, "FAILED", responseData, null, null, "FAILED");
+        }*/
         return response;
     }
 }

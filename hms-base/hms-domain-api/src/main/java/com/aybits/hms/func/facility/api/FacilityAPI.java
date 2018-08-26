@@ -1,6 +1,8 @@
 package com.aybits.hms.func.facility.api;
 
+import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.facility.cache.FacilityCache;
@@ -15,8 +17,21 @@ public class FacilityAPI extends HMSAPIProviderImpl {
     FacilityCache facilityCache = new FacilityCache();
     FacilityDAO facilityDAO = new FacilityDAO();
 
-    public Boolean addFacility(Facility facility) throws HMSException {
-        return true;
+    public Boolean addFacility(Facility[] facilities) throws HMSException {
+        if (facility.getFacilityId() != null && facility.getFacilityId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
+            try {
+                facilityCache.addFacility(facility);
+                if(facility == null){
+                    throw new NullPointerException();
+                }
+                return true;
+            }
+            catch (Exception e) {
+                log.info("Exception occured while adding facility::"+facility.getFacilityId());
+                throw new HMSException(HMSErrorCodes.FACILITY_ADDITION_FAILED, "Adding facility details failed");
+            }
+        }
+        return false;
     }
 
     public Boolean updateFacility(Facility facility)throws HMSException{

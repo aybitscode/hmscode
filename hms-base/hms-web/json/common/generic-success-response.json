@@ -1,8 +1,9 @@
-{"response_id:":"",
+{"response_id":"",
   "operation":"add",
   "entity":"customer",
+  "status":"success",
+  "message":"Customer added successfully"
   "data": {
-    "status":"success",
-    "message":"Customer added successfully"
+    "hotel-id":""
   }
 }
