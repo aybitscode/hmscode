@@ -210,21 +210,34 @@ ALTER TABLE hms_voucher CHANGE voucher_discount voucher_discount   double DEFAUL
 ALTER TABLE hms_voucher CHANGE vouhcer_status vouhcer_status   int(11) DEFAULT NULL;
 commit;
 
-
-ALTER TABLE hms_room_category_voucher_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
-ALTER TABLE hms_room_category_voucher_map ADD FOREIGN KEY (voucher_id) REFERENCES hms_voucher(voucher_id);
-ALTER TABLE hms_room_category_voucher_map ADD FOREIGN KEY (room_category_id) REFERENCES hms_room_category(category_id);
-
 ALTER TABLE hms_amenity_voucher_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_amenity_voucher_map ADD FOREIGN KEY (voucher_id) REFERENCES hms_voucher(voucher_id);
 ALTER TABLE hms_amenity_voucher_map ADD FOREIGN KEY (amenity_id) REFERENCES hms_amenity(amenity_id);
 
 ALTER TABLE hms_service_voucher_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_service_voucher_map ADD FOREIGN KEY (voucher_id) REFERENCES hms_voucher(voucher_id);
-ALTER TABLE hms_service_voucher_map ADD FOREIGN KEY (amenity_id) REFERENCES hms_service(service_id);
+ALTER TABLE hms_service_voucher_map ADD FOREIGN KEY (service_id) REFERENCES hms_service(service_id);
 
 ALTER TABLE hms_facility_voucher_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_facility_voucher_map ADD FOREIGN KEY (voucher_id) REFERENCES hms_voucher(voucher_id);
-ALTER TABLE hms_facility_voucher_map ADD FOREIGN KEY (amenity_id) REFERENCES hms_facility(facility_id);
+ALTER TABLE hms_facility_voucher_map ADD FOREIGN KEY (facility_id) REFERENCES hms_facility(facility_id);
+
+
+ALTER TABLE hms_room_category_service_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
+ALTER TABLE hms_room_category_service_map ADD FOREIGN KEY (room_category_id) REFERENCES hms_room_category(category_id);
+ALTER TABLE hms_room_category_service_map ADD FOREIGN KEY (service_id) REFERENCES hms_service(service_id);
+
+ALTER TABLE hms_room_category_facility_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
+ALTER TABLE hms_room_category_facility_map ADD FOREIGN KEY (room_category_id) REFERENCES hms_room_category(category_id);
+ALTER TABLE hms_room_category_facility_map ADD FOREIGN KEY (facility_id) REFERENCES hms_facility(facility_id);
+
+ALTER TABLE hms_room_category_amenity_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
+ALTER TABLE hms_room_category_amenity_map ADD FOREIGN KEY (room_category_id) REFERENCES hms_room_category(category_id);
+ALTER TABLE hms_room_category_amenity_map ADD FOREIGN KEY (amenity_id) REFERENCES hms_amenity(amenity_id);
+
+ALTER TABLE hms_room_category_voucher_map ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
+ALTER TABLE hms_room_category_voucher_map ADD FOREIGN KEY (room_category_id) REFERENCES hms_room_category(category_id);
+ALTER TABLE hms_room_category_voucher_map ADD FOREIGN KEY (voucher_id) REFERENCES hms_voucher(voucher_id);
+
 
 commit;
