@@ -40,15 +40,13 @@ public class FacilityCache {
         return isFacilityCacheInitialized;
     }
 
-    public String addFacility(Facility[] facilities) throws HMSException
+    public String addFacility(Facility facility) throws HMSException
     {
-        Boolean isFacilityAdditionSuccessful = facilityDAO.addFacility(facilities);
+        Boolean isFacilityAdditionSuccessful = facilityDAO.addFacility(facility);
         if(isFacilityAdditionSuccessful){
-            for(Facility facility : facilities){
-                if (facilityCache.get(facility.getFacilityId()) == null) {
-                    facilityIds.add(facility.getFacilityId());
-                    facilityCache.put(facility.getFacilityId(), facility);
-                }
+            if (facilityCache.get(facility.getFacilityId()) == null) {
+                facilityIds.add(facility.getFacilityId());
+                facilityCache.put(facility.getFacilityId(), facility);
             }
         }
         return facility.getFacilityId();

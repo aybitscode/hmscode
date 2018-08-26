@@ -18,20 +18,26 @@ public class FacilityAPI extends HMSAPIProviderImpl {
     FacilityDAO facilityDAO = new FacilityDAO();
 
     public Boolean addFacility(Facility[] facilities) throws HMSException {
-        if (facility.getFacilityId() != null && facility.getFacilityId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
-            try {
-                facilityCache.addFacility(facility);
-                if(facility == null){
-                    throw new NullPointerException();
+        Boolean isFacilityAdded = false;
+        if(facilities != null){
+            for(Facility facility:facilities){
+
+                if (facility.getFacilityId() != null && facility.getFacilityId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
+                    try {
+                        facilityCache.addFacility(facility);
+                        if (facility == null) {
+                            throw new NullPointerException();
+                        }
+                        isFacilityAdded = true;
+                    } catch (Exception e) {
+                        log.info("Exception occured while adding facility::" + facility.getFacilityId());
+                        throw new HMSException(HMSErrorCodes.FACILITY_ADDITION_FAILED, "Adding facility details failed");
+                    }
                 }
-                return true;
-            }
-            catch (Exception e) {
-                log.info("Exception occured while adding facility::"+facility.getFacilityId());
-                throw new HMSException(HMSErrorCodes.FACILITY_ADDITION_FAILED, "Adding facility details failed");
+
             }
         }
-        return false;
+        return isFacilityAdded;
     }
 
     public Boolean updateFacility(Facility facility)throws HMSException{

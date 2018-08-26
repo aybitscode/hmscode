@@ -33,38 +33,37 @@ public class FacilityDAO {
         return null;
     }
 
-    public Boolean addFacility(Facility[] facilities) throws HMSException
+
+
+    public Boolean addFacility(Facility facility) throws HMSException
     {
-        boolean isFacilitiesUpdated = false;
-        for (Facility facility : facilities)
+        boolean isFacilityAdded = false;
+
+        try (PreparedStatement ps = connection.prepareStatement(FacilityDBQuries.INSERT_NEW_FACILITY, Statement.RETURN_GENERATED_KEYS))
         {
-            try (PreparedStatement ps = connection.prepareStatement(FacilityDBQuries.INSERT_NEW_FACILITY, Statement.RETURN_GENERATED_KEYS))
-            {
-                connection.setAutoCommit(false);
-                ps.setString(1, facility.getHotelId());
-                ps.setString(2, facility.getFacilityDescription());
-                ps.setString(3, facility.getIsFacilityAvailable().toString());
-                ps.setString(4, facility.getChargeable().toString());
-                ps.setString(5, facility.getFacilityType().toString());
-                ps.setDouble(6, facility.getFacilityPrice());
-                ps.setInt(7, facility.getApplicableVocher());
+            connection.setAutoCommit(false);
+            ps.setString(1, facility.getHotelId());
+            ps.setString(2,facility.getFacilityName());
+            ps.setString(3, facility.getFacilityDescription());
+            ps.setString(4, facility.getIsFacilityAvailable().toString());
+            ps.setString(5, facility.getChargeable().toString());
+            ps.setString(6, facility.getFacilityType().toString());
+            ps.setDouble(7, facility.getFacilityPrice());
 
-                ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
-                int numRowsAffected = ps.executeUpdate();
-                isFacilitiesUpdated = true;
-            } catch (SQLException e) {
-                isFacilitiesUpdated = false;
-                e.printStackTrace();
-                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occured::" + e.getMessage());
-            } catch (NullPointerException npe) {
-                isFacilitiesUpdated = false;
-                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
-            } finally {
+            ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            int numRowsAffected = ps.executeUpdate();
+            if(numRowsAffected > 0)
+                isFacilityAdded = true;
+        } catch (SQLException e) {
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occured::" + e.getMessage());
+        } catch (NullPointerException npe) {
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
+        } finally {
 
-            }
         }
-        return isFacilitiesUpdated;
+        return isFacilityAdded;
     }
+
 
     public Boolean updateFacility(Facility facility){
         return true;

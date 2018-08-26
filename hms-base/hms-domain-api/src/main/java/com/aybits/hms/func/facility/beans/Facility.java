@@ -98,6 +98,23 @@ public class Facility {
                 isChargeable = chargeable;
         }
 
+        public String getHotelId() {
+                return hotelId;
+        }
+
+        public void setHotelId(String hotelId) {
+                this.hotelId = hotelId;
+        }
+
+        public Boolean getFacilityAvailable() {
+                return isFacilityAvailable;
+        }
+
+        public void setFacilityAvailable(Boolean facilityAvailable) {
+                isFacilityAvailable = facilityAvailable;
+        }
+
+
         @Override
         public String toString(){
                 return HMSJSONParser.convertObjectToJSON((Object)this);
