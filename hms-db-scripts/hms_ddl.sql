@@ -14,6 +14,7 @@ CREATE TABLE `hms_hotel` (
   `hotel_secondary_email` varchar(64),
   `hotel_primary_mobile` varchar(64),
   `hotel_secondary_mobile` varchar(64),
+  `hotel_fax_number` varchar(64),
   `hotel_status` int(11)  COMMENT 'This column saves the status details whether hotel is enabled,active or disabled'
 ) COMMENT='This is the primary table to store all the information regarding entity - Hotel in the HMS Solution';
 
@@ -126,8 +127,7 @@ CREATE TABLE `hms_facility` (
   `facility_availability` int(11) ,
   `is_facility_chargeable` int(11) ,
   `facility_type` int(11),
-  `facility_price` double ,
-  `applicable_voucher_id` varchar(60) NOT NULL
+  `facility_price` double 
 ) COMMENT='This table defines the facilities that are provided for a given hotel';
 
 CREATE TABLE `hms_facility_voucher_map` (
