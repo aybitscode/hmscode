@@ -39,14 +39,29 @@ public class HotelDAO {
             connection.setAutoCommit(false);
             ps.setString(1, hotel.getHotelAttributes().getHotelName());
             ps.setString(2, hotel.getHotelAttributes().getHotelAddress().toString());
-            ps.setString(3,hotel.getHotelAttributes().getHotelContactDetails().toString());
-            ps.setString(4, hotel.getHotelAttributes().getHotelRating());
-            ps.setString(5, hotel.getHotelAttributes().getHotelLogo());
-            ps.setString(6, hotel.getHotelAttributes().getRoomDoorNoFormat());
-            ps.setInt(7, hotel.getHotelAttributes().getEmployeeCount());
-            ps.setInt(8, hotel.getHotelAttributes().getRoomCount());
-            ps.setInt(9, hotel.getHotelAttributes().getTotalBeds());
-            ps.setInt(10,hotel.getHotelStatus().getStatusAsInt());
+
+            String primaryEmail = hotel.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
+            ps.setString(3,primaryEmail);
+            String secondaryEmail = hotel.getHotelAttributes().getHotelContactDetails().getSecondaryEmail();
+            ps.setString(4,secondaryEmail);
+            String primaryPhone = hotel.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
+            ps.setString(5,primaryPhone);
+            String secondaryPhone = hotel.getHotelAttributes().getHotelContactDetails().getSecondaryPhone();
+            ps.setString(6,secondaryPhone);
+            String primaryMobile = hotel.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
+            ps.setString(7,primaryMobile);
+            String secondaryMobile = hotel.getHotelAttributes().getHotelContactDetails().getSecondaryMobileNumber();
+            ps.setString(8,secondaryMobile);
+            String faxNumber = hotel.getHotelAttributes().getHotelContactDetails().getFaxNumber();
+            ps.setString(9,faxNumber);
+
+            ps.setString(10, hotel.getHotelAttributes().getHotelRating());
+            ps.setString(11, hotel.getHotelAttributes().getHotelLogo());
+            ps.setString(12, hotel.getHotelAttributes().getRoomDoorNoFormat());
+            ps.setInt(13, hotel.getHotelAttributes().getEmployeeCount());
+            ps.setInt(14, hotel.getHotelAttributes().getRoomCount());
+            ps.setInt(15, hotel.getHotelAttributes().getTotalBeds());
+            ps.setInt(16,hotel.getHotelStatus().getStatusAsInt());
 
             ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();
@@ -217,7 +232,6 @@ public class HotelDAO {
                 String hotelLogo = rs.getString("HOTEL_LOGO");
                 String hotelRoomDoorNoFormat = rs.getString("HOTEL_ROOM_DOORNO_FORMAT");
 
-                ContactDetails hotelContactDetails = (ContactDetails) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_CONTACT_DETAILS"), ContactDetails.class);
                 Address hotelAddress = (Address) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"), Address.class);
                 HotelRegistrationData hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_REGISTRATION_DATA"), HotelRegistrationData.class);
 
@@ -226,6 +240,15 @@ public class HotelDAO {
                 Integer hotelRoomCount = rs.getInt("HOTEL_ROOM_COUNT");
                 Integer hotelStatus    = rs.getInt("HOTEL_STATUS");
 
+                String primaryEmail   = rs.getString("HOTEL_PRIMARY_EMAIL");
+                String secondaryEmail   = rs.getString("HOTEL_SECONDARY_EMAIL");
+                String primaryPhone   = rs.getString("HOTEL_PRIMARY_PHONE");
+                String secondaryPhone   = rs.getString("HOTEL_SECONDARY_PHONE");
+                String primaryMobile   = rs.getString("HOTEL_PRIMARY_MOBILE");
+                String secondaryMobile   = rs.getString("HOTEL_SECONDARY_MOBILE");
+                String faxNumber = rs.getString("HOTEL_FAX_NUMBER");
+
+                ContactDetails hotelContactDetails = new ContactDetails(primaryEmail,primaryPhone,secondaryEmail,secondaryPhone,faxNumber,primaryMobile,secondaryMobile);
 
                 HotelAttributes hotelAttributes = new HotelAttributes(hotelName,
                         hotelRating,
@@ -323,4 +346,42 @@ public class HotelDAO {
     }
 
 
+    public Hotel fetchHotelByContactDetails(String primaryEmail,String primaryPhone, String primaryMobileNumber) {
+
+
+        Hotel hotel = null;
+        PreparedStatement stmt;
+        ResultSet rs;
+
+        try {
+            connection = requireNonNull(connection);
+            connection.setAutoCommit(false);
+            stmt = connection.prepareStatement(HotelDBQueries.FETCH_HOTEL_BY_CONTACT_DETAILS);
+            stmt.setString(1, primaryEmail);
+            stmt.setString(2,primaryPhone);
+            stmt.setString(3,primaryMobileNumber);
+            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            rs = stmt.executeQuery();
+
+            hotel = populateHotel(rs);
+
+            if(null != hotel)
+                Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
+
+            rs = requireNonNull(rs);
+            stmt = requireNonNull(stmt);
+            rs.close();
+            stmt.close();
+
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+        } catch (NullPointerException npe) {
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
+        } finally {
+            return hotel;
+        }
+
+    }
 }

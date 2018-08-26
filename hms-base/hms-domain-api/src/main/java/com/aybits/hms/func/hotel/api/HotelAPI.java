@@ -3,6 +3,7 @@ package com.aybits.hms.func.hotel.api;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
+import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.cache.HotelCache;
@@ -21,7 +22,11 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     public String addHotel(Hotel hotel) throws HMSException {
         String hotelId = null;
-        Boolean isHotelAdditionSuccessful = false;
+
+        if(isHotelAlreadyPresent(hotel)){
+            log.info("Exception occured while adding hotel::Hotel already exists");
+            throw new HMSException(HMSErrorCodes.HOTEL_ALREADY_EXISTS, "Hotel already exists");
+        }
         if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
             try {
                 hotelId = hotelCache.addHotel(hotel);
@@ -83,6 +88,36 @@ public class HotelAPI extends HMSAPIProviderImpl {
             throw new HMSException(HMSErrorCodes.HOTEL_UPDATE_FAILED, "Adding Hotel details failed");
         }
         return isHotelUpdateSuccessful;
+
+    }
+
+    public Boolean isHotelAlreadyPresent(Hotel hotelFromUI){
+
+
+        Boolean isHotelAlreadyPresent = false;
+        String primaryEmail = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
+        String primaryPhone = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
+        String primaryMobileNumber = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
+
+        Hotel hotelFromDB = hotelDAO.fetchHotelByContactDetails(primaryEmail,primaryPhone,primaryMobileNumber);
+
+        String clearTextFromUI = primaryEmail+primaryPhone+primaryMobileNumber;
+
+        String uiHash = HMSUtilAPI.generateSHA256Hash(clearTextFromUI);
+
+        primaryEmail = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
+        primaryPhone = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
+        primaryMobileNumber = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
+
+        String clearTextFromDB = primaryEmail+primaryPhone+primaryMobileNumber;
+
+        String dbHash = HMSUtilAPI.generateSHA256Hash(clearTextFromDB);
+
+        if(uiHash.equals(dbHash)){
+            isHotelAlreadyPresent = true;
+        }
+
+        return isHotelAlreadyPresent;
 
     }
 

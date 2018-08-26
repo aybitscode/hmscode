@@ -1,5 +1,7 @@
 package com.aybits.hms.arch.util;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -15,6 +17,11 @@ public class HMSUtilAPI {
     public static Date convertTimestampToDate(Timestamp ts){
         Date date = new Date(ts.getTime());
         return date;
+    }
+
+    public static String generateSHA256Hash(String clearText){
+        String sha256hex = DigestUtils.sha256Hex(clearText);
+        return sha256hex;
     }
 
 

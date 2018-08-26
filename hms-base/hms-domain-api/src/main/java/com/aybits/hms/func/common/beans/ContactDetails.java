@@ -45,6 +45,17 @@ public class ContactDetails {
         this.secondaryMobileNumber = secondaryMobileNumber;
     }
 
+    public ContactDetails(String primaryEmail, String primaryPhone,
+                          String secondaryEmail, String secondaryPhone, String primaryMobileNumber,
+                          String secondaryMobileNumber) {
+        this.primaryEmail = primaryEmail;
+        this.primaryPhone = primaryPhone;
+        this.secondaryEmail = secondaryEmail;
+        this.secondaryPhone = secondaryPhone;
+        this.primaryMobileNumber = primaryMobileNumber;
+        this.secondaryMobileNumber = secondaryMobileNumber;
+    }
+
     public String getPrimaryEmail() {
         return primaryEmail;
     }
