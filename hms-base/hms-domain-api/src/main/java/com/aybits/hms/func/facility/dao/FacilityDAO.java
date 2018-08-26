@@ -4,14 +4,11 @@ import com.aybits.hms.arch.dbman.DBConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.facility.beans.Facility;
-import com.aybits.hms.func.hotel.dao.HotelDAO;
-import com.aybits.hms.func.hotel.dao.HotelDBQueries;
 import com.mysql.jdbc.Statement;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class FacilityDAO {
     {
         boolean isFacilityAdded = false;
 
-        try (PreparedStatement ps = connection.prepareStatement(FacilityDBQuries.INSERT_NEW_FACILITY, Statement.RETURN_GENERATED_KEYS))
+        try (PreparedStatement ps = connection.prepareStatement(FacilityDBQueries.INSERT_NEW_FACILITY, Statement.RETURN_GENERATED_KEYS))
         {
             connection.setAutoCommit(false);
             ps.setString(1, facility.getHotelId());

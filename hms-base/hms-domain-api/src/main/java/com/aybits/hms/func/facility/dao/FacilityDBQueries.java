@@ -1,6 +1,6 @@
 package com.aybits.hms.func.facility.dao;
 
-public class FacilityDBQuries {
+public class FacilityDBQueries {
 
 
     protected static final String FETCH_FACILITY_BY_FACILITY_ID = "select * from hms_facility where facility_id = ?";
