@@ -99,18 +99,20 @@ public class HotelAPI extends HMSAPIProviderImpl {
         String primaryPhone = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
         String primaryMobileNumber = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
 
-        Hotel hotelFromDB = hotelDAO.fetchHotelByContactDetails(primaryEmail,primaryPhone,primaryMobileNumber);
-
         String clearTextFromUI = primaryEmail+primaryPhone+primaryMobileNumber;
-
         String uiHash = HMSUtilAPI.generateSHA256Hash(clearTextFromUI);
+
+        Hotel hotelFromDB = hotelDAO.fetchHotelByContactDetails(primaryEmail,primaryPhone,primaryMobileNumber);
 
         primaryEmail = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
         primaryPhone = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
         primaryMobileNumber = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
 
-        String clearTextFromDB = primaryEmail+primaryPhone+primaryMobileNumber;
+        if(null == hotelFromDB || primaryEmail == null || primaryPhone == null || primaryMobileNumber == null){
+           return isHotelAlreadyPresent;
+        }
 
+        String clearTextFromDB = primaryEmail+primaryPhone+primaryMobileNumber;
         String dbHash = HMSUtilAPI.generateSHA256Hash(clearTextFromDB);
 
         if(uiHash.equals(dbHash)){
