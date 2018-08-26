@@ -103,12 +103,15 @@ public class HotelAPI extends HMSAPIProviderImpl {
         String uiHash = HMSUtilAPI.generateSHA256Hash(clearTextFromUI);
 
         Hotel hotelFromDB = hotelDAO.fetchHotelByContactDetails(primaryEmail,primaryPhone,primaryMobileNumber);
+        if(null == hotelFromDB){
+            return isHotelAlreadyPresent;
+        }
 
         primaryEmail = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
         primaryPhone = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
         primaryMobileNumber = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
 
-        if(null == hotelFromDB || primaryEmail == null || primaryPhone == null || primaryMobileNumber == null){
+        if(primaryEmail == null || primaryPhone == null || primaryMobileNumber == null){
            return isHotelAlreadyPresent;
         }
 
