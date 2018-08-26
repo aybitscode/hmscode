@@ -2,10 +2,13 @@ package com.aybits.hms.hotel;
 
 import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.util.HMSJSONParser;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.employee.beans.Employee;
+import com.aybits.hms.func.facility.api.FacilityAPI;
+import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import org.apache.log4j.Logger;
@@ -17,6 +20,8 @@ import java.util.List;
 public class HotelRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
     HotelAPI hotelAPI = new HotelAPI();
+    FacilityAPI facilityAPI = new FacilityAPI();
+    HMSJsonRequestComponents components = null;
 
     @Override
     public ValidationResult validateRequestData(Request request, Response response) {
@@ -35,6 +40,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             //return result.getMessage();
         }
 
+        components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
         String action = getActionString(request);
 
         String message = "";
@@ -65,7 +71,14 @@ public class HotelRequestHandler implements HmsRequestHandler {
     }
 
     private String addFacilites(Request request) {
-        return null;
+        Log.info("in addFacilites");
+        try {
+            Facility facility = (Facility) HMSJSONParser.convertJSONToObject(request.body(), Facility.class);
+            boolean addFacilityStatus = facilityAPI.addFacility(facility);
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", null));
+        } catch (Exception e) {
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", null));
+        }
     }
 
 
@@ -76,9 +89,9 @@ public class HotelRequestHandler implements HmsRequestHandler {
             Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(jsonString, Hotel.class);
             String hotelId = hotel.getHotelId();
             hotel = hotelAPI.fetchHotelByHotelId(hotelId);
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(hotel, true));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, hotelId, "SUCCESS"));
         } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchHotelByHotelId", false));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, null, "FAILED"));
         }
     }
 
@@ -88,9 +101,9 @@ public class HotelRequestHandler implements HmsRequestHandler {
             String jsonString = request.body().toString();
             Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Employee.class);
             Hotel result = hotelAPI.fetchHotelByEmployeeId(employee.getEmpId());
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, null, "SUCCESS"));
         } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchHotelByEmployeeId", false));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, null, "FAILED"));
         }
     }
 
@@ -98,9 +111,9 @@ public class HotelRequestHandler implements HmsRequestHandler {
         Log.info("in fetchAllHotels");
         try {
             List<Hotel> result = hotelAPI.fetchAllHotels();
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, null, "SUCCESS"));
         } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchAllHotels", false));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, null, "FAILED"));
         }
     }
 
@@ -108,12 +121,10 @@ public class HotelRequestHandler implements HmsRequestHandler {
         Log.info("in upsertHotel");
         try {
             Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(hotelJsonString, Hotel.class);
-            Boolean result = hotelAPI.upsertHotel(hotel);
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
-
-
+            String hotelId = hotelAPI.addHotel(hotel);
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", hotelId));
         } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while fetchAllHotels", false));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", null));
         }
     }
 
@@ -121,10 +132,10 @@ public class HotelRequestHandler implements HmsRequestHandler {
 
         // TODO Create Hotel
 
-        upsertHotel(request.body());
+        String responseStr = upsertHotel(request.body());
 
 
-        return null;
+        return responseStr;
     }
 
     private String addRoomCategory(Request request) {
@@ -145,13 +156,17 @@ public class HotelRequestHandler implements HmsRequestHandler {
         return null;
     }
 
-    private HmsResponse getHmsResponse(Object responseData, boolean result) {
-        HmsResponse response;
-        if (result) {
-            response = new HmsResponse(200, "SUCCESS", responseData);
-        } else {
-            response = new HmsResponse(401, "FAILED", responseData);
+
+    //HmsResponse(int responseCode, String responseMessage, Object responseData,
+    //                       String operation, String entity, String status)
+
+    private HmsResponse getHmsResponse(String tokenID, String status, String hotelId) {
+        String hotelJson = null;
+        if(hotelId != null){
+            Hotel hotel = new Hotel();
+            hotel.setHotelId(hotelId);
+            hotelJson = HMSJSONParser.convertObjectToJSON(hotel);
         }
-        return response;
+        return new HmsResponse(tokenID, status, hotelJson);
     }
 }
