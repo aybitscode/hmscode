@@ -21,8 +21,8 @@ public class Facility {
         private Boolean isChargeable;
         @JsonProperty("facility_type")
         private FacilityType facilityType;
-        @JsonProperty("facility_price")
-        private Double facilityPrice;
+        @JsonProperty("facility_charges")
+        private Double facilityCharges;
 
         public Facility() {
         }
@@ -31,7 +31,7 @@ public class Facility {
                         FacilityType facilityType,
                         Boolean isFacilityAvailable,
                         Boolean isChargeable,
-                        Double facilityPrice) {
+                        Double facilityCharges) {
                 this.hotelId = hotelId;
                 this.facilityId = facilityId;
                 this.facilityName = facilityName;
@@ -39,7 +39,7 @@ public class Facility {
                 this.isFacilityAvailable = isFacilityAvailable;
                 this.isChargeable = isChargeable;
                 this.facilityType = facilityType;
-                this.facilityPrice = facilityPrice;
+                this.facilityCharges = facilityCharges;
         }
 
         public String getFacilityId() {
@@ -82,12 +82,12 @@ public class Facility {
                 this.facilityType = facilityType;
         }
 
-        public Double getFacilityPrice() {
-                return facilityPrice;
+        public Double getFacilityCharges() {
+                return facilityCharges;
         }
 
-        public void setFacilityPrice(Double facilityPrice) {
-                this.facilityPrice = facilityPrice;
+        public void setFacilityCharges(Double facilityCharges) {
+                this.facilityCharges = facilityCharges;
         }
 
         public Boolean getChargeable() {

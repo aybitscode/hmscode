@@ -7,42 +7,45 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("amenity")
 public class Amenity {
 
+    @JsonProperty("hotel_id")
+    private String hotelId;
     @JsonProperty("amenity_id")
-    private Integer amenityId;
+    private String amenityId;
     @JsonProperty("amenity_name")
     private String amenityName;
     @JsonProperty("amenity_description")
     private String amenityDescription;
-    @JsonProperty("is_amenity_available")
-    private Boolean isAmenityAvailable;
-    @JsonProperty("is_amenity_chargeable")
-    private Boolean isAmenityChargeable;
+    @JsonProperty("is_available")
+    private Boolean isAvailable;
+    @JsonProperty("is_chargeable")
+    private Boolean isChargeable;
     @JsonProperty("amenity_type")
     private AmenityType amenityType;
-    @JsonProperty("amenity_price")
-    private Double amenityPrice;
+    @JsonProperty("amenity_charges")
+    private Double amenityCharges;
 
 
     public Amenity() {
     }
 
-    public Amenity(Integer amenityId, String amenityName, String amenityDescription,
-                   Boolean isAmenityAvailable,Boolean isAmenityChargeable,AmenityType amenityType,
-                   Double amenityPrice) {
+    public Amenity(String hotelId,String amenityId, String amenityName, String amenityDescription,
+                   Boolean isAvailable, Boolean isChargeable, AmenityType amenityType,
+                   Double amenityCharges) {
+        this.hotelId = hotelId;
         this.amenityId = amenityId;
         this.amenityName = amenityName;
         this.amenityDescription = amenityDescription;
-        this.isAmenityAvailable = isAmenityAvailable;
-        this.isAmenityChargeable = isAmenityChargeable;
+        this.isAvailable = isAvailable;
+        this.isChargeable = isChargeable;
         this.amenityType = amenityType;
-        this.amenityPrice = amenityPrice;
+        this.amenityCharges = amenityCharges;
     }
 
-    public Integer getAmenityId() {
+    public String getAmenityId() {
         return amenityId;
     }
 
-    public void setAmenityId(Integer amenityId) {
+    public void setAmenityId(String amenityId) {
         this.amenityId = amenityId;
     }
 
@@ -63,20 +66,20 @@ public class Amenity {
     }
 
 
-    public Boolean getAmenityAvailable() {
-        return isAmenityAvailable;
+    public Boolean isAvailable() {
+        return isAvailable;
     }
 
-    public void setAmenityAvailable(Boolean amenityAvailable) {
-        isAmenityAvailable = amenityAvailable;
+    public void setIsAvailable(Boolean amenityAvailable) {
+        isAvailable = amenityAvailable;
     }
 
-    public Boolean getAmenityChargeable() {
-        return isAmenityChargeable;
+    public Boolean isChargeable() {
+        return isChargeable;
     }
 
-    public void setAmenityChargeable(Boolean amenityChargeable) {
-        isAmenityChargeable = amenityChargeable;
+    public void setIsChargeable(Boolean amenityChargeable) {
+        isChargeable = amenityChargeable;
     }
 
     public AmenityType getAmenityType() {
@@ -87,12 +90,20 @@ public class Amenity {
         this.amenityType = amenityType;
     }
 
-    public Double getAmenityPrice() {
-        return amenityPrice;
+    public Double getAmenityCharges() {
+        return amenityCharges;
     }
 
-    public void setAmenityPrice(Double amenityPrice) {
-        this.amenityPrice = amenityPrice;
+    public void setAmenityCharges(Double amenityCharges) {
+        this.amenityCharges = amenityCharges;
+    }
+
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
     }
 
 
