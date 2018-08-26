@@ -15,9 +15,9 @@ public class Facility {
         private String facilityName;
         @JsonProperty("facility_description")
         private String  facilityDescription;
-        @JsonProperty("is_available")
+        @JsonProperty("is_facility_available")
         private Boolean isFacilityAvailable;
-        @JsonProperty("is_chargeable")
+        @JsonProperty("is_facility_chargeable")
         private Boolean isChargeable;
         @JsonProperty("facility_type")
         private FacilityType facilityType;
