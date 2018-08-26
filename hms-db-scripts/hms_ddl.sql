@@ -289,6 +289,26 @@ CREATE TABLE `hms_room_category_voucher_map` (
 )COMMENT='This table defines the Vouchers associated with a given room category';
 
 
+CREATE TABLE `hms_room_category_amenity_map` (
+  `hotel_id` varchar(64)  COMMENT 'This column represents the unique hotel ID generated during hotel setup and uniquely identifies the hotel created in hms solution',
+  `room_category_id` varchar(60)  COMMENT 'This column is generated when a room category is created and uniquely represents a room category in hms solution',
+  `amenity_id` varchar(60)  COMMENT 'This column represents the amenity created for a given hotel and is mapped to a given hotel''s amenity'
+)COMMENT='This table defines the Amenities associated with a given room category';
+
+
+CREATE TABLE `hms_room_category_facility_map` (
+  `hotel_id` varchar(64)  COMMENT 'This column represents the unique hotel ID generated during hotel setup and uniquely identifies the hotel created in hms solution',
+  `room_category_id` varchar(60)  COMMENT 'This column is generated when a room category is created and uniquely represents a room category in hms solution',
+  `facility_id` varchar(60)  COMMENT 'This column represents the facility created for a given hotel and is mapped to a given hotel''s facility'
+)COMMENT='This table defines the Facilities associated with a given room category';
+
+CREATE TABLE `hms_room_category_service_map` (
+  `hotel_id` varchar(64)  COMMENT 'This column represents the unique hotel ID generated during hotel setup and uniquely identifies the hotel created in hms solution',
+  `room_category_id` varchar(60)  COMMENT 'This column is generated when a room category is created and uniquely represents a room category in hms solution',
+  `service_id` varchar(60)  COMMENT 'This column represents the service created for a given hotel and is mapped to a given hotel''s service'
+)COMMENT='This table defines the Services associated with a given room category';
+
+
 
 
 
