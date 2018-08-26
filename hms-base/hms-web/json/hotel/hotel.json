@@ -1,42 +1,133 @@
 {
-	"data": {
-		"hotel_id":"TO_BE_GEN",
-		"hotel_status":"ACTIVE",
-		"hotel_attributes": {
-			"hotel_address": {
-				"address_line1": "Thanisandra",
-				"city": "Bangalore",
-				"country": "India",
-				"state": "Karnataka"
+	"data":{
+		"facilities":[
+			{
+				"hotel_id":"13",
+				"facility_description":"Only for men",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Swimming Pool",
+				"facility_price":"0",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
 			},
-			"hotel_contact_details": {
-				"fax_number": "9999999999",
-				"mobile_number": "9999999999",
-				"primary_email": "mohammed@gmail.com",
-				"primary_phone": "9999999999",
-				"secondary_email": "mohammed@gmail.com",
-				"secondary_phone": "9999999999"
+			{
+				"hotel_id":"13",
+				"facility_description":"Only for women",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Gym",
+				"facility_price":"2000",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
 			},
-			"hotel_bed_count":"200",
-			"hotel_employee_count": "10",
-			"hotel_name": "HOTEL_EMPIRE",
-			"hotel_rating": "6",
-			"hotel_room_count": "10",
-			"hotel_room_doorno_format": "RR"
-		},
-		"hotel_registration_data": {
-			"building_permit_no": "BP0909SFD",
-			"epf_reg_no": "ESPFLSDFK",
-			"esi_reg_no": "ESOISDOF",
-			"fire_safety_permit_no": "FS0LKSD",
-			"fssai_license_no": "FSSOIIOI",
-			"gst_no": "GS0990",
-			"health_trade_license_no": "ASDHOIASFD",
-			"hotel_reg_no": "RR9099",
-			"police_license_no": "PSFD09"
-		}
+			{
+				"hotel_id":"13",
+				"facility_description":"this is room facility",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Spa",
+				"facility_price":"2000",
+				"facility_type":"ROOM_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			},
+			{
+				"hotel_id":"13",
+				"facility_description":"This is hotel facility",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"PUB",
+				"facility_price":"200",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			}
+		],
+		"amenities":[
+			{
+				"hotel_id":"13",
+				"facility_description":"Only for men",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Swimming Pool",
+				"facility_price":"0",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			},
+			{
+				"hotel_id":"13",
+				"facility_description":"Only for women",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Gym",
+				"facility_price":"2000",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			},
+			{
+				"hotel_id":"13",
+				"facility_description":"this is room facility",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Spa",
+				"facility_price":"2000",
+				"facility_type":"ROOM_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			},
+			{
+				"hotel_id":"13",
+				"facility_description":"This is hotel facility",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"PUB",
+				"facility_price":"200",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			}
+		],
+		"services":[
+			{
+				"hotel_id":"13",
+				"facility_description":"Only for men",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Swimming Pool",
+				"facility_price":"0",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			},
+			{
+				"hotel_id":"13",
+				"facility_description":"Only for women",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Gym",
+				"facility_price":"2000",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			},
+			{
+				"hotel_id":"13",
+				"facility_description":"this is room facility",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"Spa",
+				"facility_price":"2000",
+				"facility_type":"ROOM_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			},
+			{
+				"hotel_id":"13",
+				"facility_description":"This is hotel facility",
+				"facility_id":"TO_BE_GEN",
+				"facility_name":"PUB",
+				"facility_price":"200",
+				"facility_type":"HOTEL_FACILITY",
+				"is_available":true,
+				"is_chargeable":false
+			}
+		]
 	},
-	"entity": "HOTEL_SETUP",
-	"operation": "ADD_HOTEL",
-	"request_id": "HMS_REQ"
+	"entity":"HOTEL_SETUP",
+	"operation":"ADD_FACILITIES",
+	"request_id":"HMS_REQ"
 }
