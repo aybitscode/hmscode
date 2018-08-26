@@ -17,7 +17,7 @@ public class FacilityAPI extends HMSAPIProviderImpl {
     FacilityCache facilityCache = new FacilityCache();
     FacilityDAO facilityDAO = new FacilityDAO();
 
-    public Boolean addFacility(Facility facility) throws HMSException {
+    public Boolean addFacility(Facility[] facilities) throws HMSException {
         if (facility.getFacilityId() != null && facility.getFacilityId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
             try {
                 facilityCache.addFacility(facility);
