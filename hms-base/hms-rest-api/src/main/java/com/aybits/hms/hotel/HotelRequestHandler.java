@@ -16,6 +16,7 @@ import com.aybits.hms.func.facility.beans.FacilityType;
 import com.aybits.hms.func.helpdesk.beans.Service;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
+import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.services.api.ServicesAPI;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -92,6 +93,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             String hotelId = hotelAPI.addHotel(hotel);
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Hotel successfully added", hotelId));
         } catch (Exception e) {
+            e.printStackTrace();
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", e.getMessage(), null));
         }
     }
@@ -116,7 +118,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 facility.setIsFacilityAvailable(Boolean.valueOf(facilityMap.get("is_available").toString()));
                 facility.setChargeable(Boolean.valueOf(facilityMap.get("is_chargeable").toString()));
                 facility.setFacilityType(FacilityType.valueOf(facilityMap.get("facility_type").toString()));
-                facility.setFacilityPrice(Double.valueOf(facilityMap.get("facility_price").toString()));
+                //facility.setFacilityPrice(Double.valueOf(facilityMap.get("facility_price").toString()));
                 facilities[i] = facility;
             }
 
@@ -145,18 +147,18 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 Map amenityMap = (Map)amenitiesList.get(i);
                 Amenity amenity = new Amenity();
                 //amenity.setHotelId(amenityMap.get("hotel_id").toString());
-                amenity.setAmenityId(Integer.valueOf(amenityMap.get("amenity_id").toString()));
+                //amenity.setAmenityId(Integer.valueOf(amenityMap.get("amenity_id").toString()));
                 amenity.setAmenityName(amenityMap.get("amenity_id").toString());
                 amenity.setAmenityDescription(amenityMap.get("amenity_description").toString());
-                amenity.setAmenityAvailable(Boolean.valueOf(amenityMap.get("is_available").toString()));
-                amenity.setAmenityChargeable(Boolean.valueOf(amenityMap.get("is_chargeable").toString()));
+                //amenity.setAmenityAvailable(Boolean.valueOf(amenityMap.get("is_available").toString()));
+                //amenity.setAmenityChargeable(Boolean.valueOf(amenityMap.get("is_chargeable").toString()));
                 amenity.setAmenityType(AmenityType.valueOf(amenityMap.get("amenity_type").toString()));
-                amenity.setAmenityPrice(Double.valueOf(amenityMap.get("amenity_charges").toString()));
+                //amenity.setAmenityPrice(Double.valueOf(amenityMap.get("amenity_charges").toString()));
                 facilities[i] = amenity;
             }
 
             if(facilities != null && facilities.length > 0) {
-                boolean addFacilityStatus = amenityAPI.addFacility(facilities);
+                //boolean addFacilityStatus = amenityAPI.addFacility(facilities);
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Facilities added succesfully",null));
             }else{
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no facilities to add", null));
@@ -191,7 +193,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             }
 
             if(services != null && services.length > 0) {
-                boolean addFacilityStatus = servicesAPI.addFacility(services);
+                //boolean addFacilityStatus = servicesAPI.addFacility(services);
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Services added succesfully",null));
             }else{
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no services to add", null));
@@ -261,6 +263,9 @@ public class HotelRequestHandler implements HmsRequestHandler {
         if(hotelId != null){
             Hotel hotel = new Hotel();
             hotel.setHotelId(hotelId);
+            HotelAttributes a= new HotelAttributes();
+            a.setHotelName("test hotel");
+            hotel.setHotelAttributes(a);
             hotelJson = HMSJSONParser.convertObjectToJSON(hotel);
         }
         return new HmsResponse(tokenID, status, statusMessage, hotelJson);

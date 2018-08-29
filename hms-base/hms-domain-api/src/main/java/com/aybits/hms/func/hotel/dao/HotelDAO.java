@@ -32,10 +32,10 @@ public class HotelDAO {
 
 
 
-    public Boolean addHotel(Hotel hotel) throws HMSException {
+    public String addHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelAdditionSuccessful = false;
-
+        String hotelId = null;
 
         try {
             PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL);
@@ -71,24 +71,30 @@ public class HotelDAO {
             int numRowsAffected = ps.executeUpdate();
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
-                    Long hotelId = rs.getLong(1);
+                    hotelId = rs.getString(1);
                     hotel.setHotelId(hotelId.toString());
                     isHotelAdditionSuccessful = true;
                     connection.commit();
                 }
             } catch (SQLException s) {
                 s.printStackTrace();
+                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + s.getMessage());
             }catch (NullPointerException npe) {
+                npe.printStackTrace();
                 throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
             }
         } catch (SQLException e) {
+            hotelId = null;
             e.printStackTrace();
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + e.getMessage());
         } catch (NullPointerException npe) {
+            hotelId = null;
+            npe.printStackTrace();
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
-            return isHotelAdditionSuccessful;
-        }
 
+        }
+        return hotelId;
     }
 
     public Hotel fetchHotelByEmployeeId(String employeeId) throws HMSException {
