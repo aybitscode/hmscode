@@ -11,7 +11,6 @@ import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
-import com.mysql.jdbc.Statement;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -32,15 +31,16 @@ public class HotelDAO {
 
 
 
-    public Boolean addHotel(Hotel hotel) throws HMSException {
+    public String addHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelAdditionSuccessful = false;
-
+        String hotelId = null;
 
         try {
             PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL);
             connection.setAutoCommit(false);
-            ps.setString(1,generateHotelId());
+            hotelId = generateHotelId();
+            ps.setString(1,hotelId);
             ps.setString(2, hotel.getHotelAttributes().getHotelName());
             ps.setString(3, hotel.getHotelAttributes().getHotelAddress().toString());
 
@@ -69,24 +69,13 @@ public class HotelDAO {
 
             ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    Long hotelId = rs.getLong(1);
-                    hotel.setHotelId(hotelId.toString());
-                    isHotelAdditionSuccessful = true;
-                    connection.commit();
-                }
-            } catch (SQLException s) {
-                s.printStackTrace();
-            }catch (NullPointerException npe) {
-                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
-            }
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
-            return isHotelAdditionSuccessful;
+            return hotelId;
         }
 
     }
