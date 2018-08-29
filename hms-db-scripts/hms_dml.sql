@@ -17,7 +17,7 @@ hotel_secondary_phone,
 hotel_secondary_mobile,
 hotel_fax_number
 )values(
-'xGfKl1',
+'HxGfKl_1',
 'aybits_master',
 '{
 	"address_line1": "HMS Master Hotel",

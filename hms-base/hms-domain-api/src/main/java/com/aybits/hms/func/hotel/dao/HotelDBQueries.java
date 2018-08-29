@@ -11,13 +11,14 @@ public class HotelDBQueries {
     protected static final String FETCH_HOTEL_BY_EMPLOYEE_ID = "select * from hms_hotel where hotel_id = (select hotel_id from " +
             "hms_employee where employee_id = ?)";
     protected static final String UPDATE_HOTEL_STATUS = "update hms_hotel set hotel_status = ? where hotel_id = ?";
-    protected static final String INSERT_NEW_HOTEL = "insert into hms_hotel(hotel_name,hotel_address," +
+
+    protected static final String INSERT_NEW_HOTEL = "insert into hms_hotel(hotel_id,hotel_name,hotel_address," +
             "hotel_primary_email,hotel_secondary_email,hotel_primary_phone,hotel_secondary_phone," +
             "hotel_primary_mobile,hotel_secondary_mobile,hotel_fax_number," +
             "hotel_rating,hotel_logo,hotel_room_doorno_format," +
-            "hotel_staff_count,hotel_room_count,hotel_bed_count,hotel_status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "hotel_staff_count,hotel_room_count,hotel_bed_count,hotel_status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    public static final String UPDATE_EXISTING_HOTEL = "update hms_hotel set" +
+    protected static final String UPDATE_EXISTING_HOTEL = "update hms_hotel set" +
             "hotel_name = ?" +
             ",hotel_address = ?" +
             ",hotel_registration_data = ?" +
@@ -30,5 +31,7 @@ public class HotelDBQueries {
             ",hotel_room_count = ?" +
             ",hotel_bed_count = ?" +
             " where hotel_id = ?";
+
+    protected static final String FETCH_NEXT_HOTEL_ID_SEQUENCE  = "(select count(hotel_id)+1 as NEXT_HOTEL_ID_VAL from hms_hotel)";
 
 }
