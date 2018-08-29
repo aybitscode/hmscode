@@ -69,15 +69,20 @@ public class HotelDAO {
 
             ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();
+
             connection.commit();
+
         } catch (SQLException e) {
+            hotelId = null;
             e.printStackTrace();
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + e.getMessage());
         } catch (NullPointerException npe) {
+            hotelId = null;
+            npe.printStackTrace();
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
             return hotelId;
         }
-
     }
 
     public Hotel fetchHotelByEmployeeId(String employeeId) throws HMSException {
