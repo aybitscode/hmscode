@@ -36,7 +36,9 @@ public class HotelDAO {
 
         Boolean isHotelAdditionSuccessful = false;
 
-        try (PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL, Statement.RETURN_GENERATED_KEYS)) {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL);
             connection.setAutoCommit(false);
             ps.setString(1,generateHotelId());
             ps.setString(2, hotel.getHotelAttributes().getHotelName());
