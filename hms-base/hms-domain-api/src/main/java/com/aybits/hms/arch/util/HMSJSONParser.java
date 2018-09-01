@@ -61,8 +61,8 @@ public class HMSJSONParser {
         Object obj = null;
         try
         {
-            String data = getHmsJsonRequestComponents(jsonString).getData();
-            obj = objMapper.readValue(data,clazz);
+            //String data = getHmsJsonRequestComponents(jsonString).getData();
+            obj = objMapper.readValue(jsonString,clazz);
 
         }
         catch (JsonGenerationException e)

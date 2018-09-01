@@ -46,7 +46,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
 
     @Override
     public String handleRequest(Request request, Response response) {
-        Log.info("Hotel request handler invoked");
+                Log.info("Hotel request handler invoked");
 
         ValidationResult result = validateRequest(request, response);
         if (result != null) {
@@ -89,7 +89,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
     private String addHotel(Request request) {
         Log.info("in addHotel");
         try {
-            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(request.body(), Hotel.class);
+            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(components.getData(), Hotel.class);
             String hotelId = hotelAPI.addHotel(hotel);
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Hotel successfully added", hotelId));
         } catch (Exception e) {
