@@ -101,7 +101,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
     private String addFacilites(Request request) {
         Log.info("in addFacilites");
         try {
-            String data = HMSJSONParser.getHmsJsonRequestComponents(request.body()).getData();
+            String data = components.getData();
             Gson gson = new Gson();
             Object myTypes = (Object)gson.fromJson(data, Object.class);
             List facilitiesList = ((List)((LinkedTreeMap)myTypes).get("facilities"));
@@ -136,7 +136,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
     private String addAmenities(Request request) {
         Log.info("in addAmenities");
         try {
-            String data = HMSJSONParser.getHmsJsonRequestComponents(request.body()).getData();
+            String data = components.getData();
             Gson gson = new Gson();
             Object myTypes = (Object)gson.fromJson(data, Object.class);
             List amenitiesList = ((List)((LinkedTreeMap)myTypes).get("facilities"));
@@ -171,7 +171,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
     private String addServices(Request request) {
         Log.info("in addServices");
         try {
-            String data = HMSJSONParser.getHmsJsonRequestComponents(request.body()).getData();
+            String data = components.getData();
             Gson gson = new Gson();
             Object myTypes = (Object)gson.fromJson(data, Object.class);
             List servicesList = ((List)((LinkedTreeMap)myTypes).get("services"));
