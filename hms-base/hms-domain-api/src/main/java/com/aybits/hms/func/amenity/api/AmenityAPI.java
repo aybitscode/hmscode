@@ -24,7 +24,7 @@ public class AmenityAPI extends HMSAPIProviderImpl {
 
                 if (facility.getFacilityId() != null && facility.getFacilityId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
                     try {
-                        facilityCache.addFacility(facility);
+                       // facilityCache.addFacility(facility);
                         if (facility == null) {
                             throw new NullPointerException();
                         }
