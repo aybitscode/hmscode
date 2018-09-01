@@ -15,54 +15,6 @@ public class  RoomCategoryDAO {
     private Connection connection = DBConnection.getDBConnection();
 
     public Boolean addRoomCategory(RoomCategory roomCategory){
-
-        Boolean isHotelAdditionSuccessful = false;
-
-<<<<<<< HEAD
-      /*  try (PreparedStatement ps = connection.prepareStatement(RoomCategoryDBQueries.INSERT_NEW_ROOM_CATEGORY, Statement.RETURN_GENERATED_KEYS)) {
-=======
-     /*   try (PreparedStatement ps = connection.prepareStatement(RoomCategoryDBQueries.INSERT_NEW_ROOM_CATEGORY, Statement.RETURN_GENERATED_KEYS)) {
->>>>>>> ae5dad5d87e8db07071616eabafc3819e5249428
-            connection.setAutoCommit(false);
-            ps.setString(1, hotel.getHotelAttributes().getHotelName());
-            ps.setString(2, hotel.getHotelAttributes().getHotelAddress().toString());
-            ps.setString(3,hotel.getHotelAttributes().getHotelContactDetails().toString());
-            ps.setString(4, hotel.getHotelAttributes().getHotelRating());
-            ps.setString(5, hotel.getHotelAttributes().getHotelLogo());
-            ps.setString(6, hotel.getHotelAttributes().getRoomDoorNoFormat());
-            ps.setInt(7, hotel.getHotelAttributes().getEmployeeCount());
-            ps.setInt(8, hotel.getHotelAttributes().getRoomCount());
-            ps.setInt(9, hotel.getHotelAttributes().getTotalBeds());
-            ps.setInt(10,hotel.getHotelStatus().getStatusAsInt());
-
-            ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
-            int numRowsAffected = ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    Long hotelId = rs.getLong(1);
-                    hotel.setHotelId(hotelId.toString());
-                    isHotelAdditionSuccessful = true;
-                    connection.commit();
-                }
-            } catch (SQLException s) {
-                s.printStackTrace();
-            }catch (NullPointerException npe) {
-                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
-        } finally {
-            return isHotelAdditionSuccessful;
-<<<<<<< HEAD
-        }
-*/
-=======
-        }*/
-
->>>>>>> ae5dad5d87e8db07071616eabafc3819e5249428
-
         return true;
     }
 

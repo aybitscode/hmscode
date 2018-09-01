@@ -57,7 +57,7 @@ public class HMSJSONParser {
         return components;
     }
 
-    
+
     public static Object convertJSONToObject(String jsonString,Class clazz){
         Object obj = null;
         try

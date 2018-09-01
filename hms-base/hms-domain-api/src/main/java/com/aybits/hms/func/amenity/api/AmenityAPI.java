@@ -1,15 +1,9 @@
 package com.aybits.hms.func.amenity.api;
 
-import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.amenity.cache.AmenityCache;
 import com.aybits.hms.func.amenity.dao.AmenityDAO;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
-import com.aybits.hms.func.facility.beans.Facility;
 import org.apache.log4j.Logger;
-
-import java.util.List;
 
 public class AmenityAPI extends HMSAPIProviderImpl {
 

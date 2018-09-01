@@ -45,11 +45,7 @@ public class ServicesDAO {
             ps.setString(4, facility.getIsFacilityAvailable().toString());
             ps.setString(5, facility.getChargeable().toString());
             ps.setString(6, facility.getFacilityType().toString());
-<<<<<<< HEAD
-         //   ps.setDouble(7, facility.getFacilityPrice());
-=======
-           // ps.setDouble(7, facility.getFacilityPrice());
->>>>>>> ae5dad5d87e8db07071616eabafc3819e5249428
+            ps.setDouble(7, facility.getFacilityCharges());
 
             ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();

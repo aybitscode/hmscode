@@ -6,31 +6,12 @@ public class AmenityDBQueries {
     protected static final String FETCH_AMENITY_BY_AMENITY_ID = "select * from hms_amenity where amenity_id = ? and hotel_id = ?";
     protected static final String FETCH_ALL_AMENITIES = "select * from hms_amenity where hotel_id = ?";
     protected static final String INSERT_NEW_AMENITY = "INSERT INTO hms_amenity(hotel_id,amenity_id,amenity_name,amenity_description," +
-<<<<<<< HEAD
-            "facility_availability,is_facility_chargeable,facility_type,facility_price)" +
-            "VALUES(?,?,?,?,?,?,?)";
-
-    public static final String UPDATE_EXISTING_AMENITY = "UPDATE hms_facility SET hotel_id = ?,facility_key = ?,facility_description = ?,";
-
-    protected static final String FETCH_FACILITY_BY_FACILITY_ID = "select * from hms_facility where facility_id = ?";
-    protected static final String FETCH_ALL_FACILITIES = "select * from hms_facility";
-    protected static final String INSERT_NEW_FACILITY = "INSERT INTO hms_facility(hotel_id,facility_name,facility_description," +
-            "facility_availability,is_facility_chargeable,facility_type,facility_price)" +
-            "VALUES(?,?,?,?,?,?,?)";
-
-    public static final String UPDATE_EXISTING_FACILITY = "UPDATE hms_facility SET hotel_id = ?,facility_key = ?,facility_description = ?,"+
-    " facility_availability = ?,is_facility_chargeable = ?,facility_type = ?,"+
-    " facility_price = ?,applicable_voucher_id = ? WHERE facility_id = ?";
-=======
-            "is_available,is_chargeable,amenity_type,amenity_charges)" +
+ "is_available,is_chargeable,amenity_type,amenity_charges)" +
             "VALUES(?,?,?,?,?,?,?,?)";
 
     public static final String UPDATE_EXISTING_AMENITY = "UPDATE hms_amenity SET hotel_id = ?,amenity_name = ?,amenity_description = ?,"+
             " is_available = ?,is_chargeable = ?,amenity_type = ?,"+
             " amenity_charges = ? WHERE amenity_id = ? and hotel_id = ?";
 
-
-
->>>>>>> ae5dad5d87e8db07071616eabafc3819e5249428
 
 }
