@@ -4,7 +4,7 @@ public class HotelDBQueries {
 
 
     protected static final String FETCH_HOTEL_BY_HOTELID = "select * from hms_hotel where hotel_id = ?";
-    protected static final String FETCH_HOTEL_BY_CONTACT_DETAILS = "select * from hms_hotel where hotel_primary_email = ?, hotel_primary_phone = ?, hotel_primary_mobile = ?";
+    protected static final String FETCH_HOTEL_BY_CONTACT_DETAILS = "select * from hms_hotel where hotel_primary_email = ? and hotel_primary_phone = ? and hotel_primary_mobile = ?";
     protected static final String FETCH_ALL_HOTELS = "select * from hms_hotel";
     protected static final String FETCH_HOTEL_BY_EMPLOYEE_LOGIN = "select * from hms_hotel where hotel_id = (select hotel_id from " +
             "hms_employee where login_id = ?)";

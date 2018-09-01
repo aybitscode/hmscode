@@ -17,7 +17,7 @@ public class AmenityAPI extends HMSAPIProviderImpl {
     AmenityCache facilityCache = new AmenityCache();
     AmenityDAO facilityDAO = new AmenityDAO();
 
-    public Boolean addFacility(Facility[] facilities) throws HMSException {
+  /*  public Boolean addFacility(Facility[] facilities) throws HMSException {
         Boolean isFacilityAdded = false;
         if(facilities != null){
             for(Facility facility:facilities){
@@ -51,5 +51,5 @@ public class AmenityAPI extends HMSAPIProviderImpl {
     public List<Facility> fetchAllFacilities()throws HMSException{
         return null;
     }
-
+*/
 }

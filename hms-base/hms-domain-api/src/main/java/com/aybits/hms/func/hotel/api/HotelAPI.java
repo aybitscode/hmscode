@@ -23,22 +23,25 @@ public class HotelAPI extends HMSAPIProviderImpl {
     public String addHotel(Hotel hotel) throws HMSException {
         String hotelId = null;
 
-        if(isHotelAlreadyPresent(hotel)){
+        if(!isHotelAlreadyPresent(hotel)){
+            if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
+                try {
+                    hotelId = hotelCache.addHotel(hotel);
+                    if(hotelId == null){
+                        throw new NullPointerException();
+                    }
+                }
+                catch (NullPointerException | HMSException e) {
+                    log.info("Exception occured while adding hotel::"+hotel.getHotelId());
+                    throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
+                }
+            }
+
+        }else{
             log.info("Exception occured while adding hotel::Hotel already exists");
             throw new HMSException(HMSErrorCodes.HOTEL_ALREADY_EXISTS, "Hotel already exists");
         }
-        if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
-            try {
-                hotelId = hotelCache.addHotel(hotel);
-                if(hotelId == null){
-                    throw new NullPointerException();
-                }
-            } 
-            catch (NullPointerException | HMSException e) {
-                log.info("Exception occured while adding hotel::"+hotel.getHotelId());
-                throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
-            }
-        }
+
         return hotelId;
     }
     public List<Hotel> fetchAllHotels()  {
@@ -93,38 +96,23 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     public Boolean isHotelAlreadyPresent(Hotel hotelFromUI){
 
+        Hotel hotelFromDB = null;
 
         Boolean isHotelAlreadyPresent = false;
         String primaryEmail = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
         String primaryPhone = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
         String primaryMobileNumber = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
 
-        String clearTextFromUI = primaryEmail+primaryPhone+primaryMobileNumber;
-        String uiHash = HMSUtilAPI.generateSHA256Hash(clearTextFromUI);
+        try{
+            hotelFromDB = hotelDAO.fetchHotelByContactDetails(primaryEmail,primaryPhone,primaryMobileNumber);
+            if(null != hotelFromDB){
+                isHotelAlreadyPresent = true;
+            }
+        }catch(HMSException he){
 
-        Hotel hotelFromDB = hotelDAO.fetchHotelByContactDetails(primaryEmail,primaryPhone,primaryMobileNumber);
-        if(null == hotelFromDB){
+        }finally{
             return isHotelAlreadyPresent;
         }
-
-        primaryEmail = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
-        primaryPhone = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
-        primaryMobileNumber = hotelFromDB.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
-
-        if(primaryEmail == null || primaryPhone == null || primaryMobileNumber == null){
-           return isHotelAlreadyPresent;
-        }
-
-        String clearTextFromDB = primaryEmail+primaryPhone+primaryMobileNumber;
-        String dbHash = HMSUtilAPI.generateSHA256Hash(clearTextFromDB);
-
-        if(uiHash.equals(dbHash)){
-            isHotelAlreadyPresent = true;
-        }
-
-        return isHotelAlreadyPresent;
-
     }
-
 
 }

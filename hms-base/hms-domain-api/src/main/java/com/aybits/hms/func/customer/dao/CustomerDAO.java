@@ -5,6 +5,7 @@ import com.aybits.hms.arch.dbman.DatabaseConstants;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
+import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.common.beans.Status;
@@ -16,11 +17,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 public class CustomerDAO {
 
 	static Logger Log = Logger.getLogger(CustomerDAO.class);
 
-	private static Connection connection = DBConnection.getDBConnection();
+	private Connection connection = DBConnection.getDBConnection();
 	
 	
 	@SuppressWarnings("finally")
@@ -79,7 +82,7 @@ public class CustomerDAO {
 	}		
 	
 	@SuppressWarnings("finally")
-	public static List<Customer> getAllCustomers() throws HMSException{
+	public List<Customer> getAllCustomers() throws HMSException{
 		if(connection == null){
 			throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
 		}
@@ -131,7 +134,7 @@ public class CustomerDAO {
 	
 	
 	@SuppressWarnings("finally")
-	public static Customer getCustomerByPhone(String mobilePhone) throws HMSException{
+	public Customer getCustomerByPhone(String mobilePhone) throws HMSException{
 		if(connection == null){
 			throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
 		}
@@ -179,7 +182,7 @@ public class CustomerDAO {
 	}	
 	
 	
-	private static Customer populateCustomer(ResultSet rs) throws SQLException{
+	private Customer populateCustomer(ResultSet rs) throws SQLException{
 		        Customer customer = new Customer();
 				customer.setCustomerId(rs.getString("CUSTOMER_ID"));
 				customer.setCorporateId(rs.getString("CORPORATE_ID"));
@@ -275,39 +278,10 @@ public class CustomerDAO {
 			
 		} 
 		return updateStatus;
-	}	
-	
-
-	
-	public String generateCustomerId(){
-
-		String prefix = "C";
-        String serialNo = "0";
-
-        	 int count = 0;
-        	 
-        	Statement stmt = null;
-        	ResultSet resultSet = null;
-			try {
-				stmt = connection.createStatement();
-	        	resultSet = stmt.executeQuery(DatabaseConstants.COUNT_CUSTOMERS);
-	        	resultSet.next();
-	        	count = resultSet.getInt(1);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	 
-        	 count += 1;
-        	 
-        	 serialNo = String.valueOf(count);
-        	
-            serialNo = String.format("%3s", serialNo).replace(' ', '0');
-		
-		return prefix+serialNo;
 	}
 
-	public static Customer getCustomerById(String customerId) {
+
+	public Customer getCustomerById(String customerId) {
 		if(connection == null){
 			try {
 				throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
@@ -371,6 +345,53 @@ public class CustomerDAO {
 			
 			return customer;
 		}
+	}
+
+	private String generateCustomerId(){
+
+		String randomSalt = HMSRandomAPI.generatePrimaryKeyForDB();
+		String customerId = "H"+randomSalt+"_"+getNextCustomerId();
+		return customerId;
+	}
+
+	private String getNextCustomerId(){
+
+		Customer customer = null;
+		PreparedStatement stmt;
+		ResultSet rs;
+		String hotelIdSeq = null;
+
+		try {
+			connection = requireNonNull(connection);
+			connection.setAutoCommit(false);
+			stmt = connection.prepareStatement(CustomerDBQueries.FETCH_NEXT_CUSTOMER_ID_SEQUENCE);
+
+			stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+			rs = stmt.executeQuery();
+			rs = requireNonNull(rs);
+
+			if (rs.next() == false) {
+				System.out.println("ResultSet is empty in Java");
+				return null;
+			} else {
+				hotelIdSeq = rs.getString("NEXT_CUSTOMER_ID_VAL");
+			}
+
+
+			stmt = requireNonNull(stmt);
+			rs.close();
+			stmt.close();
+
+
+		} catch (SQLException sqle) {
+			// TODO Auto-generated catch block
+			throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+		} catch (NullPointerException npe) {
+			throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+		} finally {
+			return hotelIdSeq;
+		}
+
 	}
 	
 

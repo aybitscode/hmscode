@@ -57,11 +57,11 @@ public class HMSJSONParser {
         return components;
     }
 
+    
     public static Object convertJSONToObject(String jsonString,Class clazz){
         Object obj = null;
         try
         {
-            //String data = getHmsJsonRequestComponents(jsonString).getData();
             obj = objMapper.readValue(jsonString,clazz);
 
         }

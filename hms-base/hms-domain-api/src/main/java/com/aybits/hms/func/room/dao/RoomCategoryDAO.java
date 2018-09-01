@@ -18,7 +18,11 @@ public class  RoomCategoryDAO {
 
         Boolean isHotelAdditionSuccessful = false;
 
+<<<<<<< HEAD
       /*  try (PreparedStatement ps = connection.prepareStatement(RoomCategoryDBQueries.INSERT_NEW_ROOM_CATEGORY, Statement.RETURN_GENERATED_KEYS)) {
+=======
+     /*   try (PreparedStatement ps = connection.prepareStatement(RoomCategoryDBQueries.INSERT_NEW_ROOM_CATEGORY, Statement.RETURN_GENERATED_KEYS)) {
+>>>>>>> ae5dad5d87e8db07071616eabafc3819e5249428
             connection.setAutoCommit(false);
             ps.setString(1, hotel.getHotelAttributes().getHotelName());
             ps.setString(2, hotel.getHotelAttributes().getHotelAddress().toString());
@@ -51,8 +55,13 @@ public class  RoomCategoryDAO {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
             return isHotelAdditionSuccessful;
+<<<<<<< HEAD
         }
 */
+=======
+        }*/
+
+>>>>>>> ae5dad5d87e8db07071616eabafc3819e5249428
 
         return true;
     }
