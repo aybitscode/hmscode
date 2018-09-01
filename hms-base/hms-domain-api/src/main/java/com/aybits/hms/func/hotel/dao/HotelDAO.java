@@ -344,7 +344,7 @@ public class HotelDAO {
     }
 
 
-    public Hotel fetchHotelByContactDetails(String primaryEmail,String primaryPhone, String primaryMobileNumber) {
+    public Hotel fetchHotelByContactDetails(String primaryEmail,String primaryPhone, String primaryMobileNumber) throws HMSException{
 
 
         Hotel hotel = null;
@@ -365,6 +365,7 @@ public class HotelDAO {
 
             if(null != hotel)
                 Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
+
 
             rs = requireNonNull(rs);
             stmt = requireNonNull(stmt);

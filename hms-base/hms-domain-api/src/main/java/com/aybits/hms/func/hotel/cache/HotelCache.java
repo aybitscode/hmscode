@@ -50,6 +50,7 @@ public class HotelCache {
     public String addHotel(Hotel hotel) throws HMSException {
         String hotelId = hotelDAO.addHotel(hotel);
         if(hotelId != null){
+            hotel.setHotelId(hotelId);
             if (hotelConcurrentHashMap.get(hotel.getHotelId()) == null) {
                 hotelIds.add(hotel.getHotelId());
                 hotelConcurrentHashMap.put(hotel.getHotelId(), hotel);
