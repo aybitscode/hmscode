@@ -1,5 +1,6 @@
 package com.aybits.hms.sparkInit;
 
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.util.HmsConfig;
 
 public class HmsRestServiceMain {
@@ -13,6 +14,7 @@ public class HmsRestServiceMain {
     void initConfiguration() throws Exception{
         System.out.println("Loading HMS Configuration properties.");
         HmsConfig hmsConfig = new HmsConfig();
+        DBCPConnection initDBCP = new DBCPConnection();
     }
 
     void startServicesInSpark(String[] args){
