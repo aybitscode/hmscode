@@ -6,6 +6,7 @@ import java.util.Properties;
 import com.aybits.hms.arch.util.HmsConfig;
 import com.aybits.hms.func.customer.dao.CustomerDAO;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.zaxxer.hikari.HikariConfig;
 import org.apache.log4j.Logger;
 
 
@@ -16,8 +17,11 @@ public class DBConnection {
     private static final String driverName = "com.mysql.jdbc.Driver";
     private static Integer connectionCount = 0;
     private static int JDBC_QUERY_TIMEOUT = 300;
-    
-    
+
+    DBConnection(){
+
+    }
+
     public static final Connection getDBConnection(){
 		try{
 
@@ -33,13 +37,13 @@ public class DBConnection {
 
                     }
 	    		}
-		
+
 		} catch (SQLException e) {
 				e.printStackTrace();
 		} catch (Exception e){
 				e.printStackTrace();
 		}
-    	
+
     	return connection;
     }
 
@@ -47,14 +51,12 @@ public class DBConnection {
     public static Integer getJDBCQueryTimeOut()
     {
 		return JDBC_QUERY_TIMEOUT;
-    	
+
     }
 
-   
+        private static void connectToDataBase(Properties props) throws SQLException {
 
-    private static void connectToDataBase(Properties props) throws SQLException {
-       
-	
+
         try {
 
         	String databaseName 	= props.getProperty("db.sid");
@@ -62,7 +64,7 @@ public class DBConnection {
         	String dbPassword 	= props.getProperty("db.password");
         	int dbPort 		= Integer.parseInt(props.getProperty("db.port"));
             String dbServerName  	= props.getProperty("db.servername");
-          
+
             if(connection == null){
             Class.forName(driverName).newInstance();
 
@@ -98,14 +100,14 @@ public class DBConnection {
 
     }
 
-    
 
 
-    
-    
 
-	
-	
+
+
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 package com.aybits.hms.func.hotel.dao;
 
-import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
@@ -26,38 +26,36 @@ public class HotelDAO {
 
     static Logger Log = Logger.getLogger(HotelDAO.class);
 
-    private Connection connection = DBConnection.getDBConnection();
-
-
-
 
     public String addHotel(Hotel hotel) throws HMSException {
-
+        Connection connection = null;
+        PreparedStatement ps = null;
         Boolean isHotelAdditionSuccessful = false;
         String hotelId = null;
 
         try {
-            PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL);
+            connection = DBCPConnection.getDBConnection();
+            ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL);
             connection.setAutoCommit(false);
             hotelId = generateHotelId();
-            ps.setString(1,hotelId);
+            ps.setString(1, hotelId);
             ps.setString(2, hotel.getHotelAttributes().getHotelName());
             ps.setString(3, hotel.getHotelAttributes().getHotelAddress().toString());
 
             String primaryEmail = hotel.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
-            ps.setString(4,primaryEmail);
+            ps.setString(4, primaryEmail);
             String secondaryEmail = hotel.getHotelAttributes().getHotelContactDetails().getSecondaryEmail();
-            ps.setString(5,secondaryEmail);
+            ps.setString(5, secondaryEmail);
             String primaryPhone = hotel.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
-            ps.setString(6,primaryPhone);
+            ps.setString(6, primaryPhone);
             String secondaryPhone = hotel.getHotelAttributes().getHotelContactDetails().getSecondaryPhone();
-            ps.setString(7,secondaryPhone);
+            ps.setString(7, secondaryPhone);
             String primaryMobile = hotel.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
-            ps.setString(8,primaryMobile);
+            ps.setString(8, primaryMobile);
             String secondaryMobile = hotel.getHotelAttributes().getHotelContactDetails().getSecondaryMobileNumber();
-            ps.setString(9,secondaryMobile);
+            ps.setString(9, secondaryMobile);
             String faxNumber = hotel.getHotelAttributes().getHotelContactDetails().getFaxNumber();
-            ps.setString(10,faxNumber);
+            ps.setString(10, faxNumber);
 
             ps.setString(11, hotel.getHotelAttributes().getHotelRating());
             ps.setString(12, hotel.getHotelAttributes().getHotelLogo());
@@ -65,9 +63,9 @@ public class HotelDAO {
             ps.setInt(14, hotel.getHotelAttributes().getEmployeeCount());
             ps.setInt(15, hotel.getHotelAttributes().getRoomCount());
             ps.setInt(16, hotel.getHotelAttributes().getTotalBeds());
-            ps.setInt(17,hotel.getHotelStatus().getStatusAsInt());
+            ps.setInt(17, hotel.getHotelStatus().getStatusAsInt());
 
-            ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            ps.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();
 
             connection.commit();
@@ -81,22 +79,23 @@ public class HotelDAO {
             npe.printStackTrace();
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, ps, connection);
             return hotelId;
         }
     }
 
     public Hotel fetchHotelByEmployeeId(String employeeId) throws HMSException {
-
+        Connection connection = null;
         Hotel hotel = new Hotel();
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             connection = requireNonNull(connection);
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(HotelDBQueries.FETCH_HOTEL_BY_EMPLOYEE_ID);
             stmt.setString(1, employeeId);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
 
             hotel = populateHotel(rs);
@@ -112,14 +111,15 @@ public class HotelDAO {
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotel;
         }
     }
 
     public Hotel fetchHotelByEmployeeLogin(String employeeLogin) throws HMSException {
-
+        Connection connection = null;
         Hotel hotel = null;
-        PreparedStatement stmt;
+        PreparedStatement stmt = null;
         ResultSet rs;
 
         try {
@@ -127,7 +127,7 @@ public class HotelDAO {
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(HotelDBQueries.FETCH_HOTEL_BY_EMPLOYEE_LOGIN);
             stmt.setString(1, employeeLogin);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
 
             hotel = populateHotel(rs);
@@ -144,26 +144,26 @@ public class HotelDAO {
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotel;
         }
     }
 
     public List<Hotel> fetchAllHotels() throws HMSException {
-
+        Connection connection = null;
         List<Hotel> hotels = new ArrayList<Hotel>();
         ResultSet rs;
-        PreparedStatement stmt;
+        PreparedStatement stmt = null;
         try {
             connection = requireNonNull(connection);
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(HotelDBQueries.FETCH_ALL_HOTELS);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Hotel hotel = populateHotel(rs);
                 hotels.add(hotel);
             }
-
 
             rs = requireNonNull(rs);
             stmt = requireNonNull(stmt);
@@ -176,42 +176,42 @@ public class HotelDAO {
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotels;
         }
     }
 
 
     public Hotel fetchHotelByHotelId(String hotelId) throws HMSException {
-
+        Connection connection = null;
         Hotel hotel = null;
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             connection = requireNonNull(connection);
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(HotelDBQueries.FETCH_HOTEL_BY_HOTELID);
             stmt.setString(1, hotelId);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
 
             hotel = populateHotel(rs);
 
-            if(null != hotel)
+            if (null != hotel)
                 Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
 
             rs = requireNonNull(rs);
             stmt = requireNonNull(stmt);
             rs.close();
             stmt.close();
-
-
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotel;
         }
     }
@@ -236,17 +236,17 @@ public class HotelDAO {
                 Integer hotelBedCount = rs.getInt("HOTEL_BED_COUNT");
                 Integer hotelStaffCount = rs.getInt("HOTEL_STAFF_COUNT");
                 Integer hotelRoomCount = rs.getInt("HOTEL_ROOM_COUNT");
-                Integer hotelStatus    = rs.getInt("HOTEL_STATUS");
+                Integer hotelStatus = rs.getInt("HOTEL_STATUS");
 
-                String primaryEmail   = rs.getString("HOTEL_PRIMARY_EMAIL");
-                String secondaryEmail   = rs.getString("HOTEL_SECONDARY_EMAIL");
-                String primaryPhone   = rs.getString("HOTEL_PRIMARY_PHONE");
-                String secondaryPhone   = rs.getString("HOTEL_SECONDARY_PHONE");
-                String primaryMobile   = rs.getString("HOTEL_PRIMARY_MOBILE");
-                String secondaryMobile   = rs.getString("HOTEL_SECONDARY_MOBILE");
+                String primaryEmail = rs.getString("HOTEL_PRIMARY_EMAIL");
+                String secondaryEmail = rs.getString("HOTEL_SECONDARY_EMAIL");
+                String primaryPhone = rs.getString("HOTEL_PRIMARY_PHONE");
+                String secondaryPhone = rs.getString("HOTEL_SECONDARY_PHONE");
+                String primaryMobile = rs.getString("HOTEL_PRIMARY_MOBILE");
+                String secondaryMobile = rs.getString("HOTEL_SECONDARY_MOBILE");
                 String faxNumber = rs.getString("HOTEL_FAX_NUMBER");
 
-                ContactDetails hotelContactDetails = new ContactDetails(primaryEmail,primaryPhone,secondaryEmail,secondaryPhone,faxNumber,primaryMobile,secondaryMobile);
+                ContactDetails hotelContactDetails = new ContactDetails(primaryEmail, primaryPhone, secondaryEmail, secondaryPhone, faxNumber, primaryMobile, secondaryMobile);
 
                 HotelAttributes hotelAttributes = new HotelAttributes(hotelName,
                         hotelRating,
@@ -265,7 +265,7 @@ public class HotelDAO {
     }
 
     public Boolean updateHotelStatus(String hotelId, Status status) throws HMSException {
-
+        Connection connection = null;
         Boolean isHotelDisabled = false;
         PreparedStatement stmt = null;
         try {
@@ -274,7 +274,7 @@ public class HotelDAO {
             stmt = connection.prepareStatement(HotelDBQueries.UPDATE_HOTEL_STATUS);
             stmt.setInt(1, status.getStatusAsInt());
             stmt.setString(2, hotelId);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int rowsDeleted = stmt.executeUpdate();
 
             if (rowsDeleted > 0) {
@@ -283,27 +283,25 @@ public class HotelDAO {
 
             stmt = requireNonNull(stmt);
             stmt.close();
-
-
         } catch (SQLException sqle) {
             // TODO Auto-generated catch block
             throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
             return isHotelDisabled;
         }
     }
 
     public Boolean updateHotel(Hotel hotel) throws HMSException {
-
-
+        Connection connection = null;
         Boolean isHotelUpdateSuccessful = false;
         PreparedStatement stmt = null;
 
         Hotel hotelFromDB = fetchHotelByHotelId(hotel.getHotelId());
 
-        try{
+        try {
             hotelFromDB = requireNonNull(hotelFromDB);
             connection = requireNonNull(connection);
             connection.setAutoCommit(false);
@@ -319,8 +317,8 @@ public class HotelDAO {
             stmt.setInt(7, hotel.getHotelAttributes().getEmployeeCount());
             stmt.setInt(8, hotel.getHotelAttributes().getRoomCount());
             stmt.setInt(9, hotel.getHotelAttributes().getTotalBeds());
-            stmt.setString(10,hotelFromDB.getHotelId());
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setString(10, hotelFromDB.getHotelId());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int rowsAffected = stmt.executeUpdate();
             if (1 == rowsAffected) {
                 isHotelUpdateSuccessful = true;
@@ -337,33 +335,32 @@ public class HotelDAO {
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
-
-                return isHotelUpdateSuccessful;
+            DBCPConnection.closeDBConnection(null, stmt, connection);
+            return isHotelUpdateSuccessful;
         }
 
     }
 
 
-    public Hotel fetchHotelByContactDetails(String primaryEmail,String primaryPhone, String primaryMobileNumber) throws HMSException{
-
-
+    public Hotel fetchHotelByContactDetails(String primaryEmail, String primaryPhone, String primaryMobileNumber) throws HMSException {
+        Connection connection = null;
         Hotel hotel = null;
-        PreparedStatement stmt;
-        ResultSet rs;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             connection = requireNonNull(connection);
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(HotelDBQueries.FETCH_HOTEL_BY_CONTACT_DETAILS);
             stmt.setString(1, primaryEmail);
-            stmt.setString(2,primaryPhone);
-            stmt.setString(3,primaryMobileNumber);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setString(2, primaryPhone);
+            stmt.setString(3, primaryMobileNumber);
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
 
             hotel = populateHotel(rs);
 
-            if(null != hotel)
+            if (null != hotel)
                 Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
 
 
@@ -379,23 +376,24 @@ public class HotelDAO {
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotel;
         }
 
     }
 
-    private String generateHotelId(){
+    private String generateHotelId() {
 
         String randomSalt = HMSRandomAPI.generatePrimaryKeyForDB();
-        String hotelId = "H"+randomSalt+"_"+getNextHotelId();
+        String hotelId = "H" + randomSalt + "_" + getNextHotelId();
 
         return hotelId;
     }
 
-    private String getNextHotelId(){
-
+    private String getNextHotelId() {
+        Connection connection = null;
         Hotel hotel = null;
-        PreparedStatement stmt;
+        PreparedStatement stmt = null;
         ResultSet rs;
         String hotelIdSeq = null;
 
@@ -404,7 +402,7 @@ public class HotelDAO {
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(HotelDBQueries.FETCH_NEXT_HOTEL_ID_SEQUENCE);
 
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
             rs = requireNonNull(rs);
 
@@ -414,7 +412,6 @@ public class HotelDAO {
             } else {
                 hotelIdSeq = rs.getString("NEXT_HOTEL_ID_VAL");
             }
-
 
             stmt = requireNonNull(stmt);
             rs.close();
@@ -427,11 +424,8 @@ public class HotelDAO {
         } catch (NullPointerException npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotelIdSeq;
         }
-
     }
-
-
-
 }
