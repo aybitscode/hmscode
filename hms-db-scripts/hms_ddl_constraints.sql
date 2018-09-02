@@ -16,7 +16,7 @@ ALTER TABLE hms_hotel CHANGE DATE_UPDATED DATE_UPDATED  timestamp NULL ON UPDATE
 ALTER TABLE hms_hotel CHANGE DATE_DELETED DATE_DELETED  timestamp NULL ON UPDATE CURRENT_TIMESTAMP;
 commit;
 
-ALTER TABLE hms_hotel_registration_data CHANGE registration_data_id registration_data_id  int(11) NOT NULL PRIMARY KEY;
+ALTER TABLE hms_hotel_registration_data CHANGE registration_data_id registration_data_id varchar(60) NOT NULL PRIMARY KEY;
 ALTER TABLE hms_hotel_registration_data ADD FOREIGN KEY (hotel_id) REFERENCES hms_hotel(hotel_id);
 ALTER TABLE hms_hotel_registration_data CHANGE building_permit_no building_permit_no varchar(200) DEFAULT NULL;
 ALTER TABLE hms_hotel_registration_data CHANGE fire_safety_permit_no fire_safety_permit_no varchar(200) DEFAULT NULL;

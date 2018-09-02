@@ -5,20 +5,17 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.Date;
 
 import static java.util.Objects.requireNonNull;
 
 public class HMSCommonDAO {
 
-    static Logger Log = Logger.getLogger(HMSCommonDAO.class);
-
+    Connection connection = null;
 
     public String getNextPrimaryKey(String primaryColumn,String table){
 
-        Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String primaryKey = null;

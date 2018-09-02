@@ -3,14 +3,11 @@ package com.aybits.hms.func.hotel.dao;
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSRandomAPI;
-import com.aybits.hms.func.common.beans.Address;
-import com.aybits.hms.func.common.beans.ContactDetails;
+import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
 import com.aybits.hms.func.hotel.beans.Hotel;
-import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import org.apache.log4j.Logger;
 
@@ -18,8 +15,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -101,17 +96,17 @@ public class HotelDAO {
         String hotelRegistrationId = null;
         try{
             connection = DBCPConnection.getDBConnection();
-            stmt = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL_REGISTRATION_DATA);
+            stmt = connection.prepareStatement(HotelDBQueries.INSERT_HOTEL_REGISTRATION_DATA);
             connection.setAutoCommit(false);
-            stmt.setString(1,hotelRegistrationData.getHotelId());
 
             String keyPrefix = "HREG";
-            String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_registration_id","hms_hotel_registration_id");
+            String keySuffix = hmsCommonDAO.getNextPrimaryKey("registration_data_id","hms_hotel_registration_data");
 
             hotelRegistrationId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix);
             hotelRegistrationData.setHotelRegistrationId(hotelRegistrationId);
 
-            stmt.setString(2,hotelRegistrationId);
+            stmt.setString(1,hotelRegistrationData.getHotelId());
+            stmt.setString(2,hotelRegistrationData.getHotelRegistrationId());
             stmt.setString(3,hotelRegistrationData.getBuildingPermitNo());
             stmt.setString(4,hotelRegistrationData.getFireSafetyPermitNo());
             stmt.setString(5,hotelRegistrationData.getPoliceLicenseNo());
@@ -121,19 +116,15 @@ public class HotelDAO {
             stmt.setString(9,hotelRegistrationData.getGstNo());
             stmt.setString(10,hotelRegistrationData.getEsiRegistrationNo());
             stmt.setString(11,hotelRegistrationData.getPfRegistrationNo());
-
             stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
-            rs = stmt.executeQuery();
+            stmt.executeUpdate();
             connection.commit();
-            if(rs.next()){
-                hotelRegistrationId = rs.getString("hotel_registration_id");
-            }
-
 
         }catch (SQLException e) {
+            e.printStackTrace();
             hotelRegistrationId = null;
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + e.getMessage());
-        } catch (NullPointerException npe) {
+        }catch (NullPointerException npe) {
             hotelRegistrationId = null;
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally{

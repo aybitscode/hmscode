@@ -18,10 +18,10 @@ public class HotelDBQueries {
             "hotel_rating,hotel_logo,hotel_room_doorno_format," +
             "hotel_staff_count,hotel_room_count,hotel_bed_count,hotel_status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    protected static final String INSERT_NEW_HOTEL_REGISTRATION_DATA = "INSERT INTO `hms_db`.`hms_hotel_registration_data`\n" +
-            "(registration_data_id,hotel_id,building_permit_no,fire_safety_permit_no,police_license_no,health_trade_license_no" +
-            "liquor_license_no,fssai_license_no,gst_license_no,esi_registration_no,epf_registration_no,DATE_CREATED,DATE_UPDATED,DATE_DELETED" +
-            ")VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)" ;
+    protected static final String INSERT_NEW_HOTEL_REGISTRATION_DATA = "insert into hms_hotel_registration_data" +
+            "(hotel_id,registration_data_id,building_permit_no,fire_safety_permit_no,police_license_no,health_trade_license_no" +
+            "liquor_license_no,fssai_license_no,gst_license_no,esi_registration_no,epf_registration_no" +
+            ")values(?,?,?,?,?,?,?,?,?,?,?)" ;
 
 
     protected static final String UPDATE_EXISTING_HOTEL = "update hms_hotel set" +
@@ -36,6 +36,33 @@ public class HotelDBQueries {
             ",hotel_room_count = ?" +
             ",hotel_bed_count = ?" +
             " where hotel_id = ?";
+
+    protected static final String INSERT_HOTEL_REGISTRATION_DATA =
+            "INSERT INTO `hms_hotel_registration_data`\n" +
+                    "("+
+                    "`hotel_id`,\n" +
+                    "`registration_data_id`,\n" +
+                    "`building_permit_no`,\n" +
+                    "`fire_safety_permit_no`,\n" +
+                    "`police_license_no`,\n" +
+                    "`health_trade_license_no`,\n" +
+                    "`liquor_license_no`,\n" +
+                    "`fssai_license_no`,\n" +
+                    "`gst_license_no`,\n" +
+                    "`esi_registration_no`,\n" +
+                    "`epf_registration_no`)\n" +
+                    "VALUES\n" +
+                    "(?," +
+                    "?," +
+                    "?," +
+                    "?," +
+                    "?," +
+                    "?," +
+                    "?," +
+                    "?," +
+                    "?," +
+                    "?," +
+                    "?)";
 
     protected static final String FETCH_NEXT_HOTEL_ID_SEQUENCE  = "(select count(hotel_id)+1 as NEXT_HOTEL_ID_VAL from hms_hotel)";
 

@@ -21,7 +21,7 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
 
 
-    private String addHotel(Hotel hotel) throws HMSException {
+    public String addHotel(Hotel hotel) throws HMSException {
         String hotelId = null;
 
         if(!isHotelAlreadyPresent(hotel)){
@@ -47,7 +47,7 @@ public class HotelAPI extends HMSAPIProviderImpl {
     }
 
 
-    private Boolean addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException{
+    public Boolean addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException{
 
        Boolean isAdditionSuccessful = false;
         try {
@@ -137,24 +137,6 @@ public class HotelAPI extends HMSAPIProviderImpl {
         }finally{
             return isHotelAlreadyPresent;
         }
-    }
-
-    public Boolean setupHotel(Hotel hotel,HotelRegistrationData hotelRegistrationData)throws HMSException{
-
-        Boolean isSetupSuccessful = false;
-        try {
-            String hotelId = addHotel(hotel);
-            hotelRegistrationData.setHotelId(hotelId);
-            isSetupSuccessful = addHotelRegistrationData(hotelRegistrationData);
-
-        }catch (NullPointerException npe) {
-            log.info("Exception occurred while setting up hotel::"+hotel.getHotelAttributes().getHotelName());
-            throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
-        }
-
-        return isSetupSuccessful;
-
-
     }
 
 }

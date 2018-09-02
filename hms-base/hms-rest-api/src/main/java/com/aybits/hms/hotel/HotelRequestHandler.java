@@ -17,14 +17,15 @@ import com.aybits.hms.func.helpdesk.beans.Service;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
+import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.services.api.ServicesAPI;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,8 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 message = fetchHotelByEmployeeId(request);
                 break;
             case "/setup/hotel":
-                message = addHotel(request);
+
+                message = setupHotel(request);
                 break;
             case "/setup/category":
                 message = addRoomCategory(request);
@@ -86,15 +88,27 @@ public class HotelRequestHandler implements HmsRequestHandler {
         return message;
     }
 
-    private String addHotel(Request request) {
-        Log.info("in addHotel");
+    private String setupHotel(Request request) {
+        Log.info("in setupHotel");
+        Boolean isSetupSuccessful = false;
+        String hotelId = null;
         try {
-            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(components.getData(), Hotel.class);
-            String hotelId = hotelAPI.addHotel(hotel);
+            JSONObject jsonObject = new JSONObject(components.getData());
+            JSONObject hotelJSON = jsonObject.getJSONObject("hotel");
+            JSONObject hotelRegistrationJSON = jsonObject.getJSONObject("hotel_registration_data");
+            HotelRegistrationData hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(hotelRegistrationJSON.toString(),HotelRegistrationData.class);
+            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(hotelJSON.toString(), Hotel.class);
+
+            hotelId = hotelAPI.addHotel(hotel);
+            hotelRegistrationData.setHotelId(hotelId);
+            hotelAPI.addHotelRegistrationData(hotelRegistrationData);
+
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Hotel successfully added", hotelId));
         } catch (Exception e) {
             e.printStackTrace();
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", e.getMessage(), null));
+        }finally{
+            return hotelId;
         }
     }
 
