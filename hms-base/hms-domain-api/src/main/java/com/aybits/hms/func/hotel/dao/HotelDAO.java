@@ -1,7 +1,6 @@
 package com.aybits.hms.func.hotel.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
-import com.aybits.hms.arch.dbman.DBConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
@@ -27,9 +26,6 @@ import static java.util.Objects.requireNonNull;
 public class HotelDAO {
 
     static Logger Log = Logger.getLogger(HotelDAO.class);
-
-
-    private Connection connection = DBConnection.getDBConnection();
 
     private HMSRandomAPI hmsRandomAPI = new HMSRandomAPI();
     private HMSCommonDAO hmsCommonDAO = new HMSCommonDAO();
@@ -107,9 +103,10 @@ public class HotelDAO {
 
         Boolean isHotelRegistrationDataAdded = false;
         String hotelRegistrationId = null;
-
+        Connection connection = null;
+        PreparedStatement ps = null;
         try{
-            PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL_REGISTRATION_DATA);
+            ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL_REGISTRATION_DATA);
             connection.setAutoCommit(false);
             ps.setString(1,hotelRegistrationData.getHotelId());
 
@@ -134,18 +131,19 @@ public class HotelDAO {
             hotelRegistrationId = null;
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally{
+            DBCPConnection.closeDBConnection(null, ps, connection);
             return hotelRegistrationId;
         }
     }
 
     public Hotel fetchHotelByEmployeeId(String employeeId) throws HMSException {
-        Connection connection = null;
         Hotel hotel = new Hotel();
+        Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            connection = requireNonNull(connection);
+            connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(HotelDBQueries.FETCH_HOTEL_BY_EMPLOYEE_ID);
             stmt.setString(1, employeeId);
@@ -159,10 +157,7 @@ public class HotelDAO {
             rs.close();
             stmt.close();
 
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
-        } catch (NullPointerException npe) {
+        } catch (Exception npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
@@ -397,8 +392,8 @@ public class HotelDAO {
 
 
     public Hotel fetchHotelByContactDetails(String primaryEmail, String primaryPhone, String primaryMobileNumber) throws HMSException {
-        Connection connection = null;
         Hotel hotel = null;
+        Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 

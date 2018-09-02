@@ -1,18 +1,16 @@
 package com.aybits.hms.func.room.dao;
 
-import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.func.customer.dao.CustomerDBQueries;
 import com.aybits.hms.func.room.beans.Room;
-import com.aybits.hms.func.room.beans.RoomCategory;
 import com.aybits.hms.func.room.beans.RoomStatus;
 
-import java.sql.*;
+import java.sql.Connection;
 import java.util.List;
 
 public class RoomDAO {
 
-    Connection connection  = DBConnection.getDBConnection();
+    Connection connection  = null;
 
     public List<Room> fetchRoomsByHotelId(String hotelId) throws HMSException {
         return null;

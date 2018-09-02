@@ -1,6 +1,6 @@
 package com.aybits.hms.func.voucher.dao;
 
-import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSUtilAPI;
@@ -18,66 +18,58 @@ import static java.util.Objects.requireNonNull;
 public class VoucherDAO {
 
     static Logger Log = Logger.getLogger(VoucherDAO.class);
-
-    private Connection connection = DBConnection.getDBConnection();
-
+    Connection connection = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
 
     public Boolean addVoucher(Voucher voucher){
 
-
         Boolean isVoucherAdditionSuccessful = false;
-        try (PreparedStatement ps = connection.prepareStatement(VoucherDBQueries.INSERT_NEW_VOUCHER, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1,voucher.getHotelId());
-            ps.setString(2, voucher.getVoucherName());
-            ps.setString(3, voucher.getVoucherDescription());
+        try {
+            connection = DBCPConnection.getDBConnection();
+            stmt = connection.prepareStatement(VoucherDBQueries.INSERT_NEW_VOUCHER, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1,voucher.getHotelId());
+            stmt.setString(2, voucher.getVoucherName());
+            stmt.setString(3, voucher.getVoucherDescription());
 
 
             Timestamp ts = HMSUtilAPI.convertDateToTimestamp(voucher.getVoucherStartDate());
 
-            ps.setTimestamp(4,ts);
+            stmt.setTimestamp(4,ts);
 
 
             ts = HMSUtilAPI.convertDateToTimestamp(voucher.getVoucherExpiryDate());
 
-            ps.setTimestamp(5,ts);
+            stmt.setTimestamp(5,ts);
 
-            ps.setDouble(6,voucher.getVoucherDiscount());
-            ps.setInt(7,voucher.getVoucherStatus().getVoucherStatusAsInt());
+            stmt.setDouble(6,voucher.getVoucherDiscount());
+            stmt.setInt(7,voucher.getVoucherStatus().getVoucherStatusAsInt());
 
 
-            ps.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
-            int numRowsAffected = ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
+            int numRowsAffected = stmt.executeUpdate();
+            rs = stmt.getGeneratedKeys();
                 if (rs.next()) {
                     Long voucherId = rs.getLong(1);
                     voucher.setVoucherId(voucherId.toString());
                     isVoucherAdditionSuccessful = true;
                     connection.commit();
                 }
-            } catch (SQLException s) {
-                s.printStackTrace();
-            }catch (NullPointerException npe) {
-                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException npe) {
+        } catch (Exception npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(rs , stmt, connection);
             return isVoucherAdditionSuccessful;
         }
 
     }
 
     public Boolean updateVoucher(Voucher voucher){
-
-
         Boolean isVoucherUpdateSuccessful = false;
-        PreparedStatement stmt = null;
-
         Voucher voucherFromDB = fetchVoucher(voucher.getHotelId(),voucher.getVoucherId());
 
         try{
+            connection = DBCPConnection.getDBConnection();
             voucherFromDB = requireNonNull(voucherFromDB);
             connection = requireNonNull(connection);
             connection.setAutoCommit(false);
@@ -100,7 +92,7 @@ public class VoucherDAO {
             stmt.setString(8,voucher.getVoucherId());
 
 
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int rowsAffected = stmt.executeUpdate();
             if (1 == rowsAffected) {
                 isVoucherUpdateSuccessful = true;
@@ -111,21 +103,15 @@ public class VoucherDAO {
             stmt.close();
 
 
-        } catch (SQLException sqle) {
-            // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
-        } catch (NullPointerException npe) {
+        }  catch (Exception npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
-
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
             return isVoucherUpdateSuccessful;
         }
     }
 
     public Voucher fetchVoucher(String hotelId,String voucherId){
-
-        PreparedStatement stmt;
-        ResultSet rs;
         Voucher voucher = null;
 
         try {
@@ -134,7 +120,7 @@ public class VoucherDAO {
             stmt = connection.prepareStatement(VoucherDBQueries.FETCH_VOUCHER_BY_VOUCHER_ID);
             stmt.setString(1, hotelId);
             stmt.setString(2,voucherId);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
 
             voucher = populateVoucher(rs);
@@ -148,12 +134,10 @@ public class VoucherDAO {
             stmt.close();
 
 
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
-        } catch (NullPointerException npe) {
+        }catch (Exception npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
             return voucher;
         }
     }
@@ -161,13 +145,11 @@ public class VoucherDAO {
     public List<Voucher> fetchAllVouchers(String hotelId) throws HMSException{
 
         List<Voucher> vouchers = new ArrayList<Voucher>();
-        ResultSet rs;
-        PreparedStatement stmt;
         try {
             connection = requireNonNull(connection);
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(VoucherDBQueries.FETCH_VOUCHERS_BY_HOTELID);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Voucher voucher = populateVoucher(rs);
@@ -180,12 +162,10 @@ public class VoucherDAO {
             rs.close();
             stmt.close();
 
-        } catch (SQLException sqle) {
-            // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
-        } catch (NullPointerException npe) {
+        } catch (Exception npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
             return vouchers;
         }
     }
@@ -194,13 +174,11 @@ public class VoucherDAO {
     public List<Voucher> fetchAllVouchers() throws HMSException{
 
         List<Voucher> vouchers = new ArrayList<Voucher>();
-        ResultSet rs;
-        PreparedStatement stmt;
         try {
-            connection = requireNonNull(connection);
+            connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(VoucherDBQueries.FETCH_ALL_VOUCHERS);
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Voucher voucher = populateVoucher(rs);
@@ -213,12 +191,10 @@ public class VoucherDAO {
             rs.close();
             stmt.close();
 
-        } catch (SQLException sqle) {
-            // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
-        } catch (NullPointerException npe) {
+        }  catch (Exception npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
             return vouchers;
         }
     }

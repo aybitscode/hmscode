@@ -1,15 +1,13 @@
 package com.aybits.hms.func.common.dao;
 
-import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.func.hotel.dao.HotelDBQueries;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import static java.util.Objects.requireNonNull;
 
@@ -17,21 +15,21 @@ public class HMSCommonDAO {
 
     static Logger Log = Logger.getLogger(HMSCommonDAO.class);
 
-    private Connection connection = DBConnection.getDBConnection();
 
     public String getNextPrimaryKey(String primaryColumn,String table){
 
-        PreparedStatement stmt;
-        ResultSet rs;
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         String primaryKey = null;
 
         try {
-            connection = requireNonNull(connection);
+            connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
             String query = CommonDBQueries.getNextPrimaryKeyQuery(primaryColumn,table);
             stmt = connection.prepareStatement(query);
 
-            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
             rs = requireNonNull(rs);
 
@@ -48,12 +46,10 @@ public class HMSCommonDAO {
             stmt.close();
 
 
-        } catch (SQLException sqle) {
-            // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
-        } catch (NullPointerException npe) {
+        } catch (Exception npe) {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
             return primaryKey;
         }
 
