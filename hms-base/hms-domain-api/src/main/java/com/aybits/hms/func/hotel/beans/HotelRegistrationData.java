@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class HotelRegistrationData {
 
 
+
     @JsonProperty("hotel_id")
     private String hotelId;
     @JsonProperty("hotel_reg_no")

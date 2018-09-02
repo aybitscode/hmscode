@@ -13,8 +13,6 @@ public class Hotel {
     private String hotelId;
     @JsonProperty("hotel_attributes")
     private HotelAttributes hotelAttributes;
-    @JsonProperty("hotel_registration_data")
-    private HotelRegistrationData hotelRegistrationData;
     @JsonProperty("hotel_status")
     private Status hotelStatus;
     public Hotel() {
@@ -22,21 +20,10 @@ public class Hotel {
 
     public Hotel(String hotelId,
                  HotelAttributes hotelAttributes,
-                 Status hotelStatus) {
-        this.hotelId = hotelId;
-        this.hotelAttributes = hotelAttributes;
-        this.hotelStatus = hotelStatus;
-    }
-
-    public Hotel(String hotelId,
-                 HotelAttributes hotelAttributes,
-                 HotelRegistrationData hotelRegistrationData,
                  Status hotelStatus){
         this.hotelId = hotelId;
         this.hotelAttributes = hotelAttributes;
         this.hotelStatus = hotelStatus;
-        this.hotelRegistrationData = hotelRegistrationData;
-
     }
 
     public String getHotelId() {
@@ -54,15 +41,6 @@ public class Hotel {
     public void setHotelAttributes(HotelAttributes hotelAttributes) {
         this.hotelAttributes = hotelAttributes;
     }
-
-    public HotelRegistrationData getHotelRegistrationData() {
-        return hotelRegistrationData;
-    }
-
-    public void setHotelRegistrationData(HotelRegistrationData hotelRegistrationData) {
-        this.hotelRegistrationData = hotelRegistrationData;
-    }
-
 
     public Status getHotelStatus() {
         return hotelStatus;

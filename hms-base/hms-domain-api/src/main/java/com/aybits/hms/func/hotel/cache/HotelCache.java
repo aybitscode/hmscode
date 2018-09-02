@@ -5,6 +5,7 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
+import com.aybits.hms.func.hotel.dao.HotelSelectDAO;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -18,7 +19,9 @@ public class HotelCache {
     static Logger log = Logger.getLogger(HotelCache.class);
     private static final ConcurrentHashMap<String, Hotel> hotelConcurrentHashMap = new ConcurrentHashMap<String,Hotel>();
     private static final HashSet<String> hotelIds = new HashSet<>();
+    private HotelSelectDAO hotelSelectDAO = new HotelSelectDAO();
     private HotelDAO hotelDAO = new HotelDAO();
+
 
 
     public Boolean initCache(){
@@ -27,7 +30,7 @@ public class HotelCache {
         if(hotelConcurrentHashMap.isEmpty()){
                 List<Hotel> hotels = null;
                 try {
-                        hotels = hotelDAO.fetchAllHotels();
+                        hotels = hotelSelectDAO.fetchAllHotels();
                         if(!hotels.isEmpty()) {
                             for (Hotel hotel : hotels) {
                                 hotelIds.add(hotel.getHotelId());
@@ -86,7 +89,7 @@ public class HotelCache {
         try{
             hotel = hotelConcurrentHashMap.get(hotelId);
             if (hotel == null){
-                hotel = hotelDAO.fetchHotelByHotelId(hotelId);
+                hotel = hotelSelectDAO.fetchHotelByHotelId(hotelId);
                 hotel = Objects.requireNonNull(hotel);
                 hotelConcurrentHashMap.put(hotelId,hotel);
             }

@@ -27,7 +27,6 @@ public class HotelDBQueries {
     protected static final String UPDATE_EXISTING_HOTEL = "update hms_hotel set" +
             "hotel_name = ?" +
             ",hotel_address = ?" +
-            ",hotel_registration_data = ?" +
             ",hotel_rating = ?" +
             ",hotel_primary_email = ?,hotel_secondary_email = ?,hotel_primary_phone = ?,hotel_secondary_phone = ?" +
             ",hotel_primary_mobile = ?, hotel_secondary_mobile = ?,hotel_fax_number = ?"+
