@@ -20,6 +20,7 @@ public class HMSCache {
     private Boolean isHMSCacheLoaded = false;
 
 
+
     static Logger log = Logger.getLogger(VoucherCache.class);
     private static final ConcurrentHashMap<String, ConcurrentHashMap> hmsHotelDeepCache = new ConcurrentHashMap<String,ConcurrentHashMap>();
 
