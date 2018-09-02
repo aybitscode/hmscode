@@ -6,6 +6,7 @@ import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.hotel.beans.Hotel;
+import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.cache.HotelCache;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
 import org.apache.log4j.Logger;
@@ -29,16 +30,22 @@ public class HotelAPI extends HMSAPIProviderImpl {
                     hotelId = hotelCache.addHotel(hotel);
                     if(hotelId == null){
                         throw new NullPointerException();
+                    }else{
+                        HotelRegistrationData hotelRegistrationData = hotel.getHotelRegistrationData();
+                        String hotelRegId =  hotelCache.addHotelRegistrationData(hotelRegistrationData);
+                        if(hotelRegId == null){
+                            throw new HMSException(HMSErrorCodes.HOTEL_REG_DATA_ADDITION_FAILED,"Adding Hotel Registration Data Failed");
+                        }
                     }
                 }
-                catch (NullPointerException | HMSException e) {
-                    log.info("Exception occured while adding hotel::"+hotel.getHotelId());
+                catch (NullPointerException npe) {
+                    log.info("Exception occurred while adding hotel::"+hotel.getHotelId());
                     throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
                 }
             }
 
         }else{
-            log.info("Exception occured while adding hotel::Hotel already exists");
+            log.info("Exception occurred while adding hotel::Hotel already exists");
             throw new HMSException(HMSErrorCodes.HOTEL_ALREADY_EXISTS, "Hotel already exists");
         }
 

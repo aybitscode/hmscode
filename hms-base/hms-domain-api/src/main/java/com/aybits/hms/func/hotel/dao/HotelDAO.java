@@ -8,6 +8,7 @@ import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.Status;
+import com.aybits.hms.func.common.dao.HMSCommonDAO;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
@@ -28,7 +29,8 @@ public class HotelDAO {
 
     private Connection connection = DBConnection.getDBConnection();
 
-
+    private HMSRandomAPI hmsRandomAPI = new HMSRandomAPI();
+    private HMSCommonDAO hmsCommonDAO = new HMSCommonDAO();
 
 
     public String addHotel(Hotel hotel) throws HMSException {
@@ -39,7 +41,13 @@ public class HotelDAO {
         try {
             PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL);
             connection.setAutoCommit(false);
-            hotelId = generateHotelId();
+            String keyPrefix = "H";
+            String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_id","hms_hotel");
+
+
+            hotelId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix);
+            hotel.setHotelId(hotelId);
+
             ps.setString(1,hotelId);
             ps.setString(2, hotel.getHotelAttributes().getHotelName());
             ps.setString(3, hotel.getHotelAttributes().getHotelAddress().toString());
@@ -71,17 +79,55 @@ public class HotelDAO {
             int numRowsAffected = ps.executeUpdate();
 
             connection.commit();
+            Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
+
+            ps = requireNonNull(ps);
+            ps.close();
 
         } catch (SQLException e) {
             hotelId = null;
-            e.printStackTrace();
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + e.getMessage());
         } catch (NullPointerException npe) {
             hotelId = null;
-            npe.printStackTrace();
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
             return hotelId;
+        }
+    }
+
+    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException{
+
+
+        Boolean isHotelRegistrationDataAdded = false;
+        String hotelRegistrationId = null;
+
+        try{
+            PreparedStatement ps = connection.prepareStatement(HotelDBQueries.INSERT_NEW_HOTEL_REGISTRATION_DATA);
+            connection.setAutoCommit(false);
+            ps.setString(1,hotelRegistrationData.getHotelId());
+
+            String keyPrefix = "HREG";
+            String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_registration_id","hms_hotel_registration_id");
+
+            ps.setString(2,hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix));
+            ps.setString(3,hotelRegistrationData.getBuildingPermitNo());
+            ps.setString(4,hotelRegistrationData.getFireSafetyPermitNo());
+            ps.setString(5,hotelRegistrationData.getPoliceLicenseNo());
+            ps.setString(6,hotelRegistrationData.getHealthTradeLicenseNo());
+            ps.setString(7,hotelRegistrationData.getLiquorLicenseNo());
+            ps.setString(8,hotelRegistrationData.getFssaiLicenseNo());
+            ps.setString(9,hotelRegistrationData.getGstNo());
+            ps.setString(10,hotelRegistrationData.getEsiRegistrationNo());
+            ps.setString(11,hotelRegistrationData.getPfRegistrationNo());
+
+        }catch (SQLException e) {
+            hotelRegistrationId = null;
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + e.getMessage());
+        } catch (NullPointerException npe) {
+            hotelRegistrationId = null;
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+        } finally{
+            return hotelRegistrationId;
         }
     }
 
@@ -231,7 +277,7 @@ public class HotelDAO {
                 String hotelRoomDoorNoFormat = rs.getString("HOTEL_ROOM_DOORNO_FORMAT");
 
                 Address hotelAddress = (Address) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_ADDRESS"), Address.class);
-                HotelRegistrationData hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(rs.getString("HOTEL_REGISTRATION_DATA"), HotelRegistrationData.class);
+
 
                 Integer hotelBedCount = rs.getInt("HOTEL_BED_COUNT");
                 Integer hotelStaffCount = rs.getInt("HOTEL_STAFF_COUNT");
@@ -258,7 +304,7 @@ public class HotelDAO {
                         hotelAddress,
                         hotelContactDetails);
 
-                return new Hotel(hotelId, hotelAttributes, hotelRegistrationData, Status.convertIntToStatus(hotelStatus));
+                return new Hotel(hotelId, hotelAttributes, Status.convertIntToStatus(hotelStatus));
 
             } while (rs.next());
         }
@@ -384,17 +430,10 @@ public class HotelDAO {
 
     }
 
-    private String generateHotelId(){
 
-        String randomSalt = HMSRandomAPI.generatePrimaryKeyForDB();
-        String hotelId = "H"+randomSalt+"_"+getNextHotelId();
-
-        return hotelId;
-    }
 
     private String getNextHotelId(){
 
-        Hotel hotel = null;
         PreparedStatement stmt;
         ResultSet rs;
         String hotelIdSeq = null;
@@ -425,9 +464,53 @@ public class HotelDAO {
             // TODO Auto-generated catch block
             throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
             return hotelIdSeq;
+        }
+
+    }
+
+
+
+
+
+
+    private String getNextHotelRegistrationId(){
+
+        PreparedStatement stmt;
+        ResultSet rs;
+        String hotelRegIdSeq = null;
+
+        try {
+            connection = requireNonNull(connection);
+            connection.setAutoCommit(false);
+            stmt = connection.prepareStatement(HotelDBQueries.FETCH_NEXT_HOTEL_REG_ID_SEQUENCE);
+
+            stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+            rs = stmt.executeQuery();
+            rs = requireNonNull(rs);
+
+            if (rs.next() == false) {
+                System.out.println("ResultSet is empty in Java");
+                return null;
+            } else {
+                hotelRegIdSeq = rs.getString("NEXT_HOTEL_REG_ID_VAL");
+            }
+
+
+            stmt = requireNonNull(stmt);
+            rs.close();
+            stmt.close();
+
+
+        } catch (SQLException sqle) {
+            // TODO Auto-generated catch block
+            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+        } catch (NullPointerException npe) {
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+        } finally {
+            return hotelRegIdSeq;
         }
 
     }

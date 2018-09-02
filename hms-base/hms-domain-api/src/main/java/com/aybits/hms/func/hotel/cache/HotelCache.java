@@ -3,6 +3,7 @@ package com.aybits.hms.func.hotel.cache;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.hotel.beans.Hotel;
+import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
 import org.apache.log4j.Logger;
 
@@ -18,6 +19,7 @@ public class HotelCache {
     private static final ConcurrentHashMap<String, Hotel> hotelConcurrentHashMap = new ConcurrentHashMap<String,Hotel>();
     private static final HashSet<String> hotelIds = new HashSet<>();
     private HotelDAO hotelDAO = new HotelDAO();
+
 
     public Boolean initCache(){
 
@@ -71,6 +73,13 @@ public class HotelCache {
         return isHotelUpdateSuccessful;
     }
 
+    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException {
+        String hotelRegistrationId = hotelDAO.addHotelRegistrationData(hotelRegistrationData);
+        if(hotelRegistrationId == null){
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null");
+        }
+        return String.valueOf(hotelRegistrationId);
+    }
 
     public Hotel fetchHotelById(String hotelId) throws HMSException {
         Hotel hotel = null;

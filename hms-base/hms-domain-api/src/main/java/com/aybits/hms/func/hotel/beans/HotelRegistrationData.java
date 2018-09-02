@@ -7,8 +7,11 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("hotel_registration_data")
 public class HotelRegistrationData {
 
+
+    @JsonProperty("hotel_id")
+    private String hotelId;
     @JsonProperty("hotel_reg_no")
-    private String hotelRegistrationNo;
+    private String hotelRegistrationId;
     @JsonProperty("building_permit_no")
     private String buildingPermitNo;
     @JsonProperty("fire_safety_permit_no")
@@ -32,8 +35,8 @@ public class HotelRegistrationData {
 
     }
 
-    public HotelRegistrationData(String hotelRegistrationId, String buildingPermitNo, String fireSafetyPermitNo, String policeLicenseNo, String healthTradeLicenseNo, String liquorLicenseNo, String fssaiLicenseNo, String gstNo, String esiRegistrationNo, String pfRegistrationNo) {
-        this.hotelRegistrationNo = hotelRegistrationId;
+    public HotelRegistrationData(String hotelId,String hotelRegistrationId, String buildingPermitNo, String fireSafetyPermitNo, String policeLicenseNo, String healthTradeLicenseNo, String liquorLicenseNo, String fssaiLicenseNo, String gstNo, String esiRegistrationNo, String pfRegistrationNo) {
+        this.hotelRegistrationId = hotelRegistrationId;
         this.buildingPermitNo = buildingPermitNo;
         this.fireSafetyPermitNo = fireSafetyPermitNo;
         this.policeLicenseNo = policeLicenseNo;
@@ -43,14 +46,24 @@ public class HotelRegistrationData {
         this.gstNo = gstNo;
         this.esiRegistrationNo = esiRegistrationNo;
         this.pfRegistrationNo = pfRegistrationNo;
+        this.hotelId = hotelId;
     }
 
-    public String getHotelRegistrationNo() {
-        return hotelRegistrationNo;
+    public String getHotelId() {
+        return hotelId;
     }
 
-    public void setHotelRegistrationNo(String hotelRegistrationNo) {
-        this.hotelRegistrationNo = hotelRegistrationNo;
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
+    }
+
+
+    public String getHotelRegistrationId() {
+        return hotelRegistrationId;
+    }
+
+    public void setHotelRegistrationId(String hotelRegistrationId) {
+        this.hotelRegistrationId = hotelRegistrationId;
     }
 
     public String getBuildingPermitNo() {

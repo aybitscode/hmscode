@@ -10,13 +10,20 @@ public class HMSRandomAPI {
         return randomUUIDString;
     }
 
-    public static String generatePrimaryKeyForDB(){
+    private String generatePrimaryKeyForDB(){
 
         String randomUUIDString = generateRandomString();
         String[] strs = randomUUIDString.split("-");
         return strs[1] + strs[2];
 
 
+    }
+
+    public String generatePrimaryKey(String keyPrefix,String keySuffix){
+
+        String randomSalt = generatePrimaryKeyForDB();
+        String primaryKey = keyPrefix+randomSalt+"_"+keySuffix;
+        return primaryKey;
     }
 
     public static String generateJsonWebToken(){

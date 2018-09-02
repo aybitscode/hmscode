@@ -22,12 +22,21 @@ public class Hotel {
 
     public Hotel(String hotelId,
                  HotelAttributes hotelAttributes,
-                 HotelRegistrationData hotelRegistrationData,
                  Status hotelStatus) {
         this.hotelId = hotelId;
         this.hotelAttributes = hotelAttributes;
-        this.hotelRegistrationData = hotelRegistrationData;
         this.hotelStatus = hotelStatus;
+    }
+
+    public Hotel(String hotelId,
+                 HotelAttributes hotelAttributes,
+                 HotelRegistrationData hotelRegistrationData,
+                 Status hotelStatus){
+        this.hotelId = hotelId;
+        this.hotelAttributes = hotelAttributes;
+        this.hotelStatus = hotelStatus;
+        this.hotelRegistrationData = hotelRegistrationData;
+
     }
 
     public String getHotelId() {

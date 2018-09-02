@@ -9,6 +9,7 @@ import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.common.beans.Status;
+import com.aybits.hms.func.common.dao.HMSCommonDAO;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.cache.CustomerCache;
 import org.apache.log4j.Logger;
@@ -24,6 +25,8 @@ public class CustomerDAO {
 	static Logger Log = Logger.getLogger(CustomerDAO.class);
 
 	private Connection connection = DBConnection.getDBConnection();
+	private HMSRandomAPI hmsRandomAPI = new HMSRandomAPI();
+	private HMSCommonDAO hmsCommonDAO = new HMSCommonDAO();
 	
 	
 	@SuppressWarnings("finally")
@@ -223,7 +226,9 @@ public class CustomerDAO {
 			connection.setAutoCommit(false);
 
 			pst = connection.prepareStatement(CustomerDBQueries.ADD_CUSTOMER);
-			pst.setString(++i, generateCustomerId());
+			String keyPrefix = "CUST";
+			String keySuffix = hmsCommonDAO.getNextPrimaryKey("HOTEL_ID","HMS_HOTEL");
+			pst.setString(++i, hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix));
 			pst.setString(++i, customer.getCustomerFullName());
 			pst.setString(++i, customer.getContactDetails().getPrimaryEmail());
 			pst.setString(++i, customer.getContactDetails().getPrimaryPhone());
@@ -345,13 +350,6 @@ public class CustomerDAO {
 			
 			return customer;
 		}
-	}
-
-	private String generateCustomerId(){
-
-		String randomSalt = HMSRandomAPI.generatePrimaryKeyForDB();
-		String customerId = "H"+randomSalt+"_"+getNextCustomerId();
-		return customerId;
 	}
 
 	private String getNextCustomerId(){
