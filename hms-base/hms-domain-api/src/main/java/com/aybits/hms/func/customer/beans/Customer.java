@@ -36,7 +36,7 @@ public class Customer {
     @JsonProperty("date_deleted")
     private Date dateDeleted;
     @JsonProperty("hms_hotel_id")
-    private Integer hotelId;
+    private String hotelId;
 
 
 
@@ -49,7 +49,7 @@ public class Customer {
     public Customer(String customerId, String customerFullName,
                     Status customerStatus,
                     Address customerAddress, ContactDetails contactDetails,
-                    IdentificationParam identificationParam, PaymentParams paymentParams, Integer hotelId) {
+                    IdentificationParam identificationParam, PaymentParams paymentParams, String hotelId) {
 
         this.customerId = customerId;
         this.customerFullName = customerFullName;
@@ -151,11 +151,11 @@ public class Customer {
         this.dateDeleted = dateDeleted;
     }
 
-    public Integer getHotelId() {
+    public String getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(String hotelId) {
         this.hotelId = hotelId;
     }
 

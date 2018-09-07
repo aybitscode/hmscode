@@ -4,6 +4,8 @@ import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import java.util.Date;
+
 @JsonRootName("facility")
 public class Facility {
 
@@ -16,27 +18,45 @@ public class Facility {
         @JsonProperty("facility_description")
         private String  facilityDescription;
         @JsonProperty("is_facility_available")
-        private Boolean isFacilityAvailable;
+        private Boolean isAvailable;
         @JsonProperty("is_facility_chargeable")
         private Boolean isChargeable;
         @JsonProperty("facility_type")
         private FacilityType facilityType;
         @JsonProperty("facility_charges")
         private Double facilityCharges;
+        private Date dateCreated;
+        private Date dateUpdated;
+        private Date dateDeleted;
 
         public Facility() {
         }
 
         public Facility(String hotelId,String facilityId, String facilityName, String facilityDescription,
                         FacilityType facilityType,
-                        Boolean isFacilityAvailable,
+                        Boolean isAvailable,
                         Boolean isChargeable,
                         Double facilityCharges) {
                 this.hotelId = hotelId;
                 this.facilityId = facilityId;
                 this.facilityName = facilityName;
                 this.facilityDescription = facilityDescription;
-                this.isFacilityAvailable = isFacilityAvailable;
+                this.isAvailable = isAvailable;
+                this.isChargeable = isChargeable;
+                this.facilityType = facilityType;
+                this.facilityCharges = facilityCharges;
+        }
+
+        public Facility(String hotelId,String facilityId, String facilityName, String facilityDescription,
+                        FacilityType facilityType,
+                        Boolean isAvailable,
+                        Boolean isChargeable,
+                        Double facilityCharges,Date dateCreated,Date dateUpdated,Date dateDeleted) {
+                this.hotelId = hotelId;
+                this.facilityId = facilityId;
+                this.facilityName = facilityName;
+                this.facilityDescription = facilityDescription;
+                this.isAvailable = isAvailable;
                 this.isChargeable = isChargeable;
                 this.facilityType = facilityType;
                 this.facilityCharges = facilityCharges;
@@ -66,12 +86,12 @@ public class Facility {
                 this.facilityDescription = facilityDescription;
         }
 
-        public Boolean getIsFacilityAvailable() {
-                return isFacilityAvailable;
+        public Boolean getIsAvailable() {
+                return isAvailable;
         }
 
-        public void setIsFacilityAvailable(Boolean isFacilityAvailable) {
-                this.isFacilityAvailable = isFacilityAvailable;
+        public void setIsAvailable(Boolean isAvailable) {
+                this.isAvailable = isAvailable;
         }
 
         public FacilityType getFacilityType() {
@@ -107,12 +127,38 @@ public class Facility {
         }
 
         public Boolean getFacilityAvailable() {
-                return isFacilityAvailable;
+                return isAvailable;
         }
 
         public void setFacilityAvailable(Boolean facilityAvailable) {
-                isFacilityAvailable = facilityAvailable;
+                isAvailable = facilityAvailable;
         }
+
+
+        public Date getDateCreated() {
+                return dateCreated;
+        }
+
+        public void setDateCreated(Date dateCreated) {
+                this.dateCreated = dateCreated;
+        }
+
+        public Date getDateUpdated() {
+                return dateUpdated;
+        }
+
+        public void setDateUpdated(Date dateUpdated) {
+                this.dateUpdated = dateUpdated;
+        }
+
+        public Date getDateDeleted() {
+                return dateDeleted;
+        }
+
+        public void setDateDeleted(Date dateDeleted) {
+                this.dateDeleted = dateDeleted;
+        }
+
 
 
         @Override

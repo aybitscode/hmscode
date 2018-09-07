@@ -31,7 +31,6 @@ public class HotelDAO {
     ResultSet rs = null;
 
     public String addHotel(Hotel hotel) throws HMSException {
-        Boolean isHotelAdditionSuccessful = false;
         String hotelId = null;
 
         try {
@@ -157,7 +156,7 @@ public class HotelDAO {
             throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage());
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isHotelDisabled;

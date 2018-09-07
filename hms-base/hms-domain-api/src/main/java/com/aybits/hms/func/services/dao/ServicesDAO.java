@@ -44,7 +44,7 @@ public class ServicesDAO {
             stmt.setString(1, facility.getHotelId());
             stmt.setString(2,facility.getFacilityName());
             stmt.setString(3, facility.getFacilityDescription());
-            stmt.setString(4, facility.getIsFacilityAvailable().toString());
+            stmt.setString(4, facility.getIsAvailable().toString());
             stmt.setString(5, facility.getChargeable().toString());
             stmt.setString(6, facility.getFacilityType().toString());
             stmt.setDouble(7, facility.getFacilityCharges());

@@ -18,11 +18,6 @@ public class HotelDBQueries {
             "hotel_rating,hotel_logo,hotel_room_doorno_format," +
             "hotel_staff_count,hotel_room_count,hotel_bed_count,hotel_status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    protected static final String INSERT_NEW_HOTEL_REGISTRATION_DATA = "insert into hms_hotel_registration_data" +
-            "(hotel_id,registration_data_id,building_permit_no,fire_safety_permit_no,police_license_no,health_trade_license_no" +
-            "liquor_license_no,fssai_license_no,gst_license_no,esi_registration_no,epf_registration_no" +
-            ")values(?,?,?,?,?,?,?,?,?,?,?)" ;
-
 
     protected static final String UPDATE_EXISTING_HOTEL = "update hms_hotel set" +
             "hotel_name = ?" +

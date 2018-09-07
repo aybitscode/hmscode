@@ -129,7 +129,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 facility.setFacilityId(facilityMap.get("facility_id").toString());
                 facility.setFacilityName(facilityMap.get("facility_name").toString());
                 facility.setFacilityDescription(facilityMap.get("facility_description").toString());
-                facility.setIsFacilityAvailable(Boolean.valueOf(facilityMap.get("is_available").toString()));
+                facility.setIsAvailable(Boolean.valueOf(facilityMap.get("is_available").toString()));
                 facility.setChargeable(Boolean.valueOf(facilityMap.get("is_chargeable").toString()));
                 facility.setFacilityType(FacilityType.valueOf(facilityMap.get("facility_type").toString()));
                 //facility.setFacilityPrice(Double.valueOf(facilityMap.get("facility_price").toString()));

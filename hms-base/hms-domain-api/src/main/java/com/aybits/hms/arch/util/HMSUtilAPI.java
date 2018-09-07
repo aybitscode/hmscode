@@ -1,6 +1,7 @@
 package com.aybits.hms.arch.util;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.func.common.api.HMSAPIValidator;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
@@ -35,4 +36,27 @@ public class HMSUtilAPI {
             Timestamp timestamp = new Timestamp(date.getTime());
             return timestamp;
     }
+
+    public static Boolean getBooleanValueFromString(String strValue){
+        Boolean booleanValue = false;
+        if(HMSAPIValidator.isEmptyOrNullString(strValue)){
+            return booleanValue;
+        }
+
+        if(!strValue.equals("0")){
+            booleanValue = true;
+        }
+
+        return booleanValue;
+    }
+
+    public static Integer getIntegerValueFromBoolean(Boolean boolValue){
+
+        Integer intValue = 0;
+        if(boolValue){
+            intValue = 1;
+        }
+        return intValue;
+    }
+
 }
