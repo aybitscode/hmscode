@@ -44,11 +44,16 @@ public class FacilityAPI extends HMSAPIProviderImpl {
         return true;
     }
 
-    public Facility fetchFacilityByHotel(String hotelId)throws HMSException{
+    public Facility fetchFacilityByFacilityId(String hotelId,String facilityId)throws HMSException{
         return null;
     }
 
-    public List<Facility> fetchAllFacilities()throws HMSException{
+    public List<Facility> fetchAllFacilities(String hotelId)throws HMSException{
+
+        return null;
+    }
+
+    public List<Facility> fetchFacilityByAvailability(String hotelId,Boolean isFacilityAvailable){
         return null;
     }
 

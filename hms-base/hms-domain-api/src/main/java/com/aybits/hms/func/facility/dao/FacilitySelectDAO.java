@@ -24,7 +24,7 @@ public class FacilitySelectDAO {
     ResultSet rs = null;
 
 
-    public List<Facility> fetchFacilitiesByAvailability(String hotelId,Boolean isFacilityAvailable) throws HMSException{
+    public List<Facility> getFacilitiesByAvailability(String hotelId, Boolean isFacilityAvailable) throws HMSException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -57,7 +57,7 @@ public class FacilitySelectDAO {
         }
     }
 
-    public List<Facility> fetchFacilitiesByChargeability(String hotelId,Boolean isChargeable) throws HMSException{
+    public List<Facility> getFacilitiesByChargeability(String hotelId, Boolean isChargeable) throws HMSException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -91,7 +91,7 @@ public class FacilitySelectDAO {
     }
 
 
-    public List<Facility> fetchAllFacilities(String hotelId){
+    public List<Facility> getAllFacilities(String hotelId) throws HMSException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -122,7 +122,7 @@ public class FacilitySelectDAO {
     }
 
 
-    public Facility fetchFacilityByFacilityId(String hotelId,String facilityId) throws HMSException {
+    public Facility getFacility(String hotelId, String facilityId) throws HMSException {
         Facility facility = null;
         try {
             connection = DBCPConnection.getDBConnection();

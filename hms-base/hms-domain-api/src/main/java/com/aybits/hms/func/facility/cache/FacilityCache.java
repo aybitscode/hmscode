@@ -1,55 +1,67 @@
 package com.aybits.hms.func.facility.cache;
 
+import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSUtilAPI;
+import com.aybits.hms.func.common.cache.HMSCache;
 import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.facility.dao.FacilityDAO;
-import com.aybits.hms.func.hotel.beans.Hotel;
-import com.aybits.hms.func.voucher.beans.Voucher;
+import com.aybits.hms.func.facility.dao.FacilitySelectDAO;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class FacilityCache {
-    private static ConcurrentHashMap<String, Facility> facilityCache = new ConcurrentHashMap<>();
-    private static HashSet<String> facilityIds = new HashSet<>();
-    private FacilityDAO facilityDAO = new FacilityDAO();
 
-    public Boolean initCache(String facilityId){
-        Boolean isFacilityCacheInitialized = false;
+    private static ConcurrentHashMap<String, Facility> facilityCache = new ConcurrentHashMap<>();
+
+    private static HashSet<String> facilityIds = new HashSet<>();
+    private FacilitySelectDAO facilitySelectDAO = new FacilitySelectDAO();
+    private FacilityDAO facilityDAO = new FacilityDAO();
+    private HMSCache hmsCache = HMSCache.getHmsCache();
+
+    public Boolean initCache(String hotelId) throws HMSException{
+        Boolean isCacheInitialized = false;
         if(facilityCache.isEmpty()){
             List<Facility> facilities = null;
             try {
-                facilities = facilityDAO.fetchAllFacilities();
+                facilities = facilitySelectDAO.getAllFacilities(hotelId);
                 if(!facilities.isEmpty()) {
                     for (Facility facility : facilities) {
                         facilityIds.add(facility.getFacilityId());
-                        facilityCache.put(facility.getFacilityId(), facility);
+                        facilityCache.put(facility.getHotelId()+"~"+facility.getFacilityId(), facility);
                     }
                 }
 
-            }catch(Exception e){
+            }catch(HMSException e){
                 //LOG Cache Initialization failed
-                //  throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all hotel details failed");
+                  throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Loading Hotel Facilities Cache failed");
             }finally{
                 if(!facilityCache.keySet().isEmpty()){
-                    isFacilityCacheInitialized = true;
+                    isCacheInitialized = true;
                 }
             }
         }
 
-        return isFacilityCacheInitialized;
+        return isCacheInitialized;
     }
 
     public String addFacility(Facility facility) throws HMSException
     {
-        Boolean isFacilityAdditionSuccessful = facilityDAO.addFacility(facility);
-        if(isFacilityAdditionSuccessful){
-            if (facilityCache.get(facility.getFacilityId()) == null) {
-                facilityIds.add(facility.getFacilityId());
-                facilityCache.put(facility.getFacilityId(), facility);
+        Facility facilityFromCache = this.getFacility(facility.getHotelId(),facility.getFacilityId());
+
+        if(facilityFromCache == null){
+            Boolean isFacilityAdditionSuccessful = facilityDAO.addFacility(facility);
+            if(isFacilityAdditionSuccessful){
+                if (facilityCache.get(facility.getFacilityId()) == null) {
+                    facilityIds.add(facility.getFacilityId());
+                    facilityCache.put(facility.getFacilityId(), facility);
+                }
+                return facility.getFacilityId();
+            }else{
+               return null;
             }
         }
-        return facility.getFacilityId();
     }
 
     public void updateFacility(Facility facility) {
@@ -59,28 +71,28 @@ public class FacilityCache {
         facilityCache.put(facilityId, facility);
     }
     
-    public Facility getFacilityById(String facilityId) {
-        Facility facility = facilityCache.get(facilityId);
-        if (facility != null)
-            return facility;
-        else
-            return null;
+    public Facility getFacility(String hotelId, String facilityId) throws HMSException{
+
+        String  key = HMSUtilAPI.getKey(hotelId,facilityId);
+        Facility facility = facilityCache.get(key);
+        if (facility == null){
+            facility = facilitySelectDAO.getFacility(hotelId,facilityId);
+        }
+
+        return facility;
     }
 
-    public List<Facility> getAllFacilities() {
-        ArrayList<Facility> facilitys = new ArrayList<>();
-        facilitys.addAll(facilityCache.values());
-        return facilitys;
+    public List<Facility> getAllFacilities(String hotelId) {
+        ArrayList<Facility> facilities = new ArrayList<>();
+        facilities.addAll(facilityCache.values());
+        return facilities;
     }
 
-    public List<String> getAllFacilityIds() {
-        ArrayList<String> facilityIds = new ArrayList<>();
-        facilityIds.addAll(facilityCache.keySet());
-        return facilityIds;
-    }
 
     public ConcurrentHashMap<String,Facility> getFacilityCache(){
         return facilityCache;
     }
+
+
 
 }

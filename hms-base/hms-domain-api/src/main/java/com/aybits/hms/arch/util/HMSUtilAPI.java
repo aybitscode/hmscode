@@ -59,4 +59,14 @@ public class HMSUtilAPI {
         return intValue;
     }
 
+    public static String getKey(String str1,String str2){
+        return str1+"~"+str2;
+    }
+
+    public static String[] getKeyElements(String key){
+        String [] elements = null;
+        elements = key.split("~");
+        return elements;
+    }
+
 }
