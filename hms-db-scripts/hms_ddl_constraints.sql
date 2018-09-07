@@ -46,7 +46,7 @@ ALTER TABLE hms_facility CHANGE facility_id facility_id varchar(60) NOT NULL PRI
 ALTER TABLE hms_facility CHANGE facility_name facility_name varchar(45) NOT NULL;
 ALTER TABLE hms_facility CHANGE facility_description facility_description varchar(100) NOT NULL;
 ALTER TABLE hms_facility CHANGE is_available is_available int(11) NOT NULL DEFAULT '1';
-ALTER TABLE hms_facility CHANGE is_chargeable is_facility_chargeable int(11) NOT NULL DEFAULT '0';
+ALTER TABLE hms_facility CHANGE is_chargeable is_chargeable int(11) NOT NULL DEFAULT '0';
 ALTER TABLE hms_facility CHANGE facility_type facility_type int(11) NOT NULL;
 ALTER TABLE hms_facility CHANGE facility_charges facility_charges double NOT NULL DEFAULT '0';
 ALTER TABLE hms_facility CHANGE DATE_CREATED DATE_CREATED TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
