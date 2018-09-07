@@ -22,7 +22,7 @@ public class FacilitySelectDAO {
     Connection connection = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
-    
+
 
     public List<Facility> fetchFacilitiesByAvailability(String hotelId,Boolean isFacilityAvailable) throws HMSException{
 
