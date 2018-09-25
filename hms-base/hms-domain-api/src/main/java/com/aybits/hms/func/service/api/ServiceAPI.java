@@ -5,6 +5,7 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.service.beans.Service;
+import com.aybits.hms.func.service.dao.ServiceCache;
 import com.aybits.hms.func.service.dao.ServiceDAO;
 import org.apache.log4j.Logger;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class ServiceAPI extends HMSAPIProviderImpl {
 
     static Logger log = Logger.getLogger(ServiceAPI.class);
-    ServiceDAO.ServiceCache serviceCache = new ServiceDAO.ServiceCache();
+    ServiceCache serviceCache = new ServiceCache();
     ServiceDAO serviceDAO = new ServiceDAO();
 
     public Boolean addService(Service[] services) throws HMSException {

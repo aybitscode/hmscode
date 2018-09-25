@@ -170,14 +170,14 @@ public class CustomerDAO {
             stmt = connection.prepareStatement(CustomerDBQueries.ADD_CUSTOMER);
             String keyPrefix = "CUST";
             String keySuffix = hmsCommonDAO.getNextPrimaryKey("HOTEL_ID", "HMS_HOTEL");
-            stmt.setString(++i, hmsRandomAPI.generatePrimaryKey(keyPrefix, keySuffix));
+            stmt.setString(++i, hmsRandomAPI.generatePrimaryKey(keyPrefix, keySuffix,false));
             stmt.setString(++i, customer.getCustomerFullName());
             stmt.setString(++i, customer.getContactDetails().getPrimaryEmail());
             stmt.setString(++i, customer.getContactDetails().getPrimaryPhone());
             stmt.setString(++i, customer.getCustomerAddress().toString());
             stmt.setString(++i, customer.getIdentificationParam().getIdentifierValue().toString());
             stmt.setString(++i, customer.getPaymentParams().getPaymentType().getPaymentTypeAsString());
-            stmt.setInt(++i, customer.getHotelId());
+            stmt.setString(++i, customer.getHotelId());
             stmt.setString(++i, customer.getStatus().getStatusAsString());
             stmt.setDate(++i, new Date(customer.getDateCreated().getTime()));
 
@@ -213,7 +213,7 @@ public class CustomerDAO {
             stmt.setString(i++, customer.getContactDetails().getPrimaryPhone());
             stmt.setString(i++, customer.getCustomerAddress().toString());
             stmt.setString(i++, customer.getCustomerId());
-            stmt.setInt(i++, customer.getHotelId());
+            stmt.setString(i++, customer.getHotelId());
             int s = stmt.executeUpdate();
             if (s > 0) {
                 updateStatus = true;

@@ -3,6 +3,7 @@ package com.aybits.hms.func.room.beans;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.facility.beans.Facility;
+import com.aybits.hms.func.service.beans.Service;
 import com.aybits.hms.func.voucher.beans.Voucher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;

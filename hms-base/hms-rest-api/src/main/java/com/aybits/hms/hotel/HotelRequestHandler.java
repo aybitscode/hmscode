@@ -17,7 +17,8 @@ import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
-import com.aybits.hms.func.service.api.ServicesAPI;
+import com.aybits.hms.func.service.api.ServiceAPI;
+import com.aybits.hms.func.service.beans.Service;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.apache.log4j.Logger;
@@ -33,7 +34,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
     HotelAPI hotelAPI = new HotelAPI();
     FacilityAPI facilityAPI = new FacilityAPI();
     AmenityAPI amenityAPI = new AmenityAPI();
-    ServicesAPI servicesAPI = new ServicesAPI();
+    ServiceAPI servicesAPI = new ServiceAPI();
     HMSJsonRequestComponents components = null;
 
     @Override
@@ -136,7 +137,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             }
 
             if(facilities != null && facilities.length > 0) {
-                boolean addFacilityStatus = facilityAPI.addNewFacility(facilities);
+                boolean addFacilityStatus = facilityAPI.addFacilities(facilities);
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Facilities added succesfully",null));
             }else{
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no facilities to add", null));
@@ -195,11 +196,11 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 Map servicesMap = (Map)servicesList.get(i);
                 Service service = new Service();
                 service.setHotelId(servicesMap.get("hotel_id").toString());
-                service.setServiceId(Integer.valueOf(servicesMap.get("facility_id").toString()));
+                service.setServiceId(servicesMap.get("facility_id").toString());
                 service.setServiceName(servicesMap.get("facility_name").toString());
                 service.setServiceDescription(servicesMap.get("facility_description").toString());
-                service.setServiceAvailable(Boolean.valueOf(servicesMap.get("is_available").toString()));
-                service.setServiceChargeable(Boolean.valueOf(servicesMap.get("is_chargeable").toString()));
+                service.setIsAvailable(Boolean.valueOf(servicesMap.get("is_available").toString()));
+                service.setIsChargeable(Boolean.valueOf(servicesMap.get("is_chargeable").toString()));
                 //service.setServiceType(ServiceType.valueOf(servicesMap.get("facility_type").toString()));
                 service.setServiceCharge(Double.valueOf(servicesMap.get("facility_price").toString()));
                 services[i] = service;
