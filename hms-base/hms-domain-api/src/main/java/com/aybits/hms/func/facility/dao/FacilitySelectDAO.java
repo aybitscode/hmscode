@@ -14,9 +14,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
-public class FacilitySelectDAO {
+class FacilitySelectDAO {
 
     static Logger Log = Logger.getLogger(FacilitySelectDAO.class);
     Connection connection = null;
@@ -24,7 +25,7 @@ public class FacilitySelectDAO {
     ResultSet rs = null;
 
 
-    public List<Facility> getFacilitiesByAvailability(String hotelId, Boolean isFacilityAvailable) throws HMSException{
+    protected List<Facility> getFacilitiesByAvailability(String hotelId, Boolean isFacilityAvailable) throws HMSException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -57,7 +58,7 @@ public class FacilitySelectDAO {
         }
     }
 
-    public List<Facility> getFacilitiesByChargeability(String hotelId, Boolean isChargeable) throws HMSException{
+    protected List<Facility> getFacilitiesByChargeability(String hotelId, Boolean isChargeable) throws HMSException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -91,7 +92,7 @@ public class FacilitySelectDAO {
     }
 
 
-    public List<Facility> getAllFacilities(String hotelId) throws HMSException{
+    private List<Facility> getAllFacilities(String hotelId) throws HMSException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -122,7 +123,7 @@ public class FacilitySelectDAO {
     }
 
 
-    public Facility getFacility(String hotelId, String facilityId) throws HMSException {
+    protected Facility getFacility(String hotelId, String facilityId) throws HMSException {
         Facility facility = null;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -178,5 +179,23 @@ public class FacilitySelectDAO {
                 return new Facility(hotelId, facilityId, facilityName, facilityDescription,
                         facilityType, isAvailable,isChargeable, facilityCharges,dateCreated,dateUpdated,null);
             }
+        }
+
+
+        protected HashMap<String,Facility> getFacilitiesMapByHotelId(String hotelId) throws HMSException{
+
+            HashMap<String,Facility> facilitiesHashMap = new HashMap<>();
+            try{
+                List<Facility> facilitiesList = getAllFacilities(hotelId);
+                for(Facility facility:facilitiesList){
+                    String facilityId = facility.getFacilityId();
+                    facilitiesHashMap.put(facilityId,facility);
+                }
+
+            }catch(HMSException he){
+                Log.error("Exception occurred while loading Facilities Map from DB");
+                throw new HMSException("Exception occurred while loading Facilities Map from DB");
+            }
+            return facilitiesHashMap;
         }
 }

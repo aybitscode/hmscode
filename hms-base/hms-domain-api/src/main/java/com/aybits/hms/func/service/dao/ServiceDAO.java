@@ -1,22 +1,25 @@
-package com.aybits.hms.func.amenity.dao;
+package com.aybits.hms.func.service.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSRandomAPI;
-import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
+import com.aybits.hms.func.service.beans.Service;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class AmenityDAO {
+public class ServiceDAO {
 
     Connection connection = null;
     PreparedStatement stmt = null;
@@ -25,36 +28,36 @@ public class AmenityDAO {
     private HMSCommonDAO hmsCommonDAO = new HMSCommonDAO();
     private HMSRandomAPI hmsRandomAPI = new HMSRandomAPI();
 
-    static Logger Log = Logger.getLogger(AmenityDAO.class);
+    static Logger Log = Logger.getLogger(ServiceDAO.class);
 
 
 
-    public Boolean addAmenity(Amenity amenity) throws HMSException {
-        boolean isAmenityAdded = false;
+    public Boolean addService(Service service) throws HMSException {
+        boolean isServiceAdded = false;
         Connection connection  = null;
         PreparedStatement ps = null;
         try {
             connection = DBCPConnection.getDBConnection();
-            ps = connection.prepareStatement(AmenityDBQueries.INSERT_NEW_AMENITY);
+            ps = connection.prepareStatement(ServiceDBQueries.INSERT_NEW_SERVICE);
 
 
             String keyPrefix = "HAME";
-            String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_id","amenity_id","hms_amenity");
+            String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_id","service_id","hms_service");
 
-            String amenityId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix,false);
-            amenity.setAmenityId(amenityId);
+            String serviceId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix,false);
+            service.setServiceId(serviceId);
             connection.setAutoCommit(false);
-            ps.setString(1, amenity.getAmenityId());
-            ps.setString(2, amenity.getAmenityName());
-            ps.setString(3, amenity.getAmenityDescription());
-            ps.setString(4, amenity.isAvailable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
-            ps.setString(5, amenity.isChargeable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
-            ps.setInt(6, amenity.getAmenityType().getAmenityTypeAsInt());
-            ps.setDouble(7, amenity.getAmenityCharges());
+            ps.setString(1, service.getServiceId());
+            ps.setString(2, service.getServiceName());
+            ps.setString(3, service.getServiceDescription());
+            ps.setString(4, service.isAvailable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
+            ps.setString(5, service.isChargeable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
+            ps.setInt(6, service.getServiceType().getServiceTypeAsInt());
+            ps.setDouble(7, service.getServiceCharge());
             ps.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();
             if (numRowsAffected > 0)
-                isAmenityAdded = true;
+                isServiceAdded = true;
 
         } catch (SQLException e) {
             Log.error("error occurred", e);
@@ -64,20 +67,20 @@ public class AmenityDAO {
         } finally {
             DBCPConnection.closeDBConnection(null, ps, connection);
         }
-        return isAmenityAdded;
+        return isServiceAdded;
     }
 
 
-    public Boolean updateAmenityChargeability(String amenityId,String hotelId,Boolean isChargeable){
+    public Boolean updateServiceChargeability(String serviceId,String hotelId,Boolean isChargeable){
 
         Boolean isUpdateSuccessful = false;
         try {
             connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(AmenityDBQueries.UPDATE_AMENITY_CHARGEABILITY);
+            stmt = connection.prepareStatement(ServiceDBQueries.UPDATE_SERVICE_CHARGEABILITY);
             stmt.setString(1, isChargeable?HMSAPIConstants.YES:HMSAPIConstants.NO);
             stmt.setString(2, hotelId);
-            stmt.setString(3,amenityId);
+            stmt.setString(3,serviceId);
             stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int rowsDeleted = stmt.executeUpdate();
 
@@ -100,15 +103,15 @@ public class AmenityDAO {
         }
 
     }
-    public Boolean updateAmenityStatus(String hotelId,String amenityId, Status status) throws HMSException {
+    public Boolean updateServiceStatus(String hotelId,String serviceId, Status status) throws HMSException {
         Boolean isUpdateSuccessful = false;
         try {
             connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(AmenityDBQueries.UPDATE_AMENITY_STATUS);
+            stmt = connection.prepareStatement(ServiceDBQueries.UPDATE_SERVICE_STATUS);
             stmt.setInt(1, status.getStatusAsInt());
             stmt.setString(2, hotelId);
-            stmt.setString(3,amenityId);
+            stmt.setString(3,serviceId);
             stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int rowsDeleted = stmt.executeUpdate();
 
@@ -131,20 +134,20 @@ public class AmenityDAO {
         }
     }
 
-    public Boolean updateAmenityCharges(String hotelId,String amenityId,Double amenityCharges) throws HMSException{
-        Boolean isFacilityDisabled = false;
+    public Boolean updateServiceCharges(String hotelId,String serviceId,Double serviceCharges) throws HMSException{
+        Boolean isServiceDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(AmenityDBQueries.UPDATE_AMENITY_STATUS);
-            stmt.setDouble(1, amenityCharges);
+            stmt = connection.prepareStatement(ServiceDBQueries.UPDATE_SERVICE_CHARGES);
+            stmt.setDouble(1, serviceCharges);
             stmt.setString(2, hotelId);
-            stmt.setString(3, amenityId);
+            stmt.setString(3, serviceId);
             stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int rowsDeleted = stmt.executeUpdate();
 
             if (rowsDeleted > 0) {
-                isFacilityDisabled = true;
+                isServiceDisabled = true;
             }
 
             connection.commit();
@@ -158,9 +161,7 @@ public class AmenityDAO {
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
-            return isFacilityDisabled;
+            return isServiceDisabled;
         }
     }
-
-
 }

@@ -10,7 +10,7 @@ public class HMSRandomAPI {
         return randomUUIDString;
     }
 
-    private String generatePrimaryKeyForDB(){
+    private String generateRandomSalt(){
 
         String randomUUIDString = generateRandomString();
         String[] strs = randomUUIDString.split("-");
@@ -19,14 +19,23 @@ public class HMSRandomAPI {
 
     }
 
-    public String generatePrimaryKey(String keyPrefix,String keySuffix){
+    public String generatePrimaryKey(String keyPrefix,String keySuffix,Boolean isRandomSaltRequired){
 
-        String randomSalt = generatePrimaryKeyForDB();
-        String primaryKey = keyPrefix+randomSalt+"_"+keySuffix;
+        String randomSalt = null;
+        String primaryKey = null;
+        if(isRandomSaltRequired){
+            randomSalt = generateRandomSalt();
+            primaryKey = keyPrefix+randomSalt;
+        }else{
+            Integer intKeySuffix = 6857093+Integer.parseInt(keySuffix);
+            primaryKey = keyPrefix+intKeySuffix.toString();
+        }
         return primaryKey;
     }
 
-    public static String generateJsonWebToken(){
+
+
+    public String generateJsonWebToken(){
         String randomUUIDString = generateRandomString();
         return randomUUIDString.split("-")[4];
     }

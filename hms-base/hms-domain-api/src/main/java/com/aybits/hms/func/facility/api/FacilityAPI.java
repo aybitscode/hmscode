@@ -5,8 +5,7 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.facility.beans.Facility;
-import com.aybits.hms.func.facility.cache.FacilityCache;
-import com.aybits.hms.func.facility.dao.FacilityDAO;
+import com.aybits.hms.func.facility.dao.FacilityCache;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -15,46 +14,81 @@ public class FacilityAPI extends HMSAPIProviderImpl {
 
     static Logger log = Logger.getLogger(FacilityAPI.class);
     FacilityCache facilityCache = new FacilityCache();
-    FacilityDAO facilityDAO = new FacilityDAO();
 
-    public Boolean addFacility(Facility[] facilities) throws HMSException {
+    private Boolean addFacility(Facility facility) throws HMSException{
+        String hotelId = facility.getHotelId();
         Boolean isFacilityAdded = false;
-        if(facilities != null){
-            for(Facility facility:facilities){
+        try {
+            if (facility.getFacilityId() != null && facility.getFacilityId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
 
-                if (facility.getFacilityId() != null && facility.getFacilityId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
-                    try {
-                        facilityCache.addFacility(facility);
-                        if (facility == null) {
-                            throw new NullPointerException();
-                        }
-                        isFacilityAdded = true;
-                    } catch (Exception e) {
-                        log.info("Exception occured while adding facility::" + facility.getFacilityId());
-                        throw new HMSException(HMSErrorCodes.FACILITY_ADDITION_FAILED, "Adding facility details failed");
+                    String facilityId =  facilityCache.addFacility(facility);
+                    if (facilityId == null) {
+                        throw new NullPointerException("Facility Addition failed for Hotel["+hotelId+"]");
                     }
-                }
-
+                    isFacilityAdded = true;
             }
+        } catch (Exception e) {
+            log.info("Exception occurred while adding facility::" + facility.getFacilityId());
+            throw new HMSException(HMSErrorCodes.FACILITY_ADDITION_FAILED, "Adding facility details failed for hotel["+hotelId+"]");
+        }finally{
+            return isFacilityAdded;
         }
-        return isFacilityAdded;
     }
+
+    public Boolean addFacilities(Facility[] facilities) throws HMSException {
+
+        Boolean areFacilitiesAdded = true;
+        try{
+            if(facilities != null) {
+                for (Facility facility : facilities) {
+                    areFacilitiesAdded &= addFacility(facility);
+                }
+            }
+        }catch(HMSException he){
+            log.info("Adding facility details failed");
+            throw new HMSException(HMSErrorCodes.FACILITY_ADDITION_FAILED, "Exception occurred while adding facility");
+        }finally {
+            return areFacilitiesAdded;
+        }
+    }
+
 
     public Boolean updateFacility(Facility facility)throws HMSException{
-        return true;
+        Boolean isFacilityUpdated = false;
+        return isFacilityUpdated;
     }
 
-    public Facility fetchFacilityByFacilityId(String hotelId,String facilityId)throws HMSException{
-        return null;
+    public Facility getFacility(String hotelId, String facilityId)throws HMSException{
+        Facility facility = facilityCache.getFacility(hotelId,facilityId);
+        return facility;
     }
 
-    public List<Facility> fetchAllFacilities(String hotelId)throws HMSException{
-
-        return null;
+    public List<Facility> getAllFacilities(String hotelId)throws HMSException{
+        List<Facility> facilitiesList = null;
+        facilitiesList = facilityCache.getAllFacilities(hotelId);
+        return facilitiesList;
     }
 
-    public List<Facility> fetchFacilityByAvailability(String hotelId,Boolean isFacilityAvailable){
-        return null;
+    public List<Facility> getAvailableFacilities(String hotelId,Boolean isFacilityAvailable) throws HMSException{
+        List<Facility> availableFacilitiesList = null;
+
+        availableFacilitiesList = facilityCache.getAllFacilities(hotelId);
+
+        return availableFacilitiesList;
+    }
+
+    public List<Facility> getChargeableFacilities(String hotelId,String chargeable) throws HMSException{
+        List<Facility> chargeableFacilitiesList = null;
+        try{
+            Boolean isChargeable = Boolean.parseBoolean(chargeable);
+            chargeableFacilitiesList = facilityCache.getAllChargeableFacilities(hotelId,isChargeable);
+        }catch(HMSException he){
+            throw new HMSException("Exception while getting chargeable facilities for Hotel["+hotelId+"]",he);
+        }catch(Exception e){
+            throw new HMSException("Exception while getting chargeable facilities for Hotel["+hotelId+"]",e);
+        }
+
+        return chargeableFacilitiesList;
     }
 
 }

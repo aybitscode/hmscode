@@ -1,22 +1,17 @@
 package com.aybits.hms.func.common.cache;
 
-import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.arch.util.HMSAPIConstants;
-import com.aybits.hms.func.amenity.cache.AmenityCache;
+import com.aybits.hms.func.amenity.dao.AmenityCache;
 import com.aybits.hms.func.customer.cache.CustomerCache;
 import com.aybits.hms.func.employee.cache.EmployeeCache;
-import com.aybits.hms.func.facility.cache.FacilityCache;
+import com.aybits.hms.func.facility.dao.FacilityCache;
 import com.aybits.hms.func.hotel.cache.HotelCache;
-import com.aybits.hms.func.identificationparam.cache.IdentificationParamCache;
 import com.aybits.hms.func.room.cache.RoomCache;
 import com.aybits.hms.func.room.cache.RoomCategoryCache;
-import com.aybits.hms.func.services.cache.ServicesCache;
-import com.aybits.hms.func.voucher.cache.VoucherCache;
+import com.aybits.hms.func.service.dao.ServiceCache;
+import com.aybits.hms.func.service.dao.ServiceDAO;
+import com.aybits.hms.func.voucher.dao.VoucherDAO;
 import org.apache.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class HMSCache {
 
@@ -24,7 +19,7 @@ public class HMSCache {
 
 
 
-    static Logger log = Logger.getLogger(VoucherCache.class);
+    static Logger log = Logger.getLogger(VoucherDAO.VoucherCache.class);
 
     private static HMSCache hmsCache;
     private static HotelCache hotelCache;
@@ -32,10 +27,10 @@ public class HMSCache {
     private static CustomerCache customerCache;
     private static RoomCategoryCache roomCategoryCache;
     private static RoomCache roomCache;
-    private static VoucherCache voucherCache;
+    private static VoucherDAO.VoucherCache voucherCache;
     private static FacilityCache facilityCache;
     private static AmenityCache amenityCache;
-    private static ServicesCache servicesCache;
+    private static ServiceCache serviceCache;
     /**
      * This API Loads the HMS Cache during application startup
      * @return
@@ -73,14 +68,14 @@ public class HMSCache {
                             hmsCache.setFacilityCache(facilityCache);
                         }
 
-                        VoucherCache voucherCache = new VoucherCache();
+                        VoucherDAO.VoucherCache voucherCache = new VoucherDAO.VoucherCache();
                         Boolean isVoucherCacheLoaded = voucherCache.initCache(hotelId);
                         if (isVoucherCacheLoaded) {
                             hmsCache.setVoucherCache(voucherCache);
                         }
 
-                        ServicesCache servicesCache = new ServicesCache();
-                        Boolean isServicesCacheLoaded = servicesCache.initCache(hotelId);
+                        ServiceCache serviceCache = new ServiceCache();
+                        Boolean isServicesCacheLoaded = serviceCache.initCache(hotelId);
                         if (isServicesCacheLoaded) {
                             hmsCache.setVoucherCache(voucherCache);
                         }
@@ -167,11 +162,11 @@ public class HMSCache {
         HMSCache.roomCache = roomCache;
     }
 
-    public VoucherCache getVoucherCache() {
+    public VoucherDAO.VoucherCache getVoucherCache() {
         return voucherCache;
     }
 
-    private void setVoucherCache(VoucherCache voucherCache) {
+    private void setVoucherCache(VoucherDAO.VoucherCache voucherCache) {
         HMSCache.voucherCache = voucherCache;
     }
 
@@ -191,12 +186,12 @@ public class HMSCache {
         HMSCache.amenityCache = amenityCache;
     }
 
-    public ServicesCache getServicesCache() {
-        return servicesCache;
+    public ServiceCache getServicesCache() {
+        return serviceCache;
     }
 
-    private void setServicesCache(ServicesCache servicesCache) {
-        HMSCache.servicesCache = servicesCache;
+    private void setServicesCache(ServiceCache serviceCache) {
+        HMSCache.serviceCache = serviceCache;
     }
 
     public static HMSCache getHmsCache(){

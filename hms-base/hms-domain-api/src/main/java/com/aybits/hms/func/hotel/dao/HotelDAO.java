@@ -4,7 +4,6 @@ import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSRandomAPI;
-import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
 import com.aybits.hms.func.hotel.beans.Hotel;
@@ -40,9 +39,9 @@ public class HotelDAO {
 
             String keyPrefix = "H";
             String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_id","hms_hotel");
+            Boolean isRandomSaltRequired = false;
 
-
-            hotelId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix);
+            hotelId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix,isRandomSaltRequired);
             hotel.setHotelId(hotelId);
 
             stmt.setString(1,hotelId);
@@ -101,7 +100,8 @@ public class HotelDAO {
             String keyPrefix = "HREG";
             String keySuffix = hmsCommonDAO.getNextPrimaryKey("registration_data_id","hms_hotel_registration_data");
 
-            hotelRegistrationId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix);
+            Boolean isRandomSaltRequired = false;
+            hotelRegistrationId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix,isRandomSaltRequired);
             hotelRegistrationData.setHotelRegistrationId(hotelRegistrationId);
 
             stmt.setString(1,hotelRegistrationData.getHotelId());

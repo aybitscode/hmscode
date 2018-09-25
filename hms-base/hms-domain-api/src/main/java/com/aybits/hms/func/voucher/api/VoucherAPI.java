@@ -5,7 +5,6 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.voucher.beans.Voucher;
-import com.aybits.hms.func.voucher.cache.VoucherCache;
 import com.aybits.hms.func.voucher.dao.VoucherDAO;
 import org.apache.log4j.Logger;
 
@@ -15,7 +14,7 @@ public class VoucherAPI extends HMSAPIProviderImpl {
 
 
     static Logger log = Logger.getLogger(VoucherAPI.class);
-    VoucherCache voucherCache = new VoucherCache();
+    VoucherDAO.VoucherCache voucherCache = new VoucherDAO.VoucherCache();
     VoucherDAO voucherDAO = new VoucherDAO();
 
 

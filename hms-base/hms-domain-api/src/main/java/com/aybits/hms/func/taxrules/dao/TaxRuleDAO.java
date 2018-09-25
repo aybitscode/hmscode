@@ -1,6 +1,6 @@
 package com.aybits.hms.func.taxrules.dao;
 
-public class TaxInfoDAO {
+public class TaxRuleDAO {
 
 
 }

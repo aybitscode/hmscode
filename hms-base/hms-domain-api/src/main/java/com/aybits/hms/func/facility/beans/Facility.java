@@ -25,9 +25,6 @@ public class Facility {
         private FacilityType facilityType;
         @JsonProperty("facility_charges")
         private Double facilityCharges;
-        private Date dateCreated;
-        private Date dateUpdated;
-        private Date dateDeleted;
 
         public Facility() {
         }
@@ -86,7 +83,7 @@ public class Facility {
                 this.facilityDescription = facilityDescription;
         }
 
-        public Boolean getIsAvailable() {
+        public Boolean isAvailable() {
                 return isAvailable;
         }
 
@@ -110,7 +107,7 @@ public class Facility {
                 this.facilityCharges = facilityCharges;
         }
 
-        public Boolean getChargeable() {
+        public Boolean isChargeable() {
                 return isChargeable;
         }
 
@@ -133,32 +130,6 @@ public class Facility {
         public void setFacilityAvailable(Boolean facilityAvailable) {
                 isAvailable = facilityAvailable;
         }
-
-
-        public Date getDateCreated() {
-                return dateCreated;
-        }
-
-        public void setDateCreated(Date dateCreated) {
-                this.dateCreated = dateCreated;
-        }
-
-        public Date getDateUpdated() {
-                return dateUpdated;
-        }
-
-        public void setDateUpdated(Date dateUpdated) {
-                this.dateUpdated = dateUpdated;
-        }
-
-        public Date getDateDeleted() {
-                return dateDeleted;
-        }
-
-        public void setDateDeleted(Date dateDeleted) {
-                this.dateDeleted = dateDeleted;
-        }
-
 
 
         @Override

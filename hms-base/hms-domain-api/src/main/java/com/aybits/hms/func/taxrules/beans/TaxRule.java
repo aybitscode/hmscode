@@ -2,7 +2,7 @@ package com.aybits.hms.func.taxrules.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class TaxInfo {
+public class TaxRule {
 
     @JsonProperty("hotel_id")
     private String hotelId;
@@ -25,11 +25,11 @@ public class TaxInfo {
     @JsonProperty("tax_rule_description")
     private String taxRuleDescription;
 
-    public TaxInfo(){
+    public TaxRule(){
 
     }
 
-    public TaxInfo(String hotelId, String taxRuleId, String taxRuleName, Double lowerBound, Double upperBound, Double cgst, Double sgst, Double gst, String taxCategory, String taxRuleDescription) {
+    public TaxRule(String hotelId, String taxRuleId, String taxRuleName, Double lowerBound, Double upperBound, Double cgst, Double sgst, Double gst, String taxCategory, String taxRuleDescription) {
         this.hotelId = hotelId;
         this.taxRuleId = taxRuleId;
         this.taxRuleName = taxRuleName;

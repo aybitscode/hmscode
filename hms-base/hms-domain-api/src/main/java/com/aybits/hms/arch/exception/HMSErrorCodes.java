@@ -25,5 +25,9 @@ public class HMSErrorCodes {
 
 	public static final String FACILITY_ADDITION_FAILED = "FACILITY_ADDITIION_FAILED";
 	public static final String FACILITY_UPDATE_FAILED = "FACILITY_UPDATE_FAILED";
+	public static final String AMENITY_ADDITION_FAILED = "AMENITY_ADDITIION_FAILED";
+	public static final String AMENITY_UPDATE_FAILED = "AMENITY_UPDATE_FAILED";
+	public static final String SERVICE_ADDITION_FAILED = "SERVICE_ADDITIION_FAILED";
+	public static final String SERVICE_UPDATE_FAILED = "SERVICE_UPDATE_FAILED";
 
 }

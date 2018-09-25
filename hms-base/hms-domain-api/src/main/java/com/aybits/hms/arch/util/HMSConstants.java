@@ -70,7 +70,7 @@ public class HMSConstants {
 	public final static String roomFaclitiesColNames[]={"ROOM FACILITIES NAME","ROOM FACILITIES DESC","PRICE"};
 	public final static String[] roomFacilitiesTipStr = {"Room Facility Name", "Room Facility Description","Price"};
 	
-	//Class Miscellaneous Services
+	//Class Miscellaneous Service
 	public final static String miscellaneousColNames[]={"SERVICE NAME","SERVICE DESCRIPTION","PRICE"};
 	public final static String[] miscellaneousTipStr = {"Service Name", "Service Description","Price"};
 	

@@ -14,4 +14,7 @@ public class HMSAPIConstants {
     public static final String BOOKING_CACHE = "BOOKING_CACHE";
     public static final String IDENTIFICATION_PARAM_CACHE = "IDENTIFICATION_PARAM_CACHE";
 
+    public static final String YES = "1";
+    public static final String NO = "0";
+
 }

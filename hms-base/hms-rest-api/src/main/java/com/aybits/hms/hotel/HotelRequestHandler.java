@@ -13,12 +13,11 @@ import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.facility.api.FacilityAPI;
 import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.facility.beans.FacilityType;
-import com.aybits.hms.func.helpdesk.beans.Service;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
-import com.aybits.hms.func.services.api.ServicesAPI;
+import com.aybits.hms.func.service.api.ServicesAPI;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.apache.log4j.Logger;
@@ -137,7 +136,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             }
 
             if(facilities != null && facilities.length > 0) {
-                boolean addFacilityStatus = facilityAPI.addFacility(facilities);
+                boolean addFacilityStatus = facilityAPI.addNewFacility(facilities);
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Facilities added succesfully",null));
             }else{
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no facilities to add", null));
@@ -172,7 +171,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
             }
 
             if(facilities != null && facilities.length > 0) {
-                //boolean addFacilityStatus = amenityAPI.addFacility(facilities);
+                //boolean addFacilityStatus = amenityAPI.addNewFacility(facilities);
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Facilities added succesfully",null));
             }else{
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no facilities to add", null));
@@ -201,14 +200,14 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 service.setServiceDescription(servicesMap.get("facility_description").toString());
                 service.setServiceAvailable(Boolean.valueOf(servicesMap.get("is_available").toString()));
                 service.setServiceChargeable(Boolean.valueOf(servicesMap.get("is_chargeable").toString()));
-                //service.setServiceType(ServicesType.valueOf(servicesMap.get("facility_type").toString()));
+                //service.setServiceType(ServiceType.valueOf(servicesMap.get("facility_type").toString()));
                 service.setServiceCharge(Double.valueOf(servicesMap.get("facility_price").toString()));
                 services[i] = service;
             }
 
             if(services != null && services.length > 0) {
-                //boolean addFacilityStatus = servicesAPI.addFacility(services);
-                return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Services added succesfully",null));
+                //boolean addFacilityStatus = servicesAPI.addNewFacility(services);
+                return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Service added succesfully",null));
             }else{
                 return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no services to add", null));
             }

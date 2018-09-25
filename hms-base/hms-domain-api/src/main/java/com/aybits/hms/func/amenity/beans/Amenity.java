@@ -4,6 +4,8 @@ import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import java.util.Date;
+
 @JsonRootName("amenity")
 public class Amenity {
 
@@ -23,6 +25,7 @@ public class Amenity {
     private AmenityType amenityType;
     @JsonProperty("amenity_charges")
     private Double amenityCharges;
+
 
 
     public Amenity() {

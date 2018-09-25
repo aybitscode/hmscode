@@ -3,6 +3,7 @@ package com.aybits.hms.func.facility.dao;
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
@@ -15,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class FacilityDAO {
+class FacilityDAO {
 
     static Logger Log = Logger.getLogger(FacilityDAO.class);
     private HMSCommonDAO hmsCommonDAO = new HMSCommonDAO();
@@ -25,12 +26,7 @@ public class FacilityDAO {
     PreparedStatement stmt = null;
     ResultSet rs = null;
 
-
-
-
-
-
-    public Boolean addFacility(Facility facility) throws HMSException
+    protected Boolean addFacility(Facility facility) throws HMSException
     {
         boolean isFacilityAdded = false;
         try {
@@ -41,15 +37,15 @@ public class FacilityDAO {
             String keyPrefix = "HFAC";
             String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_id","facility_id","hms_facility");
 
-            String facilityId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix);
+            String facilityId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix,false);
             facility.setFacilityId(facilityId);
             stmt.setString(1, facility.getHotelId());
             stmt.setString(2, facility.getFacilityId());
             stmt.setString(3, facility.getFacilityName());
             stmt.setString(4, facility.getFacilityDescription());
-            stmt.setString(5, facility.getIsAvailable().toString());
-            stmt.setString(6, facility.getChargeable().toString());
-            stmt.setString(7, facility.getFacilityType().toString());
+            stmt.setString(5, facility.isAvailable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
+            stmt.setString(6, facility.isChargeable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
+            stmt.setInt(7, facility.getFacilityType().getFacilityTypeAsInt());
             stmt.setDouble(8, facility.getFacilityCharges());
 
             stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
@@ -66,7 +62,7 @@ public class FacilityDAO {
         return isFacilityAdded;
     }
 
-    public Boolean updatFacilityStatus(String hotelId,String facilityId, Status status) throws HMSException {
+    protected Boolean updateFacilityStatus(String hotelId,String facilityId, Status status) throws HMSException {
         Boolean isFacilityDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -87,7 +83,7 @@ public class FacilityDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
         } catch (NullPointerException npe) {
             connection.rollback();
             throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
@@ -97,7 +93,7 @@ public class FacilityDAO {
         }
     }
 
-    public Boolean updateFacilityCharges(String hotelId,String facilityId,Double facilityCharges) throws HMSException{
+    protected Boolean updateFacilityCharges(String hotelId,String facilityId,Double facilityCharges) throws HMSException{
         Boolean isFacilityDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -126,10 +122,6 @@ public class FacilityDAO {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isFacilityDisabled;
         }
-    }
-
-    public Boolean deleteFacility(Facility facility){
-        return true;
     }
 
 
