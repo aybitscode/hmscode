@@ -53,7 +53,7 @@ public class AmenityCache {
         String hotelId = amenity.getHotelId();
         String amenityId = amenity.getAmenityId();
 
-        Amenity amenityFromCache = this.getAmenity(hotelId, amenityId);
+        Amenity amenityFromCache = getAmenity(hotelId, amenityId);
 
         if (amenityFromCache == null) {
             Boolean isAmenityAdditionSuccessful = amenityDAO.addAmenity(amenity);

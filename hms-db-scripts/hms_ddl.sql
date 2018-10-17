@@ -126,6 +126,23 @@ CREATE TABLE `hms_identification_params` (
   `date_deleted`timestamp NULL DEFAULT NULL
 ) COMMENT='This table holds the information of all the customer data.';
 
+CREATE TABLE `hms_taxrule` (
+  `hotel_id` varchar(60) COMMENT 'Unique identifier to identify a given hotel',
+  `taxrule_id` varchar(60) ,
+  `taxrule_name` varchar(60) ,
+  `tax_lower_bound` double ,
+  `tax_upper_bound` double ,
+  `tax_cgst` double ,
+  `tax_sgst` double ,
+  `tax_gst` double ,
+  `tax_category` varchar(200) ,
+  `taxrule_description` varchar(200) ,
+  `date_created`timestamp,
+  `date_updated`timestamp NULL DEFAULT NULL,
+  `date_deleted`timestamp NULL DEFAULT NULL
+) COMMENT='This table defines the tax rules that are created by a hotel and applied to any hotel operation';
+
+
 CREATE TABLE `hms_voucher` (
   `hotel_id` varchar(60) COMMENT 'Unique identifier to identify a given hotel',
   `voucher_id` varchar(60) ,
