@@ -65,7 +65,7 @@ public class EmployeeAPI extends HMSAPIProviderImpl {
 
     public String getEmployeeNameByMobile(String mobilePhone){
         Employee employee = getEmployeeByPhone(mobilePhone);
-        return employee.getFirstName()+" "+employee.getLastName();
+        return employee.getEmpFullName();
     }
 
     public String getEmployeeId(String mobilePhone) {

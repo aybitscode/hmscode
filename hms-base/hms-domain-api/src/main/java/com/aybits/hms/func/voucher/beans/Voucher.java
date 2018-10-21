@@ -9,6 +9,8 @@ import java.util.Date;
 @JsonRootName("voucher")
 public class Voucher {
 
+    @JsonProperty("hotel_id")
+    private String hotelId;
     @JsonProperty("voucher_id")
     private String voucherId;
     @JsonProperty("voucher_name")
@@ -27,9 +29,10 @@ public class Voucher {
     public Voucher() {
     }
 
-    public Voucher(String voucherId, String voucherName, String voucherDescription,
+    public Voucher(String hotelId,String voucherId, String voucherName, String voucherDescription,
                    Date voucherStartDate, Date voucherExpiryDate, Double voucherDiscount,
                    VoucherStatus voucherStatus) {
+        this.hotelId = hotelId;
         this.voucherId = voucherId;
         this.voucherName = voucherName;
         this.voucherDescription = voucherDescription;
@@ -95,6 +98,13 @@ public class Voucher {
         this.voucherStatus = voucherStatus;
     }
 
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
+    }
 
     @Override
     public String toString(){

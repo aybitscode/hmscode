@@ -1,47 +1,62 @@
 package com.aybits.hms.func.facility.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.voucher.beans.Voucher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
+import java.util.Date;
 
 @JsonRootName("facility")
 public class Facility {
 
+        @JsonProperty("hotel_id")
+        private String hotelId;
         @JsonProperty("facility_id")
         private String  facilityId;
         @JsonProperty("facility_name")
         private String facilityName;
         @JsonProperty("facility_description")
         private String  facilityDescription;
-        @JsonProperty("facility_availability")
-        private Boolean isFacilityAvailable;
-        @JsonProperty("is_chargeable")
+        @JsonProperty("is_facility_available")
+        private Boolean isAvailable;
+        @JsonProperty("is_facility_chargeable")
         private Boolean isChargeable;
         @JsonProperty("facility_type")
         private FacilityType facilityType;
-        @JsonProperty("facility_price")
-        private Double facilityPrice;
-        @JsonProperty("applicable_voucher")
-        private Voucher voucher;
+        @JsonProperty("facility_charges")
+        private Double facilityCharges;
 
         public Facility() {
         }
 
-        public Facility(String facilityId, String facilityName, String facilityDescription,
+        public Facility(String hotelId,String facilityId, String facilityName, String facilityDescription,
                         FacilityType facilityType,
-                        Boolean isFacilityAvailable,
+                        Boolean isAvailable,
                         Boolean isChargeable,
-                        Double facilityPrice,
-                        Voucher voucher) {
+                        Double facilityCharges) {
+                this.hotelId = hotelId;
                 this.facilityId = facilityId;
                 this.facilityName = facilityName;
                 this.facilityDescription = facilityDescription;
-                this.isFacilityAvailable = isFacilityAvailable;
+                this.isAvailable = isAvailable;
                 this.isChargeable = isChargeable;
                 this.facilityType = facilityType;
-                this.facilityPrice = facilityPrice;
-                this.voucher = voucher;
+                this.facilityCharges = facilityCharges;
+        }
+
+        public Facility(String hotelId,String facilityId, String facilityName, String facilityDescription,
+                        FacilityType facilityType,
+                        Boolean isAvailable,
+                        Boolean isChargeable,
+                        Double facilityCharges,Date dateCreated,Date dateUpdated,Date dateDeleted) {
+                this.hotelId = hotelId;
+                this.facilityId = facilityId;
+                this.facilityName = facilityName;
+                this.facilityDescription = facilityDescription;
+                this.isAvailable = isAvailable;
+                this.isChargeable = isChargeable;
+                this.facilityType = facilityType;
+                this.facilityCharges = facilityCharges;
         }
 
         public String getFacilityId() {
@@ -68,12 +83,12 @@ public class Facility {
                 this.facilityDescription = facilityDescription;
         }
 
-        public Boolean getIsFacilityAvailable() {
-                return isFacilityAvailable;
+        public Boolean isAvailable() {
+                return isAvailable;
         }
 
-        public void setIsFacilityAvailable(Boolean isFacilityAvailable) {
-                this.isFacilityAvailable = isFacilityAvailable;
+        public void setIsAvailable(Boolean isAvailable) {
+                this.isAvailable = isAvailable;
         }
 
         public FacilityType getFacilityType() {
@@ -84,29 +99,38 @@ public class Facility {
                 this.facilityType = facilityType;
         }
 
-        public Double getFacilityPrice() {
-                return facilityPrice;
+        public Double getFacilityCharges() {
+                return facilityCharges;
         }
 
-        public void setFacilityPrice(Double facilityPrice) {
-                this.facilityPrice = facilityPrice;
+        public void setFacilityCharges(Double facilityCharges) {
+                this.facilityCharges = facilityCharges;
         }
 
-        public Voucher getVoucher() {
-                return voucher;
-        }
-
-        public void setVoucher(Voucher voucher) {
-                this.voucher = voucher;
-        }
-
-        public Boolean getChargeable() {
+        public Boolean isChargeable() {
                 return isChargeable;
         }
 
         public void setChargeable(Boolean chargeable) {
                 isChargeable = chargeable;
         }
+
+        public String getHotelId() {
+                return hotelId;
+        }
+
+        public void setHotelId(String hotelId) {
+                this.hotelId = hotelId;
+        }
+
+        public Boolean getFacilityAvailable() {
+                return isAvailable;
+        }
+
+        public void setFacilityAvailable(Boolean facilityAvailable) {
+                isAvailable = facilityAvailable;
+        }
+
 
         @Override
         public String toString(){

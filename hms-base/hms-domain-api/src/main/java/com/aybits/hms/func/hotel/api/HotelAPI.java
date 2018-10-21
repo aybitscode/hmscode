@@ -5,8 +5,10 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.hotel.beans.Hotel;
+import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.cache.HotelCache;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
+import com.aybits.hms.func.hotel.dao.HotelSelectDAO;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -15,22 +17,57 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     static Logger log = Logger.getLogger(HotelAPI.class);
     HotelCache hotelCache = new HotelCache();
-    HotelDAO hotelDAO = new HotelDAO();
+    HotelSelectDAO hotelSelectDAO = new HotelSelectDAO();
 
 
 
-    private Boolean addHotel(Hotel hotel) throws HMSException {
-        Boolean isHotelAdditionSuccessful = false;
-        if (hotel.getHotelId() == HMSAPIConstants.TO_BE_GENERATED) {
-            try {
-                isHotelAdditionSuccessful = hotelCache.addHotel(hotel);
-            } catch (HMSException e) {
-                log.info("Exception occured while adding hotel::"+hotel.getHotelId());
-                throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
+    public String addHotel(Hotel hotel) throws HMSException {
+        String hotelId = null;
+
+        if(!isHotelAlreadyPresent(hotel)){
+            if (hotel.getHotelId() != null && hotel.getHotelId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
+                try {
+                    hotelId = hotelCache.addHotel(hotel);
+                    if(hotelId == null){
+                        throw new NullPointerException();
+                    }
+                }
+                catch (NullPointerException npe) {
+                    log.info("Exception occurred while adding hotel::"+hotel.getHotelId());
+                    throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
+                }
+            }
+
+        }else{
+            log.info("Exception occurred while adding hotel::Hotel already exists");
+            throw new HMSException(HMSErrorCodes.HOTEL_ALREADY_EXISTS, "Hotel already exists");
+        }
+
+        return hotelId;
+    }
+
+
+    public Boolean addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException{
+
+       Boolean isAdditionSuccessful = false;
+        try {
+           String hotelRegistrationId = hotelCache.addHotelRegistrationData(hotelRegistrationData);
+            if(hotelRegistrationId == null){
+                throw new NullPointerException();
+            }else{
+                isAdditionSuccessful = true;
             }
         }
-        return isHotelAdditionSuccessful;
+        catch (NullPointerException npe) {
+            log.info("Exception occurred while adding registration data for hotel::"+hotelRegistrationData.getHotelId());
+            throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
+        }catch(HMSException he){
+
+        }
+
+        return isAdditionSuccessful;
     }
+
     public List<Hotel> fetchAllHotels()  {
 
         List<Hotel> hotels = null;
@@ -59,7 +96,7 @@ public class HotelAPI extends HMSAPIProviderImpl {
     public Hotel fetchHotelByEmployeeId(String employeeId){
         Hotel hotel = null;
         try{
-            hotel = hotelDAO.fetchHotelByEmployeeId(employeeId);
+            hotel = hotelSelectDAO.fetchHotelByEmployeeId(employeeId);
         }catch(Exception e){
             throw new HMSException(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Hotel Details not available for given emploeeId");
         }finally{
@@ -68,23 +105,7 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     }
 
-    public Boolean upsertHotel(Hotel hotel) throws HMSException{
-
-        String hotelId = hotel.getHotelId();
-        Boolean isHotelPresent = hotelCache.isHotelPresent(hotelId);
-        Boolean isOperationSuccessful = false;
-        if(isHotelPresent){
-            //update Hotel Details
-            isOperationSuccessful = updateHotel(hotel);
-        }else{
-            isOperationSuccessful = addHotel(hotel);
-            //add hotel Details
-
-        }
-        return isOperationSuccessful;
-    }
-
-    private Boolean updateHotel(Hotel hotel) throws HMSException {
+    public Boolean updateHotel(Hotel hotel) throws HMSException {
 
         Boolean isHotelUpdateSuccessful = false;
         if (hotel.getHotelId() == HMSAPIConstants.TO_BE_GENERATED) try {
@@ -97,10 +118,25 @@ public class HotelAPI extends HMSAPIProviderImpl {
 
     }
 
+    public Boolean isHotelAlreadyPresent(Hotel hotelFromUI){
 
-    public Boolean setupHotel(Object object){
-        return false;
+        Hotel hotelFromDB = null;
+
+        Boolean isHotelAlreadyPresent = false;
+        String primaryEmail = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryEmail();
+        String primaryPhone = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryPhone();
+        String primaryMobileNumber = hotelFromUI.getHotelAttributes().getHotelContactDetails().getPrimaryMobileNumber();
+
+        try{
+            hotelFromDB = hotelSelectDAO.fetchHotelByContactDetails(primaryEmail,primaryPhone,primaryMobileNumber);
+            if(null != hotelFromDB){
+                isHotelAlreadyPresent = true;
+            }
+        }catch(HMSException he){
+
+        }finally{
+            return isHotelAlreadyPresent;
+        }
     }
-
 
 }

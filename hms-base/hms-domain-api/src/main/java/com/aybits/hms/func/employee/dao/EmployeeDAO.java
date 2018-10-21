@@ -1,12 +1,12 @@
 package com.aybits.hms.func.employee.dao;
 
-import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.dbman.DatabaseConstants;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.employee.cache.EmployeeCache;
@@ -20,30 +20,26 @@ public class EmployeeDAO {
 
     static Logger Log = Logger.getLogger(EmployeeDAO.class);
 
-    private static Connection connection = DBConnection.getDBConnection();
-
-
     @SuppressWarnings("finally")
     public Boolean getAllEmployees(EmployeeCache employeeCache) throws HMSException{
-        if(connection == null){
-            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
-        }
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
         Boolean cacheLoadStatus = false;
 
         if(employeeCache == null){
             return cacheLoadStatus;
         }
 
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
 
         try {
-            //if(connection!=null && !connection.isClosed())
+            connection = DBCPConnection.getDBConnection();
             if(connection != null)
             {
                 connection.setAutoCommit(false);
                 stmt = connection.prepareStatement(EmployeeDBQueries.GET_ALL_EMPLOYEES);
-                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
                 rs = stmt.executeQuery();
                 Employee employee = null;
                 while(rs.next()){
@@ -61,42 +57,27 @@ public class EmployeeDAO {
             //TODO - throw cache specific errorCode,message
             throw new HMSException("");
         }finally{
-            try {
-                if(rs != null)
-                    rs.close();
-                if(stmt != null)
-                    stmt.close();
-                //DBConnection.closeDBConnection();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-           /* if(!employeeCache.getAllEmployees().isEmpty()){
-                cacheLoadStatus = true;
-            }*/
+           DBCPConnection.closeDBConnection(rs ,stmt, connection);
             return cacheLoadStatus;
         }
     }
 
     @SuppressWarnings("finally")
     public static List<Employee> getAllEmployees() throws HMSException{
-        if(connection == null){
-            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
-        }
-
 
 
         List<Employee> employees = new ArrayList<Employee>();
+        Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            //if(connection!=null && !connection.isClosed())
+            connection = DBCPConnection.getDBConnection();
             if(connection != null)
             {
                 connection.setAutoCommit(false);
                 stmt = connection.prepareStatement(EmployeeDBQueries.GET_ALL_EMPLOYEES);
-                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
                 rs = stmt.executeQuery();
                 Employee employee = null;
                 while(rs.next()){
@@ -107,24 +88,11 @@ public class EmployeeDAO {
             }else{
                 throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
             }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (HMSException e){
+        } catch (Exception e){
             //TODO - throw cache specific errorCode,message
             throw new HMSException("");
         }finally{
-            try {
-                if(rs != null)
-                    rs.close();
-                if(stmt != null)
-                    stmt.close();
-                //DBConnection.closeDBConnection();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
             return employees;
         }
     }
@@ -132,22 +100,20 @@ public class EmployeeDAO {
 
     @SuppressWarnings("finally")
     public static Employee getEmployeeByPhone(String mobilePhone) throws HMSException{
-        if(connection == null){
-            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
-        }
-
-        Employee employee = new Employee();
+        Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
+        Employee employee = new Employee();
+
         try {
-            //if(connection!=null && !connection.isClosed())
+            connection = DBCPConnection.getDBConnection();
             if(connection != null)
             {
                 connection.setAutoCommit(false);
                 stmt = connection.prepareStatement(EmployeeDBQueries.GET_EMPLOYEE_BY_PHONE);
                 stmt.setString(1,mobilePhone);
-                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
                 rs = stmt.executeQuery();
                 while(rs.next()){
                     employee = populateEmployee(rs);
@@ -156,23 +122,11 @@ public class EmployeeDAO {
             }else{
                 throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
             }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (HMSException e){
+        }catch (Exception e){
             //TODO - throw cache specific errorCode,message
             throw new HMSException("");
         }finally{
-            try {
-                if(rs != null)
-                    rs.close();
-                if(stmt != null)
-                    stmt.close();
-                //DBConnection.closeDBConnection();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+           DBCPConnection.closeDBConnection(rs, stmt, connection);
 
             return employee;
         }
@@ -182,9 +136,7 @@ public class EmployeeDAO {
     private static Employee populateEmployee(ResultSet rs) throws SQLException{
         Employee employee = new Employee();
         employee.setEmpId(rs.getString("EMPLOYEE_ID"));
-        employee.setFirstName(rs.getString("FIRST_NAME"));
-        employee.setLastName(rs.getString("LAST_NAME"));
-        employee.setMiddleName(rs.getString("MIDDLE_NAME"));
+        employee.setEmpFullName(rs.getString("EMPLOYEE_FULL_NAME"));
 
         ContactDetails cd = new ContactDetails();
         cd.setPrimaryEmail(rs.getString("EMAIL"));
@@ -192,7 +144,7 @@ public class EmployeeDAO {
         employee.setContactDetails(cd);
 
         String addressJSON = rs.getString("HOME_ADDRESS");
-        HMSAddress employeeAddress = (HMSAddress)HMSJSONParser.convertJSONToObject(addressJSON,HMSAddress.class);
+        Address employeeAddress = (Address)HMSJSONParser.convertJSONToObject(addressJSON,Address.class);
         employee.setEmployeeAddress(employeeAddress);
 
         Integer identificationParamId = rs.getInt("IDENTIFICATION_PARAM_ID");
@@ -215,28 +167,29 @@ public class EmployeeDAO {
     }
 
     public Boolean addEmployee(Employee employee){
-        PreparedStatement pst;
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         Boolean additionStatus = false;
         int i  = 0;
         try {
-
+            connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
 
-            pst = connection.prepareStatement(EmployeeDBQueries.ADD_EMPLOYEE);
-            pst.setString(++i, generateEmployeeId());
-            pst.setString(++i, employee.getFirstName());
-            pst.setString(++i, employee.getLastName());
+            stmt = connection.prepareStatement(EmployeeDBQueries.ADD_EMPLOYEE);
+            stmt.setString(++i, generateEmployeeId());
+            stmt.setString(++i, employee.getEmpFullName());
 
-            pst.setString(++i, employee.getContactDetails().getPrimaryEmail());
-            pst.setString(++i, employee.getContactDetails().getPrimaryPhone());
-            pst.setString(++i, employee.getEmployeeAddress().toString());
-            pst.setString(++i, employee.getIdentificationParam().getIdentifierValue().toString());
-            pst.setInt(++i, employee.getHotelId());
-            pst.setString(++i,employee.getEmployeeStatus().getStatusAsString());
-            pst.setDate(++i, new java.sql.Date(employee.getDateCreated().getTime()));
+            stmt.setString(++i, employee.getContactDetails().getPrimaryEmail());
+            stmt.setString(++i, employee.getContactDetails().getPrimaryPhone());
+            stmt.setString(++i, employee.getEmployeeAddress().toString());
+            stmt.setString(++i, employee.getIdentificationParam().getIdentifierValue().toString());
+            stmt.setInt(++i, employee.getHotelId());
+            stmt.setString(++i,employee.getEmployeeStatus().getStatusAsString());
+            stmt.setDate(++i, new Date(employee.getDateCreated().getTime()));
 
 
-            int s=pst.executeUpdate();
+            int s=stmt.executeUpdate();
             connection.commit();
             if(s>0){
                 additionStatus = true;
@@ -246,26 +199,30 @@ public class EmployeeDAO {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        finally {
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
+        }
         return additionStatus;
     }
 
     public Boolean updateEmployee(Employee employee) throws HMSException
     {
-        PreparedStatement pst;
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         Boolean updateStatus = false;
         int i  = 1;
         try {
 
-            pst = connection.prepareStatement(EmployeeDBQueries.UPDATE_EMPLOYEE);
+            stmt = connection.prepareStatement(EmployeeDBQueries.UPDATE_EMPLOYEE);
 
-            pst.setString(i++, employee.getFirstName());
-            pst.setString(i++, employee.getLastName());
-            pst.setString(i++, employee.getEmployeeAddress().getCity());
-            pst.setString(i++, employee.getContactDetails().getPrimaryEmail());
-            pst.setString(i++, employee.getContactDetails().getPrimaryPhone());
-            pst.setString(i++, employee.getEmployeeAddress().toString());
-            pst.setString(i++, employee.getEmpId());
-            int s=pst.executeUpdate();
+            stmt.setString(i++, employee.getEmpFullName());
+            stmt.setString(i++, employee.getEmployeeAddress().getCity());
+            stmt.setString(i++, employee.getContactDetails().getPrimaryEmail());
+            stmt.setString(i++, employee.getContactDetails().getPrimaryPhone());
+            stmt.setString(i++, employee.getEmployeeAddress().toString());
+            stmt.setString(i++, employee.getEmpId());
+            int s=stmt.executeUpdate();
             if(s>0){
                 updateStatus = true;
                 Log.info("Employee Record updated successfully");
@@ -277,6 +234,9 @@ public class EmployeeDAO {
 
             throw new HMSException("Employee Update Operation failed");
 
+        }
+        finally {
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
         }
         return updateStatus;
     }
@@ -290,16 +250,21 @@ public class EmployeeDAO {
 
         int count = 0;
 
+        Connection connection = null;
         Statement stmt = null;
-        ResultSet resultSet = null;
+        ResultSet rs = null;
         try {
+            connection = DBCPConnection.getDBConnection();
             stmt = connection.createStatement();
-            resultSet = stmt.executeQuery(DatabaseConstants.COUNT_EMPLOYEES);
-            resultSet.next();
-            count = resultSet.getInt(1);
+            rs = stmt.executeQuery(DatabaseConstants.COUNT_EMPLOYEES);
+            rs.next();
+            count = rs.getInt(1);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+        finally {
+            DBCPConnection.closeDBConnection(rs, stmt, connection);
         }
 
         count += 1;
@@ -312,17 +277,6 @@ public class EmployeeDAO {
     }
 
     public static Employee getEmployeeById(String employeeId) {
-        if(connection == null){
-            try {
-                throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
-            } catch (HMSException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }finally{
-                return null;
-            }
-        }
-
         if(employeeId == null || employeeId.equals("")){
             try {
                 throw new HMSException(HMSErrorCodes.INVALID_EMPLOYEE_ID);
@@ -335,18 +289,19 @@ public class EmployeeDAO {
 
         }
 
-        Employee employee = new Employee();
+        Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        Employee employee = new Employee();
 
         try {
-            //if(connection!=null && !connection.isClosed())
+            connection = DBCPConnection.getDBConnection();
             if(connection != null)
             {
                 connection.setAutoCommit(false);
                 stmt = connection.prepareStatement(EmployeeDBQueries.GET_EMPLOYEE_BY_ID);
                 stmt.setString(1,employeeId);
-                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
+                stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
                 rs = stmt.executeQuery();
                 while(rs.next()){
                     employee = populateEmployee(rs);
@@ -355,24 +310,11 @@ public class EmployeeDAO {
             }else{
                 throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
             }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (HMSException e){
             //TODO - throw cache specific errorCode,message
             throw new HMSException("");
         }finally{
-            try {
-                if(rs != null)
-                    rs.close();
-                if(stmt != null)
-                    stmt.close();
-                //DBConnection.closeDBConnection();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
+           DBCPConnection.closeDBConnection(rs, stmt ,connection);
             return employee;
         }
     }

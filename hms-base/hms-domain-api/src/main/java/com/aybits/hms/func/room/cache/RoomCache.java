@@ -9,10 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class RoomCache {
 
-    private static ConcurrentHashMap<String, Room> roomCache = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, Room> roomCache = new ConcurrentHashMap<String,Room>();
     private static HashSet<String> roomIds = new HashSet<>();
 
-    public Boolean initCache(){
+    public Boolean initCache(String hotelId){
         return false;
     }
 

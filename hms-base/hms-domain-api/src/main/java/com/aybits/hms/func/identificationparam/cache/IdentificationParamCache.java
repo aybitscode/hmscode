@@ -14,7 +14,7 @@ public class IdentificationParamCache {
     private static ConcurrentHashMap<String, IdentificationParam> identificationParamCache = new ConcurrentHashMap<>();
     private static HashSet<String> identificationParamIds = new HashSet<>();
 
-    public Boolean initCache(){
+    public Boolean initCache(String hotelId){
         return false;
     }
 
@@ -53,7 +53,7 @@ public class IdentificationParamCache {
         return identificationParamIds;
     }
 
-    public static ConcurrentHashMap<String,IdentificationParam> getIdentificationParamCache(){
+    public ConcurrentHashMap<String,IdentificationParam> getIdentificationParamCache(){
         return identificationParamCache;
     }
 

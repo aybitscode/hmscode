@@ -1,9 +1,18 @@
 package com.aybits.hms.func.room.dao;
 
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.func.room.beans.RoomCategory;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
+import org.apache.log4j.Logger;
 
-public class RoomCategoryDAO {
+import java.sql.Connection;
 
+public class  RoomCategoryDAO {
+
+    static Logger Log = Logger.getLogger(RoomCategoryDAO.class);
+
+    private Connection connection = DBCPConnection.getDBConnection();
 
     public Boolean addRoomCategory(RoomCategory roomCategory){
         return true;

@@ -3,7 +3,9 @@ package com.aybits.hms.func.hotel.cache;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.hotel.beans.Hotel;
+import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
+import com.aybits.hms.func.hotel.dao.HotelSelectDAO;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -17,7 +19,10 @@ public class HotelCache {
     static Logger log = Logger.getLogger(HotelCache.class);
     private static final ConcurrentHashMap<String, Hotel> hotelConcurrentHashMap = new ConcurrentHashMap<String,Hotel>();
     private static final HashSet<String> hotelIds = new HashSet<>();
+    private HotelSelectDAO hotelSelectDAO = new HotelSelectDAO();
     private HotelDAO hotelDAO = new HotelDAO();
+
+
 
     public Boolean initCache(){
 
@@ -25,7 +30,7 @@ public class HotelCache {
         if(hotelConcurrentHashMap.isEmpty()){
                 List<Hotel> hotels = null;
                 try {
-                        hotels = hotelDAO.fetchAllHotels();
+                        hotels = hotelSelectDAO.fetchAllHotels();
                         if(!hotels.isEmpty()) {
                             for (Hotel hotel : hotels) {
                                 hotelIds.add(hotel.getHotelId());
@@ -47,17 +52,16 @@ public class HotelCache {
         return isHotelCacheInitialized;
     }
 
-    public Boolean addHotel(Hotel hotel) throws HMSException {
-
-        Boolean isHotelAdditionSuccessful = hotelDAO.addHotel(hotel);
-        if(isHotelAdditionSuccessful){
+    public String addHotel(Hotel hotel) throws HMSException {
+        String hotelId = hotelDAO.addHotel(hotel);
+        if(hotelId != null){
+            hotel.setHotelId(hotelId);
             if (hotelConcurrentHashMap.get(hotel.getHotelId()) == null) {
                 hotelIds.add(hotel.getHotelId());
                 hotelConcurrentHashMap.put(hotel.getHotelId(), hotel);
             }
         }
-        return isHotelAdditionSuccessful;
-
+        return String.valueOf(hotelId);
     }
 
     public Boolean updateHotel(Hotel hotel) throws HMSException {
@@ -72,23 +76,28 @@ public class HotelCache {
         return isHotelUpdateSuccessful;
     }
 
+    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException {
+        String hotelRegistrationId = hotelDAO.addHotelRegistrationData(hotelRegistrationData);
+        if(hotelRegistrationId == null){
+            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null");
+        }
+        return String.valueOf(hotelRegistrationId);
+    }
 
     public Hotel fetchHotelById(String hotelId) throws HMSException {
+        Hotel hotel = null;
         try{
-            Hotel hotel = hotelConcurrentHashMap.get(hotelId);
-            if (hotel != null)
-                return hotel;
-            else{
-                hotel = hotelDAO.fetchHotelByHotelId(hotelId);
+            hotel = hotelConcurrentHashMap.get(hotelId);
+            if (hotel == null){
+                hotel = hotelSelectDAO.fetchHotelByHotelId(hotelId);
                 hotel = Objects.requireNonNull(hotel);
                 hotelConcurrentHashMap.put(hotelId,hotel);
-                return hotel;
             }
         }catch(NullPointerException npe){
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "No Hotel Present for the given hotelId["+hotelId+"]");
+             log.info("No Hotel Present for the given hotelId["+hotelId+"]");
+        }finally{
+            return hotel;
         }
-
-
     }
 
 

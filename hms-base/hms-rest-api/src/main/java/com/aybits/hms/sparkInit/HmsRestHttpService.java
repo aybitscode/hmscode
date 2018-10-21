@@ -21,30 +21,13 @@ public class HmsRestHttpService {
     private static final String CONTENT_TYPE = "application/json";
 
     public void registerHttpAPIs() {
-        registerPostApi("/login", new LoginRequestHandler());
 
-        registerPostApi("/quick-booking", new BookingRequestHandler());
-
-        registerPostApi("/employee/fetch-all", new EmployeeRequestHandler());
-        registerPostApi("/employee/fetch-by-phone", new EmployeeRequestHandler());
-        registerPostApi("/employee/add", new EmployeeRequestHandler());
-        registerPostApi("/employee/update", new EmployeeRequestHandler());
-        registerPostApi("/employee/fetch-id", new EmployeeRequestHandler());
-        registerPostApi("/employee/fetch-by-id", new EmployeeRequestHandler());
-
-        registerPostApi("/room/fetch-rooms-by-hotel-id", new RoomRequestHandler());
-        registerPostApi("/room/fetch-room-details", new RoomRequestHandler());
-
-
-        registerPostApi("/hotel/fetch-all-hotels", new HotelRequestHandler());
-        registerPostApi("/hotel/fetch-hotel-by-hotel-id", new HotelRequestHandler());
-        registerPostApi("/hotel/fetch-hotel-by-emp-id", new HotelRequestHandler());
-        registerPostApi("/hotel/setup-hotel", new HotelRequestHandler());
-
-        registerPostApi("/customer/add", new CustomerRequestHandler());
-        registerPostApi("/customer/update", new CustomerRequestHandler());
-        registerPostApi("/customer/get", new CustomerRequestHandler());
-        registerPostApi("/customer/getAll", new CustomerRequestHandler());
+        registerPostApi("/login/*", new LoginRequestHandler());
+        registerPostApi("/booking/*", new BookingRequestHandler());
+        registerPostApi("/employee/*", new EmployeeRequestHandler());
+        registerPostApi("/room/*", new RoomRequestHandler());
+        registerPostApi("/hotel/*", new HotelRequestHandler());
+        registerPostApi("/customer/*", new CustomerRequestHandler());
     }
 
     private static void registerPostApi(String apiPath, HmsRequestHandler requestHandler) {

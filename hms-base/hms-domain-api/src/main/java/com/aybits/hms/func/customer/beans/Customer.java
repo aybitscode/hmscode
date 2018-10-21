@@ -2,7 +2,7 @@ package com.aybits.hms.func.customer.beans;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
-import com.aybits.hms.func.common.beans.HMSAddress;
+import com.aybits.hms.func.common.beans.Address;
 import com.aybits.hms.func.identificationparam.beans.IdentificationParam;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.payment.beans.PaymentParams;
@@ -17,14 +17,10 @@ public class Customer {
     private String customerId;
     @JsonProperty("corporate_id")
     private String corporateId;
-    @JsonProperty("first_name")
-    private String firstName;
-    @JsonProperty("middle_name")
-    private String middleName;
-    @JsonProperty("last_name")
-    private String lastName;
+    @JsonProperty("customer_full_name")
+    private String customerFullName;
     @JsonProperty("customer_address")
-    private HMSAddress customerAddress;
+    private Address customerAddress;
     @JsonProperty("contact_details")
     private ContactDetails contactDetails;
     @JsonProperty("identification_params")
@@ -40,7 +36,7 @@ public class Customer {
     @JsonProperty("date_deleted")
     private Date dateDeleted;
     @JsonProperty("hms_hotel_id")
-    private Integer hotelId;
+    private String hotelId;
 
 
 
@@ -50,15 +46,13 @@ public class Customer {
     }
 
 
-    public Customer(String customerId, String firstName, String middleName, String lastName,
+    public Customer(String customerId, String customerFullName,
                     Status customerStatus,
-                    HMSAddress customerAddress, ContactDetails contactDetails,
-                    IdentificationParam identificationParam, PaymentParams paymentParams, Integer hotelId) {
+                    Address customerAddress, ContactDetails contactDetails,
+                    IdentificationParam identificationParam, PaymentParams paymentParams, String hotelId) {
 
         this.customerId = customerId;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.customerFullName = customerFullName;
         this.customerAddress = customerAddress;
         this.contactDetails = contactDetails;
         this.identificationParam = identificationParam;
@@ -76,35 +70,19 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getCustomerFullName() {
+        return customerFullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setCustomerFullName(String customerFullName) {
+        this.customerFullName = customerFullName;
     }
 
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public HMSAddress getCustomerAddress() {
+    public Address getCustomerAddress() {
         return customerAddress;
     }
 
-    public void setCustomerAddress(HMSAddress customerAddress) {
+    public void setCustomerAddress(Address customerAddress) {
         this.customerAddress = customerAddress;
     }
 
@@ -173,11 +151,11 @@ public class Customer {
         this.dateDeleted = dateDeleted;
     }
 
-    public Integer getHotelId() {
+    public String getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(String hotelId) {
         this.hotelId = hotelId;
     }
 

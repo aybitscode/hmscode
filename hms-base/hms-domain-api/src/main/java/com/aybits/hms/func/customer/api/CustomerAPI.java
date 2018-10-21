@@ -11,6 +11,8 @@ import java.util.List;
 
 public class CustomerAPI extends HMSAPIProviderImpl {
 
+	CustomerDAO customerDAO = new CustomerDAO();
+
 	public CustomerAPI(){
 		
 	}
@@ -20,7 +22,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 	//	List<Customer> customerList = HMSCache.custCache.getAllCustomers();
 		List<Customer> allCustomers = new ArrayList<Customer>();
 		try {
-        allCustomers = CustomerDAO.getAllCustomers();
+        allCustomers = customerDAO.getAllCustomers();
 		} catch (HMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,7 +35,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 		Customer customer = null;
 
         try {
-            customer = CustomerDAO.getCustomerByPhone(mobilePhone);
+            customer = customerDAO.getCustomerByPhone(mobilePhone);
         } catch (HMSException e) {
             e.printStackTrace();
         }
@@ -66,7 +68,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 
 	public String getCustomerNameByMobile(String mobilePhone){
 		Customer customer = getCustomerByPhone(mobilePhone);
-		return customer.getFirstName()+" "+customer.getLastName();
+		return customer.getCustomerFullName();
 	}
 
 	public String getCustomerId(String mobilePhone) {
@@ -77,7 +79,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 	public Customer getCustomerById(String customerId) {
 		//Customer customer = HMSCache.custCache.getCustomerById(customerId);
 		Customer customer = null;
-		customer = CustomerDAO.getCustomerById(customerId);
+		customer = customerDAO.getCustomerById(customerId);
 				
 		return customer;
 	}

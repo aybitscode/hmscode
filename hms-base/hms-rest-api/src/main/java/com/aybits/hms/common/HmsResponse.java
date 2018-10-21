@@ -6,39 +6,35 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("hms_response")
 public class HmsResponse {
 
-    @JsonProperty("response_code")
-    int responseCode;
+    @JsonProperty("token_id")
+    String tokenId;
 
-    @JsonProperty("response_message")
-    String responseMessage;
+    @JsonProperty("status")
+    String status;
 
-    @JsonProperty("response_data")
+    @JsonProperty("statusMessage")
+    String statusMessage;
+
+    @JsonProperty("data")
     Object responseData;
 
     public HmsResponse() {
 
     }
 
-    public HmsResponse(int responseCode, String responseMessage, Object responseData) {
-        this.responseCode = responseCode;
-        this.responseMessage = responseMessage;
+    public HmsResponse(String tokenId, String status, String statusMessage, Object responseData) {
+        this.tokenId = tokenId;
         this.responseData = responseData;
+        this.status = status;
+        this.statusMessage = statusMessage;
     }
 
-    public int getResponseCode() {
-        return responseCode;
+    public String getTokenId() {
+        return tokenId;
     }
 
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
-    }
-
-    public String getResponseMessage() {
-        return responseMessage;
-    }
-
-    public void setResponseMessage(String responseMessage) {
-        this.responseMessage = responseMessage;
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
     }
 
     public Object getResponseData() {
@@ -49,4 +45,19 @@ public class HmsResponse {
         this.responseData = responseData;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatusMessage() {
+        return statusMessage;
+    }
+
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
+    }
 }

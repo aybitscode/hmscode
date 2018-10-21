@@ -8,11 +8,11 @@ public class HmsConfig {
     private static final Properties hmsConfigProps = new Properties();
     static {
         try {
-            InputStream inputStream = HmsConfig.class.getClassLoader().getResourceAsStream("hms-rest.properties");
+            InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("hms-rest.properties");
             hmsProps.load(inputStream);
             inputStream.close();
 
-            inputStream = HmsConfig.class.getClassLoader().getResourceAsStream("hms-config.properties");
+            inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("hms-config.properties");
             hmsConfigProps.load(inputStream);
             inputStream.close();
 

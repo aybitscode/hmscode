@@ -1,6 +1,6 @@
 package com.aybits.hms.func.login.dao;
 
-import com.aybits.hms.arch.dbman.DBConnection;
+import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.customer.beans.Customer;
@@ -18,8 +18,11 @@ public class LoginDAO {
 
     static Logger Log = Logger.getLogger(CustomerDAO.class);
 
-    private static Connection connection = DBConnection.getDBConnection();
     private static final String GET_EMPLOYEE_BY_ID = "select password from hms_employee where login_id = ?";
+
+    Connection connection = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
 
     public Boolean insertLoginSession(){
             return null;
@@ -76,36 +79,21 @@ public class LoginDAO {
         ResultSet rs = null;
 
         try {
+            connection = DBCPConnection.getDBConnection();
 
-            if(connection != null)
-            {
-                connection.setAutoCommit(false);
-                stmt = connection.prepareStatement(GET_EMPLOYEE_BY_ID);
-                stmt.setString(1,loginId);
-                stmt.setQueryTimeout(DBConnection.getJDBCQueryTimeOut());
-                rs = stmt.executeQuery();
-                password = rs.getString("PASSWORD");
+            connection.setAutoCommit(false);
+            stmt = connection.prepareStatement(GET_EMPLOYEE_BY_ID);
+            stmt.setString(1, loginId);
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
+            rs = stmt.executeQuery();
+            password = rs.getString("PASSWORD");
 
-            }else{
-                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (HMSException e){
+
+        }catch (Exception e){
             //TODO - throw cache specific errorCode,message
             throw new HMSException("");
         }finally{
-            try {
-                if(rs != null)
-                    rs.close();
-                if(stmt != null)
-                    stmt.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
+           DBCPConnection.closeDBConnection(rs, stmt, connection);
             return password;
         }
     }

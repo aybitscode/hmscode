@@ -18,8 +18,16 @@ public class HMSErrorCodes {
 	public static final String INVALID_EMPLOYEE_PHONE = "INVALID_EMPLOYEE_PHONE";
 
 	public static final String HOTEL_ADDITION_FAILED = "HOTEL_ADDITIION_FAILED";
+	public static final String HOTEL_REG_DATA_ADDITION_FAILED = "HOTEL_REG_DATA_ADDITION_FAILED";
+	public static final String HOTEL_ALREADY_EXISTS  = "HOTEL_ALREADY_EXISTS";
 	public static final String HOTEL_UPDATE_FAILED = "HOTEL_UPDATE_FAILED";
 	public static final String HMS_EXCEPTION = "HMS_EXCEPTION";
-			
+
+	public static final String FACILITY_ADDITION_FAILED = "FACILITY_ADDITIION_FAILED";
+	public static final String FACILITY_UPDATE_FAILED = "FACILITY_UPDATE_FAILED";
+	public static final String AMENITY_ADDITION_FAILED = "AMENITY_ADDITIION_FAILED";
+	public static final String AMENITY_UPDATE_FAILED = "AMENITY_UPDATE_FAILED";
+	public static final String SERVICE_ADDITION_FAILED = "SERVICE_ADDITIION_FAILED";
+	public static final String SERVICE_UPDATE_FAILED = "SERVICE_UPDATE_FAILED";
 
 }

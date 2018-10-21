@@ -60,7 +60,7 @@
         <jaxb.version>2.2.7</jaxb.version>
         <dom4j.version>1.6.1</dom4j.version>
         <jaxen.version>1.1.4</jaxen.version>
-       <!-- <docker-mysql-image>mysql:5.5.49</docker-mysql-image>-->
+        <!-- <docker-mysql-image>mysql:5.5.49</docker-mysql-image>-->
         <system-rules.version>1.16.0</system-rules.version>
 
         <!-- ************************ -->
@@ -304,7 +304,17 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.5.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -568,64 +578,64 @@
                 </plugins>
             </build>
         </profile>
-       <!-- <profile>
-            <id>package-all</id>
-            <modules>
-                <module>platform</module>
-                <module>api</module>
-                <module>bpm</module>
-                <module>bonita-test-api</module>
-                <module>bonita-integration-tests</module>
-            </modules>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>tests</id>
-            <properties>
-                <maven.javadoc.skip>true</maven.javadoc.skip>
-            </properties>
-            <modules>
-                <module>platform</module>
-                <module>api</module>
-                <module>bpm</module>
-                <module>bonita-test-api</module>
-                <module>bonita-integration-tests</module>
-            </modules>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>-->
+        <!-- <profile>
+             <id>package-all</id>
+             <modules>
+                 <module>platform</module>
+                 <module>api</module>
+                 <module>bpm</module>
+                 <module>bonita-test-api</module>
+                 <module>bonita-integration-tests</module>
+             </modules>
+             <properties>
+                 <skipTests>true</skipTests>
+             </properties>
+             <build>
+                 <plugins>
+                     <plugin>
+                         <groupId>org.apache.maven.plugins</groupId>
+                         <artifactId>maven-source-plugin</artifactId>
+                         <executions>
+                             <execution>
+                                 <id>attach-sources</id>
+                                 <goals>
+                                     <goal>jar-no-fork</goal>
+                                 </goals>
+                             </execution>
+                         </executions>
+                     </plugin>
+                 </plugins>
+             </build>
+         </profile>
+         <profile>
+             <id>tests</id>
+             <properties>
+                 <maven.javadoc.skip>true</maven.javadoc.skip>
+             </properties>
+             <modules>
+                 <module>platform</module>
+                 <module>api</module>
+                 <module>bpm</module>
+                 <module>bonita-test-api</module>
+                 <module>bonita-integration-tests</module>
+             </modules>
+             <build>
+                 <plugins>
+                     <plugin>
+                         <groupId>org.apache.maven.plugins</groupId>
+                         <artifactId>maven-source-plugin</artifactId>
+                         <executions>
+                             <execution>
+                                 <id>attach-sources</id>
+                                 <goals>
+                                     <goal>jar-no-fork</goal>
+                                 </goals>
+                             </execution>
+                         </executions>
+                     </plugin>
+                 </plugins>
+             </build>
+         </profile>-->
         <!--<profile>
             <id>sonar</id>
             <build>
