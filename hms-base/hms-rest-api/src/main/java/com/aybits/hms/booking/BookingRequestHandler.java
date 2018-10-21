@@ -1,4 +1,4 @@
-package com.aybits.hms.bookings;
+package com.aybits.hms.booking;
 
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.ValidationResult;

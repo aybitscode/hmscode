@@ -17,6 +17,7 @@ import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelAttributes;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
+import com.aybits.hms.func.room.api.RoomCategoryAPI;
 import com.aybits.hms.func.service.api.ServiceAPI;
 import com.aybits.hms.func.service.beans.Service;
 import com.google.gson.Gson;
@@ -32,9 +33,6 @@ import java.util.Map;
 public class HotelRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
     HotelAPI hotelAPI = new HotelAPI();
-    FacilityAPI facilityAPI = new FacilityAPI();
-    AmenityAPI amenityAPI = new AmenityAPI();
-    ServiceAPI servicesAPI = new ServiceAPI();
     HMSJsonRequestComponents components = null;
 
     @Override
@@ -70,14 +68,10 @@ public class HotelRequestHandler implements HmsRequestHandler {
                 message = fetchHotelByEmployeeId(request);
                 break;
             case "/setup/hotel":
-
                 message = setupHotel(request);
                 break;
-            case "/setup/category":
-                message = addRoomCategory(request);
-                break;
             case "/setup/facilities":
-                message = addFacilites(request);
+
                 message = addAmenities(request);
                 message = addServices(request);
                 break;
@@ -112,40 +106,6 @@ public class HotelRequestHandler implements HmsRequestHandler {
         }
     }
 
-    private String addFacilites(Request request) {
-        Log.info("in addFacilites");
-        try {
-            String data = components.getData();
-            Gson gson = new Gson();
-            Object myTypes = (Object)gson.fromJson(data, Object.class);
-            List facilitiesList = ((List)((LinkedTreeMap)myTypes).get("facilities"));
-
-            Facility[] facilities = new Facility[facilitiesList.size()];
-
-            for(int i = 0; i < facilitiesList.size(); i++){
-                Map facilityMap = (Map)facilitiesList.get(i);
-                Facility facility = new Facility();
-                facility.setHotelId(facilityMap.get("hotel_id").toString());
-                facility.setFacilityId(facilityMap.get("facility_id").toString());
-                facility.setFacilityName(facilityMap.get("facility_name").toString());
-                facility.setFacilityDescription(facilityMap.get("facility_description").toString());
-                facility.setIsAvailable(Boolean.valueOf(facilityMap.get("is_available").toString()));
-                facility.setChargeable(Boolean.valueOf(facilityMap.get("is_chargeable").toString()));
-                facility.setFacilityType(FacilityType.valueOf(facilityMap.get("facility_type").toString()));
-                //facility.setFacilityPrice(Double.valueOf(facilityMap.get("facility_price").toString()));
-                facilities[i] = facility;
-            }
-
-            if(facilities != null && facilities.length > 0) {
-                boolean addFacilityStatus = facilityAPI.addFacilities(facilities);
-                return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Facilities added succesfully",null));
-            }else{
-                return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no facilities to add", null));
-            }
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", e.getMessage(), null));
-        }
-    }
 
     private String addAmenities(Request request) {
         Log.info("in addAmenities");
@@ -254,11 +214,6 @@ public class HotelRequestHandler implements HmsRequestHandler {
 
 
 
-    private String addRoomCategory(Request request) {
-
-        // TODO Create RoomCategory
-        return null;
-    }
 
     private String addEmployeeDetails(Request request) {
         // TODO Create Employee Details
@@ -272,11 +227,14 @@ public class HotelRequestHandler implements HmsRequestHandler {
         return null;
     }
 
-    private HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, String hotelId) {
+
+    @Override
+    public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object hotelId) {
         String hotelJson = null;
         if(hotelId != null){
             Hotel hotel = new Hotel();
-            hotel.setHotelId(hotelId);
+            String hotelIdStr = (String)hotelId;
+            hotel.setHotelId(hotelIdStr);
             HotelAttributes a= new HotelAttributes();
             a.setHotelName("test hotel");
             hotel.setHotelAttributes(a);

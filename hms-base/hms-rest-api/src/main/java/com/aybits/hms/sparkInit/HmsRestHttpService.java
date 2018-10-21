@@ -2,11 +2,16 @@ package com.aybits.hms.sparkInit;
 
 
 import com.aybits.hms.Employee.EmployeeRequestHandler;
-import com.aybits.hms.bookings.BookingRequestHandler;
+import com.aybits.hms.amenity.AmenityRequestHandler;
+import com.aybits.hms.billing.BillingRequestHandler;
+import com.aybits.hms.booking.BookingRequestHandler;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.customer.CustomerRequestHandler;
+import com.aybits.hms.facility.FacilityRequestHandler;
 import com.aybits.hms.hotel.HotelRequestHandler;
+import com.aybits.hms.invoice.InvoiceRequestHandler;
 import com.aybits.hms.login.LoginRequestHandler;
+import com.aybits.hms.room.RoomCategoryRequestHandler;
 import com.aybits.hms.room.RoomRequestHandler;
 import org.apache.log4j.Logger;
 
@@ -28,6 +33,12 @@ public class HmsRestHttpService {
         registerPostApi("/room/*", new RoomRequestHandler());
         registerPostApi("/hotel/*", new HotelRequestHandler());
         registerPostApi("/customer/*", new CustomerRequestHandler());
+        registerPostApi("/facility/*",new FacilityRequestHandler());
+        registerPostApi("/amenity/*", new AmenityRequestHandler());
+        registerPostApi("/room-category/*", new RoomCategoryRequestHandler());
+        registerPostApi("/billing/*",new BillingRequestHandler());
+        registerPostApi("/invoice/*", new InvoiceRequestHandler());
+
     }
 
     private static void registerPostApi(String apiPath, HmsRequestHandler requestHandler) {

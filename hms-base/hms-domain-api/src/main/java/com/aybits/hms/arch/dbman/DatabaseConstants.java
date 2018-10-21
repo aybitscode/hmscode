@@ -100,7 +100,7 @@ public class DatabaseConstants {
 	public static String DELETE_EMPLOYEE= "delete from employees where mobile = ?";
 	
 	
-	//Table room
+	//Table com.aybits.hms.room
 	public static String INSERT_ROOM = "insert into rooms(roomID, roomDoorNumber, roomCategoryID) "+ "values(?,?,?)";
 	public static String TABLE_ROOM_COLS = "select roomDoorNumber, roomCategoryID from rooms";
 	public static String TABLE_ROOM_COLS_DNO = "select roomID, roomDoorNumber, roomCategoryID from rooms  where roomDoorNumber = ?";

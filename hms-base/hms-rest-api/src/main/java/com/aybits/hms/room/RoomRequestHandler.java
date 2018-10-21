@@ -39,7 +39,7 @@ public class RoomRequestHandler implements HmsRequestHandler {
             case "fetch-rooms-by-hotel-id":
                 message = fetchRoomsByHotel(request);
                 break;
-            case "fetch-room-details":
+            case "fetch-com.aybits.hms.room-details":
                 message = fetchRoomDetails(request);
                 break;
         }
@@ -68,7 +68,7 @@ public class RoomRequestHandler implements HmsRequestHandler {
             Room result = roomAPI.fetchRoomDetails(room.getRoomId());
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
         } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting Room by room id", false));
+            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting Room by com.aybits.hms.room id", false));
         }
     }
 

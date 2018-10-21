@@ -48,4 +48,10 @@ public interface HmsRequestHandler {
     ValidationResult validateRequestData(Request request, Response response);
 
     String handleRequest(Request request, Response response);
+
+
+    default HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+
+        return new HmsResponse(tokenID, status, statusMessage, responseData);
+    }
 }

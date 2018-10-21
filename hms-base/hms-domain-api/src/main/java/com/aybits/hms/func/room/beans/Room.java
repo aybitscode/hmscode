@@ -4,7 +4,7 @@ import com.aybits.hms.arch.util.HMSJSONParser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("room")
+@JsonRootName("com.aybits.hms.room")
 public class Room {
 
     @JsonProperty("hotel_id")
