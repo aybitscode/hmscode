@@ -1,5 +1,6 @@
 package com.aybits.hms.func.room.api;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.room.beans.RoomCategory;
 import com.aybits.hms.func.room.cache.RoomCategoryCache;
@@ -15,7 +16,7 @@ public class RoomCategoryAPI extends HMSAPIProviderImpl {
     RoomCategoryCache roomCategoryCache = new RoomCategoryCache();
     RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAO();
 
-    public Boolean addRoomCategory(RoomCategory roomCategory){
+    public Boolean addRoomCategory(RoomCategory roomCategory) throws HMSException {
         return true;
     }
 

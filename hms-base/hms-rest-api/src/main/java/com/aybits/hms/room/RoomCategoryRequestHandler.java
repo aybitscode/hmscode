@@ -1,11 +1,14 @@
 package com.aybits.hms.room;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomCategoryAPI;
+import com.aybits.hms.func.room.beans.RoomCategory;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
@@ -73,6 +76,29 @@ public class RoomCategoryRequestHandler implements HmsRequestHandler {
     }
 
     private String setupRoomCategory(Request request){
+        Log.info("[Enter]::setupRoomCateogry");
+        Boolean isRoomCategoryAdded = false;
+        String response = null;
+        try {
+            JSONObject jsonObject = new JSONObject(components.getData());
+            JSONObject roomCategoryJSON = jsonObject.getJSONObject("room_category");
+            RoomCategory roomCategory = (RoomCategory) HMSJSONParser.convertJSONToObject(roomCategoryJSON.toString(), RoomCategory.class);
+
+            validateRequest(roomCategory);
+
+            isRoomCategoryAdded = roomCategoryAPI.addRoomCategory(roomCategory);
+
+            response =  HMSJSONParser.convertObjectToJSON(getHmsResponse("ABCD12345", "SUCCESS", "Room-Category successfully added", isRoomCategoryAdded));
+        } catch (HMSException e) {
+            response = HMSJSONParser.convertObjectToJSON(getHmsResponse("ABCD12345", "FAILED", e.getMessage(), null));
+        }finally{
+            Log.info("[Exit]::setupRoomCateogry");
+            return response;
+        }
+    }
+
+
+    public String validateRequest(RoomCategory roomCategory) throws HMSException{
         return null;
     }
 
