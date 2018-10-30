@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -41,7 +42,9 @@ public class HMSJSONParser {
     }
 
     public static HMSJsonRequestComponents getHmsJsonRequestComponents(String inputJsonString) {
-        JsonObject jobj = new Gson().fromJson(inputJsonString, JsonObject.class);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+        JsonObject jobj = gson.fromJson(inputJsonString, JsonObject.class);
 
         if (jobj.get("data") == null || jobj.get("entity") == null
                 || jobj.get("operation") == null || jobj.get("request_id") == null) {
@@ -49,10 +52,11 @@ public class HMSJSONParser {
         }
 
         HMSJsonRequestComponents components = new HMSJsonRequestComponents();
+
         components.setData(jobj.get("data").toString());
-        components.setEntity(jobj.get("entity").toString());
-        components.setOperation(jobj.get("operation").toString());
-        components.setRequestId(jobj.get("request_id").toString());
+        components.setEntity(jobj.get("entity").getAsString());
+        components.setOperation(jobj.get("operation").getAsString());
+        components.setTokenId(jobj.get("request_id").getAsString());
 
         return components;
     }

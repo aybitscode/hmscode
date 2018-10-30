@@ -19,14 +19,14 @@ public class HMSJsonRequestComponents {
     public void setOperation(String operation) {
         this.operation = operation;
     }
-    public String getRequestId() {
-        return requestId;
+    public String getTokenId() {
+        return tokenId;
     }
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
     }
     private String data;
     private String entity;
     private String operation;
-    private String requestId;
+    private String tokenId;
 }

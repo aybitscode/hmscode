@@ -45,7 +45,7 @@ public class HmsRestServiceStartup {
 
     void startSparkServer() {
         try {
-            int port = Integer.parseInt(HmsConfig.getRestProperty("HMS_PORT"));
+            int port = Integer.parseInt(HmsConfig.getRestProperty("app.port"));
             System.out.println("starting spark server on port "+port);
             port(port);
             enableCORS("*", "*", "*");

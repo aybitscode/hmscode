@@ -1,4 +1,4 @@
-package com.aybits.hms.amenity;
+package com.aybits.hms.feature;
 
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
@@ -6,9 +6,7 @@ import com.aybits.hms.common.ValidationResult;
 import spark.Request;
 import spark.Response;
 
-public class AmenityRequestHandler extends HmsRequestHandler {
-
-
+public class FeatureRequestHandler extends HmsRequestHandler {
     @Override
     public ValidationResult validateRequest(Request request) {
         return null;
@@ -24,9 +22,10 @@ public class AmenityRequestHandler extends HmsRequestHandler {
         return null;
     }
 
-
     @Override
     public String handleRequest(Request request, Response response) {
+
+
         return null;
     }
 

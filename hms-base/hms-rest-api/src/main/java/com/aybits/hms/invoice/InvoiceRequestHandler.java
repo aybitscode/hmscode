@@ -7,7 +7,7 @@ import spark.Response;
 
 public class InvoiceRequestHandler implements HmsRequestHandler {
     @Override
-    public ValidationResult validateRequest(Request request, Response response) {
+    public ValidationResult validateRequest(Request request) {
         return null;
     }
 
@@ -17,7 +17,7 @@ public class InvoiceRequestHandler implements HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request, Response response) {
+    public ValidationResult validateRequestData(Request request) {
         return null;
     }
 

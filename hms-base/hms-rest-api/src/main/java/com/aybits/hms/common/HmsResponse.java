@@ -12,8 +12,8 @@ public class HmsResponse {
     @JsonProperty("status")
     String status;
 
-    @JsonProperty("statusMessage")
-    String statusMessage;
+    @JsonProperty("message")
+    String message;
 
     @JsonProperty("data")
     Object responseData;
@@ -22,11 +22,11 @@ public class HmsResponse {
 
     }
 
-    public HmsResponse(String tokenId, String status, String statusMessage, Object responseData) {
+    public HmsResponse(String tokenId, String status, String message, Object responseData) {
         this.tokenId = tokenId;
         this.responseData = responseData;
         this.status = status;
-        this.statusMessage = statusMessage;
+        this.message = message;
     }
 
     public String getTokenId() {
@@ -53,11 +53,11 @@ public class HmsResponse {
         this.status = status;
     }
 
-    public String getStatusMessage() {
-        return statusMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setStatusMessage(String statusMessage) {
-        this.statusMessage = statusMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

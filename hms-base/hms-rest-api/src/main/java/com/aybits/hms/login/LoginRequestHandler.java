@@ -10,7 +10,7 @@ public class LoginRequestHandler implements HmsRequestHandler {
     ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public ValidationResult validateRequestData(Request request, Response response) {
+    public ValidationResult validateRequestData(Request request) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
@@ -21,7 +21,7 @@ public class LoginRequestHandler implements HmsRequestHandler {
     public String handleRequest(Request request, Response response) {
         System.out.println("Login request handler invoked");
 
-        ValidationResult result = validateRequest(request, response);
+        ValidationResult result = validateRequest(request);
         if (result != null) {
             return result.getMessage();
         }

@@ -1,6 +1,5 @@
 package com.aybits.hms.room;
 
-import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
@@ -17,7 +16,7 @@ public class RoomRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(RoomRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequestData(Request request, Response response) {
+    public ValidationResult validateRequestData(Request request) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
@@ -28,7 +27,7 @@ public class RoomRequestHandler implements HmsRequestHandler {
     public String handleRequest(Request request, Response response) {
         Log.info("Room request handler invoked");
 
-        ValidationResult result = validateRequest(request, response);
+        ValidationResult result = validateRequest(request);
         if (result != null) {
             return result.getMessage();
         }

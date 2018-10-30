@@ -4,7 +4,6 @@ import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
-import com.aybits.hms.func.customer.api.CustomerAPI;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
 import com.aybits.hms.func.employee.beans.Employee;
@@ -14,11 +13,11 @@ import spark.Response;
 
 import java.util.List;
 
-public class EmployeeRequestHandler implements HmsRequestHandler {
+public class EmployeeRequestHandler extends HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequestData(Request request, Response response) {
+    public ValidationResult validateRequestData(Request request) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
@@ -29,7 +28,7 @@ public class EmployeeRequestHandler implements HmsRequestHandler {
     public String handleRequest(Request request, Response response) {
         Log.info("Employee request handler invoked");
 
-        ValidationResult result = validateRequest(request, response);
+        ValidationResult result = validateRequest(request);
         if (result != null) {
             return result.getMessage();
         }

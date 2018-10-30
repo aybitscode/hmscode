@@ -42,6 +42,14 @@ public class HMSAPIServiceConstants {
     public static final String FACILITY_CACHE = "FACILITY_CACHE";
 
 
+    /*************** HMS_REST_CONSTANTS ************************************
+     * These are the definitions of SUCCESS, FAILURE status codes
+     */
+    public static final String HMS_RESPONSE_SUCCESS = "success";
+    public static final String HMS_RESPONSE_FAILURE = "failure";
+    public static final String HMS_FAILURE_RESPONSE_DATA = "NOVAL";
+
+
 }
 
 

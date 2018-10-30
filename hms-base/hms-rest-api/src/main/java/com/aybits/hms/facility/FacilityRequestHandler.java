@@ -17,14 +17,14 @@ import spark.Response;
 import java.util.List;
 import java.util.Map;
 
-public class FacilityRequestHandler implements HmsRequestHandler {
+public class FacilityRequestHandler extends HmsRequestHandler {
 
     HMSJsonRequestComponents components = null;
     FacilityAPI facilityAPI = new FacilityAPI();
     static Logger Log = Logger.getLogger(FacilityRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequest(Request request, Response response) {
+    public ValidationResult validateRequest(Request request) {
         return null;
     }
 
@@ -34,7 +34,7 @@ public class FacilityRequestHandler implements HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request, Response response) {
+    public ValidationResult validateRequestData(Request request) {
         return null;
     }
 
@@ -42,7 +42,7 @@ public class FacilityRequestHandler implements HmsRequestHandler {
     public String handleRequest(Request request, Response response) {
         Log.info("Hotel request handler invoked");
 
-        ValidationResult result = validateRequest(request, response);
+        ValidationResult result = validateRequest(request);
         if (result != null) {
             //return result.getMessage();
         }
@@ -63,6 +63,8 @@ public class FacilityRequestHandler implements HmsRequestHandler {
                 case "add/facilities":
                     message = addFacilites(request);
                     break;
+                case "disable/facility":
+                    message = disableFacility(request);
             }
         }catch(HMSException hmse){
 
@@ -111,6 +113,11 @@ public class FacilityRequestHandler implements HmsRequestHandler {
         } catch (Exception e) {
             return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", e.getMessage(), null));
         }
+    }
+
+
+    private String disableFacility(Request request){
+        return null;
     }
 
 

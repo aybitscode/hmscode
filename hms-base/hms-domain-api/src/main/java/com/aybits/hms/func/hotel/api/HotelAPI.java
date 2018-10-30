@@ -3,25 +3,28 @@ package com.aybits.hms.func.hotel.api;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
-import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+import com.aybits.hms.func.common.api.HMSAPIProvider;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.cache.HotelCache;
-import com.aybits.hms.func.hotel.dao.HotelDAO;
 import com.aybits.hms.func.hotel.dao.HotelSelectDAO;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import java.util.List;
 
-public class HotelAPI extends HMSAPIProviderImpl {
+public class HotelAPI implements HMSAPIProvider {
 
     static Logger log = Logger.getLogger(HotelAPI.class);
     HotelCache hotelCache = new HotelCache();
     HotelSelectDAO hotelSelectDAO = new HotelSelectDAO();
 
 
+    public String process(JSONObject data) throws HMSException{
+        return null;
+    }
 
-    public String addHotel(Hotel hotel) throws HMSException {
+    private String addHotel(Hotel hotel) throws HMSException {
         String hotelId = null;
 
         if(!isHotelAlreadyPresent(hotel)){
@@ -139,4 +142,23 @@ public class HotelAPI extends HMSAPIProviderImpl {
         }
     }
 
+    @Override
+    public Object init(Object object) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public Object validate(Object object) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetch(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetchAll(JSONObject json) throws HMSException {
+        return null;
+    }
 }
