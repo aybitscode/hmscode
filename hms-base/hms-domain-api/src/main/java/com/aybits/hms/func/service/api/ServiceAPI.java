@@ -8,6 +8,7 @@ import com.aybits.hms.func.service.beans.Service;
 import com.aybits.hms.func.service.dao.ServiceCache;
 import com.aybits.hms.func.service.dao.ServiceDAO;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -52,4 +53,33 @@ public class ServiceAPI extends HMSAPIProviderImpl {
         return null;
     }
 
+    @Override
+    public String process(JSONObject object) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetch(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetchAll(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String update(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String disable(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSException {
+        return null;
+    }
 }

@@ -6,6 +6,7 @@ import com.aybits.hms.func.common.api.HMSAPIProvider;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.room.beans.Room;
 import com.aybits.hms.func.room.dao.RoomDAO;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -17,6 +18,12 @@ public class RoomAPI extends HMSAPIProviderImpl {
     public Object init(Object object) {
         return null;
     }
+
+    @Override
+    public String process(JSONObject object) throws HMSException {
+        return null;
+    }
+
     @Override
     public Object process(Object object) {
         return null;
@@ -49,6 +56,31 @@ public class RoomAPI extends HMSAPIProviderImpl {
 
     @Override
     public Boolean validate(Object object) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetch(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetchAll(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String update(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String disable(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSException {
         return null;
     }
 

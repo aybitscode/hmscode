@@ -3,13 +3,14 @@ package com.aybits.hms.booking;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class BookingRequestHandler extends HmsRequestHandler {
+public class BookingRequestHandler implements HmsRequestHandler {
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public ValidationResult validateRequestData(JSONObject dataJSON) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
@@ -28,10 +29,7 @@ public class BookingRequestHandler extends HmsRequestHandler {
         return null;
     }
 
-    @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
+
 
     @Override
     public String getActionString(Request request) {

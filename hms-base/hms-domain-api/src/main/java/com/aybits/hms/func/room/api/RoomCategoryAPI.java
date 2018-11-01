@@ -6,6 +6,7 @@ import com.aybits.hms.func.room.beans.RoomCategory;
 import com.aybits.hms.func.room.cache.RoomCategoryCache;
 import com.aybits.hms.func.room.dao.RoomCategoryDAO;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -35,4 +36,33 @@ public class RoomCategoryAPI extends HMSAPIProviderImpl {
         return true;
     }
 
+    @Override
+    public String process(JSONObject object) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetch(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetchAll(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String update(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String disable(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSException {
+        return null;
+    }
 }

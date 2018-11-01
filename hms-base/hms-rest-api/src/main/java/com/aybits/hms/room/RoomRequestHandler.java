@@ -7,6 +7,7 @@ import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomAPI;
 import com.aybits.hms.func.room.beans.Room;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
@@ -16,7 +17,7 @@ public class RoomRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(RoomRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public ValidationResult validateRequestData(JSONObject dataJSON) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");

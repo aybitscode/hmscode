@@ -11,22 +11,19 @@ import com.aybits.hms.func.facility.beans.FacilityType;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 import java.util.List;
 import java.util.Map;
 
-public class FacilityRequestHandler extends HmsRequestHandler {
+public class FacilityRequestHandler implements HmsRequestHandler {
 
     HMSJsonRequestComponents components = null;
     FacilityAPI facilityAPI = new FacilityAPI();
     static Logger Log = Logger.getLogger(FacilityRequestHandler.class);
 
-    @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
 
     @Override
     public String getActionString(Request request) {
@@ -34,7 +31,7 @@ public class FacilityRequestHandler extends HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public ValidationResult validateRequestData(JSONObject dataJSON) {
         return null;
     }
 

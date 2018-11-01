@@ -1,23 +1,28 @@
 package com.aybits.hms.setup;
 
+import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.feature.FeatureRequestHandler;
 import com.aybits.hms.hotel.HotelRequestHandler;
+import com.aybits.hms.room.RoomCategoryRequestHandler;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 public class SetupRequestHandler implements HmsRequestHandler {
 
     static Logger Log = Logger.getLogger(SetupRequestHandler.class);
-
+    HmsRequestHandler hmsRequestHandler = null;
 
 
     @Override
-    public ValidationResult validateRequestData(Request request) throws HMSException {
+    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
 
 
 
@@ -30,17 +35,28 @@ public class SetupRequestHandler implements HmsRequestHandler {
 
         HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
 
+
+        String operation = components.getOperation();
+        String entity = components.getEntity();
+        String data = components.getData();
+        String action = operation + "/" + entity;
+        String tokenId = components.getTokenId();
+
+        JSONObject dataJSON = null;
+
         ValidationResult result = null;
         try {
-            result = validateRequestData(request);
+            dataJSON = new JSONObject(data);
+            result = validateRequestData(dataJSON);
         }catch(HMSException he){
+
+        }catch(JSONException je){
 
         }
         if (result != null) {
             return result.getMessage();
         }
 
-        String entity = components.getEntity();
 
         String message = "";
 
@@ -64,23 +80,25 @@ public class SetupRequestHandler implements HmsRequestHandler {
 
 
     private String setupHotel(Request request,Response response){
-
-        HotelRequestHandler hotelRequestHandler = new HotelRequestHandler();
-        return hotelRequestHandler.handleRequest(request,response);
+        hmsRequestHandler = new HotelRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
 
     }
 
     private String setupFeatures(Request request,Response response){
-
-        return null;
+        hmsRequestHandler = new FeatureRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
     }
 
     private String setupRoomCategory(Request request,Response response){
-        return null;
+        hmsRequestHandler = new RoomCategoryRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
+
     }
 
     private String setupEmployeeDetails(Request request,Response response){
-        return null;
+        hmsRequestHandler = new EmployeeRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
     }
 
 

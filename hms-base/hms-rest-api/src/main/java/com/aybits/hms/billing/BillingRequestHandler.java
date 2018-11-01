@@ -3,14 +3,12 @@ package com.aybits.hms.billing;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class BillingRequestHandler extends HmsRequestHandler {
-    @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
+public class BillingRequestHandler implements HmsRequestHandler {
+
 
     @Override
     public String getActionString(Request request) {
@@ -18,7 +16,7 @@ public class BillingRequestHandler extends HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public ValidationResult validateRequestData(JSONObject dataJSON) {
         return null;
     }
 

@@ -32,7 +32,7 @@ public class RoomCategoryRequestHandler implements HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public ValidationResult validateRequestData(JSONObject dataJson) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");

@@ -5,6 +5,7 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.dao.CustomerDAO;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,8 +85,34 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 		return customer;
 	}
 
-	
-	
-	
 
+	@Override
+	public String process(JSONObject object) throws HMSException {
+		return null;
+	}
+
+	@Override
+	public String fetch(JSONObject json) throws HMSException {
+		return null;
+	}
+
+	@Override
+	public String fetchAll(JSONObject json) throws HMSException {
+		return null;
+	}
+
+	@Override
+	public String update(JSONObject json) throws HMSException {
+		return null;
+	}
+
+	@Override
+	public String disable(JSONObject json) throws HMSException {
+		return null;
+	}
+
+	@Override
+	public String delete(JSONObject json) throws HMSException {
+		return null;
+	}
 }
