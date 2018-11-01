@@ -77,7 +77,8 @@ public interface HmsRequestHandler {
         JSONObject responseJSON = null;
         String status = null;
         String message = null;
-        String responseData = null;
+        String responseData =
+                null;
         HmsResponse hmsResponse = null;
         try {
             responseJSON = new JSONObject(responseString);

@@ -9,6 +9,7 @@ import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.login.beans.LoginAttributes;
 import com.aybits.hms.func.login.beans.LoginSession;
 import com.aybits.hms.func.login.dao.LoginDAO;
+import org.json.JSONObject;
 
 
 public class LoginAPI extends HMSAPIProviderImpl {
@@ -50,7 +51,37 @@ public class LoginAPI extends HMSAPIProviderImpl {
     }
 
     @Override
+    public String fetch(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetchAll(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String update(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String disable(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
     public Object init(Object object) {
+        return null;
+    }
+
+    @Override
+    public String process(JSONObject object) throws HMSException {
         return null;
     }
 

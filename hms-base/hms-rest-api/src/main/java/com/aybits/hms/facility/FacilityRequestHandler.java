@@ -17,7 +17,7 @@ import spark.Response;
 import java.util.List;
 import java.util.Map;
 
-public class FacilityRequestHandler extends HmsRequestHandler {
+public class FacilityRequestHandler implements HmsRequestHandler {
 
     HMSJsonRequestComponents components = null;
     FacilityAPI facilityAPI = new FacilityAPI();

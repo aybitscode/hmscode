@@ -7,6 +7,7 @@ import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.facility.dao.FacilityCache;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -91,4 +92,33 @@ public class FacilityAPI extends HMSAPIProviderImpl {
         return chargeableFacilitiesList;
     }
 
+    @Override
+    public String process(JSONObject object) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetch(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String fetchAll(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String update(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String disable(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSException {
+        return null;
+    }
 }

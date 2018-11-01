@@ -161,4 +161,19 @@ public class HotelAPI implements HMSAPIProvider {
     public String fetchAll(JSONObject json) throws HMSException {
         return null;
     }
+
+    @Override
+    public String update(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String disable(JSONObject json) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSException {
+        return null;
+    }
 }

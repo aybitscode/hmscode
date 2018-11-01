@@ -12,7 +12,7 @@ import spark.Response;
 
 import java.util.List;
 
-public class CustomerRequestHandler extends HmsRequestHandler {
+public class CustomerRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(CustomerRequestHandler.class);
 
     @Override

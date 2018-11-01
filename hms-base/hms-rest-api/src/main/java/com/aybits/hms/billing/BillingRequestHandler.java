@@ -6,7 +6,7 @@ import com.aybits.hms.common.ValidationResult;
 import spark.Request;
 import spark.Response;
 
-public class BillingRequestHandler extends HmsRequestHandler {
+public class BillingRequestHandler implements HmsRequestHandler {
     @Override
     public ValidationResult validateRequest(Request request) {
         return null;
