@@ -17,8 +17,7 @@ public class AmenityRequestHandler implements HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(JSONObject jsonObject) {
-        System.out.println("Hello");
+    public ValidationResult validateRequestData(Request request) {
         return null;
     }
 
