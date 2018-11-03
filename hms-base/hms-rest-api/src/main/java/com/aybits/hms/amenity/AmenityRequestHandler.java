@@ -1,7 +1,7 @@
 package com.aybits.hms.amenity;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
 import org.json.JSONObject;
 import spark.Request;
@@ -17,6 +17,11 @@ public class AmenityRequestHandler implements HmsRequestHandler {
     }
 
     @Override
+    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
+        return null;
+    }
+
+
     public ValidationResult validateRequestData(Request request) {
         return null;
     }

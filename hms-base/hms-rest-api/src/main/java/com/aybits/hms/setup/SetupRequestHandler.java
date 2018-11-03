@@ -21,11 +21,8 @@ public class SetupRequestHandler implements HmsRequestHandler {
     HmsRequestHandler hmsRequestHandler = null;
 
 
-    @Override
+
     public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
-
-
-
         return null;
     }
 

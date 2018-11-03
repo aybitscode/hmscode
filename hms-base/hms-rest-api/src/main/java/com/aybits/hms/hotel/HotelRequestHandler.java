@@ -40,10 +40,7 @@ public class HotelRequestHandler implements HmsRequestHandler {
      */
     @Override
     public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
-        ValidationResult result = new ValidationResult();
-        result.setCode(100);
-        result.setMessage("In Valida Request");
-        return result;
+        return (ValidationResult)hmsapiProvider.validate(dataJSON);
     }
 
 
