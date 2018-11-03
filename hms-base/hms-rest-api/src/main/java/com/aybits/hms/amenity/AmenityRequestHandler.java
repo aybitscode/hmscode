@@ -1,21 +1,23 @@
 package com.aybits.hms.amenity;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 public class AmenityRequestHandler implements HmsRequestHandler {
 
 
-
-    public ValidationResult validateRequest(Request request) {
+    @Override
+    public String getActionString(Request request) {
+        System.out.println("Hello");
         return null;
     }
 
-
-    public String getActionString(Request request) {
+    @Override
+    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
         return null;
     }
 
@@ -24,14 +26,9 @@ public class AmenityRequestHandler implements HmsRequestHandler {
         return null;
     }
 
-
-
+    @Override
     public String handleRequest(Request request, Response response) {
-        return null;
-    }
-
-
-    public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+        System.out.println("Hello");
         return null;
     }
 }

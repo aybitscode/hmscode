@@ -31,17 +31,16 @@ public class HotelRequestHandler implements HmsRequestHandler {
 
     HMSAPIProvider hmsapiProvider = new HotelAPI();
 
+
+
     /**
      *
-     * @param request
+     * @param dataJSON
      * @return
      */
     @Override
-    public ValidationResult validateRequestData(Request request) {
-        ValidationResult result = new ValidationResult();
-        result.setCode(100);
-        result.setMessage("In Valida Request");
-        return result;
+    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
+        return (ValidationResult)hmsapiProvider.validate(dataJSON);
     }
 
 
@@ -56,18 +55,32 @@ public class HotelRequestHandler implements HmsRequestHandler {
 
         Log.info("Hotel request handler invoked");
 
-        HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
-
-        ValidationResult result = validateRequestData(request);
-        if (result != null) {
-            //return result.getMessage();
+        ValidationResult validationResult = validateRequest(request);
+        if(validationResult != null){
+            return validationResult.getMessage();
         }
-
+        HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
         String operation = components.getOperation();
         String entity = components.getEntity();
         String data = components.getData();
         String action = operation + "/" + entity;
         String tokenId = components.getTokenId();
+
+        JSONObject dataJSON = null;
+
+        ValidationResult result = null;
+        try {
+            dataJSON = new JSONObject(data);
+            result = validateRequestData(dataJSON);
+        }catch(HMSException he){
+
+        }catch(JSONException je){
+
+        }
+        if (result != null) {
+            return result.getMessage();
+        }
+
 
 
         String message = "";

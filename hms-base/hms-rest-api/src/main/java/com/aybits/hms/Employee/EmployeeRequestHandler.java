@@ -8,6 +8,7 @@ import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
 import com.aybits.hms.func.employee.beans.Employee;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
@@ -17,7 +18,7 @@ public class EmployeeRequestHandler implements  HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public ValidationResult validateRequestData(JSONObject dataJSON) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");

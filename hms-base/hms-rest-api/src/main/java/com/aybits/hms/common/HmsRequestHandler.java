@@ -1,6 +1,7 @@
 package com.aybits.hms.common;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.arch.util.HmsConfig;
@@ -24,7 +25,7 @@ public interface HmsRequestHandler {
 
         if (action == null) {
             requestValidationResult.setCode(001);
-            requestValidationResult.setMessage("{'status':'error','message':'Invalid request URL.'}");
+            requestValidationResult.setMessage("{'status':'"+HMSAPIServiceConstants.HMS_RESPONSE_FAILURE+"','message':'Invalid request URL.'}");
         }
 
 
@@ -32,7 +33,7 @@ public interface HmsRequestHandler {
 
         if (components == null) {
             requestValidationResult.setCode(002);
-            requestValidationResult.setMessage("{'status':'error','message':'Invalid request body.'}");
+            requestValidationResult.setMessage("{'status':'"+HMSAPIServiceConstants.HMS_RESPONSE_FAILURE+"','message':'Invalid request body.'}");
         }
 
         return requestValidationResult;
@@ -63,7 +64,7 @@ public interface HmsRequestHandler {
         return action;
     }
 
-    public ValidationResult validateRequestData(Request request) throws HMSException;
+    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException;
 
     public String handleRequest(Request request, Response response);
 
