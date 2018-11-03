@@ -2,19 +2,20 @@ package com.aybits.hms.func.common.api;
 
 
 import com.aybits.hms.arch.exception.HMSException;
+import org.json.JSONObject;
 
 public abstract class HMSAPIProviderImpl implements HMSAPIProvider {
     @Override
-    public Object init(Object object) throws HMSException {
+    public Object init(JSONObject object) throws HMSException {
         return null;
     }
 
-    public Object process(Object object) throws HMSException {
+    public String process(JSONObject object) throws HMSException {
         return null;
     }
 
     @Override
-    public Object validate(Object object) throws HMSException {
+    public Object validate(JSONObject object) throws HMSException {
         return null;
     }
 }

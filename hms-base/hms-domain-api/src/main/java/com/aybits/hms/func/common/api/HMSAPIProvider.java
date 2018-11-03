@@ -10,11 +10,11 @@ public interface HMSAPIProvider {
         HMSCache hmsCache = new HMSCache();
         hmsCache.initHMSCache();
     }
-    Object init(Object object) throws HMSException;
+    Object init(JSONObject object) throws HMSException;
 
     String process(JSONObject object) throws HMSException;
 
-    Object validate(Object object) throws HMSException;
+    Object validate(JSONObject object) throws HMSException;
 
     String fetch(JSONObject json) throws HMSException;
 

@@ -143,12 +143,12 @@ public class HotelAPI implements HMSAPIProvider {
     }
 
     @Override
-    public Object init(Object object) throws HMSException {
+    public String init(JSONObject object) throws HMSException {
         return null;
     }
 
     @Override
-    public Object validate(Object object) throws HMSException {
+    public Object validate(JSONObject object) throws HMSException {
         return null;
     }
 

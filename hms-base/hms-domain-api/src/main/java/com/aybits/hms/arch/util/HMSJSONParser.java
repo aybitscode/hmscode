@@ -47,7 +47,7 @@ public class HMSJSONParser {
         JsonObject jobj = gson.fromJson(inputJsonString, JsonObject.class);
 
         if (jobj.get("data") == null || jobj.get("entity") == null
-                || jobj.get("operation") == null || jobj.get("request_id") == null) {
+                || jobj.get("operation") == null || jobj.get("token_id") == null) {
             return null;
         }
 
@@ -56,7 +56,7 @@ public class HMSJSONParser {
         components.setData(jobj.get("data").toString());
         components.setEntity(jobj.get("entity").getAsString());
         components.setOperation(jobj.get("operation").getAsString());
-        components.setTokenId(jobj.get("request_id").getAsString());
+        components.setTokenId(jobj.get("token_id").getAsString());
 
         return components;
     }
