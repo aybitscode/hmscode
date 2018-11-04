@@ -96,5 +96,7 @@ public interface HMSRequestHandler {
 
     }
 
-    public String populateHMSErrorResponse(HMSRuntimeException he);
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId);
+
+    public String populateGenericErrorResponse(Exception e,String tokenId);
 }

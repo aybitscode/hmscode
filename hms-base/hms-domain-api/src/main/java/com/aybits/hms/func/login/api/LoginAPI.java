@@ -6,6 +6,7 @@ import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.hotel.api.HotelAPI;
+import com.aybits.hms.func.hotel.api.HotelAPIHelper;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.login.beans.LoginAttributes;
 import com.aybits.hms.func.login.beans.LoginSession;
@@ -87,11 +88,11 @@ public class LoginAPI implements HmsAPI {
 
 
     private LoginSession generateLoginSession(LoginAttributes loginAttributes){
-        HotelAPI hotelAPI = new HotelAPI();
+        HotelAPIHelper hotelAPIHelper = new HotelAPIHelper();
         Hotel hotel = null;
         LoginSession loginSession = new LoginSession();
         try {
-            hotel = hotelAPI.fetchHotelByEmployeeId(loginAttributes.getLoginId());
+            hotel = hotelAPIHelper.fetchHotelByEmployeeId(loginAttributes.getLoginId());
             loginSession.setCurrentTimeStamp(System.currentTimeMillis());
             loginSession.setExpiryTimeStamp(System.currentTimeMillis()+(30*60*1000));
             loginSession.setHotel(hotel);
