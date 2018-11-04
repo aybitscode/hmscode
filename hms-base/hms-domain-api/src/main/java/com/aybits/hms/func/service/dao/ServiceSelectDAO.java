@@ -2,7 +2,8 @@ package com.aybits.hms.func.service.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.service.beans.Service;
 import com.aybits.hms.func.service.beans.ServiceType;
@@ -25,7 +26,7 @@ class ServiceSelectDAO {
     ResultSet rs = null;
 
 
-    protected List<Service> getServicesByAvailability(String hotelId, Boolean isServiceAvailable) throws HMSException{
+    protected List<Service> getServicesByAvailability(String hotelId, Boolean isServiceAvailable) throws HMSRuntimeException{
 
         List<Service> servicesList = new ArrayList<Service>();
         Service service = null;
@@ -49,16 +50,16 @@ class ServiceSelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return servicesList;
         }
     }
 
-    protected List<Service> getServicesByChargeability(String hotelId, Boolean isChargeable) throws HMSException{
+    protected List<Service> getServicesByChargeability(String hotelId, Boolean isChargeable) throws HMSRuntimeException{
 
         List<Service> servicesList = new ArrayList<Service>();
         Service service = null;
@@ -82,9 +83,9 @@ class ServiceSelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return servicesList;
@@ -92,7 +93,7 @@ class ServiceSelectDAO {
     }
 
 
-    private List<Service> getAllServices(String hotelId) throws HMSException{
+    private List<Service> getAllServices(String hotelId) throws HMSRuntimeException{
 
         List<Service> servicesList = new ArrayList<Service>();
         Service service = null;
@@ -112,9 +113,9 @@ class ServiceSelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return servicesList;
@@ -123,7 +124,7 @@ class ServiceSelectDAO {
     }
 
 
-    protected Service getService(String hotelId, String serviceId) throws HMSException {
+    protected Service getService(String hotelId, String serviceId) throws HMSRuntimeException {
         Service service = null;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -140,9 +141,9 @@ class ServiceSelectDAO {
                 Log.info("\nPopulating Service[" + service.getHotelId()+","+service.getServiceId() + "] in Service Object");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return service;
@@ -182,7 +183,7 @@ class ServiceSelectDAO {
     }
 
 
-    protected HashMap<String,Service> getServicesMapByHotelId(String hotelId) throws HMSException{
+    protected HashMap<String,Service> getServicesMapByHotelId(String hotelId) throws HMSRuntimeException{
 
         HashMap<String,Service> servicesHashMap = new HashMap<>();
         try{
@@ -192,9 +193,9 @@ class ServiceSelectDAO {
                 servicesHashMap.put(serviceId,service);
             }
 
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
             Log.error("Exception occurred while loading Services Map from DB");
-            throw new HMSException("Exception occurred while loading Services Map from DB");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION,"Exception occurred while loading Services Map from DB"));
         }
         return servicesHashMap;
     }

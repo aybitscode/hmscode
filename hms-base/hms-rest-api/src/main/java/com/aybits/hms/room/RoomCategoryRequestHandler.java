@@ -3,7 +3,7 @@ package com.aybits.hms.room;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomCategoryAPI;
 import com.aybits.hms.func.room.beans.RoomCategory;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class RoomCategoryRequestHandler implements HmsRequestHandler {
+public class RoomCategoryRequestHandler implements HMSRequestHandler {
 
     static Logger Log = Logger.getLogger(RoomCategoryRequestHandler.class);
 

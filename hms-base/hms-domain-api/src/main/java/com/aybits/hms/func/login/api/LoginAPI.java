@@ -1,7 +1,8 @@
 package com.aybits.hms.func.login.api;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
 import com.aybits.hms.func.hotel.api.HotelAPI;
@@ -15,7 +16,7 @@ import org.json.JSONObject;
 public class LoginAPI implements HMSAPIProvider {
 
     @Override
-    public String process(JSONObject dataJSON) throws HMSException {
+    public String process(JSONObject dataJSON) throws HMSRuntimeException {
 
         LoginSession loginSession = null;
         try {
@@ -32,7 +33,7 @@ public class LoginAPI implements HMSAPIProvider {
             }
 
         }catch(Exception e){
-            throw new HMSException(HMSErrorCodes.INVALID_LOGIN_ATTRIBUTES,"Login details provided are invalid");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_LOGIN_ATTRIBUTES,"Login details provided are invalid"));
         }finally{
             return loginSession.toString();
         }
@@ -54,27 +55,27 @@ public class LoginAPI implements HMSAPIProvider {
     }
 
     @Override
-    public String fetch(JSONObject json) throws HMSException {
+    public String fetch(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetchAll(JSONObject json) throws HMSException {
+    public String fetchAll(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String update(JSONObject json) throws HMSException {
+    public String update(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String disable(JSONObject json) throws HMSException {
+    public String disable(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String delete(JSONObject json) throws HMSException {
+    public String delete(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
@@ -87,12 +88,17 @@ public class LoginAPI implements HMSAPIProvider {
 
     private LoginSession generateLoginSession(LoginAttributes loginAttributes){
         HotelAPI hotelAPI = new HotelAPI();
-        Hotel hotel = hotelAPI.fetchHotelByEmployeeId(loginAttributes.getLoginId());
+        Hotel hotel = null;
         LoginSession loginSession = new LoginSession();
-        loginSession.setCurrentTimeStamp(System.currentTimeMillis());
-        loginSession.setExpiryTimeStamp(System.currentTimeMillis()+(30*60*1000));
-        loginSession.setHotel(hotel);
+        try {
+            hotel = hotelAPI.fetchHotelByEmployeeId(loginAttributes.getLoginId());
+            loginSession.setCurrentTimeStamp(System.currentTimeMillis());
+            loginSession.setExpiryTimeStamp(System.currentTimeMillis()+(30*60*1000));
+            loginSession.setHotel(hotel);
 
+        }catch(HMSRuntimeException he){
+            loginSession =  null;
+        }
         return loginSession;
 
     }

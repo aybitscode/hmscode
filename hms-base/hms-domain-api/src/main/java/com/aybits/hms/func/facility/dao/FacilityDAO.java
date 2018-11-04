@@ -2,7 +2,8 @@ package com.aybits.hms.func.facility.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.Status;
@@ -26,7 +27,7 @@ class FacilityDAO {
     PreparedStatement stmt = null;
     ResultSet rs = null;
 
-    protected Boolean addFacility(Facility facility) throws HMSException
+    protected Boolean addFacility(Facility facility) throws HMSRuntimeException
     {
         boolean isFacilityAdded = false;
         try {
@@ -53,16 +54,16 @@ class FacilityDAO {
             if(numRowsAffected > 0)
                 isFacilityAdded = true;
         } catch (SQLException e) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occured::" + e.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
         }
         return isFacilityAdded;
     }
 
-    protected Boolean updateFacilityStatus(String hotelId,String facilityId, Status status) throws HMSException {
+    protected Boolean updateFacilityStatus(String hotelId,String facilityId, Status status) throws HMSRuntimeException {
         Boolean isFacilityDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -83,17 +84,17 @@ class FacilityDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isFacilityDisabled;
         }
     }
 
-    protected Boolean updateFacilityCharges(String hotelId,String facilityId,Double facilityCharges) throws HMSException{
+    protected Boolean updateFacilityCharges(String hotelId,String facilityId,Double facilityCharges) throws HMSRuntimeException{
         Boolean isFacilityDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -114,10 +115,10 @@ class FacilityDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isFacilityDisabled;

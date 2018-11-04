@@ -1,8 +1,8 @@
 package com.aybits.hms.customer;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.customer.api.CustomerAPI;
 import com.aybits.hms.func.customer.beans.Customer;
@@ -13,7 +13,7 @@ import spark.Response;
 
 import java.util.List;
 
-public class CustomerRequestHandler implements HmsRequestHandler {
+public class CustomerRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(CustomerRequestHandler.class);
 
     @Override
@@ -102,12 +102,12 @@ public class CustomerRequestHandler implements HmsRequestHandler {
         }
     }
 
-    private HmsResponse getHmsResponse(Object responseData, boolean result) {
-        HmsResponse response = null;
+    private HMSResponse getHmsResponse(Object responseData, boolean result) {
+        HMSResponse response = null;
       /*  if (result) {
-            response = new HmsResponse(200, "SUCCESS", responseData, null, null, "SUCCESS");
+            response = new HMSAPIResponse(200, "SUCCESS", responseData, null, null, "SUCCESS");
         } else {
-            response = new HmsResponse(200, "FAILED", responseData, null, null, "FAILED");
+            response = new HMSAPIResponse(200, "FAILED", responseData, null, null, "FAILED");
         }*/
         return response;
     }

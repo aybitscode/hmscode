@@ -5,11 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.aybits.hms.arch.exception.HMSErrorInfo;
 import org.apache.log4j.Logger;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
 import com.aybits.hms.func.taxrules.beans.TaxRule;
@@ -25,7 +26,7 @@ public class TaxRuleDAO {
 
 	    static Logger Log = Logger.getLogger(TaxRuleDAO.class);
 	    
-	    public Boolean addTaxRule(TaxRule taxRule) throws HMSException {
+	    public Boolean addTaxRule(TaxRule taxRule) throws HMSRuntimeException {
 	        boolean isTaxRuleAdded = false;
 	        Connection connection  = null;
 	        PreparedStatement ps = null;
@@ -57,16 +58,16 @@ public class TaxRuleDAO {
 
 	        } catch (SQLException e) {
 	            Log.error("error occurred", e);
-	            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occurred::" + e.getMessage());
+	            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occurred::" + e.getMessage()));
 	        } catch (NullPointerException npe) {
-	            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+	            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
 	        } finally {
 	            DBCPConnection.closeDBConnection(null, ps, connection);
 	        }
 	        return isTaxRuleAdded;
 	    }
 
-	    protected TaxRule getTaxRuleByHotelId(String hotelId) throws HMSException{
+	    protected TaxRule getTaxRuleByHotelId(String hotelId) throws HMSRuntimeException{
 
 	    	TaxRule taxRule = new TaxRule();
 	    	
@@ -87,9 +88,9 @@ public class TaxRuleDAO {
 	            }
 	        } catch (SQLException e) {
 	            // TODO Auto-generated catch block
-	            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+	            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
 	        } catch (NullPointerException npe) {
-	            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+	            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
 	        } finally {
 	            DBCPConnection.closeDBConnection(null, stmt, connection);
 	            return taxRule;

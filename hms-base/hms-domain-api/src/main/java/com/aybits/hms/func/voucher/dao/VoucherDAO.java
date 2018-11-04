@@ -2,7 +2,8 @@ package com.aybits.hms.func.voucher.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.voucher.beans.Voucher;
 import com.aybits.hms.func.voucher.beans.VoucherStatus;
@@ -58,7 +59,7 @@ public class VoucherDAO {
                     connection.commit();
                 }
         } catch (Exception npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs , stmt, connection);
             return isVoucherAdditionSuccessful;
@@ -106,7 +107,7 @@ public class VoucherDAO {
 
 
         }  catch (Exception npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return isVoucherUpdateSuccessful;
@@ -137,14 +138,14 @@ public class VoucherDAO {
 
 
         }catch (Exception npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return voucher;
         }
     }
 
-    public List<Voucher> fetchAllVouchers(String hotelId) throws HMSException{
+    public List<Voucher> fetchAllVouchers(String hotelId) throws HMSRuntimeException{
 
         List<Voucher> vouchers = new ArrayList<Voucher>();
         try {
@@ -165,7 +166,7 @@ public class VoucherDAO {
             stmt.close();
 
         } catch (Exception npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return vouchers;
@@ -173,7 +174,7 @@ public class VoucherDAO {
     }
 
 
-    public List<Voucher> fetchAllVouchers() throws HMSException{
+    public List<Voucher> fetchAllVouchers() throws HMSRuntimeException{
 
         List<Voucher> vouchers = new ArrayList<Voucher>();
         try {
@@ -194,7 +195,7 @@ public class VoucherDAO {
             stmt.close();
 
         }  catch (Exception npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return vouchers;
@@ -262,9 +263,9 @@ public class VoucherDAO {
                         }
                     }
 
-                }catch(HMSException e){
+                }catch(HMSRuntimeException e){
                     //LOG Cache Initialization failed
-                    //  throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all voucher details failed");
+                    //  throw new HMSRuntimeException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all voucher details failed");
                 }finally{
                     if(!voucherConcurrentHashMap.keySet().isEmpty()){
                         isVoucherCacheInitialized = true;
@@ -276,7 +277,7 @@ public class VoucherDAO {
             return isVoucherCacheInitialized;
         }
 
-        public Boolean addVoucher(Voucher voucher) throws HMSException {
+        public Boolean addVoucher(Voucher voucher) throws HMSRuntimeException {
 
             Boolean isVoucherAdditionSuccessful = voucherDAO.addVoucher(voucher);
             if(isVoucherAdditionSuccessful){
@@ -289,7 +290,7 @@ public class VoucherDAO {
 
         }
 
-        public Boolean updateVoucher(Voucher voucher) throws HMSException {
+        public Boolean updateVoucher(Voucher voucher) throws HMSRuntimeException {
             Boolean isVoucherUpdateSuccessful = voucherDAO.updateVoucher(voucher);
             if(isVoucherUpdateSuccessful) {
                 String voucherId = voucher.getVoucherId();
@@ -302,7 +303,7 @@ public class VoucherDAO {
         }
 
 
-        public Voucher fetchVoucherById(String hotelId,String voucherId) throws HMSException {
+        public Voucher fetchVoucherById(String hotelId,String voucherId) throws HMSRuntimeException {
             Voucher voucher = null;
             try{
                 voucher = (Voucher)voucherConcurrentHashMap.get(voucherId);
@@ -319,7 +320,7 @@ public class VoucherDAO {
         }
 
 
-        public  List<Voucher> fetchAllVouchers(String hotelId) throws HMSException {
+        public  List<Voucher> fetchAllVouchers(String hotelId) throws HMSRuntimeException {
 
             ArrayList<Object> voucherObjs = new ArrayList<>();
             ArrayList<Voucher> vouchers = new ArrayList<>();
@@ -351,7 +352,7 @@ public class VoucherDAO {
                 if(voucher != null && voucher.getVoucherId() != null){
                     isVoucherPresent = true;
                 }
-            } catch (HMSException e) {
+            } catch (HMSRuntimeException e) {
                 log.error("Exception occured while checking if Voucher["+voucher.getHotelId()+":"+voucher.getVoucherId()+"] is present in the system");
             }
             return isVoucherPresent;

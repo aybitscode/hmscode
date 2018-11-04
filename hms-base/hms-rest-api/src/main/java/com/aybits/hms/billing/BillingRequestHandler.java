@@ -1,13 +1,13 @@
 package com.aybits.hms.billing;
 
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class BillingRequestHandler implements HmsRequestHandler {
+public class BillingRequestHandler implements HMSRequestHandler {
 
 
     @Override
@@ -27,7 +27,7 @@ public class BillingRequestHandler implements HmsRequestHandler {
 
 
     @Override
-    public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+    public HMSResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
         return null;
     }
 }

@@ -2,7 +2,8 @@ package com.aybits.hms.func.amenity.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.amenity.beans.Amenity;
@@ -15,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.aybits.hms.arch.exception.HMSErrorCodes.HMS_EXCEPTION;
 
 public class AmenityDAO {
 
@@ -29,7 +32,7 @@ public class AmenityDAO {
 
 
 
-    public Boolean addAmenity(Amenity amenity) throws HMSException {
+    public Boolean addAmenity(Amenity amenity) throws HMSRuntimeException {
         boolean isAmenityAdded = false;
         Connection connection  = null;
         PreparedStatement ps = null;
@@ -58,9 +61,9 @@ public class AmenityDAO {
 
         } catch (SQLException e) {
             Log.error("error occurred", e);
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occurred::" + e.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMS_EXCEPTION, "sql Exception occurred::" + e.getMessage()));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, ps, connection);
         }
@@ -90,17 +93,17 @@ public class AmenityDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isUpdateSuccessful;
         }
 
     }
-    public Boolean updateAmenityStatus(String hotelId,String amenityId, Status status) throws HMSException {
+    public Boolean updateAmenityStatus(String hotelId,String amenityId, Status status) throws HMSRuntimeException {
         Boolean isUpdateSuccessful = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -121,17 +124,17 @@ public class AmenityDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isUpdateSuccessful;
         }
     }
 
-    public Boolean updateAmenityCharges(String hotelId,String amenityId,Double amenityCharges) throws HMSException{
+    public Boolean updateAmenityCharges(String hotelId,String amenityId,Double amenityCharges) throws HMSRuntimeException{
         Boolean isFacilityDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -152,10 +155,10 @@ public class AmenityDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isFacilityDisabled;

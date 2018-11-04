@@ -1,8 +1,11 @@
 package com.aybits.hms.func.voucher.api;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
+import com.aybits.hms.func.common.api.HMSAPIProvider;
 import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
 import com.aybits.hms.func.voucher.beans.Voucher;
 import com.aybits.hms.func.voucher.dao.VoucherDAO;
@@ -11,7 +14,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class VoucherAPI extends HMSAPIProviderImpl {
+public class VoucherAPI implements HMSAPIProvider {
 
 
     static Logger log = Logger.getLogger(VoucherAPI.class);
@@ -20,14 +23,14 @@ public class VoucherAPI extends HMSAPIProviderImpl {
 
 
 
-    private Boolean addVoucher(Voucher voucher) throws HMSException {
+    private Boolean addVoucher(Voucher voucher) throws HMSRuntimeException {
         Boolean isVoucherAdditionSuccessful = false;
         if (voucher.getVoucherId() != null && voucher.getVoucherId().equals(HMSAPIConstants.TO_BE_GENERATED )) {
             try {
                 isVoucherAdditionSuccessful = voucherCache.addVoucher(voucher);
-            } catch (HMSException e) {
+            } catch (HMSRuntimeException e) {
                 log.info("Exception occured while adding voucher::"+voucher.getVoucherId());
-                throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding voucher details failed");
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.VOUCHER_ADDITION_FAILED, "Adding voucher details failed"));
             }
         }
         return isVoucherAdditionSuccessful;
@@ -37,7 +40,7 @@ public class VoucherAPI extends HMSAPIProviderImpl {
         List<Voucher> vouchers = null;
         try {
             vouchers = voucherCache.fetchAllVouchers(hotelId);
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
 
         }finally{
             return vouchers;
@@ -49,7 +52,7 @@ public class VoucherAPI extends HMSAPIProviderImpl {
         Voucher voucher = null;
         try{
             voucher = voucherCache.fetchVoucherById(hotelId,voucherId);
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
 
         }finally {
             return voucher;
@@ -62,14 +65,14 @@ public class VoucherAPI extends HMSAPIProviderImpl {
         try{
             voucher = voucherCache.fetchVoucherById(hotelId,voucherId);
         }catch(Exception e){
-            throw new HMSException(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Voucher Details not available for given emploeeId");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Voucher Details not available for given emploeeId"));
         }finally{
             return voucher;
         }
 
     }
 
-    public Boolean upsertVoucher(Voucher voucher) throws HMSException{
+    public Boolean upsertVoucher(Voucher voucher) throws HMSRuntimeException{
 
         String voucherId = voucher.getVoucherId();
         String hotelId = voucher.getHotelId();
@@ -86,14 +89,14 @@ public class VoucherAPI extends HMSAPIProviderImpl {
         return isOperationSuccessful;
     }
 
-    private Boolean updateVoucher(Voucher voucher) throws HMSException {
+    private Boolean updateVoucher(Voucher voucher) throws HMSRuntimeException {
 
         Boolean isVoucherUpdateSuccessful = false;
         if (voucher.getVoucherId() == HMSAPIConstants.TO_BE_GENERATED) try {
             isVoucherUpdateSuccessful = voucherCache.updateVoucher(voucher);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             log.info("Exception occured while adding voucher::" + voucher.getVoucherId());
-            throw new HMSException(HMSErrorCodes.HOTEL_UPDATE_FAILED, "Adding Voucher details failed");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_UPDATE_FAILED, "Adding Voucher details failed"));
         }
         return isVoucherUpdateSuccessful;
 
@@ -123,32 +126,42 @@ public class VoucherAPI extends HMSAPIProviderImpl {
 
 
     @Override
-    public String process(JSONObject object) throws HMSException {
+    public Object init(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetch(JSONObject json) throws HMSException {
+    public String process(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetchAll(JSONObject json) throws HMSException {
+    public Object validate(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String update(JSONObject json) throws HMSException {
+    public String fetch(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String disable(JSONObject json) throws HMSException {
+    public String fetchAll(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String delete(JSONObject json) throws HMSException {
+    public String update(JSONObject json) throws HMSRuntimeException {
+        return null;
+    }
+
+    @Override
+    public String disable(JSONObject json) throws HMSRuntimeException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 }

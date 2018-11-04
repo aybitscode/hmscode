@@ -3,7 +3,8 @@ package com.aybits.hms.func.employee.dao;
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.dbman.DatabaseConstants;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.beans.ContactDetails;
 import com.aybits.hms.func.common.beans.Address;
@@ -21,7 +22,7 @@ public class EmployeeDAO {
     static Logger Log = Logger.getLogger(EmployeeDAO.class);
 
     @SuppressWarnings("finally")
-    public Boolean getAllEmployees(EmployeeCache employeeCache) throws HMSException{
+    public Boolean getAllEmployees(EmployeeCache employeeCache) throws HMSRuntimeException{
         Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -48,22 +49,19 @@ public class EmployeeDAO {
                     //employeeCache.addEmployee(employee);
                 }
             }else{
-                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE,"No DB Connections are available"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (HMSException e){
-            //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
-        }finally{
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
+        } finally{
            DBCPConnection.closeDBConnection(rs ,stmt, connection);
             return cacheLoadStatus;
         }
     }
 
     @SuppressWarnings("finally")
-    public static List<Employee> getAllEmployees() throws HMSException{
+    public static List<Employee> getAllEmployees() throws HMSRuntimeException{
 
 
         List<Employee> employees = new ArrayList<Employee>();
@@ -86,11 +84,11 @@ public class EmployeeDAO {
                     employees.add(employee);
                 }
             }else{
-                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE,"No DB Connections are available"));
             }
-        } catch (Exception e){
+        } catch (SQLException e){
             //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         }finally{
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return employees;
@@ -99,7 +97,7 @@ public class EmployeeDAO {
 
 
     @SuppressWarnings("finally")
-    public static Employee getEmployeeByPhone(String mobilePhone) throws HMSException{
+    public static Employee getEmployeeByPhone(String mobilePhone) throws HMSRuntimeException{
         Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -120,11 +118,11 @@ public class EmployeeDAO {
                     Log.info("\nPopulating employee["+employee.getEmpId()+"] in Employee Object");
                 }
             }else{
-                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE,"No DB Connections are available"));
             }
-        }catch (Exception e){
+        }catch (SQLException e){
             //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         }finally{
            DBCPConnection.closeDBConnection(rs, stmt, connection);
 
@@ -205,7 +203,7 @@ public class EmployeeDAO {
         return additionStatus;
     }
 
-    public Boolean updateEmployee(Employee employee) throws HMSException
+    public Boolean updateEmployee(Employee employee) throws HMSRuntimeException
     {
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -232,7 +230,7 @@ public class EmployeeDAO {
 
         } catch (SQLException e) {
 
-            throw new HMSException("Employee Update Operation failed");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
 
         }
         finally {
@@ -279,8 +277,8 @@ public class EmployeeDAO {
     public static Employee getEmployeeById(String employeeId) {
         if(employeeId == null || employeeId.equals("")){
             try {
-                throw new HMSException(HMSErrorCodes.INVALID_EMPLOYEE_ID);
-            } catch (HMSException e) {
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_EMPLOYEE_ID,"Invalid Employee ID provided"));
+            } catch (HMSRuntimeException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }finally{
@@ -308,11 +306,11 @@ public class EmployeeDAO {
                     Log.info("\nPopulating employee["+employee.getEmpId()+"] in Employee Object");
                 }
             }else{
-                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE,"No DB Connections are available"));
             }
-        } catch (HMSException e){
+        } catch (SQLException e){
             //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         }finally{
            DBCPConnection.closeDBConnection(rs, stmt ,connection);
             return employee;

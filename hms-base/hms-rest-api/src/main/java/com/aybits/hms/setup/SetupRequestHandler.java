@@ -4,7 +4,7 @@ import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.feature.FeatureRequestHandler;
 import com.aybits.hms.hotel.HotelRequestHandler;
@@ -15,10 +15,10 @@ import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class SetupRequestHandler implements HmsRequestHandler {
+public class SetupRequestHandler implements HMSRequestHandler {
 
     static Logger Log = Logger.getLogger(SetupRequestHandler.class);
-    HmsRequestHandler hmsRequestHandler = null;
+    HMSRequestHandler hmsRequestHandler = null;
 
 
 
