@@ -48,7 +48,12 @@ public class RoomRequestHandler implements HMSRequestHandler {
     }
 
     @Override
-    public String populateHMSErrorResponse(HMSRuntimeException he) {
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
         return null;
     }
 

@@ -1,6 +1,5 @@
 package com.aybits.hms.amenity;
 
-import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
@@ -34,7 +33,12 @@ public class AmenityRequestHandler implements HMSRequestHandler {
     }
 
     @Override
-    public String populateHMSErrorResponse(HMSRuntimeException he) {
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
         return null;
     }
 }

@@ -18,7 +18,7 @@ public class Address {
     @JsonProperty("state")
     private String state;
 
-    @JsonProperty("pin_code")
+    @JsonProperty("pincode")
 
     private String pinCode;
 

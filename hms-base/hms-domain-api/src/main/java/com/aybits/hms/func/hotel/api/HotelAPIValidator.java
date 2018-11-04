@@ -8,7 +8,7 @@ import com.aybits.hms.func.common.api.HMSAPIValidator;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 
-public class HotelValidator {
+public class HotelAPIValidator {
 
     HMSAPIValidator hmsapiValidator = new HMSAPIValidator();
 

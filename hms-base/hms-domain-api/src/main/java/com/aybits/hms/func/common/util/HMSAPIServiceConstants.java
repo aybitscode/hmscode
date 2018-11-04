@@ -48,6 +48,7 @@ public class HMSAPIServiceConstants {
     public static final String HMS_RESPONSE_SUCCESS = "success";
     public static final String HMS_RESPONSE_FAILURE = "failure";
     public static final String HMS_FAILURE_RESPONSE_DATA = "NOVAL";
+    public static final String HMS_SYSTEM_ERROR = "hms_system_error";
 
 
 }

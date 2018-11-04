@@ -28,6 +28,10 @@ public class HMSRuntimeException extends RuntimeException {
         this.hmsErrorInfo = hmsErrorInfo;
     }
 
+    public HMSErrorInfo getHmsErrorInfo(){
+        return hmsErrorInfo;
+    }
+
     private static String getFormattedMessage(HMSErrorInfo hmsErrorInfo){
         return hmsErrorInfo.getErrorMessage();
     }
