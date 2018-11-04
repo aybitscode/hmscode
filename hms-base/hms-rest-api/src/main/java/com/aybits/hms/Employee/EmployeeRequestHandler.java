@@ -1,5 +1,6 @@
 package com.aybits.hms.Employee;
 
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.HMSRequestHandler;
@@ -18,11 +19,11 @@ public class EmployeeRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequestData(JSONObject dataJSON) {
+    public void validateRequestData(JSONObject dataJSON) {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
-        return result;
+        //return result;
     }
 
     @Override
@@ -60,6 +61,11 @@ public class EmployeeRequestHandler implements HMSRequestHandler {
                 break;
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he) {
+        return null;
     }
 
     private String addEmployee(Request request) {

@@ -9,7 +9,6 @@ public enum HMSErrorCodes implements HMSError {
 	INVALID_CUSTOMER_ID("invalid_customer_id","%s"),
 	INVALID_CUSTOMER_PHONE("invalid_customer_phone","%s"),
 	INVALID_LOGIN_ATTRIBUTES("invalid_login_attributes","%s"),
-    INVALID_HOTEL_ATTRIBUTES("invalid_hotel_attributes","%s"),
     HOTEL_DETAILS_UNAVAILABLE("hotel_not_available","%s"),
 	INVALID_ROOM_ATTRIBUTES("invalid_room_attributes","%s"),
 
@@ -17,11 +16,21 @@ public enum HMSErrorCodes implements HMSError {
 	INVALID_EMPLOYEE_PHONE("invalid_employee_phone","%s"),
 
 	HOTEL_SETUP_FAILED("hotel_setup_failed","%s"),
+	INVALID_HOTEL_SETUP_DATA("invalid_hotel_setup_data","%s"),
+	INVALID_HOTEL_ATTRIBUTES("invalid_hotel_attributes","%s"),
+	INVALID_CONTACT_DETAILS("missing_contact_details","%s"),
+	INVALID_ADDRESS_DETAILS("missing_address_details","%s"),
+	INVALID_PHONE("invalid_phone","%s"),
+	INVALID_EMAIL("invalid_email","%s"),
+	INVALID_MOBILE_PHONE("invalid_mobile_phone","%s"),
+
+	INVALID_HOTEL_NAME("invalid_hotel_name","%s"),
 	HOTEL_REG_DATA_ADDITION_FAILED("hotel_registration_data_addition_failed","%s"),
+	INVALID_HOTEL_REGISTRATION_DATA("invalid_hotel_registration_data","%s"),
 	HOTEL_ALREADY_EXISTS ("hotel_already_exists","%s"),
 	HOTEL_UPDATE_FAILED("hotel_update_failed","%s"),
 	HMS_EXCEPTION("hms_exception","%s"),
-
+	HMS_LENGTH_CHECK_FAILED("hms_length_check_failed","%s"),
 	FACILITY_ADDITION_FAILED("facility_addition_failed","%s"),
 	FACILITY_UPDATE_FAILED("facility_update_failed","%s"),
 	AMENITY_ADDITION_FAILED("amenity_addition_failed","%s"),
@@ -29,6 +38,7 @@ public enum HMSErrorCodes implements HMSError {
 	SERVICE_ADDITION_FAILED("service_addition_failed","%s"),
 	VOUCHER_ADDITION_FAILED("service_addition_failed","%s"),
 	SERVICE_UPDATE_FAILED("service_update_failed","%s");
+
 
 	private String errorCode;
 	private String errorMessage;

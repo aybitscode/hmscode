@@ -1,7 +1,8 @@
 package com.aybits.hms.func.employee.api;
 
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HmsAPIImpl;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.employee.dao.EmployeeDAO;
 import org.json.JSONObject;
@@ -9,7 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeAPI extends HMSAPIProviderImpl {
+public class EmployeeAPI implements HmsAPI {
 
     public EmployeeAPI(){
 
@@ -83,8 +84,18 @@ public class EmployeeAPI extends HMSAPIProviderImpl {
     }
 
     @Override
+    public Object init(JSONObject object) throws HMSRuntimeException {
+        return null;
+    }
+
+    @Override
     public String process(JSONObject object) throws HMSRuntimeException {
         return null;
+    }
+
+    @Override
+    public void validate(JSONObject object) throws HMSRuntimeException {
+
     }
 
     @Override

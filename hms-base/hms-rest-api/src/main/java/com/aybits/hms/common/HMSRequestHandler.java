@@ -1,6 +1,6 @@
 package com.aybits.hms.common;
 
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.arch.util.HmsConfig;
@@ -63,7 +63,7 @@ public interface HMSRequestHandler {
         return action;
     }
 
-    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException;
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException;
 
     public String handleRequest(Request request, Response response);
 
@@ -95,4 +95,6 @@ public interface HMSRequestHandler {
         }
 
     }
+
+    public String populateHMSErrorResponse(HMSRuntimeException he);
 }

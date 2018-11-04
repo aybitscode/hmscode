@@ -3,10 +3,10 @@ package com.aybits.hms.func.hotel.api;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HMSAPIValidator;
+import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.common.api.HMSAPIResponse;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.common.util.HMSJSONConstants;
@@ -20,11 +20,13 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class HotelAPI implements HMSAPIProvider {
+public class HotelAPI implements HmsAPI {
 
     static Logger Log = Logger.getLogger(HotelAPI.class);
     HotelCache hotelCache = new HotelCache();
     HotelSelectDAO hotelSelectDAO = new HotelSelectDAO();
+    HotelAPIHelper hotelAPIHelper = new HotelAPIHelper();
+    HotelValidator hotelValidator = new HotelValidator();
 
 
     public String process(JSONObject data) throws HMSRuntimeException{
@@ -189,9 +191,38 @@ public class HotelAPI implements HMSAPIProvider {
     }
 
     @Override
-    public Object validate(JSONObject object) throws HMSRuntimeException {
-        return null;
+    public void validate(JSONObject object) throws HMSRuntimeException {
+        JSONObject hotelJSON = null;
+        JSONObject hotelRegistrationDataJSON = null;
+        try {
+            hotelJSON = object.getJSONObject(HMSJSONConstants.HOTEL);
+            hotelRegistrationDataJSON = object.getJSONObject(HMSJSONConstants.HOTEL_REGISTRATION_DATA);
+        } catch (JSONException e) {
+            Log.info("Exception occured while adding hotel::");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_SETUP_FAILED, "Adding Hotel details failed because of invalid hotel-setup-json:"+e.getMessage()));
+        }
+
+        Hotel hotel = null;
+        HotelRegistrationData hotelRegistrationData = null;
+        try {
+            hotel = (Hotel) HMSJSONParser.convertJSONToObject(hotelJSON.toString(), Hotel.class);
+        }catch(Exception e){
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_HOTEL_SETUP_DATA,"Invalid Hotel setup details provided"));
+        }
+
+        try{
+           hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(hotelRegistrationDataJSON.toString(), HotelRegistrationData.class);
+        }catch(Exception e){
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_HOTEL_REGISTRATION_DATA,"Invalid Hotel Registration Data provided"));
+        }
+
+        hotelValidator.validateHotel(hotel);
+        hotelValidator.validateHotelRegistrationData(hotelRegistrationData);
+
+
     }
+
+
 
     @Override
     public String fetch(JSONObject json) throws HMSRuntimeException {

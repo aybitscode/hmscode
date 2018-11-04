@@ -1,6 +1,7 @@
 package com.aybits.hms.facility;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
@@ -31,8 +32,8 @@ public class FacilityRequestHandler implements HMSRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(JSONObject dataJSON) {
-        return null;
+    public void validateRequestData(JSONObject dataJSON) {
+        //return null;
     }
 
     @Override
@@ -67,6 +68,11 @@ public class FacilityRequestHandler implements HMSRequestHandler {
 
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he) {
+        return null;
     }
 
     private String fetchAllFacilities(Request request) throws HMSException {

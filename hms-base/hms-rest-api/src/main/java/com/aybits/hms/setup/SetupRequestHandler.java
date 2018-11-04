@@ -2,6 +2,7 @@ package com.aybits.hms.setup;
 
 import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
@@ -22,8 +23,7 @@ public class SetupRequestHandler implements HMSRequestHandler {
 
 
 
-    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
-        return null;
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
     }
 
     @Override
@@ -44,8 +44,8 @@ public class SetupRequestHandler implements HMSRequestHandler {
         ValidationResult result = null;
         try {
             dataJSON = new JSONObject(data);
-            result = validateRequestData(dataJSON);
-        }catch(HMSException he){
+            validateRequestData(dataJSON);
+        }catch(HMSRuntimeException he){
 
         }catch(JSONException je){
 
@@ -74,6 +74,10 @@ public class SetupRequestHandler implements HMSRequestHandler {
         return message;
     }
 
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he) {
+        return null;
+    }
 
 
     private String setupHotel(Request request,Response response){

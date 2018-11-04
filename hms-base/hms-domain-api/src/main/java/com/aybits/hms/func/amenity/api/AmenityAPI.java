@@ -7,7 +7,8 @@ import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.amenity.dao.AmenityCache;
 import com.aybits.hms.func.amenity.dao.AmenityDAO;
-import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HmsAPIImpl;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 import static com.aybits.hms.arch.exception.HMSErrorCodes.AMENITY_ADDITION_FAILED;
 
-public class AmenityAPI extends HMSAPIProviderImpl {
+public class AmenityAPI implements HmsAPI {
 
     static Logger log = Logger.getLogger(AmenityAPI.class);
     AmenityCache amenityCache = new AmenityCache();
@@ -98,8 +99,18 @@ public class AmenityAPI extends HMSAPIProviderImpl {
 
 
     @Override
+    public Object init(JSONObject object) throws HMSRuntimeException {
+        return null;
+    }
+
+    @Override
     public String process(JSONObject object) throws HMSRuntimeException {
         return null;
+    }
+
+    @Override
+    public void validate(JSONObject object) throws HMSRuntimeException {
+
     }
 
     @Override

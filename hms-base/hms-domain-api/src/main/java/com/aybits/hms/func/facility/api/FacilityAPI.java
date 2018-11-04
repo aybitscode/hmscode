@@ -4,7 +4,7 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
-import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.facility.dao.FacilityCache;
 import org.apache.log4j.Logger;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class FacilityAPI implements HMSAPIProvider {
+public class FacilityAPI implements HmsAPI {
 
     static Logger log = Logger.getLogger(FacilityAPI.class);
     FacilityCache facilityCache = new FacilityCache();
@@ -104,8 +104,7 @@ public class FacilityAPI implements HMSAPIProvider {
     }
 
     @Override
-    public Object validate(JSONObject object) throws HMSRuntimeException {
-        return null;
+    public void validate(JSONObject object) throws HMSRuntimeException {
     }
 
     @Override

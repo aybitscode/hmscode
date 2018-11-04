@@ -4,7 +4,7 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.login.beans.LoginAttributes;
@@ -13,7 +13,7 @@ import com.aybits.hms.func.login.dao.LoginDAO;
 import org.json.JSONObject;
 
 
-public class LoginAPI implements HMSAPIProvider {
+public class LoginAPI implements HmsAPI {
 
     @Override
     public String process(JSONObject dataJSON) throws HMSRuntimeException {
@@ -22,8 +22,8 @@ public class LoginAPI implements HMSAPIProvider {
         try {
 
             LoginAttributes loginAttributes = (LoginAttributes)HMSJSONParser.convertJSONToObject(dataJSON.toString(), LoginAttributes.class);
-            String loginStr = (String)validate(dataJSON);
-            Boolean isLoginSuccessful = Boolean.parseBoolean(loginStr);
+            validate(dataJSON);
+            Boolean isLoginSuccessful = false;
             if(isLoginSuccessful){
 
                 // TODO
@@ -40,7 +40,7 @@ public class LoginAPI implements HMSAPIProvider {
     }
 
     @Override
-    public Object validate(JSONObject dataJSON){
+    public void validate(JSONObject dataJSON){
 
 
         LoginAttributes loginAttributes = (LoginAttributes)HMSJSONParser.convertJSONToObject(dataJSON.toString(),LoginAttributes.class);
@@ -50,7 +50,7 @@ public class LoginAPI implements HMSAPIProvider {
 
         LoginDAO loginDAO = new LoginDAO();
 
-        return loginDAO.validateLogin(login,password).toString();
+        loginDAO.validateLogin(login,password).toString();
 
     }
 
