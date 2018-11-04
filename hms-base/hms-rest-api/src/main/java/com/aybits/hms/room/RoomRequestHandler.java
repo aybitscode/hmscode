@@ -1,8 +1,8 @@
 package com.aybits.hms.room;
 
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomAPI;
 import com.aybits.hms.func.room.beans.Room;
@@ -13,7 +13,7 @@ import spark.Response;
 
 import java.util.List;
 
-public class RoomRequestHandler implements HmsRequestHandler {
+public class RoomRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(RoomRequestHandler.class);
 
     @Override
@@ -72,12 +72,12 @@ public class RoomRequestHandler implements HmsRequestHandler {
         }
     }
 
-    private HmsResponse getHmsResponse(Object responseData, boolean result) {
-        HmsResponse response = null;
+    private HMSResponse getHmsResponse(Object responseData, boolean result) {
+        HMSResponse response = null;
         /*if (result) {
-            response = new HmsResponse(200, "SUCCESS", responseData, null, "SUCCESS");
+            response = new HMSAPIResponse(200, "SUCCESS", responseData, null, "SUCCESS");
         } else {
-            response = new HmsResponse(200, "FAILED", responseData, null, "FAILED");
+            response = new HMSAPIResponse(200, "FAILED", responseData, null, "FAILED");
         }*/
         return response;
     }

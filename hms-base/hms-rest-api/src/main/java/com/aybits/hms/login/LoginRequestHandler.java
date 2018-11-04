@@ -2,12 +2,12 @@ package com.aybits.hms.login;
 
 import com.aybits.hms.common.ValidationResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class LoginRequestHandler implements HmsRequestHandler {
+public class LoginRequestHandler implements HMSRequestHandler {
     ObjectMapper mapper = new ObjectMapper();
 
     @Override

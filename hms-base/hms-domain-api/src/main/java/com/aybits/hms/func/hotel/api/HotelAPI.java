@@ -1,30 +1,71 @@
 package com.aybits.hms.func.hotel.api;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HMSAPIResponse;
+import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
+import com.aybits.hms.func.common.util.HMSJSONConstants;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.cache.HotelCache;
 import com.aybits.hms.func.hotel.dao.HotelSelectDAO;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
 public class HotelAPI implements HMSAPIProvider {
 
-    static Logger log = Logger.getLogger(HotelAPI.class);
+    static Logger Log = Logger.getLogger(HotelAPI.class);
     HotelCache hotelCache = new HotelCache();
     HotelSelectDAO hotelSelectDAO = new HotelSelectDAO();
 
 
-    public String process(JSONObject data) throws HMSException{
-        return null;
+    public String process(JSONObject data) throws HMSRuntimeException{
+        Log.info("in addHotel");
+        String status = null;
+        String message = null;
+        String hotelId = null;
+        try {
+            Hotel hotel = (Hotel) HMSJSONParser.convertJSONToObject(data.toString(), Hotel.class);
+            hotelId = addHotel(hotel);
+            status = HMSAPIServiceConstants.HMS_RESPONSE_SUCCESS;
+            message = "Hotel with ["+hotelId+"] created successfully";
+            Log.info(message);
+        } catch (HMSRuntimeException e) {
+            status = HMSAPIServiceConstants.HMS_RESPONSE_FAILURE;
+            message = "Hotel creation failed:"+e.getMessage();
+        }finally{
+            return createHMSAPIResponse(status,message,hotelId);
+        }
     }
 
-    private String addHotel(Hotel hotel) throws HMSException {
+    private String createHMSAPIResponse(String status,String message,String data){
+
+        JSONObject json = null;
+        HMSAPIResponse hmsapiResponse = new HMSAPIResponse();
+        try {
+            json = new JSONObject();
+            json.put(HMSJSONConstants.HOTEL_ID,data);
+        } catch (JSONException e) {
+            status = HMSAPIServiceConstants.HMS_RESPONSE_FAILURE;
+            message = "Hotel creation failed:"+e.getMessage();
+        } finally{
+            hmsapiResponse.setResponseData(json.toString());
+            hmsapiResponse.setMessage(message);
+            hmsapiResponse.setStatus(status);
+            return HMSJSONParser.convertObjectToJSON(hmsapiResponse);
+        }
+
+    }
+
+    private String addHotel(Hotel hotel) throws HMSRuntimeException {
         String hotelId = null;
 
         if(!isHotelAlreadyPresent(hotel)){
@@ -36,21 +77,21 @@ public class HotelAPI implements HMSAPIProvider {
                     }
                 }
                 catch (NullPointerException npe) {
-                    log.info("Exception occurred while adding hotel::"+hotel.getHotelId());
-                    throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
+                    Log.info("Exception occurred while adding hotel::"+hotel.getHotelId());
+                    throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Null Pointer Exception:"+npe.getMessage()));
                 }
             }
 
         }else{
-            log.info("Exception occurred while adding hotel::Hotel already exists");
-            throw new HMSException(HMSErrorCodes.HOTEL_ALREADY_EXISTS, "Hotel already exists");
+            Log.info("Exception occurred while adding hotel::Hotel already exists");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_ALREADY_EXISTS, "Hotel already exists"));
         }
 
         return hotelId;
     }
 
 
-    public Boolean addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException{
+    public Boolean addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSRuntimeException{
 
        Boolean isAdditionSuccessful = false;
         try {
@@ -62,21 +103,21 @@ public class HotelAPI implements HMSAPIProvider {
             }
         }
         catch (NullPointerException npe) {
-            log.info("Exception occurred while adding registration data for hotel::"+hotelRegistrationData.getHotelId());
-            throw new HMSException(HMSErrorCodes.HOTEL_ADDITION_FAILED, "Adding Hotel details failed");
-        }catch(HMSException he){
+            Log.info("Exception occurred while adding registration data for hotel::"+hotelRegistrationData.getHotelId());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_SETUP_FAILED, "Adding Hotel details failed"));
+        }catch(HMSRuntimeException he){
 
         }
 
         return isAdditionSuccessful;
     }
 
-    public List<Hotel> fetchAllHotels()  {
+    public List<Hotel> fetchAllHotels() throws HMSRuntimeException{
 
         List<Hotel> hotels = null;
         try {
             hotels = hotelCache.fetchAllHotels();
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
 
         }finally{
             return hotels;
@@ -84,11 +125,11 @@ public class HotelAPI implements HMSAPIProvider {
 
     }
 
-    public Hotel fetchHotelByHotelId(String hotelId){
+    public Hotel fetchHotelByHotelId(String hotelId) throws HMSRuntimeException{
         Hotel hotel = null;
         try{
             hotel = hotelCache.fetchHotelById(hotelId);
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
 
         }finally {
             return hotel;
@@ -96,26 +137,26 @@ public class HotelAPI implements HMSAPIProvider {
     }
 
 
-    public Hotel fetchHotelByEmployeeId(String employeeId){
+    public Hotel fetchHotelByEmployeeId(String employeeId) throws HMSRuntimeException{
         Hotel hotel = null;
         try{
             hotel = hotelSelectDAO.fetchHotelByEmployeeId(employeeId);
         }catch(Exception e){
-            throw new HMSException(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Hotel Details not available for given emploeeId");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Hotel Details not available for given emploeeId"));
         }finally{
             return hotel;
         }
 
     }
 
-    public Boolean updateHotel(Hotel hotel) throws HMSException {
+    public Boolean updateHotel(Hotel hotel) throws HMSRuntimeException {
 
         Boolean isHotelUpdateSuccessful = false;
         if (hotel.getHotelId() == HMSAPIConstants.TO_BE_GENERATED) try {
             isHotelUpdateSuccessful = hotelCache.updateHotel(hotel);
-        } catch (HMSException e) {
-            log.info("Exception occured while adding hotel::" + hotel.getHotelId());
-            throw new HMSException(HMSErrorCodes.HOTEL_UPDATE_FAILED, "Adding Hotel details failed");
+        } catch (HMSRuntimeException e) {
+            Log.info("Exception occured while adding hotel::" + hotel.getHotelId());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_UPDATE_FAILED, "Adding Hotel details failed"));
         }
         return isHotelUpdateSuccessful;
 
@@ -135,7 +176,7 @@ public class HotelAPI implements HMSAPIProvider {
             if(null != hotelFromDB){
                 isHotelAlreadyPresent = true;
             }
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
 
         }finally{
             return isHotelAlreadyPresent;
@@ -143,37 +184,37 @@ public class HotelAPI implements HMSAPIProvider {
     }
 
     @Override
-    public Object init(Object object) throws HMSException {
+    public String init(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public Object validate(Object object) throws HMSException {
+    public Object validate(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetch(JSONObject json) throws HMSException {
+    public String fetch(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetchAll(JSONObject json) throws HMSException {
+    public String fetchAll(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String update(JSONObject json) throws HMSException {
+    public String update(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String disable(JSONObject json) throws HMSException {
+    public String disable(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String delete(JSONObject json) throws HMSException {
+    public String delete(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 }

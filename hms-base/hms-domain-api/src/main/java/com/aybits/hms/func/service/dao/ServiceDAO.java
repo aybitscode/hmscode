@@ -2,7 +2,8 @@ package com.aybits.hms.func.service.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.Status;
@@ -32,7 +33,7 @@ public class ServiceDAO {
 
 
 
-    public Boolean addService(Service service) throws HMSException {
+    public Boolean addService(Service service) throws HMSRuntimeException {
         boolean isServiceAdded = false;
         Connection connection  = null;
         PreparedStatement ps = null;
@@ -61,9 +62,9 @@ public class ServiceDAO {
 
         } catch (SQLException e) {
             Log.error("error occurred", e);
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occurred::" + e.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "sql Exception occurred::" + e.getMessage()));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, ps, connection);
         }
@@ -93,17 +94,17 @@ public class ServiceDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isUpdateSuccessful;
         }
 
     }
-    public Boolean updateServiceStatus(String hotelId,String serviceId, Status status) throws HMSException {
+    public Boolean updateServiceStatus(String hotelId,String serviceId, Status status) throws HMSRuntimeException {
         Boolean isUpdateSuccessful = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -124,17 +125,17 @@ public class ServiceDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isUpdateSuccessful;
         }
     }
 
-    public Boolean updateServiceCharges(String hotelId,String serviceId,Double serviceCharges) throws HMSException{
+    public Boolean updateServiceCharges(String hotelId,String serviceId,Double serviceCharges) throws HMSRuntimeException{
         Boolean isServiceDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -155,10 +156,10 @@ public class ServiceDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occurred"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isServiceDisabled;

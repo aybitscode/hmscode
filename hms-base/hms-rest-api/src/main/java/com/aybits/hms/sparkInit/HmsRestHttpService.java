@@ -6,7 +6,7 @@ import com.aybits.hms.amenity.AmenityRequestHandler;
 import com.aybits.hms.arch.util.HmsConfig;
 import com.aybits.hms.billing.BillingRequestHandler;
 import com.aybits.hms.booking.BookingRequestHandler;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.customer.CustomerRequestHandler;
 import com.aybits.hms.facility.FacilityRequestHandler;
 import com.aybits.hms.hotel.HotelRequestHandler;
@@ -45,14 +45,14 @@ public class HmsRestHttpService {
 
     }
 
-    private static void registerPostApi(String apiPath, HmsRequestHandler requestHandler) {
+    private static void registerPostApi(String apiPath, HMSRequestHandler requestHandler) {
         Log.info("Registering post api for "+apiPath);
         post(apiPath, CONTENT_TYPE, (request, response) -> {
             return requestHandler.handleRequest(request, response);
         });
     }
 
-    private static void registerGetApi(String apiPath, HmsRequestHandler requestHandler) {
+    private static void registerGetApi(String apiPath, HMSRequestHandler requestHandler) {
         Log.info("Registering get api for "+apiPath);
         get(apiPath, CONTENT_TYPE, (request, response) -> {
             return requestHandler.handleRequest(request, response);

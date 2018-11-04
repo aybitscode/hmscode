@@ -1,13 +1,13 @@
 package com.aybits.hms.feature;
 
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class FeatureRequestHandler implements HmsRequestHandler {
+public class FeatureRequestHandler implements HMSRequestHandler {
 
 
     @Override
@@ -28,7 +28,7 @@ public class FeatureRequestHandler implements HmsRequestHandler {
     }
 
     @Override
-    public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+    public HMSResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
         return null;
     }
 }

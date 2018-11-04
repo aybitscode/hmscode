@@ -1,7 +1,8 @@
 package com.aybits.hms.func.amenity.api;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.amenity.dao.AmenityCache;
@@ -12,6 +13,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import static com.aybits.hms.arch.exception.HMSErrorCodes.AMENITY_ADDITION_FAILED;
+
 public class AmenityAPI extends HMSAPIProviderImpl {
 
     static Logger log = Logger.getLogger(AmenityAPI.class);
@@ -19,7 +22,7 @@ public class AmenityAPI extends HMSAPIProviderImpl {
     AmenityDAO amenityDAO = new AmenityDAO();
 
 
-    private Boolean addAmenity(Amenity amenity) throws HMSException {
+    private Boolean addAmenity(Amenity amenity) throws HMSRuntimeException {
         String hotelId = amenity.getHotelId();
         Boolean isAmenityAdded = false;
         try {
@@ -31,15 +34,15 @@ public class AmenityAPI extends HMSAPIProviderImpl {
                 }
                 isAmenityAdded = true;
             }
-        } catch (Exception e) {
+        } catch (HMSRuntimeException e) {
             log.info("Exception occurred while adding amenity::" + amenity.getAmenityId());
-            throw new HMSException(HMSErrorCodes.AMENITY_ADDITION_FAILED, "Adding amenity details failed for hotel["+hotelId+"]");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(AMENITY_ADDITION_FAILED, "Adding amenity details failed for hotel["+hotelId+"]"));
         }finally{
             return isAmenityAdded;
         }
     }
 
-    public Boolean addAmenities(Amenity[] amenities) throws HMSException {
+    public Boolean addAmenities(Amenity[] amenities) throws HMSRuntimeException {
 
         Boolean areAmenitiesAdded = true;
         try{
@@ -48,32 +51,32 @@ public class AmenityAPI extends HMSAPIProviderImpl {
                     areAmenitiesAdded &= addAmenity(amenity);
                 }
             }
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
             log.info("Adding amenity details failed");
-            throw new HMSException(HMSErrorCodes.AMENITY_ADDITION_FAILED, "Exception occurred while adding amenity");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(AMENITY_ADDITION_FAILED, "Exception occurred while adding amenity"));
         }finally {
             return areAmenitiesAdded;
         }
     }
 
 
-    public Boolean updateAmenity(Amenity amenity)throws HMSException{
+    public Boolean updateAmenity(Amenity amenity)throws HMSRuntimeException{
         Boolean isAmenityUpdated = false;
         return isAmenityUpdated;
     }
 
-    public Amenity getAmenity(String hotelId, String amenityId)throws HMSException{
+    public Amenity getAmenity(String hotelId, String amenityId)throws HMSRuntimeException{
         Amenity amenity = amenityCache.getAmenity(hotelId,amenityId);
         return amenity;
     }
 
-    public List<Amenity> getAllAmenities(String hotelId)throws HMSException{
+    public List<Amenity> getAllAmenities(String hotelId)throws HMSRuntimeException{
         List<Amenity> amenitiesList = null;
         amenitiesList = amenityCache.getAllAmenities(hotelId);
         return amenitiesList;
     }
 
-    public List<Amenity> getAvailableAmenities(String hotelId,Boolean isAmenityAvailable) throws HMSException{
+    public List<Amenity> getAvailableAmenities(String hotelId,Boolean isAmenityAvailable) throws HMSRuntimeException{
         List<Amenity> availableAmenitiesList = null;
 
         availableAmenitiesList = amenityCache.getAllAmenities(hotelId);
@@ -81,15 +84,13 @@ public class AmenityAPI extends HMSAPIProviderImpl {
         return availableAmenitiesList;
     }
 
-    public List<Amenity> getChargeableAmenities(String hotelId,String chargeable) throws HMSException{
+    public List<Amenity> getChargeableAmenities(String hotelId,String chargeable) throws HMSRuntimeException{
         List<Amenity> chargeableAmenitiesList = null;
         try{
             Boolean isChargeable = Boolean.parseBoolean(chargeable);
             chargeableAmenitiesList = amenityCache.getAllChargeableAmenities(hotelId,isChargeable);
-        }catch(HMSException he){
-            throw new HMSException("Exception while getting chargeable amenities for Hotel["+hotelId+"]",he);
-        }catch(Exception e){
-            throw new HMSException("Exception while getting chargeable amenities for Hotel["+hotelId+"]",e);
+        }catch(HMSRuntimeException he){
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION,"Exception while getting chargeable amenities for Hotel["+hotelId+"]"));
         }
 
         return chargeableAmenitiesList;
@@ -97,32 +98,32 @@ public class AmenityAPI extends HMSAPIProviderImpl {
 
 
     @Override
-    public String process(JSONObject object) throws HMSException {
+    public String process(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetch(JSONObject json) throws HMSException {
+    public String fetch(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetchAll(JSONObject json) throws HMSException {
+    public String fetchAll(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String update(JSONObject json) throws HMSException {
+    public String update(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String disable(JSONObject json) throws HMSException {
+    public String disable(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String delete(JSONObject json) throws HMSException {
+    public String delete(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 }

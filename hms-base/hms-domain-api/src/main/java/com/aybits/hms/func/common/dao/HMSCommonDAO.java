@@ -2,7 +2,8 @@ package com.aybits.hms.func.common.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +45,7 @@ public class HMSCommonDAO {
 
 
         } catch (Exception npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return primaryKey;
@@ -78,7 +79,7 @@ public class HMSCommonDAO {
 
 
             } catch (Exception npe) {
-                throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
             } finally {
                 DBCPConnection.closeDBConnection(rs, stmt, connection);
                 return primaryKey;

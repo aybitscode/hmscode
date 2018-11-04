@@ -3,7 +3,7 @@ package com.aybits.hms.facility;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.facility.api.FacilityAPI;
 import com.aybits.hms.func.facility.beans.Facility;
@@ -18,7 +18,7 @@ import spark.Response;
 import java.util.List;
 import java.util.Map;
 
-public class FacilityRequestHandler implements HmsRequestHandler {
+public class FacilityRequestHandler implements HMSRequestHandler {
 
     HMSJsonRequestComponents components = null;
     FacilityAPI facilityAPI = new FacilityAPI();

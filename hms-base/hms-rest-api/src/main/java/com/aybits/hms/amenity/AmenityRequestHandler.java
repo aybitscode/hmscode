@@ -1,13 +1,13 @@
 package com.aybits.hms.amenity;
 
 import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class AmenityRequestHandler implements HmsRequestHandler {
+public class AmenityRequestHandler implements HMSRequestHandler {
 
 
     @Override
