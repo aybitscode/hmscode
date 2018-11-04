@@ -1,6 +1,7 @@
 package com.aybits.hms.room;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
@@ -32,11 +33,11 @@ public class RoomCategoryRequestHandler implements HMSRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(JSONObject dataJson) {
+    public void validateRequestData(JSONObject dataJson) throws HMSRuntimeException {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
-        return result;
+       // return result;
     }
 
     @Override
@@ -65,6 +66,11 @@ public class RoomCategoryRequestHandler implements HMSRequestHandler {
                 break;
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he) {
+        return null;
     }
 
     private String fetchAllRoomCategories(Request request){

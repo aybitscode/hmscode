@@ -1,5 +1,6 @@
 package com.aybits.hms.customer;
 
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.HMSResponse;
@@ -17,11 +18,10 @@ public class CustomerRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(CustomerRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequestData(JSONObject jsonObject) {
+    public void validateRequestData(JSONObject jsonObject) throws HMSRuntimeException {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
-        return result;
     }
 
     @Override
@@ -50,6 +50,11 @@ public class CustomerRequestHandler implements HMSRequestHandler {
                 break;
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he) {
+        return null;
     }
 
     private String addCustomer(Request request) {

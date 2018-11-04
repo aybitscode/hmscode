@@ -3,14 +3,14 @@ package com.aybits.hms.func.room.api;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.room.beans.Room;
 import com.aybits.hms.func.room.dao.RoomDAO;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class RoomAPI implements HMSAPIProvider {
+public class RoomAPI implements HmsAPI {
 
     private RoomDAO roomDAO = new RoomDAO();
 
@@ -25,8 +25,7 @@ public class RoomAPI implements HMSAPIProvider {
     }
 
     @Override
-    public Object validate(JSONObject object) throws HMSRuntimeException {
-        return null;
+    public void validate(JSONObject object) throws HMSRuntimeException {
     }
 
 

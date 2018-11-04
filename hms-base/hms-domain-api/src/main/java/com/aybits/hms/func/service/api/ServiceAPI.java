@@ -4,7 +4,8 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
-import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HmsAPIImpl;
 import com.aybits.hms.func.service.beans.Service;
 import com.aybits.hms.func.service.dao.ServiceCache;
 import com.aybits.hms.func.service.dao.ServiceDAO;
@@ -13,7 +14,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class ServiceAPI extends HMSAPIProviderImpl {
+public class ServiceAPI implements HmsAPI {
 
     static Logger log = Logger.getLogger(ServiceAPI.class);
     ServiceCache serviceCache = new ServiceCache();
@@ -55,8 +56,18 @@ public class ServiceAPI extends HMSAPIProviderImpl {
     }
 
     @Override
+    public Object init(JSONObject object) throws HMSRuntimeException {
+        return null;
+    }
+
+    @Override
     public String process(JSONObject object) throws HMSRuntimeException {
         return null;
+    }
+
+    @Override
+    public void validate(JSONObject object) throws HMSRuntimeException {
+
     }
 
     @Override

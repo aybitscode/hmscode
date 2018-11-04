@@ -1,12 +1,12 @@
 package com.aybits.hms.hotel;
 
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
-import com.aybits.hms.func.common.api.HMSAPIProvider;
+import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.hotel.api.HotelAPI;
 import org.apache.log4j.Logger;
@@ -18,7 +18,7 @@ import spark.Response;
 public class HotelRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(HotelRequestHandler.class);
 
-    HMSAPIProvider hmsapiProvider = new HotelAPI();
+    HmsAPI hmsAPI = new HotelAPI();
 
 
 
@@ -28,8 +28,8 @@ public class HotelRequestHandler implements HMSRequestHandler {
      * @return ValidationResult
      */
     @Override
-    public ValidationResult validateRequestData(JSONObject dataJSON) throws HMSException {
-        return (ValidationResult)hmsapiProvider.validate(dataJSON);
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
+        hmsAPI.validate(dataJSON);
     }
 
 
@@ -54,14 +54,16 @@ public class HotelRequestHandler implements HMSRequestHandler {
         String data = components.getData();
         String action = operation + "/" + entity;
         String tokenId = components.getTokenId();
+        String errorResponse = null;
 
         JSONObject dataJSON = null;
 
         ValidationResult result = null;
         try {
             dataJSON = new JSONObject(data);
-            result = validateRequestData(dataJSON);
-        }catch(HMSException he){
+            validateRequestData(dataJSON);
+        }catch(HMSRuntimeException he){
+            errorResponse = populateHMSErrorResponse(he);
 
         }catch(JSONException je){
 
@@ -95,7 +97,6 @@ public class HotelRequestHandler implements HMSRequestHandler {
         return message;
     }
 
-
     /**
      *
      * @param tokenId
@@ -107,9 +108,9 @@ public class HotelRequestHandler implements HMSRequestHandler {
         HMSResponse hmsResponse = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            String responseStr = hmsapiProvider.process(inputJSON);
+            String responseStr = hmsAPI.process(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
             Log.info("requestToken:" + tokenId + ",[Exit]::addHotel");
@@ -129,9 +130,9 @@ public class HotelRequestHandler implements HMSRequestHandler {
         HMSResponse hmsResponse = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            String responseStr = hmsapiProvider.update(inputJSON);
+            String responseStr = hmsAPI.update(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
             Log.info("requestToken:" + tokenId + ",[Entry]::updateHotel");
@@ -152,10 +153,10 @@ public class HotelRequestHandler implements HMSRequestHandler {
         String responseStr = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            responseStr = hmsapiProvider.fetch(inputJSON);
+            responseStr = hmsAPI.fetch(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
-            Log.info("requestToken:" + tokenId + ",Exception occured in fetchHotel" + e.getErrorMessage());
+        } catch (HMSRuntimeException e) {
+            Log.info("requestToken:" + tokenId + ",Exception occured in fetchHotel" + e.getMessage());
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
             Log.info("requestToken:" + tokenId + ",[Exit]::fetchHotel");
@@ -175,9 +176,9 @@ public class HotelRequestHandler implements HMSRequestHandler {
         String responseStr = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            responseStr = hmsapiProvider.fetchAll(inputJSON);
+            responseStr = hmsAPI.fetchAll(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
             Log.info("requestToken:" + tokenId + ",[Exit]::fetchAllHotels");
@@ -197,15 +198,27 @@ public class HotelRequestHandler implements HMSRequestHandler {
         String responseStr = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            responseStr = hmsapiProvider.disable(inputJSON);
+            responseStr = hmsAPI.disable(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
             Log.info("requestToken:" + tokenId + ",[Exit]::disableHotel");
             return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
+
+    /**
+     *
+     * @param he
+     * @return
+     */
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he) {
+        return "";
+    }
+
 
 
 

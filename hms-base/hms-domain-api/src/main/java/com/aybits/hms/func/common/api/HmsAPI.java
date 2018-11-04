@@ -1,29 +1,29 @@
 package com.aybits.hms.func.common.api;
 
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.common.cache.HMSCache;
 import org.json.JSONObject;
 
-public interface HMSAPIProvider {
+public interface HmsAPI {
 
     default void init(){
         HMSCache hmsCache = new HMSCache();
         hmsCache.initHMSCache();
     }
-    Object init(JSONObject object) throws HMSException;
+    Object init(JSONObject object) throws HMSRuntimeException;
 
-    String process(JSONObject object) throws HMSException;
+    String process(JSONObject object) throws HMSRuntimeException;
 
-    Object validate(JSONObject object) throws HMSException;
+    void validate(JSONObject object) throws HMSRuntimeException;
 
-    String fetch(JSONObject json) throws HMSException;
+    String fetch(JSONObject json) throws HMSRuntimeException;
 
-    String fetchAll(JSONObject json) throws HMSException;
+    String fetchAll(JSONObject json) throws HMSRuntimeException;
 
-    String update(JSONObject json) throws HMSException;
+    String update(JSONObject json) throws HMSRuntimeException;
 
-    String disable(JSONObject json) throws HMSException;
+    String disable(JSONObject json) throws HMSRuntimeException;
 
-    String delete(JSONObject json) throws HMSException;
+    String delete(JSONObject json) throws HMSRuntimeException;
 
 }

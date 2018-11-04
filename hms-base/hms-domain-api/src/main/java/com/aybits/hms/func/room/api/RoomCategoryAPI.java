@@ -1,7 +1,8 @@
 package com.aybits.hms.func.room.api;
 
-import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HmsAPIImpl;
 import com.aybits.hms.func.room.beans.RoomCategory;
 import com.aybits.hms.func.room.cache.RoomCategoryCache;
 import com.aybits.hms.func.room.dao.RoomCategoryDAO;
@@ -10,14 +11,14 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class RoomCategoryAPI extends HMSAPIProviderImpl {
+public class RoomCategoryAPI implements HmsAPI {
 
 
     static Logger log = Logger.getLogger(RoomCategoryAPI.class);
     RoomCategoryCache roomCategoryCache = new RoomCategoryCache();
     RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAO();
 
-    public Boolean addRoomCategory(RoomCategory roomCategory) throws HMSException {
+    public Boolean addRoomCategory(RoomCategory roomCategory) throws HMSRuntimeException {
         return true;
     }
 
@@ -37,32 +38,42 @@ public class RoomCategoryAPI extends HMSAPIProviderImpl {
     }
 
     @Override
-    public String process(JSONObject object) throws HMSException {
+    public Object init(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetch(JSONObject json) throws HMSException {
+    public String process(JSONObject object) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String fetchAll(JSONObject json) throws HMSException {
+    public void validate(JSONObject object) throws HMSRuntimeException {
+
+    }
+
+    @Override
+    public String fetch(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String update(JSONObject json) throws HMSException {
+    public String fetchAll(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String disable(JSONObject json) throws HMSException {
+    public String update(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 
     @Override
-    public String delete(JSONObject json) throws HMSException {
+    public String disable(JSONObject json) throws HMSRuntimeException {
+        return null;
+    }
+
+    @Override
+    public String delete(JSONObject json) throws HMSRuntimeException {
         return null;
     }
 }
