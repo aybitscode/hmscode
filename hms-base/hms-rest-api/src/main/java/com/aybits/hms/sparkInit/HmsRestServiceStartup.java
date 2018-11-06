@@ -1,6 +1,7 @@
 package com.aybits.hms.sparkInit;
 
 import com.aybits.hms.arch.util.HmsConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static spark.Spark.port;
 import static spark.Spark.options;
@@ -8,11 +9,13 @@ import static spark.Spark.before;
 
 
 public class HmsRestServiceStartup {
-    HmsRestHttpService httpService = new HmsRestHttpService();
+
+    @Autowired
+    HmsRestHttpService hmsRestHttpService;
 
     public void start(String[] args) {
         startSparkServer();
-        httpService.registerHttpAPIs();
+        hmsRestHttpService.registerHttpAPIs();
         awaitSparkServerInitialization();
     }
 

@@ -16,6 +16,7 @@ import com.aybits.hms.room.RoomCategoryRequestHandler;
 import com.aybits.hms.room.RoomRequestHandler;
 import com.aybits.hms.setup.SetupRequestHandler;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -25,23 +26,59 @@ public class HmsRestHttpService {
     private static final String API_PREFIX = "/api";
     private static final String CONTENT_TYPE = "application/json";
 
+    @Autowired
+    SetupRequestHandler setupRequestHandler;
+
+    @Autowired
+    LoginRequestHandler loginRequestHandler;
+
+    @Autowired
+    BookingRequestHandler bookingRequestHandler;
+
+    @Autowired
+    EmployeeRequestHandler employeeRequestHandler;
+
+    @Autowired
+    RoomRequestHandler roomRequestHandler;
+
+    @Autowired
+    HotelRequestHandler hotelRequestHandler;
+
+    @Autowired
+    CustomerRequestHandler customerRequestHandler;
+
+    @Autowired
+    FacilityRequestHandler facilityRequestHandler;
+
+    @Autowired
+    AmenityRequestHandler amenityRequestHandler;
+
+    @Autowired
+    RoomCategoryRequestHandler roomCategoryRequestHandler;
+
+    @Autowired
+    BillingRequestHandler billingRequestHandler;
+
+    @Autowired
+    InvoiceRequestHandler invoiceRequestHandler;
+
     public void registerHttpAPIs() {
 
         String appName = HmsConfig.getRestProperty("app.name");
         String version = HmsConfig.getRestProperty("app.version");
 
-        registerPostApi(appName+"/"+version+API_PREFIX+"/setup/*", new SetupRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/login/*", new LoginRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/booking/*", new BookingRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/employee/*", new EmployeeRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/room/*", new RoomRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/hotel/*", new HotelRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/customer/*", new CustomerRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/facility/*",new FacilityRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/amenity/*", new AmenityRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/room-category/*", new RoomCategoryRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/billing/*",new BillingRequestHandler());
-        registerPostApi(appName+"/"+version+API_PREFIX+"/invoice/*", new InvoiceRequestHandler());
+        registerPostApi(appName+"/"+version+API_PREFIX+"/setup/*", setupRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/login/*", loginRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/booking/*", bookingRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/employee/*", employeeRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/room/*", roomRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/hotel/*", hotelRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/customer/*", customerRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/facility/*",facilityRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/amenity/*", amenityRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/room-category/*", roomCategoryRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/billing/*",billingRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/invoice/*", invoiceRequestHandler);
 
     }
 
