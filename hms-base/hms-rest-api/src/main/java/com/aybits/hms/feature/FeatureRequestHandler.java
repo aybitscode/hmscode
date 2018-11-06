@@ -1,5 +1,7 @@
 package com.aybits.hms.feature;
 
+import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
@@ -14,6 +16,11 @@ public class FeatureRequestHandler implements HmsRequestHandler {
 
     @Override
     public String getActionString(Request request) {
+        return null;
+    }
+
+    @Override
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
         return null;
     }
 

@@ -1,6 +1,8 @@
 package com.aybits.hms.customer;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
@@ -14,6 +16,11 @@ import java.util.List;
 
 public class CustomerRequestHandler implements HmsRequestHandler {
     static Logger Log = Logger.getLogger(CustomerRequestHandler.class);
+
+    @Override
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
+        return null;
+    }
 
     @Override
     public ValidationResult validateRequestData(Request request) {

@@ -1,6 +1,8 @@
 package com.aybits.hms.Employee;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HmsRequestHandler;
 import com.aybits.hms.common.HmsResponse;
 import com.aybits.hms.common.ValidationResult;
@@ -15,6 +17,11 @@ import java.util.List;
 
 public class EmployeeRequestHandler implements  HmsRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
+
+    @Override
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
+        return null;
+    }
 
     @Override
     public ValidationResult validateRequestData(Request request) {

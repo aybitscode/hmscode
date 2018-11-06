@@ -63,7 +63,9 @@ public interface HmsRequestHandler {
         return action;
     }
 
-    public ValidationResult validateRequestData(Request request) throws HMSException;
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException;
+
+    ValidationResult validateRequestData(Request request) throws HMSException;
 
     public String handleRequest(Request request, Response response);
 
