@@ -1,13 +1,16 @@
 package com.aybits.hms.func.amenity.dao;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.amenity.beans.Amenity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.aybits.hms.arch.exception.HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE;
 
 public class AmenityCache {
 
@@ -17,7 +20,7 @@ public class AmenityCache {
     private AmenitySelectDAO amenitySelectDAO = new AmenitySelectDAO();
     private AmenityDAO amenityDAO = new AmenityDAO();
 
-    public Boolean initCache(String hotelId) throws HMSException {
+    public Boolean initCache(String hotelId) throws HMSRuntimeException {
 
         Boolean isCacheInitialized = initializeHotelAmenityCache(hotelId, false);
 
@@ -25,7 +28,7 @@ public class AmenityCache {
     }
 
 
-    private Boolean initializeHotelAmenityCache(String hotelId, Boolean reload) throws HMSException {
+    private Boolean initializeHotelAmenityCache(String hotelId, Boolean reload) throws HMSRuntimeException {
 
         Boolean isCacheInitialized = false;
         if (reload) {
@@ -37,9 +40,9 @@ public class AmenityCache {
                 if (!amenityHashMap.isEmpty()) {
                     hotelAmenityCache.put(hotelId, amenityHashMap);
                 }
-            } catch (HMSException e) {
+            } catch (HMSRuntimeException e) {
                 //LOG Cache Initialization failed
-                throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE, "Loading Hotel Amenities Cache failed");
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HOTEL_DETAILS_UNAVAILABLE, "Loading Hotel Amenities Cache failed"));
             } finally {
                 if (!hotelAmenityCache.keySet().isEmpty()) {
                     isCacheInitialized = true;
@@ -49,7 +52,7 @@ public class AmenityCache {
         return isCacheInitialized;
     }
 
-    public String addAmenity(Amenity amenity) throws HMSException {
+    public String addAmenity(Amenity amenity) throws HMSRuntimeException {
         String hotelId = amenity.getHotelId();
         String amenityId = amenity.getAmenityId();
 
@@ -75,7 +78,7 @@ public class AmenityCache {
         hotelAmenityCache.put(hotelId, updatedAmenityMap);
     }
 
-    public Amenity getAmenity(String hotelId, String amenityId) throws HMSException {
+    public Amenity getAmenity(String hotelId, String amenityId) throws HMSRuntimeException {
 
         amenityHashMap = hotelAmenityCache.get(hotelId);
         Amenity amenity = amenityHashMap.get(amenityId);
@@ -86,7 +89,7 @@ public class AmenityCache {
         return amenity;
     }
 
-    public List<Amenity> getAllAmenities(String hotelId) throws HMSException{
+    public List<Amenity> getAllAmenities(String hotelId) throws HMSRuntimeException{
         ArrayList<Amenity> amenities = new ArrayList<>();
         amenityHashMap = hotelAmenityCache.get(hotelId);
 
@@ -98,7 +101,7 @@ public class AmenityCache {
         return amenities;
     }
 
-    public List<Amenity> getAllAvailableAmenities(String hotelId, Boolean isAvailable) throws HMSException{
+    public List<Amenity> getAllAvailableAmenities(String hotelId, Boolean isAvailable) throws HMSRuntimeException{
         List<Amenity> availableAmenities = new ArrayList<Amenity>();
         amenityHashMap = hotelAmenityCache.get(hotelId);
 
@@ -114,7 +117,7 @@ public class AmenityCache {
         return availableAmenities;
     }
 
-    public List<Amenity> getAllChargeableAmenities(String hotelId, Boolean isChargeable) throws HMSException {
+    public List<Amenity> getAllChargeableAmenities(String hotelId, Boolean isChargeable) throws HMSRuntimeException {
         List<Amenity> availableAmenities = new ArrayList<Amenity>();
         amenityHashMap = hotelAmenityCache.get(hotelId);
 
@@ -132,7 +135,7 @@ public class AmenityCache {
     }
 
 
-    public Boolean reloadHotelAmenitiesCache(String hotelId) throws HMSException {
+    public Boolean reloadHotelAmenitiesCache(String hotelId) throws HMSRuntimeException {
 
         Boolean reloadCache = true;
         Boolean isCacheInitialized = initializeHotelAmenityCache(hotelId, reloadCache);

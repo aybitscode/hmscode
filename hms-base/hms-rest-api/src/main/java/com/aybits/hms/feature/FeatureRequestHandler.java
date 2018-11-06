@@ -1,16 +1,14 @@
 package com.aybits.hms.feature;
 
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
-import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.common.HMSRequestHandler;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class FeatureRequestHandler extends HmsRequestHandler {
-    @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
+public class FeatureRequestHandler implements HMSRequestHandler {
+
 
     @Override
     public String getActionString(Request request) {
@@ -18,8 +16,8 @@ public class FeatureRequestHandler extends HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
-        return null;
+    public void validateRequestData(JSONObject dataJson) throws HMSRuntimeException {
+        //return null;
     }
 
     @Override
@@ -30,7 +28,17 @@ public class FeatureRequestHandler extends HmsRequestHandler {
     }
 
     @Override
-    public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+    public HMSResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+        return null;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
         return null;
     }
 }

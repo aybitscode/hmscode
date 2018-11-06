@@ -2,7 +2,8 @@ package com.aybits.hms.func.customer.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.Address;
@@ -27,7 +28,7 @@ public class CustomerDAO {
 
 
     @SuppressWarnings("finally")
-    public Boolean getAllCustomers(CustomerCache customerCache) throws HMSException {
+    public Boolean getAllCustomers(CustomerCache customerCache) throws HMSRuntimeException {
         Boolean cacheLoadStatus = false;
 
         if (customerCache == null) {
@@ -52,14 +53,11 @@ public class CustomerDAO {
                     //customerCache.addCustomer(customer);
                 }
             } else {
-                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE,"No DB Connections are available"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (HMSException e) {
-            //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } finally {
             DBCPConnection.getDBConnection();
             if (!customerCache.getAllCustomers().isEmpty()) {
@@ -70,7 +68,7 @@ public class CustomerDAO {
     }
 
     @SuppressWarnings("finally")
-    public List<Customer> getAllCustomers() throws HMSException {
+    public List<Customer> getAllCustomers() throws HMSRuntimeException {
         List<Customer> customers = new ArrayList<Customer>();
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -90,7 +88,7 @@ public class CustomerDAO {
             }
         } catch (Exception e) {
             //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return customers;
@@ -99,7 +97,7 @@ public class CustomerDAO {
 
 
     @SuppressWarnings("finally")
-    public Customer getCustomerByPhone(String mobilePhone) throws HMSException {
+    public Customer getCustomerByPhone(String mobilePhone) throws HMSRuntimeException {
 
         Customer customer = new Customer();
         Connection connection = null;
@@ -120,7 +118,7 @@ public class CustomerDAO {
             }
         } catch (Exception e) {
             //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return customer;
@@ -190,14 +188,14 @@ public class CustomerDAO {
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
         }
         return additionStatus;
     }
 
-    public Boolean updateCustomer(Customer customer) throws HMSException {
+    public Boolean updateCustomer(Customer customer) throws HMSRuntimeException {
         Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -224,7 +222,7 @@ public class CustomerDAO {
 
         } catch (SQLException e) {
 
-            throw new HMSException("Customer Update Operation failed");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
 
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
@@ -233,18 +231,10 @@ public class CustomerDAO {
     }
 
 
-    public Customer getCustomerById(String customerId) {
+    public Customer getCustomerById(String customerId) throws HMSRuntimeException{
 
         if (customerId == null || customerId.equals("")) {
-            try {
-                throw new HMSException(HMSErrorCodes.INVALID_CUSTOMER_ID);
-            } catch (HMSException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } finally {
-                return null;
-            }
-
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_CUSTOMER_ID,"Invalid Customer Id provided"));
         }
 
         Customer customer = new Customer();
@@ -265,12 +255,11 @@ public class CustomerDAO {
                     Log.info("\nPopulating customer[" + customer.getCustomerId() + "] in Customer Object");
                 }
             } else {
-                throw new HMSException(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE);
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_NO_CONNECTIONS_AVAILABLE,"DB SQL Connection error occured"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             //TODO - throw cache specific errorCode,message
-            e.printStackTrace();
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
 
@@ -311,9 +300,9 @@ public class CustomerDAO {
 
         } catch (SQLException sqle) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return hotelIdSeq;

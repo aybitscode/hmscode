@@ -1,10 +1,8 @@
 package com.aybits.hms.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("hms_response")
-public class HmsResponse {
+public class HMSResponse {
 
     @JsonProperty("token_id")
     String tokenId;
@@ -18,11 +16,11 @@ public class HmsResponse {
     @JsonProperty("data")
     Object responseData;
 
-    public HmsResponse() {
+    public HMSResponse() {
 
     }
 
-    public HmsResponse(String tokenId, String status, String message, Object responseData) {
+    public HMSResponse(String tokenId, String status, String message, Object responseData) {
         this.tokenId = tokenId;
         this.responseData = responseData;
         this.status = status;

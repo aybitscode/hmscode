@@ -1,9 +1,10 @@
 package com.aybits.hms.facility;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.facility.api.FacilityAPI;
 import com.aybits.hms.func.facility.beans.Facility;
@@ -11,22 +12,19 @@ import com.aybits.hms.func.facility.beans.FacilityType;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 import java.util.List;
 import java.util.Map;
 
-public class FacilityRequestHandler extends HmsRequestHandler {
+public class FacilityRequestHandler implements HMSRequestHandler {
 
     HMSJsonRequestComponents components = null;
     FacilityAPI facilityAPI = new FacilityAPI();
     static Logger Log = Logger.getLogger(FacilityRequestHandler.class);
 
-    @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
 
     @Override
     public String getActionString(Request request) {
@@ -34,8 +32,8 @@ public class FacilityRequestHandler extends HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
-        return null;
+    public void validateRequestData(JSONObject dataJSON) {
+        //return null;
     }
 
     @Override
@@ -70,6 +68,16 @@ public class FacilityRequestHandler extends HmsRequestHandler {
 
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
+        return null;
     }
 
     private String fetchAllFacilities(Request request) throws HMSException {

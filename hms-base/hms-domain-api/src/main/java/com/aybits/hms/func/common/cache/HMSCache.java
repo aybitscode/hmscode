@@ -1,6 +1,6 @@
 package com.aybits.hms.func.common.cache;
 
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.amenity.dao.AmenityCache;
 import com.aybits.hms.func.customer.cache.CustomerCache;
 import com.aybits.hms.func.employee.cache.EmployeeCache;
@@ -103,7 +103,7 @@ public class HMSCache {
 
 
                 }
-            }catch(HMSException he){
+            }catch(HMSRuntimeException he){
                 hmsCache = null;
                 isHMSCacheLoaded = false;
             }

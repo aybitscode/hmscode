@@ -1,19 +1,21 @@
 package com.aybits.hms.booking;
 
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class BookingRequestHandler extends HmsRequestHandler {
+public class BookingRequestHandler implements HMSRequestHandler {
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
-        return result;
+       // return result;
     }
 
     @Override
@@ -28,10 +30,7 @@ public class BookingRequestHandler extends HmsRequestHandler {
         return null;
     }
 
-    @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
+
 
     @Override
     public String getActionString(Request request) {
@@ -40,7 +39,17 @@ public class BookingRequestHandler extends HmsRequestHandler {
 
 
     @Override
-    public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+    public HMSResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+        return null;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
         return null;
     }
 }

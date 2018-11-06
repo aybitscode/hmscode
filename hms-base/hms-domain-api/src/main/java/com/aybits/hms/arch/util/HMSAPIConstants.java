@@ -17,4 +17,6 @@ public class HMSAPIConstants {
     public static final String YES = "1";
     public static final String NO = "0";
 
+    public static final int HMS_ID_LENGTH = 100;
+
 }

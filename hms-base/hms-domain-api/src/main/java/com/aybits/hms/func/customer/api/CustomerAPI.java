@@ -1,15 +1,17 @@
 package com.aybits.hms.func.customer.api;
 
 
-import com.aybits.hms.arch.exception.HMSException;
-import com.aybits.hms.func.common.api.HMSAPIProviderImpl;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HmsAPIImpl;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.dao.CustomerDAO;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerAPI extends HMSAPIProviderImpl {
+public class CustomerAPI implements HmsAPI {
 
 	CustomerDAO customerDAO = new CustomerDAO();
 
@@ -23,7 +25,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 		List<Customer> allCustomers = new ArrayList<Customer>();
 		try {
         allCustomers = customerDAO.getAllCustomers();
-		} catch (HMSException e) {
+		} catch (HMSRuntimeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -36,7 +38,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 
         try {
             customer = customerDAO.getCustomerByPhone(mobilePhone);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             e.printStackTrace();
         }
 
@@ -53,7 +55,7 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 		return isCustomerAdditionSuccessful;
 	}
 	
-	public Boolean updateCustomer(Customer customer) throws HMSException{
+	public Boolean updateCustomer(Customer customer) throws HMSRuntimeException{
 		CustomerDAO dbOps = new CustomerDAO();
 		Boolean isCustomerUpdateSuccessful = dbOps.updateCustomer(customer);
 		/*if(isCustomerUpdateSuccessful){
@@ -84,8 +86,44 @@ public class CustomerAPI extends HMSAPIProviderImpl {
 		return customer;
 	}
 
-	
-	
-	
 
+	@Override
+	public Object init(JSONObject object) throws HMSRuntimeException {
+		return null;
+	}
+
+	@Override
+	public String process(JSONObject object) throws HMSRuntimeException {
+		return null;
+	}
+
+	@Override
+	public void validate(JSONObject object) throws HMSRuntimeException {
+
+	}
+
+	@Override
+	public String fetch(JSONObject json) throws HMSRuntimeException {
+		return null;
+	}
+
+	@Override
+	public String fetchAll(JSONObject json) throws HMSRuntimeException {
+		return null;
+	}
+
+	@Override
+	public String update(JSONObject json) throws HMSRuntimeException {
+		return null;
+	}
+
+	@Override
+	public String disable(JSONObject json) throws HMSRuntimeException {
+		return null;
+	}
+
+	@Override
+	public String delete(JSONObject json) throws HMSRuntimeException {
+		return null;
+	}
 }

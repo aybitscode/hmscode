@@ -1,9 +1,10 @@
 package com.aybits.hms.room;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomCategoryAPI;
 import com.aybits.hms.func.room.beans.RoomCategory;
@@ -12,7 +13,7 @@ import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class RoomCategoryRequestHandler implements HmsRequestHandler {
+public class RoomCategoryRequestHandler implements HMSRequestHandler {
 
     static Logger Log = Logger.getLogger(RoomCategoryRequestHandler.class);
 
@@ -32,11 +33,11 @@ public class RoomCategoryRequestHandler implements HmsRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public void validateRequestData(JSONObject dataJson) throws HMSRuntimeException {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
-        return result;
+       // return result;
     }
 
     @Override
@@ -65,6 +66,16 @@ public class RoomCategoryRequestHandler implements HmsRequestHandler {
                 break;
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
+        return null;
     }
 
     private String fetchAllRoomCategories(Request request){

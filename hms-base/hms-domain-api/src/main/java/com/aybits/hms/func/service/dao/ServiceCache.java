@@ -1,7 +1,8 @@
 package com.aybits.hms.func.service.dao;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.service.beans.Service;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class ServiceCache {
     private ServiceSelectDAO serviceSelectDAO = new ServiceSelectDAO();
     private ServiceDAO serviceDAO = new ServiceDAO();
 
-    public Boolean initCache(String hotelId) throws HMSException {
+    public Boolean initCache(String hotelId) throws HMSRuntimeException {
 
         Boolean isCacheInitialized = initializeHotelServiceCache(hotelId, false);
 
@@ -25,7 +26,7 @@ public class ServiceCache {
     }
 
 
-    private Boolean initializeHotelServiceCache(String hotelId, Boolean reload) throws HMSException {
+    private Boolean initializeHotelServiceCache(String hotelId, Boolean reload) throws HMSRuntimeException {
 
         Boolean isCacheInitialized = false;
         if (reload) {
@@ -37,9 +38,9 @@ public class ServiceCache {
                 if (!serviceHashMap.isEmpty()) {
                     hotelServiceCache.put(hotelId, serviceHashMap);
                 }
-            } catch (HMSException e) {
+            } catch (HMSRuntimeException e) {
                 //LOG Cache Initialization failed
-                throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE, "Loading Hotel Services Cache failed");
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE, "Loading Hotel Services Cache failed"));
             } finally {
                 if (!hotelServiceCache.keySet().isEmpty()) {
                     isCacheInitialized = true;
@@ -49,7 +50,7 @@ public class ServiceCache {
         return isCacheInitialized;
     }
 
-    public String addService(Service service) throws HMSException {
+    public String addService(Service service) throws HMSRuntimeException {
         String hotelId = service.getHotelId();
         String serviceId = service.getServiceId();
 
@@ -75,7 +76,7 @@ public class ServiceCache {
         hotelServiceCache.put(hotelId, updatedServiceMap);
     }
 
-    public Service getService(String hotelId, String serviceId) throws HMSException {
+    public Service getService(String hotelId, String serviceId) throws HMSRuntimeException {
 
         serviceHashMap = hotelServiceCache.get(hotelId);
         Service service = serviceHashMap.get(serviceId);
@@ -86,7 +87,7 @@ public class ServiceCache {
         return service;
     }
 
-    public List<Service> getAllServices(String hotelId) throws HMSException{
+    public List<Service> getAllServices(String hotelId) throws HMSRuntimeException{
         ArrayList<Service> amenities = new ArrayList<>();
         serviceHashMap = hotelServiceCache.get(hotelId);
 
@@ -98,7 +99,7 @@ public class ServiceCache {
         return amenities;
     }
 
-    public List<Service> getAllAvailableServices(String hotelId, Boolean isAvailable) throws HMSException{
+    public List<Service> getAllAvailableServices(String hotelId, Boolean isAvailable) throws HMSRuntimeException{
         List<Service> availableServices = new ArrayList<Service>();
         serviceHashMap = hotelServiceCache.get(hotelId);
 
@@ -114,7 +115,7 @@ public class ServiceCache {
         return availableServices;
     }
 
-    public List<Service> getAllChargeableServices(String hotelId, Boolean isChargeable) throws HMSException {
+    public List<Service> getAllChargeableServices(String hotelId, Boolean isChargeable) throws HMSRuntimeException {
         List<Service> availableServices = new ArrayList<Service>();
         serviceHashMap = hotelServiceCache.get(hotelId);
 
@@ -132,7 +133,7 @@ public class ServiceCache {
     }
 
 
-    public Boolean reloadHotelServicesCache(String hotelId) throws HMSException {
+    public Boolean reloadHotelServicesCache(String hotelId) throws HMSRuntimeException {
 
         Boolean reloadCache = true;
         Boolean isCacheInitialized = initializeHotelServiceCache(hotelId, reloadCache);

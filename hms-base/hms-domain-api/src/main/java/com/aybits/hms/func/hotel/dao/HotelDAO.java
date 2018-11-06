@@ -2,7 +2,8 @@ package com.aybits.hms.func.hotel.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.beans.Status;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
@@ -29,7 +30,7 @@ public class HotelDAO {
     PreparedStatement stmt = null;
     ResultSet rs = null;
 
-    public String addHotel(Hotel hotel) throws HMSException {
+    public String addHotel(Hotel hotel) throws HMSRuntimeException {
         String hotelId = null;
 
         try {
@@ -78,17 +79,17 @@ public class HotelDAO {
             Log.info("\nPopulating Hotel[" + hotel.getHotelId() + "] in Hotel Object");
         } catch (SQLException e) {
             hotelId = null;
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + e.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
             hotelId = null;
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotelId;
         }
     }
 
-    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException{
+    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSRuntimeException{
 
 
         String hotelRegistrationId = null;
@@ -122,10 +123,10 @@ public class HotelDAO {
         }catch (SQLException e) {
             e.printStackTrace();
             hotelRegistrationId = null;
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + e.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         }catch (NullPointerException npe) {
             hotelRegistrationId = null;
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         } finally{
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return hotelRegistrationId;
@@ -133,7 +134,7 @@ public class HotelDAO {
     }
 
 
-    public Boolean updateHotelStatus(String hotelId, Status status) throws HMSException {
+    public Boolean updateHotelStatus(String hotelId, Status status) throws HMSRuntimeException {
         Boolean isHotelDisabled = false;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -153,17 +154,17 @@ public class HotelDAO {
         } catch (SQLException sqle) {
             connection.rollback();
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isHotelDisabled;
         }
     }
 
-    public Boolean updateHotel(Hotel hotel) throws HMSException {
+    public Boolean updateHotel(Hotel hotel) throws HMSRuntimeException {
         Boolean isHotelUpdateSuccessful = false;
         Hotel hotelFromDB = hotelSelectDAO.fetchHotelByHotelId(hotel.getHotelId());
 
@@ -194,10 +195,10 @@ public class HotelDAO {
         } catch (SQLException sqle) {
             // TODO Auto-generated catch block
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
             connection.rollback();
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return isHotelUpdateSuccessful;
