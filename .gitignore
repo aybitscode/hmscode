@@ -81,8 +81,10 @@ fabric.properties
 *.iml
 modules.xml
 .idea/misc.xml
+.idea/workspace.xml
 *.ipr
 
 # End of https://www.gitignore.io/api/intellij+all
 hms-base/hms-domain-api/target
 hms-base/hms-rest-api/target
+hms-base/.idea/*
