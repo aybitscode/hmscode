@@ -3,9 +3,7 @@ package com.aybits.hms.sparkInit;
 import com.aybits.hms.arch.util.HmsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static spark.Spark.port;
-import static spark.Spark.options;
-import static spark.Spark.before;
+import static spark.Spark.*;
 
 
 public class HmsRestServiceStartup {

@@ -21,7 +21,7 @@ public class HmsRestServiceMain {
 
     public static void main(String[] args) throws Exception{
         System.out.println("Loading Spring and HMS Configuration properties.");
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config-hms-rest.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-hms-main.xml");
         HmsRestServiceMain serviceMain = (HmsRestServiceMain)context.getBean("hmsServiceMain");
         serviceMain.startServicesInSpark(args);
     }

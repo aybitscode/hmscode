@@ -12,14 +12,26 @@ import com.aybits.hms.room.RoomCategoryRequestHandler;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import spark.Request;
 import spark.Response;
 
 public class SetupRequestHandler implements HMSRequestHandler {
 
     static Logger Log = Logger.getLogger(SetupRequestHandler.class);
-    HMSRequestHandler hmsRequestHandler = null;
 
+    @Autowired
+    HotelRequestHandler hotelRequestHandler;
+
+    @Autowired
+    FeatureRequestHandler featureRequestHandler;
+
+    @Autowired
+    RoomCategoryRequestHandler roomCategoryRequestHandler;
+
+    @Autowired
+    EmployeeRequestHandler employeeRequestHandler;
 
 
     public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
@@ -85,25 +97,25 @@ public class SetupRequestHandler implements HMSRequestHandler {
 
 
     private String setupHotel(Request request,Response response){
-        hmsRequestHandler = new HotelRequestHandler();
-        return hmsRequestHandler.handleRequest(request,response);
+        //hmsRequestHandler = new HotelRequestHandler();
+        return hotelRequestHandler.handleRequest(request,response);
 
     }
 
     private String setupFeatures(Request request,Response response){
-        hmsRequestHandler = new FeatureRequestHandler();
-        return hmsRequestHandler.handleRequest(request,response);
+        //hmsRequestHandler = new FeatureRequestHandler();
+        return featureRequestHandler.handleRequest(request,response);
     }
 
     private String setupRoomCategory(Request request,Response response){
-        hmsRequestHandler = new RoomCategoryRequestHandler();
-        return hmsRequestHandler.handleRequest(request,response);
+        //hmsRequestHandler = new RoomCategoryRequestHandler();
+        return roomCategoryRequestHandler.handleRequest(request,response);
 
     }
 
     private String setupEmployeeDetails(Request request,Response response){
-        hmsRequestHandler = new EmployeeRequestHandler();
-        return hmsRequestHandler.handleRequest(request,response);
+        //hmsRequestHandler = new EmployeeRequestHandler();
+        return employeeRequestHandler.handleRequest(request,response);
     }
 
 

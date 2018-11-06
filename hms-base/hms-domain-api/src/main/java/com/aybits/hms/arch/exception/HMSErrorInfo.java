@@ -11,7 +11,8 @@ public class HMSErrorInfo {
     }
 
     public String getErrorCode(){
-        return this.getErrorCode();
+        //return this.getErrorCode();
+        return "";
     }
 
 

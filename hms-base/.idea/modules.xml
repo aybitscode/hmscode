@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/hms-base.iml" filepath="$PROJECT_DIR$/hms-base.iml" />
       <module fileurl="file://$PROJECT_DIR$/hms-domain-api/hms-domain-api.iml" filepath="$PROJECT_DIR$/hms-domain-api/hms-domain-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hms-main/hms-main.iml" filepath="$PROJECT_DIR$/hms-main/hms-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/hms-rest-api/hms-rest-api.iml" filepath="$PROJECT_DIR$/hms-rest-api/hms-rest-api.iml" />
     </modules>
   </component>
