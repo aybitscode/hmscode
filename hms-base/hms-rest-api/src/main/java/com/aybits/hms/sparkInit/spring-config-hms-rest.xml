@@ -20,6 +20,18 @@
 
     <!-- Api -->
     <bean id="hotelApi" class="com.aybits.hms.func.hotel.api.HotelAPI"/>
+    <bean id="roomCategoryApi" class="com.aybits.hms.func.room.api.RoomCategoryAPI"/>
+    <bean id="roomApi" class="com.aybits.hms.func.room.api.RoomAPI"/>
+    <bean id="serviceApi" class="com.aybits.hms.func.service.api.ServiceAPI"/>
+    <bean id="taxAPI" class="com.aybits.hms.func.taxrules.api.TaxAPI"/>
+    <bean id="voucherApi" class="com.aybits.hms.func.voucher.api.VoucherAPI"/>
+    <bean id="loginApi" class="com.aybits.hms.func.login.api.LoginAPI"/>
+    <bean id="facilityApi" class="com.aybits.hms.func.facility.api.FacilityAPI"/>
+    <bean id="employeeApi" class="com.aybits.hms.func.employee.api.EmployeeAPI"/>
+    <bean id="customerApi" class="com.aybits.hms.func.customer.api.CustomerAPI"/>
+    <bean id="corporateApi" class="com.aybits.hms.func.corporate.api.CorporateAPI"/>
+    <bean id="amenityApi" class="com.aybits.hms.func.amenity.api.AmenityAPI"/>
+
 
     <!-- Request Handlers -->
     <bean id="setupRequestHandler" class="com.aybits.hms.setup.SetupRequestHandler"/>

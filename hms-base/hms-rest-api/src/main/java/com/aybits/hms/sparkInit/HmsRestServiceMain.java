@@ -2,12 +2,8 @@ package com.aybits.hms.sparkInit;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.util.HmsConfig;
-import com.aybits.hms.func.hotel.api.HotelAPI;
-import com.aybits.hms.func.hotel.beans.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
