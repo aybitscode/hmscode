@@ -13,7 +13,9 @@ import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HotelAPI implements HmsAPI {
 
     static Logger Log = Logger.getLogger(HotelAPI.class);

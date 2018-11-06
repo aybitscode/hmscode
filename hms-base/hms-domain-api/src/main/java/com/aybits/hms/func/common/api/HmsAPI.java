@@ -3,7 +3,9 @@ package com.aybits.hms.func.common.api;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.common.cache.HMSCache;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface HmsAPI {
 
     default void init(){

@@ -10,6 +10,7 @@ import com.aybits.hms.func.room.api.RoomCategoryAPI;
 import com.aybits.hms.func.room.beans.RoomCategory;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import spark.Request;
 import spark.Response;
 
@@ -19,8 +20,8 @@ public class RoomCategoryRequestHandler implements HMSRequestHandler {
 
     HMSJsonRequestComponents components = null;
 
-    RoomCategoryAPI roomCategoryAPI = new RoomCategoryAPI();
-
+    @Autowired
+    RoomCategoryAPI roomCategoryAPI;
 
     @Override
     public ValidationResult validateRequest(Request request) {

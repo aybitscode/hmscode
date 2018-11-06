@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <context:annotation-config/>
+
+    <!-- Init -->
+    <bean id="hmsServiceMain" class="com.aybits.hms.sparkInit.HmsRestServiceMain"/>
+    <bean id="hmsRestHttpService" class="com.aybits.hms.sparkInit.HmsRestHttpService"/>
+    <bean id="serviceStartup" class="com.aybits.hms.sparkInit.HmsRestServiceStartup"/>
+
+    <!-- Config -->
+    <bean id="hmsConfig" class="com.aybits.hms.arch.util.HmsConfig"/>
+    <bean id="initDBCP" class="com.aybits.hms.arch.dbman.DBCPConnection"/>
+
+    <!-- Api -->
+    <bean id="hotelApi" class="com.aybits.hms.func.hotel.api.HotelAPI"/>
+    <bean id="roomCategoryApi" class="com.aybits.hms.func.room.api.RoomCategoryAPI"/>
+    <bean id="roomApi" class="com.aybits.hms.func.room.api.RoomAPI"/>
+    <bean id="serviceApi" class="com.aybits.hms.func.service.api.ServiceAPI"/>
+    <bean id="taxAPI" class="com.aybits.hms.func.taxrules.api.TaxAPI"/>
+    <bean id="voucherApi" class="com.aybits.hms.func.voucher.api.VoucherAPI"/>
+    <bean id="loginApi" class="com.aybits.hms.func.login.api.LoginAPI"/>
+    <bean id="facilityApi" class="com.aybits.hms.func.facility.api.FacilityAPI"/>
+    <bean id="employeeApi" class="com.aybits.hms.func.employee.api.EmployeeAPI"/>
+    <bean id="customerApi" class="com.aybits.hms.func.customer.api.CustomerAPI"/>
+    <bean id="corporateApi" class="com.aybits.hms.func.corporate.api.CorporateAPI"/>
+    <bean id="amenityApi" class="com.aybits.hms.func.amenity.api.AmenityAPI"/>
+
+
+    <!-- Request Handlers -->
+    <bean id="setupRequestHandler" class="com.aybits.hms.setup.SetupRequestHandler"/>
+    <bean id="loginRequestHandler" class="com.aybits.hms.login.LoginRequestHandler"/>
+    <bean id="bookingRequestHandler" class="com.aybits.hms.booking.BookingRequestHandler"/>
+    <bean id="employeeRequestHandler" class="com.aybits.hms.Employee.EmployeeRequestHandler"/>
+    <bean id="roomRequestHandler" class="com.aybits.hms.room.RoomRequestHandler"/>
+    <bean id="hotelRequestHandler" class="com.aybits.hms.hotel.HotelRequestHandler"/>
+    <bean id="customerRequestHandler" class="com.aybits.hms.customer.CustomerRequestHandler"/>
+    <bean id="facilityRequestHandler" class="com.aybits.hms.facility.FacilityRequestHandler"/>
+    <bean id="amenityRequestHandler" class="com.aybits.hms.amenity.AmenityRequestHandler"/>
+    <bean id="roomCategoryRequestHandler" class="com.aybits.hms.room.RoomCategoryRequestHandler"/>
+    <bean id="billingRequestHandler" class="com.aybits.hms.billing.BillingRequestHandler"/>
+    <bean id="invoiceRequestHandler" class="com.aybits.hms.invoice.InvoiceRequestHandler"/>
+
+</beans>
