@@ -8,7 +8,7 @@ import com.aybits.hms.billing.BillingRequestHandler;
 import com.aybits.hms.booking.BookingRequestHandler;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.customer.CustomerRequestHandler;
-import com.aybits.hms.facility.FacilityRequestHandler;
+import com.aybits.hms.feature.FacilityRequestHandler;
 import com.aybits.hms.hotel.HotelRequestHandler;
 import com.aybits.hms.invoice.InvoiceRequestHandler;
 import com.aybits.hms.login.LoginRequestHandler;

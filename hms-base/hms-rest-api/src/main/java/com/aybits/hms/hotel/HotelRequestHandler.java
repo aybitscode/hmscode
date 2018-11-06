@@ -108,7 +108,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
         try {
             JSONObject inputJSON = new JSONObject(requestData);
             String responseStr = hmsAPI.process(inputJSON);
-            hmsResponse = populateHmsResponse(tokenId, responseStr);
+            hmsResponse = populateHMSResponse(tokenId, responseStr);
         } catch (HMSRuntimeException e) {
             hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
@@ -129,7 +129,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
         try {
             JSONObject inputJSON = new JSONObject(requestData);
             String responseStr = hmsAPI.update(inputJSON);
-            hmsResponse = populateHmsResponse(tokenId, responseStr);
+            hmsResponse = populateHMSResponse(tokenId, responseStr);
         } catch (HMSRuntimeException e) {
             hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
@@ -152,7 +152,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
         try {
             JSONObject inputJSON = new JSONObject(requestData);
             responseStr = hmsAPI.fetch(inputJSON);
-            hmsResponse = populateHmsResponse(tokenId, responseStr);
+            hmsResponse = populateHMSResponse(tokenId, responseStr);
         } catch (HMSRuntimeException e) {
             Log.info("requestToken:" + tokenId + ",Exception occured in fetchHotel" + e.getMessage());
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
@@ -175,7 +175,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
         try {
             JSONObject inputJSON = new JSONObject(requestData);
             responseStr = hmsAPI.fetchAll(inputJSON);
-            hmsResponse = populateHmsResponse(tokenId, responseStr);
+            hmsResponse = populateHMSResponse(tokenId, responseStr);
         } catch (HMSRuntimeException e) {
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
@@ -197,7 +197,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
         try {
             JSONObject inputJSON = new JSONObject(requestData);
             responseStr = hmsAPI.disable(inputJSON);
-            hmsResponse = populateHmsResponse(tokenId, responseStr);
+            hmsResponse = populateHMSResponse(tokenId, responseStr);
         } catch (HMSRuntimeException e) {
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {

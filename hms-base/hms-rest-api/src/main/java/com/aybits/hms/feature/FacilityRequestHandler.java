@@ -1,4 +1,4 @@
-package com.aybits.hms.facility;
+package com.aybits.hms.feature;
 
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;

@@ -73,7 +73,7 @@ public interface HMSRequestHandler {
         return new HMSResponse(tokenID, status, statusMessage, responseData);
     }
 
-    default public HMSResponse populateHmsResponse(String tokenId, String responseString) {
+    default public HMSResponse populateHMSResponse(String tokenId, String responseString) {
         JSONObject responseJSON = null;
         String status = null;
         String message = null;
