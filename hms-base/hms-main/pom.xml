@@ -57,7 +57,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.aybits.hms.com.aybits.hms.sparkInit.HmsRestServiceMain</mainClass>
+                            <mainClass>com.aybits.hms.com.aybits.hms.init.HmsRestServiceMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
