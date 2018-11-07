@@ -27,14 +27,7 @@ public class HmsRestHttpService {
 
     @Autowired
     HMSRequestHandler HMSRequestHandler;
-
-
-
-    @Autowired
-    BillingRequestHandler billingRequestHandler;
-
-    @Autowired
-    InvoiceRequestHandler invoiceRequestHandler;
+    
 
     public void registerHttpAPIs() {
 
