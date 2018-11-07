@@ -44,10 +44,6 @@ public class HotelRequestHandler implements GenericRequestHandler {
 
         Log.info("Hotel request handler invoked");
 
-        ValidationResult validationResult = validateRequest(request);
-        if (validationResult != null) {
-            return validationResult.getMessage();
-        }
         HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
         String operation = components.getOperation();
         String entity = components.getEntity();

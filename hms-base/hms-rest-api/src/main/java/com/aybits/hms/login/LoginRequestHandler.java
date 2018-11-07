@@ -23,10 +23,7 @@ public class LoginRequestHandler implements GenericRequestHandler {
     public String handleRequest(Request request, Response response) {
         System.out.println("Login request handler invoked");
 
-        ValidationResult result = validateRequest(request);
-        if (result != null) {
-            return result.getMessage();
-        }
+
 
         return "{'login_status':'success'}";
         //return "{id: undefined, fullName: \"Demo\", email: \"demo@demo.com\", token: \"fake-jwt-token\"}";

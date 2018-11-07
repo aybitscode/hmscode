@@ -15,28 +15,7 @@ public interface GenericRequestHandler {
     Logger Log = Logger.getLogger(GenericRequestHandler.class);
 
 
-    default public ValidationResult validateRequest(Request request) {
-        ValidationResult requestValidationResult = null;
-        HMSJsonRequestComponents components = null;
-        //Todo do base request validation result here
-        Log.info("doing base structure validation");
-        String action = getActionString(request);
 
-        if (action == null) {
-            requestValidationResult.setCode(001);
-            requestValidationResult.setMessage("{'status':'"+HMSAPIServiceConstants.HMS_RESPONSE_FAILURE+"','message':'Invalid request URL.'}");
-        }
-
-
-        components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
-
-        if (components == null) {
-            requestValidationResult.setCode(002);
-            requestValidationResult.setMessage("{'status':'"+HMSAPIServiceConstants.HMS_RESPONSE_FAILURE+"','message':'Invalid request body.'}");
-        }
-
-        return requestValidationResult;
-    }
 
     default public String getActionString(Request request) {
         String action = null;

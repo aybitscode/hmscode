@@ -12,9 +12,9 @@
     <context:annotation-config/>
 
     <!-- Init -->
-    <bean id="hmsServiceMain" class="com.aybits.hms.sparkInit.HmsRestServiceMain"/>
-    <bean id="hmsRestHttpService" class="com.aybits.hms.sparkInit.HmsRestHttpService"/>
-    <bean id="serviceStartup" class="com.aybits.hms.sparkInit.HmsRestServiceStartup"/>
+    <bean id="hmsServiceMain" class="com.aybits.hms.init.HmsRestServiceMain"/>
+    <bean id="hmsRestHttpService" class="com.aybits.hms.init.HmsRestHttpService"/>
+    <bean id="serviceStartup" class="com.aybits.hms.init.HmsRestServiceStartup"/>
 
     <!-- Config -->
     <bean id="hmsConfig" class="com.aybits.hms.arch.util.HmsConfig"/>

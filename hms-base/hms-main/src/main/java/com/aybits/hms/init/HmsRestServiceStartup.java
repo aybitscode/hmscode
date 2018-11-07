@@ -1,4 +1,4 @@
-package com.aybits.hms.sparkInit;
+package com.aybits.hms.init;
 
 import com.aybits.hms.arch.util.HmsConfig;
 import org.springframework.beans.factory.annotation.Autowired;

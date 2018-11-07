@@ -9,7 +9,7 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <!-- Request Handlers -->
-    <bean id="setupRequestHandler" class="com.aybits.hms.setup.SetupRequestHandler"/>
+    <bean id="setupRequestHandler" class="com.aybits.hms.setup.HMSRequestHandler"/>
     <bean id="loginRequestHandler" class="com.aybits.hms.login.LoginRequestHandler"/>
     <bean id="bookingRequestHandler" class="com.aybits.hms.booking.BookingRequestHandler"/>
     <bean id="employeeRequestHandler" class="com.aybits.hms.Employee.EmployeeRequestHandler"/>

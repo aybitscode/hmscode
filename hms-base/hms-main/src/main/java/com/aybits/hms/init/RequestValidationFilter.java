@@ -1,4 +1,4 @@
-package com.aybits.hms.sparkInit;
+package com.aybits.hms.init;
 
 public class RequestValidationFilter {
     public boolean validateRequest(){

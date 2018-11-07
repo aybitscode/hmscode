@@ -28,11 +28,6 @@ public class CustomerRequestHandler implements GenericRequestHandler {
     public String handleRequest(Request request, Response response) {
         Log.info("Customer request handler invoked");
 
-        ValidationResult result = validateRequest(request);
-        if (result != null) {
-            return result.getMessage();
-        }
-
         String action = request.pathInfo().split("/")[2];
         String message = "";
         switch (action) {

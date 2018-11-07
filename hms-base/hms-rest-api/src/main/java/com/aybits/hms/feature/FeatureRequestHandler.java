@@ -38,10 +38,6 @@ public class FeatureRequestHandler implements GenericRequestHandler {
 
         Log.info("Feature request handler invoked");
 
-        ValidationResult validationResult = validateRequest(request);
-        if (validationResult != null) {
-            return validationResult.getMessage();
-        }
         HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
         String data = components.getData();
         String tokenId = components.getTokenId();

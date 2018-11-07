@@ -22,10 +22,6 @@ public class BookingRequestHandler implements GenericRequestHandler {
     public String handleRequest(Request request, Response response) {
         System.out.println("Booking request handler invoked");
 
-        ValidationResult result = validateRequest(request);
-        if (result != null) {
-            return result.getMessage();
-        }
 
         return null;
     }

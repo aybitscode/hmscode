@@ -9,10 +9,6 @@ import spark.Request;
 import spark.Response;
 
 public class AmenityRequestHandler implements GenericRequestHandler {
-    @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
 
     @Override
     public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {

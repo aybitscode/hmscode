@@ -23,11 +23,6 @@ public class RoomCategoryRequestHandler implements GenericRequestHandler {
 
 
     @Override
-    public ValidationResult validateRequest(Request request) {
-        return null;
-    }
-
-    @Override
     public String getActionString(Request request) {
         return null;
     }
@@ -44,10 +39,7 @@ public class RoomCategoryRequestHandler implements GenericRequestHandler {
     public String handleRequest(Request request, Response response) {
         Log.info("Hotel request handler invoked");
 
-        ValidationResult result = validateRequest(request);
-        if (result != null) {
-            //return result.getMessage();
-        }
+
 
         components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
         String action = getActionString(request);
