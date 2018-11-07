@@ -86,4 +86,5 @@ modules.xml
 # End of https://www.gitignore.io/api/intellij+all
 hms-base/hms-domain-api/target
 hms-base/hms-rest-api/target
+hms-base/hms-main/target
 hms-base/.idea/*
