@@ -11,8 +11,8 @@ import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public interface HMSRequestHandler {
-    Logger Log = Logger.getLogger(HMSRequestHandler.class);
+public interface GenericRequestHandler {
+    Logger Log = Logger.getLogger(GenericRequestHandler.class);
 
 
     default public ValidationResult validateRequest(Request request) {

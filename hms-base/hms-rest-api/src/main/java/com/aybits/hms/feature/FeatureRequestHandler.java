@@ -4,7 +4,7 @@ import com.aybits.hms.amenity.AmenityRequestHandler;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.common.util.HMSJSONConstants;
 import org.apache.log4j.Logger;
@@ -16,10 +16,10 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FeatureRequestHandler implements HMSRequestHandler {
+public class FeatureRequestHandler implements GenericRequestHandler {
 
     static Logger Log = Logger.getLogger(FeatureRequestHandler.class);
-    HMSRequestHandler hmsRequestHandler = null;
+    GenericRequestHandler hmsRequestHandler = null;
     private String[] entities = {HMSJSONConstants.FACILITIES,HMSJSONConstants.AMENITIES,HMSJSONConstants.SERVICES};
 
     @Override

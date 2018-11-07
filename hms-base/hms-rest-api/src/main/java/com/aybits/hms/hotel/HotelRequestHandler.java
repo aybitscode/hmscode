@@ -4,7 +4,7 @@ import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSErrorResponse;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.common.api.HmsAPI;
@@ -16,11 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import spark.Request;
 import spark.Response;
 
-public class HotelRequestHandler implements HMSRequestHandler {
+public class HotelRequestHandler implements GenericRequestHandler {
     static Logger Log = Logger.getLogger(HotelRequestHandler.class);
 
     @Autowired
+
     HmsAPI hmsAPI;
+
 
     /**
      * @param dataJSON
@@ -110,6 +112,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
             String responseStr = hmsAPI.process(inputJSON);
             hmsResponse = populateHMSResponse(tokenId, responseStr);
 
+
         } catch (HMSRuntimeException e) {
             hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
@@ -131,6 +134,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
             JSONObject inputJSON = new JSONObject(requestData);
             String responseStr = hmsAPI.update(inputJSON);
             hmsResponse = populateHMSResponse(tokenId, responseStr);
+
 
         } catch (HMSRuntimeException e) {
             hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
@@ -156,6 +160,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
             responseStr = hmsAPI.fetch(inputJSON);
             hmsResponse = populateHMSResponse(tokenId, responseStr);
 
+
         } catch (HMSRuntimeException e) {
             Log.info("requestToken:" + tokenId + ",Exception occured in fetchHotel" + e.getMessage());
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
@@ -179,6 +184,7 @@ public class HotelRequestHandler implements HMSRequestHandler {
             JSONObject inputJSON = new JSONObject(requestData);
             responseStr = hmsAPI.fetchAll(inputJSON);
             hmsResponse = populateHMSResponse(tokenId, responseStr);
+
 
         } catch (HMSRuntimeException e) {
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);

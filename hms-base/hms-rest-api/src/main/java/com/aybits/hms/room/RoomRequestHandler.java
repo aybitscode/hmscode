@@ -3,7 +3,7 @@ package com.aybits.hms.room;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HMSResponse;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomAPI;
 import com.aybits.hms.func.room.beans.Room;
@@ -14,7 +14,7 @@ import spark.Response;
 
 import java.util.List;
 
-public class RoomRequestHandler implements HMSRequestHandler {
+public class RoomRequestHandler implements GenericRequestHandler {
     static Logger Log = Logger.getLogger(RoomRequestHandler.class);
 
     @Override

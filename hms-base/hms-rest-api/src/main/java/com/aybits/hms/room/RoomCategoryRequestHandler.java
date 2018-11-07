@@ -4,24 +4,23 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomCategoryAPI;
 import com.aybits.hms.func.room.beans.RoomCategory;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import spark.Request;
 import spark.Response;
 
-public class RoomCategoryRequestHandler implements HMSRequestHandler {
+public class RoomCategoryRequestHandler implements GenericRequestHandler {
 
     static Logger Log = Logger.getLogger(RoomCategoryRequestHandler.class);
 
     HMSJsonRequestComponents components = null;
 
-    @Autowired
-    RoomCategoryAPI roomCategoryAPI;
+    RoomCategoryAPI roomCategoryAPI = new RoomCategoryAPI();
+
 
     @Override
     public ValidationResult validateRequest(Request request) {

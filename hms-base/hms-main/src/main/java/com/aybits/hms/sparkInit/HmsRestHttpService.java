@@ -2,13 +2,12 @@ package com.aybits.hms.sparkInit;
 
 
 import com.aybits.hms.Employee.EmployeeRequestHandler;
-import com.aybits.hms.amenity.AmenityRequestHandler;
 import com.aybits.hms.arch.util.HmsConfig;
 import com.aybits.hms.billing.BillingRequestHandler;
 import com.aybits.hms.booking.BookingRequestHandler;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import com.aybits.hms.customer.CustomerRequestHandler;
-import com.aybits.hms.feature.FacilityRequestHandler;
+import com.aybits.hms.feature.FeatureRequestHandler;
 import com.aybits.hms.hotel.HotelRequestHandler;
 import com.aybits.hms.invoice.InvoiceRequestHandler;
 import com.aybits.hms.login.LoginRequestHandler;
@@ -48,13 +47,10 @@ public class HmsRestHttpService {
     CustomerRequestHandler customerRequestHandler;
 
     @Autowired
-    FacilityRequestHandler facilityRequestHandler;
-
-    @Autowired
-    AmenityRequestHandler amenityRequestHandler;
-
-    @Autowired
     RoomCategoryRequestHandler roomCategoryRequestHandler;
+
+    @Autowired
+    FeatureRequestHandler featureRequestHandler;
 
     @Autowired
     BillingRequestHandler billingRequestHandler;
@@ -74,22 +70,21 @@ public class HmsRestHttpService {
         registerPostApi(appName+"/"+version+API_PREFIX+"/room/*", roomRequestHandler);
         registerPostApi(appName+"/"+version+API_PREFIX+"/hotel/*", hotelRequestHandler);
         registerPostApi(appName+"/"+version+API_PREFIX+"/customer/*", customerRequestHandler);
-        registerPostApi(appName+"/"+version+API_PREFIX+"/facility/*",facilityRequestHandler);
-        registerPostApi(appName+"/"+version+API_PREFIX+"/amenity/*", amenityRequestHandler);
+        registerPostApi(appName+"/"+version+API_PREFIX+"/feature/*",featureRequestHandler);
         registerPostApi(appName+"/"+version+API_PREFIX+"/room-category/*", roomCategoryRequestHandler);
         registerPostApi(appName+"/"+version+API_PREFIX+"/billing/*",billingRequestHandler);
         registerPostApi(appName+"/"+version+API_PREFIX+"/invoice/*", invoiceRequestHandler);
 
     }
 
-    private static void registerPostApi(String apiPath, HMSRequestHandler requestHandler) {
+    private static void registerPostApi(String apiPath, GenericRequestHandler requestHandler) {
         Log.info("Registering post api for "+apiPath);
         post(apiPath, CONTENT_TYPE, (request, response) -> {
             return requestHandler.handleRequest(request, response);
         });
     }
 
-    private static void registerGetApi(String apiPath, HMSRequestHandler requestHandler) {
+    private static void registerGetApi(String apiPath, GenericRequestHandler requestHandler) {
         Log.info("Registering get api for "+apiPath);
         get(apiPath, CONTENT_TYPE, (request, response) -> {
             return requestHandler.handleRequest(request, response);

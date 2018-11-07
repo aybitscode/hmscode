@@ -77,7 +77,6 @@ fabric.properties
 .idea/
 
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
-.idea/*
 *.iml
 modules.xml
 #.idea/misc.xml

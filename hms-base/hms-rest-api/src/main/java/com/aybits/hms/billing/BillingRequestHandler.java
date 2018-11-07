@@ -1,13 +1,13 @@
 package com.aybits.hms.billing;
 
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import com.aybits.hms.common.HMSResponse;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class BillingRequestHandler implements HMSRequestHandler {
+public class BillingRequestHandler implements GenericRequestHandler {
 
 
     @Override

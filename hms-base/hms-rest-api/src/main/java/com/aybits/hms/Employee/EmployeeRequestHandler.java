@@ -3,7 +3,7 @@ package com.aybits.hms.Employee;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.common.HMSResponse;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
@@ -15,7 +15,7 @@ import spark.Response;
 
 import java.util.List;
 
-public class EmployeeRequestHandler implements HMSRequestHandler {
+public class EmployeeRequestHandler implements GenericRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
 
     @Override

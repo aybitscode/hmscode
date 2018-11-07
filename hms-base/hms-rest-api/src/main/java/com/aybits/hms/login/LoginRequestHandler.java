@@ -3,12 +3,12 @@ package com.aybits.hms.login;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.common.ValidationResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.GenericRequestHandler;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class LoginRequestHandler implements HMSRequestHandler {
+public class LoginRequestHandler implements GenericRequestHandler {
     ObjectMapper mapper = new ObjectMapper();
 
     @Override

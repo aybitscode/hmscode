@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- Request Handlers -->
+    <bean id="setupRequestHandler" class="com.aybits.hms.setup.SetupRequestHandler"/>
+    <bean id="loginRequestHandler" class="com.aybits.hms.login.LoginRequestHandler"/>
+    <bean id="bookingRequestHandler" class="com.aybits.hms.booking.BookingRequestHandler"/>
+    <bean id="employeeRequestHandler" class="com.aybits.hms.Employee.EmployeeRequestHandler"/>
+    <bean id="roomRequestHandler" class="com.aybits.hms.room.RoomRequestHandler"/>
+    <bean id="hotelRequestHandler" class="com.aybits.hms.hotel.HotelRequestHandler"/>
+    <bean id="customerRequestHandler" class="com.aybits.hms.customer.CustomerRequestHandler"/>
+    <bean id="roomCategoryRequestHandler" class="com.aybits.hms.room.RoomCategoryRequestHandler"/>
+    <bean id="billingRequestHandler" class="com.aybits.hms.billing.BillingRequestHandler"/>
+    <bean id="invoiceRequestHandler" class="com.aybits.hms.invoice.InvoiceRequestHandler"/>
+    <bean id="featureRequestHandler" class="com.aybits.hms.feature.FeatureRequestHandler"/>
+
+</beans>
