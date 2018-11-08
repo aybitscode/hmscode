@@ -5,7 +5,7 @@ import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.func.common.api.HMSAPIResponse;
-import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.common.util.HMSJSONConstants;
 import com.aybits.hms.func.hotel.beans.Hotel;
@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HotelAPI implements HmsAPI {
+public class HotelAPI implements HMSAPI {
 
     static Logger Log = Logger.getLogger(HotelAPI.class);
 

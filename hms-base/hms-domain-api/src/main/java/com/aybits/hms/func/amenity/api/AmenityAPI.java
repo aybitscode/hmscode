@@ -7,8 +7,7 @@ import com.aybits.hms.arch.util.HMSAPIConstants;
 import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.amenity.dao.AmenityCache;
 import com.aybits.hms.func.amenity.dao.AmenityDAO;
-import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.common.api.HmsAPIImpl;
+import com.aybits.hms.func.common.api.HMSAPI;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
@@ -16,7 +15,7 @@ import java.util.List;
 
 import static com.aybits.hms.arch.exception.HMSErrorCodes.AMENITY_ADDITION_FAILED;
 
-public class AmenityAPI implements HmsAPI {
+public class AmenityAPI implements HMSAPI {
 
     static Logger log = Logger.getLogger(AmenityAPI.class);
     AmenityCache amenityCache = new AmenityCache();

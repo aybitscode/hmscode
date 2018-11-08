@@ -1,8 +1,7 @@
 package com.aybits.hms.func.employee.api;
 
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.common.api.HmsAPIImpl;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.employee.beans.Employee;
 import com.aybits.hms.func.employee.dao.EmployeeDAO;
 import org.json.JSONObject;
@@ -10,7 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeAPI implements HmsAPI {
+public class EmployeeAPI implements HMSAPI {
 
     public EmployeeAPI(){
 

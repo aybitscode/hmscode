@@ -9,16 +9,16 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <!-- Request Handlers -->
-    <bean id="setupRequestHandler" class="com.aybits.hms.setup.HMSRequestHandler"/>
-    <bean id="loginRequestHandler" class="com.aybits.hms.login.LoginRequestHandler"/>
-    <bean id="bookingRequestHandler" class="com.aybits.hms.booking.BookingRequestHandler"/>
-    <bean id="employeeRequestHandler" class="com.aybits.hms.Employee.EmployeeRequestHandler"/>
-    <bean id="roomRequestHandler" class="com.aybits.hms.room.RoomRequestHandler"/>
-    <bean id="hotelRequestHandler" class="com.aybits.hms.hotel.HotelRequestHandler"/>
-    <bean id="customerRequestHandler" class="com.aybits.hms.customer.CustomerRequestHandler"/>
-    <bean id="roomCategoryRequestHandler" class="com.aybits.hms.room.RoomCategoryRequestHandler"/>
-    <bean id="billingRequestHandler" class="com.aybits.hms.billing.BillingRequestHandler"/>
-    <bean id="invoiceRequestHandler" class="com.aybits.hms.invoice.InvoiceRequestHandler"/>
-    <bean id="featureRequestHandler" class="com.aybits.hms.feature.FeatureRequestHandler"/>
+    <bean id="loginRequestProcessor" class="com.aybits.hms.login.LoginRequestProcessor"/>
+    <bean id="bookingRequestProcessor" class="com.aybits.hms.booking.BookingRequestProcessor"/>
+    <bean id="employeeRequestProcessor" class="com.aybits.hms.Employee.EmployeeRequestProcessor"/>
+    <bean id="roomRequestProcessor" class="com.aybits.hms.room.RoomRequestProcessor"/>
+    <bean id="hotelRequestProcessor" class="com.aybits.hms.hotel.HotelRequestProcessor"/>
+    <bean id="customerRequestProcessor" class="com.aybits.hms.customer.CustomerRequestProcessor"/>
+    <bean id="roomCategoryRequestProcessor" class="com.aybits.hms.room.RoomCategoryRequestProcessor"/>
+    <bean id="billingRequestProcessor" class="com.aybits.hms.billing.BillingRequestProcessor"/>
+    <bean id="invoiceRequestProcessor" class="com.aybits.hms.invoice.InvoiceRequestProcessor"/>
+    <bean id="featureRequestProcessor" class="com.aybits.hms.feature.FeatureRequestProcessor"/>
+    <bean id="hmsRequestHandler" class="com.aybits.hms.common.HMSRequestHandler"/>
 
 </beans>

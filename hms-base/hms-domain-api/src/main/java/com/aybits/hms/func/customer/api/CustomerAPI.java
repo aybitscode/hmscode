@@ -2,8 +2,7 @@ package com.aybits.hms.func.customer.api;
 
 
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.common.api.HmsAPIImpl;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.dao.CustomerDAO;
 import org.json.JSONObject;
@@ -11,7 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerAPI implements HmsAPI {
+public class CustomerAPI implements HMSAPI {
 
 	CustomerDAO customerDAO = new CustomerDAO();
 

@@ -3,14 +3,14 @@ package com.aybits.hms.func.room.api;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.room.beans.Room;
 import com.aybits.hms.func.room.dao.RoomDAO;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class RoomAPI implements HmsAPI {
+public class RoomAPI implements HMSAPI {
 
     private RoomDAO roomDAO = new RoomDAO();
 

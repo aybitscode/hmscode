@@ -4,8 +4,7 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
-import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.common.api.HmsAPIImpl;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.service.beans.Service;
 import com.aybits.hms.func.service.dao.ServiceCache;
 import com.aybits.hms.func.service.dao.ServiceDAO;
@@ -14,7 +13,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class ServiceAPI implements HmsAPI {
+public class ServiceAPI implements HMSAPI {
 
     static Logger log = Logger.getLogger(ServiceAPI.class);
     ServiceCache serviceCache = new ServiceCache();

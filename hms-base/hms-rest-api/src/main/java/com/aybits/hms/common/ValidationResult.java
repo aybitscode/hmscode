@@ -19,4 +19,15 @@ public class ValidationResult {
 
     private int code;
     private String message;
+    private HMSRequest hmsRequest;
+
+    public HMSRequest getHmsRequest() {
+        return hmsRequest;
+    }
+
+    public void setHmsRequest(HMSRequest hmsRequest) {
+        this.hmsRequest = hmsRequest;
+    }
+
+
 }

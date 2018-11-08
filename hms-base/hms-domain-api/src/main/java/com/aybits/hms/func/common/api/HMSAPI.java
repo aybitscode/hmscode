@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface HmsAPI {
+public interface HMSAPI {
 
     default void init(){
         HMSCache hmsCache = new HMSCache();

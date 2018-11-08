@@ -4,7 +4,7 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSAPIConstants;
-import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.facility.dao.FacilityCache;
 import org.apache.log4j.Logger;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class FacilityAPI implements HmsAPI {
+public class FacilityAPI implements HMSAPI {
 
     static Logger log = Logger.getLogger(FacilityAPI.class);
     FacilityCache facilityCache = new FacilityCache();

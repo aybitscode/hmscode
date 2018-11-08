@@ -16,6 +16,12 @@ public class HMSResponse {
     @JsonProperty("data")
     Object responseData;
 
+    @JsonProperty("error_message")
+    String errorMessage;
+
+    @JsonProperty("error_code")
+    String errorCode;
+
     public HMSResponse() {
 
     }
@@ -57,5 +63,21 @@ public class HMSResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 }

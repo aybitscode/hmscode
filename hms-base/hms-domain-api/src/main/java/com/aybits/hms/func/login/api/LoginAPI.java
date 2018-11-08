@@ -4,8 +4,7 @@ import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.hotel.api.HotelAPI;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.hotel.api.HotelAPIHelper;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.login.beans.LoginAttributes;
@@ -14,7 +13,7 @@ import com.aybits.hms.func.login.dao.LoginDAO;
 import org.json.JSONObject;
 
 
-public class LoginAPI implements HmsAPI {
+public class LoginAPI implements HMSAPI {
 
     @Override
     public String process(JSONObject dataJSON) throws HMSRuntimeException {

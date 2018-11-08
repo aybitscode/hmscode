@@ -1,8 +1,7 @@
 package com.aybits.hms.func.room.api;
 
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.common.api.HmsAPIImpl;
+import com.aybits.hms.func.common.api.HMSAPI;
 import com.aybits.hms.func.room.beans.RoomCategory;
 import com.aybits.hms.func.room.cache.RoomCategoryCache;
 import com.aybits.hms.func.room.dao.RoomCategoryDAO;
@@ -11,7 +10,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class RoomCategoryAPI implements HmsAPI {
+public class RoomCategoryAPI implements HMSAPI {
 
 
     static Logger log = Logger.getLogger(RoomCategoryAPI.class);
