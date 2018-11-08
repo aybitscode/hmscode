@@ -9,6 +9,7 @@ import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
+import com.aybits.hms.func.hotel.api.HotelAPI;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +21,7 @@ public class HotelRequestHandler implements GenericRequestHandler {
     static Logger Log = Logger.getLogger(HotelRequestHandler.class);
 
     @Autowired
-
-    HmsAPI hmsAPI;
+    HotelAPI hmsAPI;
 
 
     /**
