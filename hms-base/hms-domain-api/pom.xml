@@ -11,7 +11,6 @@
 
     <artifactId>hms-domain-api</artifactId>
     <version>1.0</version>
-    <name>hms-domain-api</name>
     <description>HMS APIs are core APIs of the HMS Solution and
         are to be added as dependency to implementing application</description>
     <url>http://maven.apache.org</url>
@@ -95,7 +94,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
-        <buildId>${project.name}-${project.version}-${buildTimestamp}</buildId>
+        <buildId>${project.name}-${project.version}</buildId>
     </properties>
 
     <dependencies>
@@ -480,7 +479,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <finalName>hms-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -549,7 +547,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>${buildId}</finalName>
+                    <finalName>${buildId}-libs</finalName>
                 </configuration>
             </plugin>
         </plugins>
