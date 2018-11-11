@@ -1,7 +1,6 @@
 package com.aybits.hms.setup;
 
 import com.aybits.hms.Employee.EmployeeRequestHandler;
-import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
@@ -26,15 +25,6 @@ public  class SetupRequestHandler implements HMSRequestHandler {
     public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
     }
 
-    @Override
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public ValidationResult validateRequestData(Request request) throws HMSException {
-        return null;
-    }
 
     @Override
     public String handleRequest(Request request, Response response) {
@@ -113,12 +103,7 @@ public  class SetupRequestHandler implements HMSRequestHandler {
     }
 
     private String setupEmployeeDetails(Request request,Response response){
-        hmsRequestHandler = new EmployeeRequestHandler() {
-            @Override
-            public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
-
-            }
-        };
+        hmsRequestHandler = new EmployeeRequestHandler();
         return hmsRequestHandler.handleRequest(request,response);
     }
 

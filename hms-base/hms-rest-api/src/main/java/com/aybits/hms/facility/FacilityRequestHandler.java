@@ -38,20 +38,6 @@ public class FacilityRequestHandler implements HMSRequestHandler {
     }
 
 
-    @Override
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public ValidationResult validateRequestData(Request request) throws HMSException {
-
-        ValidationResult result = new ValidationResult();
-        result.setCode(100);
-        result.setMessage("In Valida Request");
-        return result;
-    }
-
     /**
      * @param request
      * @param response
@@ -225,26 +211,6 @@ public class FacilityRequestHandler implements HMSRequestHandler {
             return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
-
-    /**
-     * @param he
-     * @return
-     */
-
-    @Override
-    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
-        Log.error(he.getHmsErrorInfo());
-        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, he.getHmsErrorInfo().getErrorMessage(), he.getHmsErrorInfo().getErrorCode());
-        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
-    }
-
-    @Override
-    public String populateGenericErrorResponse(Exception e, String tokenId) {
-        Log.error(e.getCause());
-        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_SYSTEM_ERROR);
-        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
-    }
-
 
 }
 

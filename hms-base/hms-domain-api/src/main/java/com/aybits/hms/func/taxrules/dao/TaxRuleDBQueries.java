@@ -5,7 +5,8 @@ public class TaxRuleDBQueries {
 	 /**
      * DML QUERIES
      */
-    protected static final String FETCH_TAXRULE_BY_TAXRULE_ID = "select * from hms_taxrule where taxrule_id = ? and hotel_id = ?";
+    protected static final String FETCH_TAXRULE_BY_TAXRULE_ID = "select * from hms_taxrule where hotel_id = ? and taxrule_id = ?";
+    protected static final String FETCH_TAXRULE_BY_TAXRULE_NAME = "select * from hms_taxrule where hotel_id = ? and taxrule_name = ?";
     protected static final String FETCH_ALL_TAXRULES = "select * from hms_taxrule where hotel_id = ?";
 
     /**

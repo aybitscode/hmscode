@@ -70,10 +70,6 @@ public interface   HMSRequestHandler
 
     void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException;
 
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException;
-
-    ValidationResult validateRequestData(Request request) throws HMSException;
-
     public String handleRequest(Request request, Response response);
 
 
@@ -105,7 +101,17 @@ public interface   HMSRequestHandler
 
     }
 
-    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId);
 
-    public String populateGenericErrorResponse(Exception e,String tokenId);
+    default public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        Log.error(he.getHmsErrorInfo());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, he.getHmsErrorInfo().getErrorMessage(), he.getHmsErrorInfo().getErrorCode());
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
+    }
+
+
+    default public String populateGenericErrorResponse(Exception e, String tokenId) {
+        Log.error(e.getCause());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_SYSTEM_ERROR);
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
+    }
 }

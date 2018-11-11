@@ -32,17 +32,6 @@ public class AmenityRequestHandler implements HMSRequestHandler {
         hmsAPI.validate(dataJSON);
     }
 
-
-    @Override
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public ValidationResult validateRequestData(Request request) throws HMSException {
-        return null;
-    }
-
     /**
      * @param request
      * @param response

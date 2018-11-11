@@ -18,16 +18,6 @@ public class InvoiceRequestHandler implements HMSRequestHandler {
         return null;
     }
 
-    @Override
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public ValidationResult validateRequestData(Request request) throws HMSException {
-        return null;
-    }
-
     
     public void validateRequestData(JSONObject jsonObject) {
         System.out.println("Hello");

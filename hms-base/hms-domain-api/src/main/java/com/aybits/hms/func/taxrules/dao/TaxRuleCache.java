@@ -12,6 +12,7 @@ import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.taxrules.beans.TaxRule;
+import org.apache.log4j.Logger;
 
 
 public class TaxRuleCache {
@@ -19,6 +20,7 @@ public class TaxRuleCache {
     private static final HashSet<String> taxRuleIds = new HashSet<>();
     private TaxRuleDAO taxRuleDAO = new TaxRuleDAO();
     private TaxRule taxRule = new TaxRule();
+    static Logger log = Logger.getLogger(TaxRuleCache.class);
 
     public Boolean initCache(String hotelId) throws HMSRuntimeException {
 
@@ -52,7 +54,7 @@ public class TaxRuleCache {
         return isCacheInitialized;
     }
 
-    public TaxRule addTaxRule(TaxRule taxRule) throws HMSRuntimeException {
+    public String addTaxRule(TaxRule taxRule) throws HMSRuntimeException {
         String taxRulelId = taxRuleDAO.addTaxRule(taxRule);
 
         if (taxRulelId != null) {
@@ -62,27 +64,16 @@ public class TaxRuleCache {
                 hotelTaxRuleCache.put(taxRule.getHotelId(), taxRule);
             }
         }
-        return String.valueOf(taxRulelId);
+        return taxRulelId;
     }
 
-
-
-    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSRuntimeException {
-        String hotelRegistrationId = taxRuleDAO.
-                .addHotelRegistrationData(hotelRegistrationData);
-        if (hotelRegistrationId == null) {
-            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null"));
-        }
-        return String.valueOf(hotelRegistrationId);
-    }
-
-    public TaxRule fetchTaxRuleByHotellId(String taxRuleId) throws HMSRuntimeException {
+    public TaxRule fetchTaxRuleById(String hotelId,String taxRuleId) throws HMSRuntimeException {
         TaxRule taxRule = null;
         try {
             taxRule = hotelTaxRuleCache.get(taxRuleId);
 
             if (taxRule == null) {
-                taxRule = taxRuleDAO.getTaxRuleByHotelId();
+                taxRule = taxRuleDAO.getTaxRuleByHotelId(hotelId);
 
                 taxRule = Objects.requireNonNull(taxRule);
                 hotelTaxRuleCache.put(taxRuleId, taxRule);
@@ -95,15 +86,35 @@ public class TaxRuleCache {
     }
 
 
+    public List<TaxRule> fetchTaxRulesByHotelId(String hotelId) throws HMSRuntimeException {
+        TaxRule taxRule = null;
+        /*try {
+            taxRule = hotelTaxRuleCache.get(hotelId);
+
+            if (taxRule == null) {
+                taxRule = taxRuleDAO.getTaxRuleByHotelId(hotelId);
+
+                taxRule = Objects.requireNonNull(taxRule);
+                hotelTaxRuleCache.put(taxRuleId, taxRule);
+            }
+        } catch (NullPointerException npe) {
+            log.info("No Hotel Present for the given hotelId[" + taxRuleId + "]");
+        } finally {
+            return taxRule;
+        }*/
+        return null;
+    }
 
 
 
-    public List<TaxRule> fetchAllTaxRules() throws HMSRuntimeException {
+
+
+    public List<TaxRule> fetchAllTaxRules(String hotelId) throws HMSRuntimeException {
 
         ArrayList<TaxRule> taxRules = new ArrayList<>();
         taxRules.addAll(hotelTaxRuleCache.values());
         if (taxRules.isEmpty()) {
-            initCache();
+            initCache(hotelId);
             taxRules.addAll(hotelTaxRuleCache.values());
         }
         return taxRules;
@@ -116,11 +127,11 @@ public class TaxRuleCache {
     }
 
 
-    public Boolean isTaxRulePresent(String hotelId) {
+    public Boolean isTaxRulePresent(String hotelId,String taxRuleId) {
         Boolean isTaxPresent = false;
         TaxRule taxRule = null;
         try {
-            taxRule = fetchTaxRuleByHotellId(hotelId);
+            taxRule = fetchTaxRuleById(hotelId,taxRuleId);
             if (taxRule != null && taxRule.getHotelId() != null) {
                 isTaxPresent = true;
             }

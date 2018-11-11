@@ -26,11 +26,12 @@ public class TaxRuleDAO {
 
 	    static Logger Log = Logger.getLogger(TaxRuleDAO.class);
 	    
-	    public Boolean addTaxRule(TaxRule taxRule) throws HMSRuntimeException {
+	    public String addTaxRule(TaxRule taxRule) throws HMSRuntimeException {
 	        boolean isTaxRuleAdded = false;
 	        Connection connection  = null;
 	        PreparedStatement ps = null;
-	        try {
+			String taxRuleId = null;
+			try {
 	            connection = DBCPConnection.getDBConnection();
 	            ps = connection.prepareStatement(TaxRuleDBQueries.INSERT_NEW_TAXRULE);
 
@@ -38,7 +39,7 @@ public class TaxRuleDAO {
 	            String keyPrefix = "HTXR";
 	            String keySuffix = hmsCommonDAO.getNextPrimaryKey("hotel_id","taxrule_id","hms_taxrule");
 
-	            String taxRuleId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix,false);
+	            taxRuleId = hmsRandomAPI.generatePrimaryKey(keyPrefix,keySuffix,false);
 	            taxRule.setTaxRuleId(taxRuleId);
 	            connection.setAutoCommit(false);
 	            ps.setString(1, taxRule.getTaxRuleId());
@@ -64,7 +65,7 @@ public class TaxRuleDAO {
 	        } finally {
 	            DBCPConnection.closeDBConnection(null, ps, connection);
 	        }
-	        return isTaxRuleAdded;
+	        return taxRuleId;
 	    }
 
 	    protected TaxRule getTaxRuleByHotelId(String hotelId) throws HMSRuntimeException{

@@ -22,14 +22,16 @@ public class TaxRuleSelectDAO {
     PreparedStatement stmt = null;
     ResultSet rs = null;
 
-    public TaxRule fetchTaxRuleByTaxRuleId(String employeeId) throws HMSRuntimeException {
+    public TaxRule fetchTaxRuleByTaxRuleId(String hotelId,String taxRuleId) throws HMSRuntimeException {
         TaxRule taxRule = new TaxRule();
 
         try {
             connection = DBCPConnection.getDBConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(TaxRuleDBQueries.FETCH_TAXRULE_BY_TAXRULE_ID);
-            stmt.setString(1, employeeId);
+
+            stmt.setString(1, hotelId);
+            stmt.setString(1, taxRuleId);
             stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             rs = stmt.executeQuery();
 
@@ -38,6 +40,31 @@ public class TaxRuleSelectDAO {
 
         } catch (Exception npe) {
             throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
+        } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
+            return taxRule;
+        }
+    }
+
+
+    public TaxRule fetchTaxRuleByTaxRuleName(String hotelId,String taxRuleName) throws HMSRuntimeException {
+        TaxRule taxRule = new TaxRule();
+
+        try {
+            connection = DBCPConnection.getDBConnection();
+            connection.setAutoCommit(false);
+            stmt = connection.prepareStatement(TaxRuleDBQueries.FETCH_TAXRULE_BY_TAXRULE_NAME);
+
+            stmt.setString(1, hotelId);
+            stmt.setString(1, taxRuleName);
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
+            rs = stmt.executeQuery();
+
+            taxRule = populateTaxRule(rs);
+            Log.info("\nPopulating TaxRule[" + taxRule.getTaxRuleId() + "] in TaxRule Object");
+
+        } catch (Exception npe) {
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return taxRule;
@@ -77,8 +104,8 @@ public class TaxRuleSelectDAO {
         } else {
 
             do {
+                String hotelId = rs.getString("hotel_id");
                 String taxRuleId = rs.getString("taxrule_id");
-                String TaxRuleId = rs.getString("TaxRule_id");
                 String taxRuleName = rs.getString("taxrule_name");
                 String taxRuleDescription = rs.getString("taxrule_description");
                 Double taxLowerBound = rs.getDouble("tax_lower_bound");
@@ -87,7 +114,7 @@ public class TaxRuleSelectDAO {
                 Double sgst = rs.getDouble("tax_sgst");
                 Double gst = rs.getDouble("tax_gst");
                 String taxCategory = rs.getString("tax_category");
-                return new  TaxRule(TaxRuleId, taxRuleId, taxRuleName, taxLowerBound, taxUpperBound, cgst, sgst, gst, taxCategory, taxRuleDescription);
+                return new  TaxRule(hotelId, taxRuleId, taxRuleName, taxLowerBound, taxUpperBound, cgst, sgst, gst, taxCategory, taxRuleDescription);
             } while (rs.next());
         }
     }

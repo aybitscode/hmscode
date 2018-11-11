@@ -47,16 +47,6 @@ public class BookingRequestHandler implements HMSRequestHandler {
     }
 
 
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public ValidationResult validateRequestData(Request request) throws HMSException {
-        return null;
-    }
-
-
     public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
         return null;
     }

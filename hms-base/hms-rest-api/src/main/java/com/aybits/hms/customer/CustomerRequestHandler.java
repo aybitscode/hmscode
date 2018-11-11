@@ -8,23 +8,19 @@ import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.customer.api.CustomerAPI;
 import com.aybits.hms.func.customer.beans.Customer;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 import java.util.List;
 
-public abstract class CustomerRequestHandler implements HMSRequestHandler {
+public class CustomerRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(CustomerRequestHandler.class);
 
 
-
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
 
-        ValidationResult result = new ValidationResult();
-        result.setCode(100);
-        result.setMessage("In Valida Request");
-        return result;
     }
 
     @Override
@@ -55,15 +51,6 @@ public abstract class CustomerRequestHandler implements HMSRequestHandler {
         return message;
     }
 
-    @Override
-    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
-        return null;
-    }
-
-    @Override
-    public String populateGenericErrorResponse(Exception e, String tokenId) {
-        return null;
-    }
 
     private String addCustomer(Request request) {
         Log.info("adding new customer");

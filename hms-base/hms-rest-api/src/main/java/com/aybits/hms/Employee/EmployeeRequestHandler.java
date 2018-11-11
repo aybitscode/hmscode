@@ -1,5 +1,6 @@
 package com.aybits.hms.Employee;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public abstract class EmployeeRequestHandler implements HMSRequestHandler {
+public class EmployeeRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
 
     
@@ -26,6 +27,7 @@ public abstract class EmployeeRequestHandler implements HMSRequestHandler {
     public void validateRequestData(JSONObject dataJSON) {
       hmsAPI.validate(dataJSON);
     }
+
 
     public String handleRequest(Request request, Response response) {
         Log.info("Employee request handler invoked");

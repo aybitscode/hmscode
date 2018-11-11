@@ -34,17 +34,6 @@ public  class HotelRequestHandler implements HMSRequestHandler {
         hotelApi.validate(dataJSON);
     }
 
-
-    @Override
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
-
-    @Override
-    public ValidationResult validateRequestData(Request request) throws HMSException {
-        return null;
-    }
-
     /**
      * @param request
      * @param response
@@ -219,24 +208,6 @@ public  class HotelRequestHandler implements HMSRequestHandler {
         }
     }
 
-    /**
-     * @param he
-     * @return
-     */
-
-    @Override
-    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
-        Log.error(he.getHmsErrorInfo());
-        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, he.getHmsErrorInfo().getErrorMessage(), he.getHmsErrorInfo().getErrorCode());
-        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
-    }
-
-    @Override
-    public String populateGenericErrorResponse(Exception e, String tokenId) {
-        Log.error(e.getCause());
-        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_SYSTEM_ERROR);
-        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
-    }
 
 
 }

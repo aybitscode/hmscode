@@ -1,10 +1,13 @@
 package com.aybits.hms.feature;
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
+import org.json.JSONException;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
@@ -18,24 +21,97 @@ public class FeatureRequestHandler implements HMSRequestHandler {
     }
 
     @Override
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
 
-    @Override
-    public ValidationResult validateRequestData(Request request) {
-        return null;
     }
 
     @Override
     public String handleRequest(Request request, Response response) {
 
 
+        Log.info("Hotel request handler invoked");
+
+        ValidationResult validationResult = validateRequest(request);
+        if (validationResult != null) {
+            return validationResult.getMessage();
+        }
+        HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
+        String operation = components.getOperation();
+        String entity = components.getEntity();
+        String data = components.getData();
+        String action = operation + "/" + entity;
+        String tokenId = components.getTokenId();
+        String errorResponse = null;
+
+        JSONObject dataJSON = null;
+
+        ValidationResult result = null;
+        try {
+            dataJSON = new JSONObject(data);
+            validateRequestData(dataJSON);
+        } catch (HMSRuntimeException hrex) {
+            errorResponse = populateHMSErrorResponse(hrex, tokenId);
+        } catch (JSONException jex) {
+            errorResponse = populateGenericErrorResponse(jex, tokenId);
+        }
+        if (errorResponse != null) {
+            return errorResponse;
+        }
+
+
+        String message = "";
+
+        try {
+            switch (action) {
+                case "/fetch":
+                    message = fetchFeatures(tokenId, data);
+                    break;
+                case "add/features":
+                    message = addFeatures(tokenId, data);
+                    break;
+                case "update/features":
+                    message = updateFeatures(tokenId, data);
+                    break;
+                case "disable/features":
+                    message = disableFeatures(tokenId, data);
+                    break;
+                case "enable/features":
+                    message = enableFeatures(tokenId,data);
+            }
+        }catch(HMSRuntimeException hrex){
+            message = populateHMSErrorResponse(hrex, tokenId);
+        }finally {
+            return message;
+        }
+    }
+
+    private String fetchFeatures(String tokenId, String data) {
+        return null;
+    }
+
+    private String addFeatures(String tokenId, String data) {
+        return null;
+    }
+
+    private String updateFeatures(String tokenId, String data) {
+        return null;
+    }
+
+    private String disableFeatures(String tokenId, String data) {
+        return null;
+    }
+
+    private String enableFeatures(String tokenId, String data) {
         return null;
     }
 
     @Override
     public HMSResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+        return null;
+    }
+
+    @Override
+    public HMSResponse populateHmsResponse(String tokenId, String responseString) {
         return null;
     }
 
@@ -48,4 +124,6 @@ public class FeatureRequestHandler implements HMSRequestHandler {
     public String populateGenericErrorResponse(Exception e, String tokenId) {
         return null;
     }
+
+
 }
