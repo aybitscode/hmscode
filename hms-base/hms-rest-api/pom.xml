@@ -19,6 +19,8 @@
         <sparkjava.version>2.6.0</sparkjava.version>
         <jackson.version>2.8.8.1</jackson.version>
         <hms-domain-api.version>1.0</hms-domain-api.version>
+        <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
+        <buildId>${project.name}-${project.version}</buildId>
     </properties>
 
     <dependencies>
@@ -32,6 +34,12 @@
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
             <version>${sparkjava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
         </dependency>
 
         <dependency>
@@ -49,7 +57,6 @@
     </dependencies>
 
     <build>
-        <finalName>hms-rest-api</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -64,18 +71,18 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.0</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.aybits.hms.sparkInit.HmsRestServiceMain</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+            <!--  <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-jar-plugin</artifactId>
+                  <version>3.0.2</version>
+                  <configuration>
+                      <archive>
+                          <manifest>
+                              <mainClass>com.aybits.hms.com.aybits.hms.sparkInit.HmsRestServiceMain</mainClass>
+                          </manifest>
+                      </archive>
+                  </configuration>
+              </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -83,6 +90,21 @@
                     <outputDirectory>
                         ${project.build.directory}/lib
                     </outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>${project.name}-${project.version}-libs</finalName>
                 </configuration>
             </plugin>
         </plugins>
