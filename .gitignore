@@ -83,6 +83,6 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
-# End of https://www.gitignore.io/api/intellij+all
 hms-base/hms-domain-api/target
 hms-base/hms-rest-api/target
+# End of https://www.gitignore.io/api/intellij+all
