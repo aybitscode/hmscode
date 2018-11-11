@@ -16,7 +16,7 @@ public class CommonDBQueries {
     protected static final String getNextPrimaryKeyQuerySQL(String[] columns,String table){
     	
     	StringBuffer sb = new StringBuffer();
-    	sb.append("(select count(");
+    	sb.append("(select count(distinct ");
     	int i = 0;
     	for(String temp:columns) {
     		sb.append(temp);
@@ -27,7 +27,7 @@ public class CommonDBQueries {
     	sb.append(")+1 as NEXT_ID from ");
     	sb.append(table);
     	sb.append(")");
-    	
+
     	return sb.toString();
 
     }

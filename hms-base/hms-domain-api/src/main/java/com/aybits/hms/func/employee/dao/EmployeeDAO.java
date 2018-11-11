@@ -43,7 +43,7 @@ public class EmployeeDAO {
             stmt = connection.prepareStatement(EmployeeDBQueries.ADD_EMPLOYEE);
             //added by nouman
             String keyPrefix = "HEMP";
-            String columns[] = {"hotel_id","employee_id"};
+            String columns[] = {"hotel_id","EMPLOYEE_ID"};
             String table =  "hms_employee";
             String keySuffix = hmsCommonDAO.getNextPrimaryKey(columns,table);
             Boolean isRandomSaltRequired = false;
