@@ -1,7 +1,9 @@
 package com.aybits.hms.func.facility.dao;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.facility.beans.Facility;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class FacilityCache {
     private FacilitySelectDAO facilitySelectDAO = new FacilitySelectDAO();
     private FacilityDAO facilityDAO = new FacilityDAO();
 
-    public Boolean initCache(String hotelId) throws HMSException {
+    public Boolean initCache(String hotelId) throws HMSRuntimeException {
 
         Boolean isCacheInitialized = initializeHotelFacilityCache(hotelId, false);
 
@@ -25,7 +27,7 @@ public class FacilityCache {
     }
 
 
-    private Boolean initializeHotelFacilityCache(String hotelId, Boolean reload) throws HMSException {
+    private Boolean initializeHotelFacilityCache(String hotelId, Boolean reload) throws HMSRuntimeException {
 
         Boolean isCacheInitialized = false;
         if (reload) {
@@ -37,9 +39,9 @@ public class FacilityCache {
                 if (!facilityHashMap.isEmpty()) {
                     hotelFacilityCache.put(hotelId, facilityHashMap);
                 }
-            } catch (HMSException e) {
+            } catch (HMSRuntimeException e) {
                 //LOG Cache Initialization failed
-                throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE, "Loading Hotel Facilities Cache failed");
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE, "Loading Hotel Facilities Cache failed"));
             } finally {
                 if (!hotelFacilityCache.keySet().isEmpty()) {
                     isCacheInitialized = true;
@@ -49,7 +51,7 @@ public class FacilityCache {
         return isCacheInitialized;
     }
 
-    public String addFacility(Facility facility) throws HMSException {
+    public String addFacility(Facility facility) throws HMSRuntimeException {
         String hotelId = facility.getHotelId();
         String facilityId = facility.getFacilityId();
 
@@ -75,7 +77,7 @@ public class FacilityCache {
         hotelFacilityCache.put(hotelId, updatedFacilityMap);
     }
 
-    public Facility getFacility(String hotelId, String facilityId) throws HMSException {
+    public Facility getFacility(String hotelId, String facilityId) throws HMSRuntimeException {
 
         facilityHashMap = hotelFacilityCache.get(hotelId);
         Facility facility = facilityHashMap.get(facilityId);
@@ -86,7 +88,7 @@ public class FacilityCache {
         return facility;
     }
 
-    public List<Facility> getAllFacilities(String hotelId) throws HMSException{
+    public List<Facility> getAllFacilities(String hotelId) throws HMSRuntimeException{
         ArrayList<Facility> facilities = new ArrayList<>();
         facilityHashMap = hotelFacilityCache.get(hotelId);
 
@@ -98,7 +100,7 @@ public class FacilityCache {
         return facilities;
     }
 
-    public List<Facility> getAllAvailableFacilities(String hotelId, Boolean isAvailable) throws HMSException{
+    public List<Facility> getAllAvailableFacilities(String hotelId, Boolean isAvailable) throws HMSRuntimeException{
         List<Facility> availableFacilities = new ArrayList<Facility>();
         facilityHashMap = hotelFacilityCache.get(hotelId);
 
@@ -114,7 +116,7 @@ public class FacilityCache {
         return availableFacilities;
     }
 
-    public List<Facility> getAllChargeableFacilities(String hotelId, Boolean isChargeable) throws HMSException {
+    public List<Facility> getAllChargeableFacilities(String hotelId, Boolean isChargeable) throws HMSRuntimeException {
         List<Facility> availableFacilities = new ArrayList<Facility>();
         facilityHashMap = hotelFacilityCache.get(hotelId);
 
@@ -132,7 +134,7 @@ public class FacilityCache {
     }
 
 
-    public Boolean reloadHotelFacilitiesCache(String hotelId) throws HMSException {
+    public Boolean reloadHotelFacilitiesCache(String hotelId) throws HMSRuntimeException {
 
         Boolean reloadCache = true;
         Boolean isCacheInitialized = initializeHotelFacilityCache(hotelId, reloadCache);

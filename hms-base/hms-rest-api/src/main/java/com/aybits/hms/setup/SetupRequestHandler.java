@@ -1,26 +1,38 @@
 package com.aybits.hms.setup;
 
+import com.aybits.hms.Employee.EmployeeRequestHandler;
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.feature.FeatureRequestHandler;
 import com.aybits.hms.hotel.HotelRequestHandler;
+import com.aybits.hms.room.RoomCategoryRequestHandler;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public class SetupRequestHandler implements HmsRequestHandler {
+public  class SetupRequestHandler implements HMSRequestHandler {
 
     static Logger Log = Logger.getLogger(SetupRequestHandler.class);
+    HMSRequestHandler hmsRequestHandler = null;
 
 
+
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
+    }
+
+    @Override
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
+        return null;
+    }
 
     @Override
     public ValidationResult validateRequestData(Request request) throws HMSException {
-
-
-
         return null;
     }
 
@@ -30,17 +42,28 @@ public class SetupRequestHandler implements HmsRequestHandler {
 
         HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
 
+
+        String operation = components.getOperation();
+        String entity = components.getEntity();
+        String data = components.getData();
+        String action = operation + "/" + entity;
+        String tokenId = components.getTokenId();
+
+        JSONObject dataJSON = null;
+
         ValidationResult result = null;
         try {
-            result = validateRequestData(request);
-        }catch(HMSException he){
+            dataJSON = new JSONObject(data);
+            validateRequestData(dataJSON);
+        }catch(HMSRuntimeException he){
+
+        }catch(JSONException je){
 
         }
         if (result != null) {
             return result.getMessage();
         }
 
-        String entity = components.getEntity();
 
         String message = "";
 
@@ -61,26 +84,42 @@ public class SetupRequestHandler implements HmsRequestHandler {
         return message;
     }
 
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
+        return null;
+    }
 
 
     private String setupHotel(Request request,Response response){
-
-        HotelRequestHandler hotelRequestHandler = new HotelRequestHandler();
-        return hotelRequestHandler.handleRequest(request,response);
+        hmsRequestHandler = new HotelRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
 
     }
 
     private String setupFeatures(Request request,Response response){
-
-        return null;
+        hmsRequestHandler = new FeatureRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
     }
 
     private String setupRoomCategory(Request request,Response response){
-        return null;
+        hmsRequestHandler = new RoomCategoryRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
+
     }
 
     private String setupEmployeeDetails(Request request,Response response){
-        return null;
+        hmsRequestHandler = new EmployeeRequestHandler() {
+            @Override
+            public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
+
+            }
+        };
+        return hmsRequestHandler.handleRequest(request,response);
     }
 
 

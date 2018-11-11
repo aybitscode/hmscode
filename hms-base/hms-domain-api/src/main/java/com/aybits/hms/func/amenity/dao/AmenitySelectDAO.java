@@ -2,7 +2,8 @@ package com.aybits.hms.func.amenity.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.amenity.beans.AmenityType;
@@ -25,7 +26,7 @@ class AmenitySelectDAO {
     ResultSet rs = null;
 
 
-    protected List<Amenity> getAmenitiesByAvailability(String hotelId, Boolean isAmenityAvailable) throws HMSException{
+    protected List<Amenity> getAmenitiesByAvailability(String hotelId, Boolean isAmenityAvailable) throws HMSRuntimeException{
 
         List<Amenity> amenitiesList = new ArrayList<Amenity>();
         Amenity amenity = null;
@@ -49,16 +50,16 @@ class AmenitySelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return amenitiesList;
         }
     }
 
-    protected List<Amenity> getAmenitiesByChargeability(String hotelId, Boolean isChargeable) throws HMSException{
+    protected List<Amenity> getAmenitiesByChargeability(String hotelId, Boolean isChargeable) throws HMSRuntimeException{
 
         List<Amenity> amenitiesList = new ArrayList<Amenity>();
         Amenity amenity = null;
@@ -82,9 +83,9 @@ class AmenitySelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return amenitiesList;
@@ -92,7 +93,7 @@ class AmenitySelectDAO {
     }
 
 
-    private List<Amenity> getAllAmenities(String hotelId) throws HMSException{
+    private List<Amenity> getAllAmenities(String hotelId) throws HMSRuntimeException{
 
         List<Amenity> amenitiesList = new ArrayList<Amenity>();
         Amenity amenity = null;
@@ -112,9 +113,9 @@ class AmenitySelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return amenitiesList;
@@ -123,7 +124,7 @@ class AmenitySelectDAO {
     }
 
 
-    protected Amenity getAmenity(String hotelId, String amenityId) throws HMSException {
+    protected Amenity getAmenity(String hotelId, String amenityId) throws HMSRuntimeException {
         Amenity amenity = null;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -140,9 +141,9 @@ class AmenitySelectDAO {
                 Log.info("\nPopulating Amenity[" + amenity.getHotelId()+","+amenity.getAmenityId() + "] in Amenity Object");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return amenity;
@@ -182,7 +183,7 @@ class AmenitySelectDAO {
     }
 
 
-    protected HashMap<String,Amenity> getAmenitiesMapByHotelId(String hotelId) throws HMSException{
+    protected HashMap<String,Amenity> getAmenitiesMapByHotelId(String hotelId) throws HMSRuntimeException{
 
         HashMap<String,Amenity> amenitiesHashMap = new HashMap<>();
         try{
@@ -192,9 +193,9 @@ class AmenitySelectDAO {
                 amenitiesHashMap.put(amenityId,amenity);
             }
 
-        }catch(HMSException he){
+        }catch(HMSRuntimeException he){
             Log.error("Exception occurred while loading Amenities Map from DB");
-            throw new HMSException("Exception occurred while loading Amenities Map from DB");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION,"Exception occurred while loading Amenities Map from DB"));
         }
         return amenitiesHashMap;
     }

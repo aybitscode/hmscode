@@ -2,7 +2,9 @@ package com.aybits.hms.func.facility.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSUtilAPI;
 import com.aybits.hms.func.facility.beans.Facility;
 import com.aybits.hms.func.facility.beans.FacilityType;
@@ -25,7 +27,7 @@ class FacilitySelectDAO {
     ResultSet rs = null;
 
 
-    protected List<Facility> getFacilitiesByAvailability(String hotelId, Boolean isFacilityAvailable) throws HMSException{
+    protected List<Facility> getFacilitiesByAvailability(String hotelId, Boolean isFacilityAvailable) throws HMSRuntimeException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -49,16 +51,16 @@ class FacilitySelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return facilitiesList;
         }
     }
 
-    protected List<Facility> getFacilitiesByChargeability(String hotelId, Boolean isChargeable) throws HMSException{
+    protected List<Facility> getFacilitiesByChargeability(String hotelId, Boolean isChargeable) throws HMSRuntimeException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -82,9 +84,9 @@ class FacilitySelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return facilitiesList;
@@ -92,7 +94,7 @@ class FacilitySelectDAO {
     }
 
 
-    private List<Facility> getAllFacilities(String hotelId) throws HMSException{
+    private List<Facility> getAllFacilities(String hotelId) throws HMSRuntimeException{
 
         List<Facility> facilitiesList = new ArrayList<Facility>();
         Facility facility = null;
@@ -112,9 +114,9 @@ class FacilitySelectDAO {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return facilitiesList;
@@ -123,7 +125,7 @@ class FacilitySelectDAO {
     }
 
 
-    protected Facility getFacility(String hotelId, String facilityId) throws HMSException {
+    protected Facility getFacility(String hotelId, String facilityId) throws HMSRuntimeException {
         Facility facility = null;
         try {
             connection = DBCPConnection.getDBConnection();
@@ -140,9 +142,9 @@ class FacilitySelectDAO {
                 Log.info("\nPopulating Facility[" + facility.getHotelId()+","+facility.getFacilityId() + "] in Facility Object");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            throw new HMSException(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         } catch (NullPointerException npe) {
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
         } finally {
             DBCPConnection.closeDBConnection(null, stmt, connection);
             return facility;
@@ -182,7 +184,7 @@ class FacilitySelectDAO {
         }
 
 
-        protected HashMap<String,Facility> getFacilitiesMapByHotelId(String hotelId) throws HMSException{
+        protected HashMap<String,Facility> getFacilitiesMapByHotelId(String hotelId) throws HMSRuntimeException{
 
             HashMap<String,Facility> facilitiesHashMap = new HashMap<>();
             try{
@@ -192,9 +194,9 @@ class FacilitySelectDAO {
                     facilitiesHashMap.put(facilityId,facility);
                 }
 
-            }catch(HMSException he){
+            }catch(Exception he){
                 Log.error("Exception occurred while loading Facilities Map from DB");
-                throw new HMSException("Exception occurred while loading Facilities Map from DB");
+                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION,"Exception occurred while loading Facilities Map from DB::"+he.getMessage()));
             }
             return facilitiesHashMap;
         }

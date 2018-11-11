@@ -2,7 +2,8 @@ package com.aybits.hms.func.login.dao;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.customer.dao.CustomerDAO;
 import com.aybits.hms.func.login.beans.LoginSession;
@@ -56,7 +57,7 @@ public class LoginDAO {
                 isLoginSuccessful = true;
             }
 
-         }catch(HMSException he){
+         }catch(HMSRuntimeException he){
              isLoginSuccessful = false;
          }finally{
              return isLoginSuccessful;
@@ -66,12 +67,12 @@ public class LoginDAO {
     }
 
 
-    private String getEmployeePassword(String loginId) throws HMSException{
+    private String getEmployeePassword(String loginId) throws HMSRuntimeException{
 
         String password = null;
 
         if(connection == null){
-            throw new HMSException(HMSErrorCodes.DB_CONNECTION_FAILED);
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_CONNECTION_FAILED,"DB Connection failed as no connections available"));
         }
 
         Customer customer = new Customer();
@@ -89,9 +90,9 @@ public class LoginDAO {
             password = rs.getString("PASSWORD");
 
 
-        }catch (Exception e){
+        }catch (SQLException e){
             //TODO - throw cache specific errorCode,message
-            throw new HMSException("");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
         }finally{
            DBCPConnection.closeDBConnection(rs, stmt, connection);
             return password;

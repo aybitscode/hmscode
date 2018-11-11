@@ -1,11 +1,14 @@
 package com.aybits.hms.Employee;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSErrorResponse;
+import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
 import com.aybits.hms.func.employee.beans.Employee;
@@ -15,10 +18,8 @@ import spark.Response;
 
 import java.util.List;
 
-public class EmployeeRequestHandler implements  HmsRequestHandler {
+public abstract class EmployeeRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
-
-    @Override
     public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
         return null;
     }
@@ -31,7 +32,6 @@ public class EmployeeRequestHandler implements  HmsRequestHandler {
         return result;
     }
 
-    @Override
     public String handleRequest(Request request, Response response) {
         Log.info("Employee request handler invoked");
 
@@ -67,6 +67,20 @@ public class EmployeeRequestHandler implements  HmsRequestHandler {
         }
         return message;
     }
+
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        Log.error(he.getHmsErrorInfo());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, he.getHmsErrorInfo().getErrorMessage(), he.getHmsErrorInfo().getErrorCode());
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
+        Log.error(e.getCause());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_SYSTEM_ERROR);
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
+    }
+
 
     private String addEmployee(Request request) {
         Log.info("in adding new employee");
@@ -146,12 +160,12 @@ public class EmployeeRequestHandler implements  HmsRequestHandler {
         }
     }
 
-    private HmsResponse getHmsResponse(Object responseData, boolean result) {
-        HmsResponse response = null;
+    private HMSResponse getHmsResponse(Object responseData, boolean result) {
+        HMSResponse response = null;
        /* if (result) {
-            response = new HmsResponse(200, "SUCCESS", responseData, null, null, "SUCCESS");
+            response = new HMSAPIResponse(200, "SUCCESS", responseData, null, null, "SUCCESS");
         } else {
-            response = new HmsResponse(200, "FAILED", responseData, null, null, "FAILED");
+            response = new HMSAPIResponse(200, "FAILED", responseData, null, null, "FAILED");
         }*/
         return response;
     }

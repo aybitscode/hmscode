@@ -1,26 +1,28 @@
 package com.aybits.hms.room;
 
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.room.api.RoomAPI;
 import com.aybits.hms.func.room.beans.Room;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 import java.util.List;
 
-public class RoomRequestHandler implements HmsRequestHandler {
+public class RoomRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(RoomRequestHandler.class);
 
     @Override
-    public ValidationResult validateRequestData(Request request) {
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
-        return result;
+        //return result;
     }
 
     @Override
@@ -43,6 +45,16 @@ public class RoomRequestHandler implements HmsRequestHandler {
                 break;
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
+        return null;
     }
 
     private String fetchRoomsByHotel(Request request) {
@@ -71,12 +83,12 @@ public class RoomRequestHandler implements HmsRequestHandler {
         }
     }
 
-    private HmsResponse getHmsResponse(Object responseData, boolean result) {
-        HmsResponse response = null;
+    private HMSResponse getHmsResponse(Object responseData, boolean result) {
+        HMSResponse response = null;
         /*if (result) {
-            response = new HmsResponse(200, "SUCCESS", responseData, null, "SUCCESS");
+            response = new HMSAPIResponse(200, "SUCCESS", responseData, null, "SUCCESS");
         } else {
-            response = new HmsResponse(200, "FAILED", responseData, null, "FAILED");
+            response = new HMSAPIResponse(200, "FAILED", responseData, null, "FAILED");
         }*/
         return response;
     }

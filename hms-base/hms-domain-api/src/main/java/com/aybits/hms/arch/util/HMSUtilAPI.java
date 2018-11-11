@@ -39,7 +39,7 @@ public class HMSUtilAPI {
 
     public static Boolean getBooleanValueFromString(String strValue){
         Boolean booleanValue = false;
-        if(HMSAPIValidator.isEmptyOrNullString(strValue)){
+        if(HMSAPIValidator.isBlankString(strValue)){
             return booleanValue;
         }
 

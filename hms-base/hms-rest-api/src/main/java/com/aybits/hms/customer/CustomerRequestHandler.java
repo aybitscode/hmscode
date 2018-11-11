@@ -1,10 +1,9 @@
 package com.aybits.hms.customer;
 
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
-import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.customer.api.CustomerAPI;
 import com.aybits.hms.func.customer.beans.Customer;
@@ -14,16 +13,14 @@ import spark.Response;
 
 import java.util.List;
 
-public class CustomerRequestHandler implements HmsRequestHandler {
+public abstract class CustomerRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(CustomerRequestHandler.class);
 
-    @Override
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
+
 
     @Override
     public ValidationResult validateRequestData(Request request) {
+
         ValidationResult result = new ValidationResult();
         result.setCode(100);
         result.setMessage("In Valida Request");
@@ -56,6 +53,16 @@ public class CustomerRequestHandler implements HmsRequestHandler {
                 break;
         }
         return message;
+    }
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        return null;
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
+        return null;
     }
 
     private String addCustomer(Request request) {
@@ -108,12 +115,12 @@ public class CustomerRequestHandler implements HmsRequestHandler {
         }
     }
 
-    private HmsResponse getHmsResponse(Object responseData, boolean result) {
-        HmsResponse response = null;
+    private HMSResponse getHmsResponse(Object responseData, boolean result) {
+        HMSResponse response = null;
       /*  if (result) {
-            response = new HmsResponse(200, "SUCCESS", responseData, null, null, "SUCCESS");
+            response = new HMSAPIResponse(200, "SUCCESS", responseData, null, null, "SUCCESS");
         } else {
-            response = new HmsResponse(200, "FAILED", responseData, null, null, "FAILED");
+            response = new HMSAPIResponse(200, "FAILED", responseData, null, null, "FAILED");
         }*/
         return response;
     }

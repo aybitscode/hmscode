@@ -1,6 +1,7 @@
 package com.aybits.hms.common;
 
 import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.arch.util.HmsConfig;
@@ -11,8 +12,11 @@ import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public interface HmsRequestHandler {
-    Logger Log = Logger.getLogger(HmsRequestHandler.class);
+
+public interface   HMSRequestHandler
+
+{
+    Logger Log = Logger.getLogger(HMSRequestHandler.class);
 
 
     default public ValidationResult validateRequest(Request request) {
@@ -24,7 +28,7 @@ public interface HmsRequestHandler {
 
         if (action == null) {
             requestValidationResult.setCode(001);
-            requestValidationResult.setMessage("{'status':'error','message':'Invalid request URL.'}");
+            requestValidationResult.setMessage("{'status':'"+HMSAPIServiceConstants.HMS_RESPONSE_FAILURE+"','message':'Invalid request URL.'}");
         }
 
 
@@ -32,7 +36,7 @@ public interface HmsRequestHandler {
 
         if (components == null) {
             requestValidationResult.setCode(002);
-            requestValidationResult.setMessage("{'status':'error','message':'Invalid request body.'}");
+            requestValidationResult.setMessage("{'status':'"+HMSAPIServiceConstants.HMS_RESPONSE_FAILURE+"','message':'Invalid request body.'}");
         }
 
         return requestValidationResult;
@@ -63,6 +67,9 @@ public interface HmsRequestHandler {
         return action;
     }
 
+
+    void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException;
+
     public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException;
 
     ValidationResult validateRequestData(Request request) throws HMSException;
@@ -70,18 +77,18 @@ public interface HmsRequestHandler {
     public String handleRequest(Request request, Response response);
 
 
-    default public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+    default public HMSResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
 
-        return new HmsResponse(tokenID, status, statusMessage, responseData);
+        return new HMSResponse(tokenID, status, statusMessage, responseData);
     }
 
-    default public HmsResponse populateHmsResponse(String tokenId, String responseString) {
+    default public HMSResponse populateHmsResponse(String tokenId, String responseString) {
         JSONObject responseJSON = null;
         String status = null;
         String message = null;
         String responseData =
                 null;
-        HmsResponse hmsResponse = null;
+        HMSResponse hmsResponse = null;
         try {
             responseJSON = new JSONObject(responseString);
             status = responseJSON.getString("status");
@@ -93,8 +100,12 @@ public interface HmsRequestHandler {
             message = e.getMessage();
             responseData = HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA;
         } finally {
-            return new HmsResponse(tokenId, status, message, responseData);
+            return new HMSResponse(tokenId, status, message, responseData);
         }
 
     }
+
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId);
+
+    public String populateGenericErrorResponse(Exception e,String tokenId);
 }

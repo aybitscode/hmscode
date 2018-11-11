@@ -1,43 +1,49 @@
 package com.aybits.hms.amenity;
-
 import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
-import com.aybits.hms.common.HmsRequestHandler;
-import com.aybits.hms.common.HmsResponse;
+import com.aybits.hms.common.HMSErrorResponse;
+import com.aybits.hms.common.HMSRequestHandler;
+
+import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.amenity.api.AmenityAPI;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+
+
+import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
+public class AmenityRequestHandler implements HMSRequestHandler {
 
-public class AmenityRequestHandler implements HmsRequestHandler {
+    static Logger Log = Logger.getLogger(AmenityRequestHandler.class);
+    AmenityAPI hmsAPI = new AmenityAPI();
 
-   AmenityAPI hmsapiProvider = new AmenityAPI();
+    /**
+     * @param dataJSON
+     * @return ValidationResult
+     */
+
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
+        hmsAPI.validate(dataJSON);
+    }
+
 
     @Override
     public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
         return null;
     }
 
-    /**
-     *
-     * @param request
-     * @return
-     */
     @Override
-    public ValidationResult validateRequestData(Request request) {
-        ValidationResult result = new ValidationResult();
-        result.setCode(100);
-        result.setMessage("In Valida Request");
-        return result;
+    public ValidationResult validateRequestData(Request request) throws HMSException {
+        return null;
     }
 
-
     /**
-     *
      * @param request
      * @param response
      * @return
@@ -45,81 +51,105 @@ public class AmenityRequestHandler implements HmsRequestHandler {
     @Override
     public String handleRequest(Request request, Response response) {
 
-        Log.info("Hotel request handler invoked");
+        Log.info("Amenity request handler invoked");
 
-        HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
-
-        ValidationResult result = validateRequestData(request);
-        if (result != null) {
-            //return result.getMessage();
+        ValidationResult validationResult = validateRequest(request);
+        if (validationResult != null) {
+            return validationResult.getMessage();
         }
-
+        HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
         String operation = components.getOperation();
         String entity = components.getEntity();
         String data = components.getData();
         String action = operation + "/" + entity;
         String tokenId = components.getTokenId();
+        String errorResponse = null;
+
+        JSONObject dataJSON = null;
+
+        ValidationResult result = null;
+        try {
+            dataJSON = new JSONObject(data);
+            validateRequestData(dataJSON);
+        } catch (HMSRuntimeException hrex) {
+            errorResponse = populateHMSErrorResponse(hrex, tokenId);
+        } catch (JSONException jex) {
+            errorResponse = populateGenericErrorResponse(jex, tokenId);
+        }
+        if (errorResponse != null) {
+            return errorResponse;
+        }
 
 
         String message = "";
 
-
-        switch (action) {
-            case "/fetch/all":
-                message = fetchAllAmenities(tokenId, data);
-                break;
-            case "/fetch":
-                message = fetchAmenity(tokenId, data);
-                break;
-            case "add/hotel":
-                message = addAmenity(tokenId, data);
-                break;
-            case "update/hotel":
-                message = updateAmenity(tokenId,data);
-                break;
-            case "disable/hotel":
-                message = disableAmenity(tokenId,data);
-                break;
+        try {
+            switch (action) {
+                case "/fetch/all":
+                    message = fetchAllAmenities(tokenId, data);
+                    break;
+                case "/fetch":
+                    message = fetchAmenity(tokenId, data);
+                    break;
+                case "add/hotel":
+                    message = addAmenity(tokenId, data);
+                    break;
+                case "update/hotel":
+                    message = updateAmenity(tokenId, data);
+                    break;
+                case "disable/hotel":
+                    message = disableAmenity(tokenId, data);
+                    break;
+            }
+        }catch(HMSRuntimeException hrex){
+            message = populateHMSErrorResponse(hrex, tokenId);
+        }finally {
+            return message;
         }
-        return message;
     }
 
-
-
-
-
-    public HmsResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
-        return null;
-    }
-
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return
+     */
     private String addAmenity(String tokenId, String requestData) {
-        Log.info("in setupAmenity");
-        HmsResponse hmsResponse = null;
+        Log.info("requestToken:" + tokenId + ",[Entry]::addAmenity");
+        HMSResponse hmsResponse = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            String responseStr = hmsapiProvider.process(inputJSON);
+            String responseStr = hmsAPI.process(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
-            hmsResponse = new HmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::addAmenity");
             return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
 
 
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return
+     */
     private String updateAmenity(String tokenId, String requestData) {
-        Log.info("in setupAmenity");
-        HmsResponse hmsResponse = null;
+        Log.info("requestToken:" + tokenId + ",[Entry]::updateAmenity");
+        HMSResponse hmsResponse = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            String responseStr = hmsapiProvider.update(inputJSON);
+            String responseStr = hmsAPI.update(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
-            hmsResponse = new HmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
+            Log.info("requestToken:" + tokenId + ",[Entry]::updateAmenity");
             return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
+
+
     /**
      * @param tokenId
      * @param requestData
@@ -128,20 +158,21 @@ public class AmenityRequestHandler implements HmsRequestHandler {
 
     private String fetchAmenity(String tokenId, String requestData) {
         Log.info("requestToken:" + tokenId + ",[Entry]::fetchAmenity");
-        HmsResponse hmsResponse = null;
+        HMSResponse hmsResponse = null;
         String responseStr = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            responseStr = hmsapiProvider.fetch(inputJSON);
+            responseStr = hmsAPI.fetch(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
-            Log.info("requestToken:" + tokenId + ",Exception occured in fetchHotel" + e.getErrorMessage());
+        } catch (HMSRuntimeException e) {
+            Log.info("requestToken:" + tokenId + ",Exception occured in fetchHotel" + e.getMessage());
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
-            Log.info("requestToken:" + tokenId + ",[Exit]::fetchHotel");
+            Log.info("requestToken:" + tokenId + ",[Exit]::fetchAmenity");
             return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
+
 
     /**
      * @param tokenId
@@ -150,28 +181,35 @@ public class AmenityRequestHandler implements HmsRequestHandler {
      */
     private String fetchAllAmenities(String tokenId, String requestData) {
         Log.info("requestToken:" + tokenId + ",[Entry]::fetchAllAmenities");
-        HmsResponse hmsResponse = null;
+        HMSResponse hmsResponse = null;
         String responseStr = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            responseStr = hmsapiProvider.fetchAll(inputJSON);
+            responseStr = hmsAPI.fetchAll(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
             Log.info("requestToken:" + tokenId + ",[Exit]::fetchAllAmenities");
             return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
+
+
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return JSONObject converted to String
+     */
     private String disableAmenity(String tokenId, String requestData) {
         Log.info("requestToken:" + tokenId + ",[Entry]::disableAmenity");
-        HmsResponse hmsResponse = null;
+        HMSResponse hmsResponse = null;
         String responseStr = null;
         try {
             JSONObject inputJSON = new JSONObject(requestData);
-            responseStr = hmsapiProvider.disable(inputJSON);
+            responseStr = hmsAPI.disable(inputJSON);
             hmsResponse = populateHmsResponse(tokenId, responseStr);
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
         } finally {
             Log.info("requestToken:" + tokenId + ",[Exit]::disableAmenity");
@@ -179,5 +217,25 @@ public class AmenityRequestHandler implements HmsRequestHandler {
         }
     }
 
+    /**
+     * @param he
+     * @return
+     */
+
+    @Override
+    public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
+        Log.error(he.getHmsErrorInfo());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, he.getHmsErrorInfo().getErrorMessage(), he.getHmsErrorInfo().getErrorCode());
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
+    }
+
+    @Override
+    public String populateGenericErrorResponse(Exception e, String tokenId) {
+        Log.error(e.getCause());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_SYSTEM_ERROR);
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
+    }
+
 
 }
+

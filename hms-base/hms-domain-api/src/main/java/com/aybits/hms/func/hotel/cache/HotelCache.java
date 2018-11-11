@@ -1,7 +1,8 @@
 package com.aybits.hms.func.hotel.cache;
 
 import com.aybits.hms.arch.exception.HMSErrorCodes;
-import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
+import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.hotel.dao.HotelDAO;
@@ -38,9 +39,9 @@ public class HotelCache {
                             }
                         }
 
-                }catch(HMSException e){
+                }catch(HMSRuntimeException e){
                     //LOG Cache Initialization failed
-                  //  throw new HMSException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all hotel details failed");
+                  //  throw new HMSRuntimeException(HMSErrorCodes.HOTEL_DETAILS_UNAVAILABLE,"Fetching all hotel details failed");
                 }finally{
                     if(!hotelConcurrentHashMap.keySet().isEmpty()){
                         isHotelCacheInitialized = true;
@@ -52,7 +53,7 @@ public class HotelCache {
         return isHotelCacheInitialized;
     }
 
-    public String addHotel(Hotel hotel) throws HMSException {
+    public String addHotel(Hotel hotel) throws HMSRuntimeException {
         String hotelId = hotelDAO.addHotel(hotel);
         if(hotelId != null){
             hotel.setHotelId(hotelId);
@@ -64,7 +65,7 @@ public class HotelCache {
         return String.valueOf(hotelId);
     }
 
-    public Boolean updateHotel(Hotel hotel) throws HMSException {
+    public Boolean updateHotel(Hotel hotel) throws HMSRuntimeException {
         Boolean isHotelUpdateSuccessful = hotelDAO.updateHotel(hotel);
         if(isHotelUpdateSuccessful) {
             String hotelId = hotel.getHotelId();
@@ -76,15 +77,15 @@ public class HotelCache {
         return isHotelUpdateSuccessful;
     }
 
-    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSException {
+    public String addHotelRegistrationData(HotelRegistrationData hotelRegistrationData) throws HMSRuntimeException {
         String hotelRegistrationId = hotelDAO.addHotelRegistrationData(hotelRegistrationData);
         if(hotelRegistrationId == null){
-            throw new HMSException(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null"));
         }
         return String.valueOf(hotelRegistrationId);
     }
 
-    public Hotel fetchHotelById(String hotelId) throws HMSException {
+    public Hotel fetchHotelById(String hotelId) throws HMSRuntimeException {
         Hotel hotel = null;
         try{
             hotel = hotelConcurrentHashMap.get(hotelId);
@@ -100,8 +101,27 @@ public class HotelCache {
         }
     }
 
+   /* public Hotel fetchHotelByEmployeeId(String employeeId) throws HMSRuntimeException {
+        Hotel hotel = null;
+        try{
+            hotel = hotelConcurrentHashMap.get(hotelId);
+            if (hotel == null){
+                hotel = hotelSelectDAO.fetchHotelByEmployeeId(employeeId);
+                hotel = Objects.requireNonNull(hotel);
+                hotelConcurrentHashMap.put(hotelId,hotel);
+            }
+        }catch(NullPointerException npe){
+            log.info("No Hotel Present for the given hotelId["+hotelId+"]");
+        }finally{
+            return hotel;
+        }
+    }
 
-    public  List<Hotel> fetchAllHotels() throws HMSException {
+*/
+
+
+
+    public  List<Hotel> fetchAllHotels() throws HMSRuntimeException {
 
         ArrayList<Hotel> hotels = new ArrayList<>();
         hotels.addAll(hotelConcurrentHashMap.values());
@@ -127,7 +147,7 @@ public class HotelCache {
             if(hotel != null && hotel.getHotelId() != null){
                 isHotelPresent = true;
             }
-        } catch (HMSException e) {
+        } catch (HMSRuntimeException e) {
             log.error("Exception occured while checking if Hotel["+hotel.getHotelId()+"] is present in the system");
         }
         return isHotelPresent;
