@@ -12,7 +12,7 @@ public class HmsConfig {
             hmsProps.load(inputStream);
             inputStream.close();
 
-            inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("hms-config.properties");
+            inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("hms-dbcp.properties");
             hmsConfigProps.load(inputStream);
             inputStream.close();
 

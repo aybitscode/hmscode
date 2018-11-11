@@ -13,9 +13,9 @@ public class HotelAttributes {
 
         @JsonProperty("hotel_name")
         private String hotelName;
-        @JsonProperty("hotel_address")
+        @JsonProperty("address")
         private Address hotelAddress;
-        @JsonProperty("hotel_contact_details")
+        @JsonProperty("contact_details")
         private ContactDetails hotelContactDetails;
         @JsonProperty("hotel_room_count")
         private Integer roomCount;

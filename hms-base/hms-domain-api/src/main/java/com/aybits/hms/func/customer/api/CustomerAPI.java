@@ -1,19 +1,20 @@
 package com.aybits.hms.func.customer.api;
 
 
-import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.common.api.HmsAPIImpl;
-import com.aybits.hms.func.customer.beans.Customer;
-import com.aybits.hms.func.customer.dao.CustomerDAO;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
+import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.customer.beans.Customer;
+import com.aybits.hms.func.customer.dao.CustomerDAO;
+import com.aybits.hms.func.customer.dao.CustomerSelectDAO;
+
 public class CustomerAPI implements HmsAPI {
 
-	CustomerDAO customerDAO = new CustomerDAO();
+	CustomerSelectDAO customerSelectDAO = new CustomerSelectDAO();
 
 	public CustomerAPI(){
 		
@@ -24,7 +25,7 @@ public class CustomerAPI implements HmsAPI {
 	//	List<Customer> customerList = HMSCache.custCache.getAllCustomers();
 		List<Customer> allCustomers = new ArrayList<Customer>();
 		try {
-        allCustomers = customerDAO.getAllCustomers();
+        allCustomers = customerSelectDAO.getAllCustomers();
 		} catch (HMSRuntimeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +38,7 @@ public class CustomerAPI implements HmsAPI {
 		Customer customer = null;
 
         try {
-            customer = customerDAO.getCustomerByPhone(mobilePhone);
+            customer = customerSelectDAO.getCustomerByPhone(mobilePhone);
         } catch (HMSRuntimeException e) {
             e.printStackTrace();
         }
@@ -81,7 +82,7 @@ public class CustomerAPI implements HmsAPI {
 	public Customer getCustomerById(String customerId) {
 		//Customer customer = HMSCache.custCache.getCustomerById(customerId);
 		Customer customer = null;
-		customer = customerDAO.getCustomerById(customerId);
+		customer = customerSelectDAO.getCustomerById(customerId);
 				
 		return customer;
 	}

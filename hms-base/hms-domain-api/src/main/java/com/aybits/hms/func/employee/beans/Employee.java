@@ -23,7 +23,7 @@ public class Employee {
         private Role role;
     @JsonProperty("contact_details")
         private ContactDetails contactDetails;
-    @JsonProperty("employee_address")
+    @JsonProperty("address")
         private Address employeeAddress;
     @JsonProperty("identification_param")
         private IdentificationParam identificationParam;
@@ -36,7 +36,7 @@ public class Employee {
     @JsonProperty("date_deleted")
         private Date dateDeleted;
     @JsonProperty("hotel_id")
-        private Integer hotelId;
+        private String hotelId;
 
     public Employee(){
         super();
@@ -46,7 +46,7 @@ public class Employee {
                     ContactDetails contactDetails, Address employeeAddress,
                     IdentificationParam identificationParam,
                     Status employeeStatus, Date dateModified, Date dateCreated, Date dateDeleted,
-                    Integer hotelId) {
+                    String hotelId) {
         this.empId = empId;
         this.loginAttributes = loginAttributes;
         this.role = role;
@@ -148,11 +148,11 @@ public class Employee {
         this.dateDeleted = dateDeleted;
     }
 
-    public Integer getHotelId() {
+    public String getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(String hotelId) {
         this.hotelId = hotelId;
     }
 

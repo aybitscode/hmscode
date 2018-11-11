@@ -17,6 +17,7 @@ public enum HMSErrorCodes implements HMSError {
 
 	HOTEL_SETUP_FAILED("hotel_setup_failed","%s"),
 	INVALID_HOTEL_SETUP_DATA("invalid_hotel_setup_data","%s"),
+	INVALID_EMPLOYEE_DETAILS("invalid_employee_details","%s"),
 	INVALID_HOTEL_ATTRIBUTES("invalid_hotel_attributes","%s"),
 	INVALID_CONTACT_DETAILS("missing_contact_details","%s"),
 	INVALID_ADDRESS_DETAILS("missing_address_details","%s"),

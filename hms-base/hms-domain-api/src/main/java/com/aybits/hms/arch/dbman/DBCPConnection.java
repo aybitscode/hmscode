@@ -1,10 +1,12 @@
 package com.aybits.hms.arch.dbman;
 
+import com.aybits.hms.arch.util.HmsConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.Properties;
 
 public class DBCPConnection
 {
@@ -13,11 +15,12 @@ public class DBCPConnection
     private static int JDBC_QUERY_TIMEOUT = 300;
     private static HikariConfig cfgObj = null;
     private static HikariDataSource ds = null;
-    private static String configFile = "/hms-dbcp.properties";
+    HmsConfig hmsConfig = new HmsConfig();
 
     public DBCPConnection() {
+    	Properties hmsConfigProperties  = hmsConfig.getHmsConfigProps();
         log.info(" Initializing connection pool..");
-        cfgObj = new HikariConfig(configFile);
+        cfgObj = new HikariConfig(hmsConfigProperties);
         ds = new HikariDataSource(cfgObj);
     }
 

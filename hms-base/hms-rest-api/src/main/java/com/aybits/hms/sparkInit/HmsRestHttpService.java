@@ -48,7 +48,7 @@ public class HmsRestHttpService {
     private static void registerPostApi(String apiPath, HMSRequestHandler requestHandler) {
         Log.info("Registering post api for "+apiPath);
         post(apiPath, CONTENT_TYPE, (request, response) -> {
-            return requestHandler.handleRequest(request, response);
+        	return requestHandler.handleRequest(request, response);
         });
     }
 
