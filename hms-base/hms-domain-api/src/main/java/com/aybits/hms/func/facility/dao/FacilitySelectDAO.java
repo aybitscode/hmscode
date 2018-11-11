@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-class FacilitySelectDAO {
+public class FacilitySelectDAO {
 
     static Logger Log = Logger.getLogger(FacilitySelectDAO.class);
     Connection connection = null;

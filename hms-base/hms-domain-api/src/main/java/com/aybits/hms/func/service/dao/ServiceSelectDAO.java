@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-class ServiceSelectDAO {
+public class ServiceSelectDAO {
 
     static Logger Log = Logger.getLogger(ServiceSelectDAO.class);
     Connection connection = null;

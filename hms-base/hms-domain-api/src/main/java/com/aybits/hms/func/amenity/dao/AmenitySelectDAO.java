@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-class AmenitySelectDAO {
+public class AmenitySelectDAO {
 
     static Logger Log = Logger.getLogger(AmenitySelectDAO.class);
     Connection connection = null;

@@ -1,68 +1,85 @@
 package com.aybits.hms.Employee;
 
-import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSErrorResponse;
-import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
-import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
-import com.aybits.hms.func.employee.beans.Employee;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-import java.util.List;
-
 public abstract class EmployeeRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
-    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
-        return null;
-    }
 
+    
+    HmsAPI hmsAPI = new EmployeeAPI();
+    
     @Override
-    public ValidationResult validateRequestData(Request request) {
-        ValidationResult result = new ValidationResult();
-        result.setCode(100);
-        result.setMessage("In Valida Request");
-        return result;
+    public void validateRequestData(JSONObject dataJSON) {
+      hmsAPI.validate(dataJSON);
     }
 
     public String handleRequest(Request request, Response response) {
         Log.info("Employee request handler invoked");
+        ValidationResult validationResult = validateRequest(request);
+        if (validationResult != null) {
+            return validationResult.getMessage();
+        }
+        HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
+        String operation = components.getOperation();
+        String entity = components.getEntity();
+        String data = components.getData();
+        String action = operation + "/" + entity;
+        String tokenId = components.getTokenId();
+        String errorResponse = null;
 
-        ValidationResult result = validateRequest(request);
-        if (result != null) {
-            return result.getMessage();
+        JSONObject dataJSON = null;
+
+        ValidationResult result = null;
+        try {
+            dataJSON = new JSONObject(data);
+            validateRequestData(dataJSON);
+        } catch (HMSRuntimeException hrex) {
+            errorResponse = populateHMSErrorResponse(hrex, tokenId);
+        } catch (JSONException jex) {
+            errorResponse = populateGenericErrorResponse(jex, tokenId);
+        }
+        if (errorResponse != null) {
+            return errorResponse;
         }
 
-        String action = request.pathInfo().split("/")[2];
+
         String message = "";
+
         switch (action) {
             case "fetch-all":
-                message = getAllEmployees(request);
+                message = getAllEmployees(tokenId,data);
                 break;
             case "fetch-by-phone":
-                message = getEmployeeByPhone(request);
+                message = getEmployeeByPhone(tokenId,data);
                 break;
-            case "add":
-                message = addEmployee(request);
+            case "add/employee":
+                message = addEmployee(tokenId,data);
                 break;
-            case "update":
-                message = updateEmployee(request);
+            case "update/employee":
+                message = updateEmployee(tokenId,data);
                 break;
             /*case "getEmployeeNameByMobile":
                 message = getEmployeeNameByMobile(request);
                 break;*/
             case "fetch-id":
-                message = getEmployeeId(request);
+                message = getEmployeeId(tokenId,data);
                 break;
             case "fetch-by-id":
-                message = getEmployeeById(request);
+                message = getEmployeeById(tokenId,data);
                 break;
         }
         return message;
@@ -82,81 +99,101 @@ public abstract class EmployeeRequestHandler implements HMSRequestHandler {
     }
 
 
-    private String addEmployee(Request request) {
-        Log.info("in adding new employee");
+    private String addEmployee(String tokenId, String requestData) {
+        Log.info("requestToken:" + tokenId + ",[Entry]::addEmployee");
+        HMSResponse hmsResponse = null;
         try {
-            String jsonString = request.body().toString();
-            EmployeeAPI employeeAPI = new EmployeeAPI();
-            Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            boolean result = employeeAPI.addEmployee(employee);
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(employee, result));
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while adding employee", false));
+            JSONObject inputJSON = new JSONObject(requestData);
+            String responseStr = hmsAPI.process(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::addEmployee");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
 
-    private String updateEmployee(Request request) {
-        Log.info("in updating employee");
+    private String updateEmployee(String tokenId, String requestData) {
+        Log.info("requestToken:" + tokenId + ",[Entry]::updateEmployee");
+        HMSResponse hmsResponse = null;
         try {
-            String jsonString = request.body().toString();
-            EmployeeAPI employeeAPI = new EmployeeAPI();
-            Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            boolean result = employeeAPI.updateEmployee(employee);
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(employee, result));
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while updating employee", false));
+            JSONObject inputJSON = new JSONObject(requestData);
+            String responseStr = hmsAPI.update(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Entry]::updateHotel");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
 
-    private String getEmployeeById(Request request) {
+    private String getEmployeeById(String tokenId, String requestData) {
         Log.info("in getEmployeeById");
+        HMSResponse hmsResponse = null;
+        String responseStr = null;
         try {
-            String jsonString = request.body().toString();
-            EmployeeAPI employeeAPI = new EmployeeAPI();
-            Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            Employee result = employeeAPI.getEmployeeById(employee.getEmpId());
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting employee data bi ID", false));
+            JSONObject inputJSON = new JSONObject(requestData);
+            responseStr = hmsAPI.fetch(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            Log.info("requestToken:" + tokenId + ",Exception occured in getEmployeeById" + e.getMessage());
+            hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::fetchHotel");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
 
-    private String getEmployeeByPhone(Request request) {
-        Log.info("in getEmployeeByPhone");
+    private String getEmployeeByPhone(String tokenId, String requestData) {
+    	Log.info("requestToken:" + tokenId + ",[Entry]::fetchHotel");
+        HMSResponse hmsResponse = null;
+        String responseStr = null;
         try {
-            String jsonString = request.body().toString();
-            EmployeeAPI employeeAPI = new EmployeeAPI();
-            Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            Employee result = employeeAPI.getEmployeeByPhone(employee.getContactDetails().getPrimaryPhone());
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting employee data bi phone", false));
+            JSONObject inputJSON = new JSONObject(requestData);
+            responseStr = hmsAPI.fetch(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            Log.info("requestToken:" + tokenId + ",Exception occured in getEmployeeByPhone" + e.getMessage());
+            hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::fetchHotel");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
 
-    private String getEmployeeId(Request request) {
-        Log.info("in  getEmployeeId");
+    private String getEmployeeId(String tokenId, String requestData) {
+    	Log.info("requestToken:" + tokenId + ",[Entry]::getEmployeeId");
+        HMSResponse hmsResponse = null;
+        String responseStr = null;
         try {
-            String jsonString = request.body().toString();
-            EmployeeAPI employeeAPI = new EmployeeAPI();
-            Employee employee = (Employee) HMSJSONParser.convertJSONToObject(jsonString, Customer.class);
-            String result = employeeAPI.getEmployeeId(employee.getContactDetails().getPrimaryPhone());
-            employee.setEmpId(result);
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(employee, true));
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting employee data bi ID", false));
+            JSONObject inputJSON = new JSONObject(requestData);
+            responseStr = hmsAPI.fetch(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            Log.info("requestToken:" + tokenId + ",Exception occured in getEmployeeId" + e.getMessage());
+            hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::getEmployeeId");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
 
 
-    private String getAllEmployees(Request request) {
-        Log.info("in get all employees");
+    private String getAllEmployees(String tokenId, String requestData) {
+    	Log.info("requestToken:" + tokenId + ",[Entry]::fetchAllHotels");
+        HMSResponse hmsResponse = null;
+        String responseStr = null;
         try {
-            EmployeeAPI employeeAPI = new EmployeeAPI();
-            List<Employee> result = employeeAPI.getAllEmployees();
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(result, true));
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse("Error while getting all employee data", false));
+            JSONObject inputJSON = new JSONObject(requestData);
+            responseStr = hmsAPI.fetchAll(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::fetchAllHotels");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
         }
     }
 
