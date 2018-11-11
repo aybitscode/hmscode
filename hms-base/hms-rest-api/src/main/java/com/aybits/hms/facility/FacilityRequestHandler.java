@@ -4,132 +4,249 @@ import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
+
+import com.aybits.hms.common.HMSErrorResponse;
 import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.func.common.api.HmsAPI;
+import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.facility.api.FacilityAPI;
-import com.aybits.hms.func.facility.beans.Facility;
-import com.aybits.hms.func.facility.beans.FacilityType;
-import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
+import com.aybits.hms.func.hotel.api.HotelAPI;
+import com.aybits.hms.hotel.HotelRequestHandler;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-import java.util.List;
-import java.util.Map;
 
 public class FacilityRequestHandler implements HMSRequestHandler {
 
-    HMSJsonRequestComponents components = null;
-    FacilityAPI facilityAPI = new FacilityAPI();
     static Logger Log = Logger.getLogger(FacilityRequestHandler.class);
+
+    HmsAPI hmsAPI = new FacilityAPI();
+
+
+    /**
+     * @param dataJSON
+     * @return ValidationResult
+     */
+
+    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
+        hmsAPI.validate(dataJSON);
+    }
 
 
     @Override
-    public String getActionString(Request request) {
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
         return null;
     }
 
     @Override
-    public void validateRequestData(JSONObject dataJSON) {
-        //return null;
+    public ValidationResult validateRequestData(Request request) throws HMSException {
+
+        ValidationResult result = new ValidationResult();
+        result.setCode(100);
+        result.setMessage("In Valida Request");
+        return result;
     }
 
+    /**
+     * @param request
+     * @param response
+     * @return
+     */
     @Override
     public String handleRequest(Request request, Response response) {
-        Log.info("Hotel request handler invoked");
 
-        ValidationResult result = validateRequest(request);
-        if (result != null) {
-            //return result.getMessage();
+        Log.info("Fascility request handler invoked");
+
+        ValidationResult validationResult = validateRequest(request);
+        if (validationResult != null) {
+            return validationResult.getMessage();
+        }
+        HMSJsonRequestComponents components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
+        String operation = components.getOperation();
+        String entity = components.getEntity();
+        String data = components.getData();
+        String action = operation + "/" + entity;
+        String tokenId = components.getTokenId();
+        String errorResponse = null;
+
+        JSONObject dataJSON = null;
+
+        ValidationResult result = null;
+        try {
+            dataJSON = new JSONObject(data);
+            validateRequestData(dataJSON);
+        } catch (HMSRuntimeException hrex) {
+            errorResponse = populateHMSErrorResponse(hrex, tokenId);
+        } catch (JSONException jex) {
+            errorResponse = populateGenericErrorResponse(jex, tokenId);
+        }
+        if (errorResponse != null) {
+            return errorResponse;
         }
 
-        components = HMSJSONParser.getHmsJsonRequestComponents(request.body());
-        String action = getActionString(request);
 
         String message = "";
 
         try {
             switch (action) {
-                case "fetch/all/facilities":
-                    message = fetchAllFacilities(request);
+                case "/fetch/all":
+                    message = fetchAllFacilities(tokenId, data);
                     break;
-                case "fetch/facility":
-                    message = fetchFacilityById(request);
+                case "/fetch":
+                    message = fetchFacility(tokenId, data);
                     break;
-                case "add/facilities":
-                    message = addFacilites(request);
+                case "add/hotel":
+                    message = addFacility(tokenId, data);
                     break;
-                case "disable/facility":
-                    message = disableFacility(request);
+                case "update/hotel":
+                    message = updateFacility(tokenId, data);
+                    break;
+                case "disable/hotel":
+                    message = disableFacility(tokenId, data);
+                    break;
             }
-        }catch(HMSException hmse){
-
+        }catch(HMSRuntimeException hrex){
+            message = populateHMSErrorResponse(hrex, tokenId);
+        }finally {
+            return message;
         }
-        return message;
     }
+
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return
+     */
+    private String addFacility(String tokenId, String requestData) {
+        Log.info("requestToken:" + tokenId + ",[Entry]::addFacility");
+        HMSResponse hmsResponse = null;
+        try {
+            JSONObject inputJSON = new JSONObject(requestData);
+            String responseStr = hmsAPI.process(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::addFacility");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
+        }
+    }
+
+
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return
+     */
+    private String updateFacility(String tokenId, String requestData) {
+        Log.info("requestToken:" + tokenId + ",[Entry]::updateFacility");
+        HMSResponse hmsResponse = null;
+        try {
+            JSONObject inputJSON = new JSONObject(requestData);
+            String responseStr = hmsAPI.update(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = new HMSResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Entry]::updateFacility");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
+        }
+    }
+
+
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return JSONObject converted to String
+     */
+
+    private String fetchFacility(String tokenId, String requestData) {
+        Log.info("requestToken:" + tokenId + ",[Entry]::fetchFacility");
+        HMSResponse hmsResponse = null;
+        String responseStr = null;
+        try {
+            JSONObject inputJSON = new JSONObject(requestData);
+            responseStr = hmsAPI.fetch(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            Log.info("requestToken:" + tokenId + ",Exception occured in fetchHotel" + e.getMessage());
+            hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::fetchFacility");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
+        }
+    }
+
+
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return JSONObject converted to String
+     */
+    private String fetchAllFacilities(String tokenId, String requestData) {
+        Log.info("requestToken:" + tokenId + ",[Entry]::fetchAllHotels");
+        HMSResponse hmsResponse = null;
+        String responseStr = null;
+        try {
+            JSONObject inputJSON = new JSONObject(requestData);
+            responseStr = hmsAPI.fetchAll(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::fetchAllHotels");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
+        }
+    }
+
+
+    /**
+     * @param tokenId
+     * @param requestData
+     * @return JSONObject converted to String
+     */
+    private String disableFacility(String tokenId, String requestData) {
+        Log.info("requestToken:" + tokenId + ",[Entry]::disableFacility");
+        HMSResponse hmsResponse = null;
+        String responseStr = null;
+        try {
+            JSONObject inputJSON = new JSONObject(requestData);
+            responseStr = hmsAPI.disable(inputJSON);
+            hmsResponse = populateHmsResponse(tokenId, responseStr);
+        } catch (HMSRuntimeException e) {
+            hmsResponse = getHmsResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_FAILURE_RESPONSE_DATA);
+        } finally {
+            Log.info("requestToken:" + tokenId + ",[Exit]::disableFacility");
+            return HMSJSONParser.convertObjectToJSON(hmsResponse);
+        }
+    }
+
+    /**
+     * @param he
+     * @return
+     */
 
     @Override
     public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
-        return null;
+        Log.error(he.getHmsErrorInfo());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, he.getHmsErrorInfo().getErrorMessage(), he.getHmsErrorInfo().getErrorCode());
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
     }
 
     @Override
     public String populateGenericErrorResponse(Exception e, String tokenId) {
-        return null;
+        Log.error(e.getCause());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_SYSTEM_ERROR);
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
     }
-
-    private String fetchAllFacilities(Request request) throws HMSException {
-        return null;
-    }
-
-    private String fetchFacilityById(Request request) throws HMSException{
-        return null;
-    }
-
-    private String addFacilites(Request request) {
-        Log.info("in addFacilites");
-        try {
-            String data = components.getData();
-            Gson gson = new Gson();
-            Object myTypes = (Object)gson.fromJson(data, Object.class);
-            List facilitiesList = ((List)((LinkedTreeMap)myTypes).get("facilities"));
-
-            Facility[] facilities = new Facility[facilitiesList.size()];
-
-            for(int i = 0; i < facilitiesList.size(); i++){
-                Map facilityMap = (Map)facilitiesList.get(i);
-                Facility facility = new Facility();
-                facility.setHotelId(facilityMap.get("hotel_id").toString());
-                facility.setFacilityId(facilityMap.get("facility_id").toString());
-                facility.setFacilityName(facilityMap.get("facility_name").toString());
-                facility.setFacilityDescription(facilityMap.get("facility_description").toString());
-                facility.setIsAvailable(Boolean.valueOf(facilityMap.get("is_available").toString()));
-                facility.setChargeable(Boolean.valueOf(facilityMap.get("is_chargeable").toString()));
-                facility.setFacilityType(FacilityType.valueOf(facilityMap.get("facility_type").toString()));
-                //facility.setFacilityPrice(Double.valueOf(facilityMap.get("facility_price").toString()));
-                facilities[i] = facility;
-            }
-
-            if(facilities != null && facilities.length > 0) {
-                boolean addFacilityStatus = facilityAPI.addFacilities(facilities);
-                return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "SUCCESS", "Facilities added succesfully",null));
-            }else{
-                return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", "no facilities to add", null));
-            }
-        } catch (Exception e) {
-            return HMSJSONParser.convertObjectToJSON(getHmsResponse(null, "FAILED", e.getMessage(), null));
-        }
-    }
-
-
-    private String disableFacility(Request request){
-        return null;
-    }
-
-
-
 
 
 }
+
+
+

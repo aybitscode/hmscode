@@ -1,5 +1,6 @@
 package com.aybits.hms.common;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
@@ -11,7 +12,10 @@ import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
-public interface HMSRequestHandler {
+
+public interface   HMSRequestHandler
+
+{
     Logger Log = Logger.getLogger(HMSRequestHandler.class);
 
 
@@ -63,7 +67,12 @@ public interface HMSRequestHandler {
         return action;
     }
 
-    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException;
+
+    void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException;
+
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException;
+
+    ValidationResult validateRequestData(Request request) throws HMSException;
 
     public String handleRequest(Request request, Response response);
 

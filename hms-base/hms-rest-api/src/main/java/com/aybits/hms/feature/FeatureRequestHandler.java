@@ -1,11 +1,13 @@
 package com.aybits.hms.feature;
-
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
-import org.json.JSONObject;
+import com.aybits.hms.common.HMSResponse;
+import com.aybits.hms.common.ValidationResult;
 import spark.Request;
 import spark.Response;
+
 
 public class FeatureRequestHandler implements HMSRequestHandler {
 
@@ -16,8 +18,13 @@ public class FeatureRequestHandler implements HMSRequestHandler {
     }
 
     @Override
-    public void validateRequestData(JSONObject dataJson) throws HMSRuntimeException {
-        //return null;
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public ValidationResult validateRequestData(Request request) {
+        return null;
     }
 
     @Override

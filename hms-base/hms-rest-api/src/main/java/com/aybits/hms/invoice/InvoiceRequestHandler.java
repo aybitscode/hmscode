@@ -1,7 +1,10 @@
 package com.aybits.hms.invoice;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
+import com.aybits.hms.common.ValidationResult;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
@@ -16,6 +19,16 @@ public class InvoiceRequestHandler implements HMSRequestHandler {
     }
 
     @Override
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public ValidationResult validateRequestData(Request request) throws HMSException {
+        return null;
+    }
+
+    
     public void validateRequestData(JSONObject jsonObject) {
         System.out.println("Hello");
        // return null;

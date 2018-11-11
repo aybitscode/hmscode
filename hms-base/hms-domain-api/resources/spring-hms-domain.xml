@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- Api-->
+    <bean id="hotelApi" class="com.aybits.hms.func.hotel.api.HotelAPI"/>
+    <bean id="roomCategoryApi" class="com.aybits.hms.func.room.api.RoomCategoryAPI"/>
+    <bean id="roomApi" class="com.aybits.hms.func.room.api.RoomAPI"/>
+    <bean id="serviceApi" class="com.aybits.hms.func.service.api.ServiceAPI"/>
+    <bean id="taxAPI" class="com.aybits.hms.func.taxrules.api.TaxAPI"/>
+    <bean id="voucherApi" class="com.aybits.hms.func.voucher.api.VoucherAPI"/>
+    <bean id="loginApi" class="com.aybits.hms.func.login.api.LoginAPI"/>
+    <bean id="facilityApi" class="com.aybits.hms.func.facility.api.FacilityAPI"/>
+    <bean id="employeeApi" class="com.aybits.hms.func.employee.api.EmployeeAPI"/>
+    <bean id="customerApi" class="com.aybits.hms.func.customer.api.CustomerAPI"/>
+    <bean id="corporateApi" class="com.aybits.hms.func.corporate.api.CorporateAPI"/>
+    <bean id="amenityApi" class="com.aybits.hms.func.amenity.api.AmenityAPI"/>
+
+</beans>

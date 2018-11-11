@@ -1,9 +1,11 @@
 package com.aybits.hms.billing;
-
+import com.aybits.hms.arch.exception.HMSException;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
+import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.common.HMSRequestHandler;
-import com.aybits.hms.common.HMSResponse;
 import org.json.JSONObject;
+
 import spark.Request;
 import spark.Response;
 
@@ -12,22 +14,29 @@ public class BillingRequestHandler implements HMSRequestHandler {
 
     @Override
     public String getActionString(Request request) {
+        System.out.println("Hello");
         return null;
     }
 
     @Override
-    public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
-        //return null;
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
+        return null;
+    }
+
+    @Override
+    public ValidationResult validateRequestData(Request request) throws HMSException {
+        return null;
+    }
+
+
+    public void validateRequestData(JSONObject jsonObject) {
+        System.out.println("Hello");
+        // return null;
     }
 
     @Override
     public String handleRequest(Request request, Response response) {
-        return null;
-    }
-
-
-    @Override
-    public HMSResponse getHmsResponse(String tokenID, String status, String statusMessage, Object responseData) {
+        System.out.println("Hello");
         return null;
     }
 

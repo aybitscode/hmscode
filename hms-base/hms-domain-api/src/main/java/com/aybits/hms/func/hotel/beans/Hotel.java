@@ -26,6 +26,7 @@ public class Hotel {
         this.hotelStatus = hotelStatus;
     }
 
+
     public String getHotelId() {
         return hotelId;
     }

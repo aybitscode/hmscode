@@ -1,32 +1,37 @@
 package com.aybits.hms.Employee;
 
+import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
+import com.aybits.hms.arch.util.HMSJsonRequestComponents;
+import com.aybits.hms.common.HMSErrorResponse;
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.func.customer.beans.Customer;
 import com.aybits.hms.func.employee.api.EmployeeAPI;
 import com.aybits.hms.func.employee.beans.Employee;
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 import java.util.List;
 
-public class EmployeeRequestHandler implements HMSRequestHandler {
+public abstract class EmployeeRequestHandler implements HMSRequestHandler {
     static Logger Log = Logger.getLogger(EmployeeRequestHandler.class);
-
-    @Override
-    public void validateRequestData(JSONObject dataJSON) {
-        ValidationResult result = new ValidationResult();
-        result.setCode(100);
-        result.setMessage("In Valida Request");
-        //return result;
+    public ValidationResult validateRequestData(HMSJsonRequestComponents components) throws HMSException {
+        return null;
     }
 
     @Override
+    public ValidationResult validateRequestData(Request request) {
+        ValidationResult result = new ValidationResult();
+        result.setCode(100);
+        result.setMessage("In Valida Request");
+        return result;
+    }
+
     public String handleRequest(Request request, Response response) {
         Log.info("Employee request handler invoked");
 
@@ -63,15 +68,19 @@ public class EmployeeRequestHandler implements HMSRequestHandler {
         return message;
     }
 
-    @Override
     public String populateHMSErrorResponse(HMSRuntimeException he, String tokenId) {
-        return null;
+        Log.error(he.getHmsErrorInfo());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, he.getHmsErrorInfo().getErrorMessage(), he.getHmsErrorInfo().getErrorCode());
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
     }
 
     @Override
     public String populateGenericErrorResponse(Exception e, String tokenId) {
-        return null;
+        Log.error(e.getCause());
+        HMSErrorResponse hmsErrorResponse = new HMSErrorResponse(tokenId, HMSAPIServiceConstants.HMS_RESPONSE_FAILURE, e.getMessage(), HMSAPIServiceConstants.HMS_SYSTEM_ERROR);
+        return HMSJSONParser.convertObjectToJSON(hmsErrorResponse);
     }
+
 
     private String addEmployee(Request request) {
         Log.info("in adding new employee");
