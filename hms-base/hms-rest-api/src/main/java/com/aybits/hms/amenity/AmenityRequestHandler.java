@@ -1,5 +1,4 @@
 package com.aybits.hms.amenity;
-import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSErrorResponse;
@@ -7,7 +6,7 @@ import com.aybits.hms.common.HMSRequestHandler;
 
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
-import com.aybits.hms.func.amenity.api.AmenityAPI;
+import com.aybits.hms.func.amenity.api.AmenityAPIHelper;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 
@@ -21,7 +20,7 @@ import spark.Response;
 public class AmenityRequestHandler implements HMSRequestHandler {
 
     static Logger Log = Logger.getLogger(AmenityRequestHandler.class);
-    AmenityAPI hmsAPI = new AmenityAPI();
+    AmenityAPIHelper hmsAPI = new AmenityAPIHelper();
 
     /**
      * @param dataJSON

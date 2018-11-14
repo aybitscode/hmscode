@@ -8,17 +8,18 @@ import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.amenity.dao.AmenityCache;
 import com.aybits.hms.func.amenity.dao.AmenityDAO;
 import com.aybits.hms.func.common.api.HmsAPI;
-import com.aybits.hms.func.common.api.HmsAPIImpl;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.aybits.hms.arch.exception.HMSErrorCodes.AMENITY_ADDITION_FAILED;
 
-public class AmenityAPI implements HmsAPI {
+public class AmenityAPIHelper implements HmsAPI {
 
-    static Logger log = Logger.getLogger(AmenityAPI.class);
+    static Logger log = Logger.getLogger(AmenityAPIHelper.class);
     AmenityCache amenityCache = new AmenityCache();
     AmenityDAO amenityDAO = new AmenityDAO();
 
@@ -43,20 +44,29 @@ public class AmenityAPI implements HmsAPI {
         }
     }
 
-    public Boolean addAmenities(Amenity[] amenities) throws HMSRuntimeException {
+    public Map<String,String> addAmenities(List<Amenity> amenities) throws HMSRuntimeException {
 
         Boolean areAmenitiesAdded = true;
+        Map<String,String> amenitiesMap = new HashMap<String,String>();
+        String hotelId = null;
         try{
             if(amenities != null) {
                 for (Amenity amenity : amenities) {
                     areAmenitiesAdded &= addAmenity(amenity);
+                    if(areAmenitiesAdded){
+                        amenitiesMap.put(amenity.getAmenityId(),amenity.getAmenityName());
+                        hotelId = amenity.getHotelId();
+                    }
                 }
             }
         }catch(HMSRuntimeException he){
-            log.info("Adding amenity details failed");
-            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(AMENITY_ADDITION_FAILED, "Exception occurred while adding amenity"));
+            log.info("Adding amenitiy details failed");
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.AMENITY_ADDITION_FAILED, "Exception occurred while adding amenities for hotel["+hotelId+"]"));
+        }catch(Exception ex){
+            log.info("Exception occurred while adding amenities:"+ex.getMessage());
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Exception occurred while adding amenities for hotel["+hotelId+"]:"+ex.getMessage()));
         }finally {
-            return areAmenitiesAdded;
+            return amenitiesMap;
         }
     }
 

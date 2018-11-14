@@ -22,7 +22,7 @@ public class Service {
     @JsonProperty("service_type")
     private ServiceType serviceType;
     @JsonProperty("service_charge")
-    private Double serviceCharge;
+    private Double serviceCharges;
 
 
     public Service() {
@@ -30,7 +30,7 @@ public class Service {
 
     public Service(String hotelId,String serviceId, String serviceName, String serviceDescription,
                    Boolean isAvailable, Boolean isChargeable, ServiceType serviceType,
-                   Double serviceCharge) {
+                   Double serviceCharges) {
         this.hotelId = hotelId;
         this.serviceId = serviceId;
         this.serviceName = serviceName;
@@ -38,7 +38,7 @@ public class Service {
         this.isAvailable = isAvailable;
         this.isChargeable = isChargeable;
         this.serviceType = serviceType;
-        this.serviceCharge = serviceCharge;
+        this.serviceCharges = serviceCharges;
     }
 
     public String getHotelId() {
@@ -98,12 +98,12 @@ public class Service {
         this.serviceType = serviceType;
     }
 
-    public Double getServiceCharge() {
-        return serviceCharge;
+    public Double getServiceCharges() {
+        return serviceCharges;
     }
 
-    public void setServiceCharge(Double serviceCharge) {
-        this.serviceCharge = serviceCharge;
+    public void setServiceCharges(Double serviceCharges) {
+        this.serviceCharges = serviceCharges;
     }
 
 

@@ -123,12 +123,12 @@ public class Facility {
                 this.hotelId = hotelId;
         }
 
-        public Boolean getFacilityAvailable() {
+        public Boolean isFacilityAvailable() {
                 return isAvailable;
         }
 
-        public void setFacilityAvailable(Boolean facilityAvailable) {
-                isAvailable = facilityAvailable;
+        public void setFacilityAvailable(Boolean isFacilityAvailable) {
+                isAvailable = isFacilityAvailable;
         }
 
 

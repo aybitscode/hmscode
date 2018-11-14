@@ -10,8 +10,8 @@ import static spark.Spark.before;
 
 public class HmsRestServiceStartup {
 
-    @Autowired
-    HmsRestHttpService hmsRestHttpService;
+   // @Autowired
+    HmsRestHttpService hmsRestHttpService = new HmsRestHttpService();
 
     public void start(String[] args) {
         startSparkServer();

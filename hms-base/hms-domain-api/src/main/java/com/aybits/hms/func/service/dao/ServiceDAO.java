@@ -15,10 +15,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ServiceDAO {
 
@@ -54,7 +50,7 @@ public class ServiceDAO {
             ps.setString(4, service.isAvailable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
             ps.setString(5, service.isChargeable()? HMSAPIConstants.YES:HMSAPIConstants.NO);
             ps.setInt(6, service.getServiceType().getServiceTypeAsInt());
-            ps.setDouble(7, service.getServiceCharge());
+            ps.setDouble(7, service.getServiceCharges());
             ps.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
             int numRowsAffected = ps.executeUpdate();
             if (numRowsAffected > 0)

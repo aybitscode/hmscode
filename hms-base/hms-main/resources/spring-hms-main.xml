@@ -11,10 +11,10 @@
     <import resource="classpath:spring-hms-domain.xml"/>
     <context:annotation-config/>
 
-    <!-- Init -->
-    <bean id="hmsServiceMain" class="com.aybits.hms.sparkInit.HmsRestServiceMain"/>
+    <!-- Init
     <bean id="hmsRestHttpService" class="com.aybits.hms.sparkInit.HmsRestHttpService"/>
     <bean id="serviceStartup" class="com.aybits.hms.sparkInit.HmsRestServiceStartup"/>
+    <bean id="hmsServiceMain" class="com.aybits.hms.sparkInit.HmsRestServiceMain"/>-->
 
     <!-- Config -->
     <bean id="hmsConfig" class="com.aybits.hms.arch.util.HmsConfig"/>

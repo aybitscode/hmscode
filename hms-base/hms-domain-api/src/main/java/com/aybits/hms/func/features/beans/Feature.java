@@ -1,4 +1,4 @@
-package com.aybits.hms.func.features;
+package com.aybits.hms.func.features.beans;
 
 import com.aybits.hms.func.amenity.beans.Amenity;
 import com.aybits.hms.func.facility.beans.Facility;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class Features {
+public class Feature {
 
     @JsonProperty("hotel_id")
     private String hotelId;
@@ -18,9 +18,9 @@ public class Features {
     @JsonProperty("services")
     private List<Service> serviceList;
 
-    public Features(){}
+    public Feature(){}
 
-    public Features(String hotelId, List<Facility> facilityList, List<Amenity> amenityList, List<Service> serviceList) {
+    public Feature(String hotelId, List<Facility> facilityList, List<Amenity> amenityList, List<Service> serviceList) {
         this.hotelId = hotelId;
         this.facilityList = facilityList;
         this.amenityList = amenityList;

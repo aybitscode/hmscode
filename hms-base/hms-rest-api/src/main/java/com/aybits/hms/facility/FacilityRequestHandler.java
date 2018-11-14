@@ -1,19 +1,14 @@
 package com.aybits.hms.facility;
 
-import com.aybits.hms.arch.exception.HMSException;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSJSONParser;
 import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 
-import com.aybits.hms.common.HMSErrorResponse;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
 import com.aybits.hms.func.common.api.HmsAPI;
 import com.aybits.hms.func.common.util.HMSAPIServiceConstants;
-import com.aybits.hms.func.facility.api.FacilityAPI;
-import com.aybits.hms.func.hotel.api.HotelAPI;
-import com.aybits.hms.hotel.HotelRequestHandler;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +20,7 @@ public class FacilityRequestHandler implements HMSRequestHandler {
 
     static Logger Log = Logger.getLogger(FacilityRequestHandler.class);
 
-    HmsAPI hmsAPI = new FacilityAPI();
+    HmsAPI hmsAPI = null;
 
 
     /**

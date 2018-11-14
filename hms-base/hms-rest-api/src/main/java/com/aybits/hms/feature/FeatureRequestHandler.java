@@ -6,14 +6,18 @@ import com.aybits.hms.arch.util.HMSJsonRequestComponents;
 import com.aybits.hms.common.HMSRequestHandler;
 import com.aybits.hms.common.HMSResponse;
 import com.aybits.hms.common.ValidationResult;
+import com.aybits.hms.func.features.api.FeatureAPI;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import spark.Request;
 import spark.Response;
 
 
 public class FeatureRequestHandler implements HMSRequestHandler {
 
+    @Autowired
+    FeatureAPI featureAPI;
 
     @Override
     public String getActionString(Request request) {
@@ -22,7 +26,7 @@ public class FeatureRequestHandler implements HMSRequestHandler {
 
     @Override
     public void validateRequestData(JSONObject dataJSON) throws HMSRuntimeException {
-
+        featureAPI.validate(dataJSON);
     }
 
     @Override

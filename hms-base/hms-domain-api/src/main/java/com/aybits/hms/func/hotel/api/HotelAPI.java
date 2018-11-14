@@ -27,6 +27,7 @@ public class HotelAPI implements HmsAPI {
         String status = null;
         String message = null;
         String hotelId = null;
+        JSONObject responseData = new JSONObject();
 
         Hotel hotel = null;
         HotelRegistrationData hotelRegistrationData = null;
@@ -35,6 +36,7 @@ public class HotelAPI implements HmsAPI {
             hotelRegistrationData = (HotelRegistrationData) HMSJSONParser.convertJSONToObject(data.getJSONObject(HMSJSONConstants.HOTEL_REGISTRATION_DATA).toString(), HotelRegistrationData.class);
 
             hotelId = hotelAPIHelper.addHotel(hotel);
+            responseData.put(HMSJSONConstants.HOTEL_ID,data);
             hotelRegistrationData.setHotelId(hotelId);
             hotelAPIHelper.addHotelRegistrationData(hotelRegistrationData);
             status = HMSAPIServiceConstants.HMS_RESPONSE_SUCCESS;
@@ -46,30 +48,8 @@ public class HotelAPI implements HmsAPI {
             throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_SETUP_FAILED,"Hotel setup failed due to :"+e.getMessage()));
         }finally{
             Log.info("[Exit]::hotelAPI.process");
-            return createHMSAPIResponse(status,message,hotelId);
+            return createHMSAPIResponse(status,message,responseData);
         }
-    }
-
-    private String createHMSAPIResponse(String status,String message,String data){
-        Log.info("hotelAPI.createHMSAPIResponse - Creating response string for exiting hotelAPI");
-        JSONObject json = null;
-        HMSAPIResponse hmsapiResponse = new HMSAPIResponse();
-        try {
-            json = new JSONObject();
-            json.put(HMSJSONConstants.HOTEL_ID,data);
-            Log.info("hotelAPI.createHMSAPIResponse - Sending successful response string ["+message+"]  from hotelAPI");
-        } catch (JSONException e) {
-            status = HMSAPIServiceConstants.HMS_RESPONSE_FAILURE;
-            message = "Hotel creation failed:"+e.getMessage();
-            Log.info("hotelAPI.createHMSAPIResponse - Sending failure response string ["+message+"]  from hotelAPI");
-        } finally{
-            hmsapiResponse.setResponseData(json.toString());
-            hmsapiResponse.setMessage(message);
-            hmsapiResponse.setStatus(status);
-
-            return HMSJSONParser.convertObjectToJSON(hmsapiResponse);
-        }
-
     }
 
 
