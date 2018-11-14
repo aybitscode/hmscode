@@ -38,7 +38,7 @@ public class FeatureAPI implements HmsAPI {
         JSONObject responseJson = null;
         Feature feature = null;
         try {
-            feature = (Feature) HMSJSONParser.convertJSONToObject(data.getJSONObject(HMSJSONConstants.FEATURE).toString(), Feature.class);
+            feature = (Feature) HMSJSONParser.convertJSONToObject(data.getJSONObject(HMSJSONConstants.FEATURES).toString(), Feature.class);
             response = featureAPIHelper.addFeature(feature);
             responseJson = new JSONObject(response);
             status = HMSAPIServiceConstants.HMS_RESPONSE_SUCCESS;
@@ -58,7 +58,7 @@ public class FeatureAPI implements HmsAPI {
     public void validate(JSONObject object) throws HMSRuntimeException {
         Feature feature = null;
         try {
-            feature = (Feature) HMSJSONParser.convertJSONToObject(object.getJSONObject(HMSJSONConstants.FEATURE).toString(), Feature.class);
+            feature = (Feature) HMSJSONParser.convertJSONToObject(object.getJSONObject(HMSJSONConstants.FEATURES).toString(), Feature.class);
         }catch(Exception e){
             throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_FEATURE_DETAILS,"Invalid Feature details provided"));
         }

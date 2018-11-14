@@ -7,7 +7,7 @@ public class HMSJSONConstants {
     public static final String HOTEL_REGISTRATION_DATA = "hotel_registration_data";
     public static final String EMPLOYEE = "employee";
     public static final String EMPLOYEE_ID = "employee_id";
-    public static final String FEATURE = "feature";
+    public static final String FEATURES = "features";
     public static final String DATA = "data";
     public static final String FACILITIES = "facilities";
     public static final String FACILITY_ID = "facility_id";
