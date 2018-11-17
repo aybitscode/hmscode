@@ -22,7 +22,7 @@ public class TaxRuleSelectDAO {
     PreparedStatement stmt = null;
     ResultSet rs = null;
 
-    public TaxRule fetchTaxRuleByTaxRuleId(String hotelId,String taxRuleId) throws HMSRuntimeException {
+    public TaxRule getTaxRuleById(String hotelId,String taxRuleId) throws HMSRuntimeException {
         TaxRule taxRule = new TaxRule();
 
         try {
@@ -47,7 +47,7 @@ public class TaxRuleSelectDAO {
     }
 
 
-    public TaxRule fetchTaxRuleByTaxRuleName(String hotelId,String taxRuleName) throws HMSRuntimeException {
+    public TaxRule getTaxRuleByName(String hotelId,String taxRuleName) throws HMSRuntimeException {
         TaxRule taxRule = new TaxRule();
 
         try {
@@ -72,7 +72,7 @@ public class TaxRuleSelectDAO {
     }
 
 
-    public List<TaxRule> fetchAllTaxRules() throws HMSRuntimeException {
+    public List<TaxRule> getAllTaxRules() throws HMSRuntimeException {
         List<TaxRule> TaxRules = new ArrayList<TaxRule>();
         try {
             connection = DBCPConnection.getDBConnection();
@@ -118,4 +118,37 @@ public class TaxRuleSelectDAO {
             } while (rs.next());
         }
     }
+    
+    protected TaxRule getTaxRuleByHotelId(String hotelId) throws HMSRuntimeException{
+
+    	TaxRule taxRule = new TaxRule();
+    	
+        try {
+            connection = DBCPConnection.getDBConnection();
+            connection.setAutoCommit(false);
+            stmt = connection.prepareStatement(TaxRuleDBQueries.FETCH_ALL_TAXRULES);
+            stmt.setString(1, hotelId);
+            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
+            rs = stmt.executeQuery();
+
+            taxRule = populateTaxRule(rs);
+
+            if (null != taxRule) {
+                Log.info("\nPopulating TaxRule[" + taxRule.getHotelId() + "," + taxRule.getTaxRuleId()+ "]");
+
+
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
+        } catch (NullPointerException npe) {
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
+        } finally {
+            DBCPConnection.closeDBConnection(null, stmt, connection);
+            return taxRule;
+        }
+
+    }
+    
+    
 }

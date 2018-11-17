@@ -15,6 +15,8 @@ import com.aybits.hms.login.LoginRequestHandler;
 import com.aybits.hms.room.RoomCategoryRequestHandler;
 import com.aybits.hms.room.RoomRequestHandler;
 import com.aybits.hms.setup.SetupRequestHandler;
+import com.aybits.hms.taxRule.TaxRuleRequestHandler;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,7 +64,8 @@ public class HmsRestHttpService {
     @Autowired
     BillingRequestHandler billingRequestHandler;
 
-
+    @Autowired
+    TaxRuleRequestHandler taxRuleRequestHandler;
 
     public void registerHttpAPIs() {
 
@@ -81,6 +84,7 @@ public class HmsRestHttpService {
         registerPostApi(appName+"/"+API_PREFIX+"/"+version+"/room-category/*", roomCategoryRequestHandler);
         registerPostApi(appName+"/"+API_PREFIX+"/"+version+"/billing/*",billingRequestHandler);
         registerPostApi(appName+"/"+API_PREFIX+"/"+version+"/invoice/*", invoiceRequestHandler);
+        registerPostApi(appName+"/"+API_PREFIX+"/"+version+"/tax-rules/*", taxRuleRequestHandler);
 
     }
 

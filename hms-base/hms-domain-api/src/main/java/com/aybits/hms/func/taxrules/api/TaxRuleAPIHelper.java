@@ -13,14 +13,14 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class TaxAPIHelper {
+public class TaxRuleAPIHelper {
 
 
     TaxRuleCache taxCache = new TaxRuleCache();
     TaxRuleSelectDAO taxRuleSelectDAO = new TaxRuleSelectDAO();
 
 
-    static Logger Log = Logger.getLogger(TaxAPIHelper.class);
+    static Logger Log = Logger.getLogger(TaxRuleAPIHelper.class);
 
 
 
@@ -56,7 +56,7 @@ public class TaxAPIHelper {
 
         List<TaxRule> taxRules = null;
         try {
-            taxRules = taxCache.fetchAllTaxRules(hotelId);
+            taxRules = taxCache.getAllTaxRules(hotelId);
 
         }catch(HMSRuntimeException he){
 
@@ -78,7 +78,7 @@ public class TaxAPIHelper {
 
 
         try{
-            taxRuleFromDB = taxRuleSelectDAO.fetchTaxRuleByTaxRuleId(taxRuleFromUI.getHotelId(),taxRuleFromUI.getTaxRuleId());
+            taxRuleFromDB = taxRuleSelectDAO.getTaxRuleById(taxRuleFromUI.getHotelId(),taxRuleFromUI.getTaxRuleId());
             if(null != taxRuleFromDB){
                 isTaxRuleAlreadyPresent = true;
             }

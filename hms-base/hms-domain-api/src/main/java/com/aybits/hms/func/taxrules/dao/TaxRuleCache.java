@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.log4j.Logger;
+
 import com.aybits.hms.arch.exception.HMSErrorCodes;
 import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
-import com.aybits.hms.func.hotel.beans.Hotel;
-import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.taxrules.beans.TaxRule;
-import org.apache.log4j.Logger;
 
 
 public class TaxRuleCache {
     private static ConcurrentHashMap<String, TaxRule> hotelTaxRuleCache = new ConcurrentHashMap<>();
     private static final HashSet<String> taxRuleIds = new HashSet<>();
     private TaxRuleDAO taxRuleDAO = new TaxRuleDAO();
+    private TaxRuleSelectDAO taxRuleSelectDAO = new TaxRuleSelectDAO();
     private TaxRule taxRule = new TaxRule();
     static Logger log = Logger.getLogger(TaxRuleCache.class);
 
@@ -37,7 +37,8 @@ public class TaxRuleCache {
         }
         if (hotelTaxRuleCache.isEmpty()) {
             try {
-                taxRule = taxRuleDAO.getTaxRuleByHotelId(hotelId);
+                taxRule = taxRuleSelectDAO.getTaxRuleByHotelId(hotelId);
+                
 
                 if (taxRule != null) {
                     hotelTaxRuleCache.put(hotelId, taxRule);
@@ -67,13 +68,13 @@ public class TaxRuleCache {
         return taxRulelId;
     }
 
-    public TaxRule fetchTaxRuleById(String hotelId,String taxRuleId) throws HMSRuntimeException {
+    public TaxRule getTaxRuleById(String hotelId,String taxRuleId) throws HMSRuntimeException {
         TaxRule taxRule = null;
         try {
             taxRule = hotelTaxRuleCache.get(taxRuleId);
 
             if (taxRule == null) {
-                taxRule = taxRuleDAO.getTaxRuleByHotelId(hotelId);
+                taxRule = taxRuleSelectDAO.getTaxRuleByHotelId(hotelId);
 
                 taxRule = Objects.requireNonNull(taxRule);
                 hotelTaxRuleCache.put(taxRuleId, taxRule);
@@ -86,7 +87,7 @@ public class TaxRuleCache {
     }
 
 
-    public List<TaxRule> fetchTaxRulesByHotelId(String hotelId) throws HMSRuntimeException {
+    public List<TaxRule> getTaxRulesByHotelId(String hotelId) throws HMSRuntimeException {
         TaxRule taxRule = null;
         /*try {
             taxRule = hotelTaxRuleCache.get(hotelId);
@@ -109,7 +110,7 @@ public class TaxRuleCache {
 
 
 
-    public List<TaxRule> fetchAllTaxRules(String hotelId) throws HMSRuntimeException {
+    public List<TaxRule> getAllTaxRules(String hotelId) throws HMSRuntimeException {
 
         ArrayList<TaxRule> taxRules = new ArrayList<>();
         taxRules.addAll(hotelTaxRuleCache.values());
@@ -120,7 +121,7 @@ public class TaxRuleCache {
         return taxRules;
     }
 
-    public List<String> fetchAllTaxRuleIds() {
+    public List<String> getAllTaxRuleIds() {
         ArrayList<String> TaxRulelIds = new ArrayList<>();
         TaxRulelIds.addAll(hotelTaxRuleCache.keySet());
         return TaxRulelIds;
@@ -131,7 +132,7 @@ public class TaxRuleCache {
         Boolean isTaxPresent = false;
         TaxRule taxRule = null;
         try {
-            taxRule = fetchTaxRuleById(hotelId,taxRuleId);
+            taxRule = getTaxRuleById(hotelId,taxRuleId);
             if (taxRule != null && taxRule.getHotelId() != null) {
                 isTaxPresent = true;
             }

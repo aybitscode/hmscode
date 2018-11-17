@@ -70,6 +70,9 @@ public  class SetupRequestHandler implements HMSRequestHandler {
             case "employee":
                 message = setupEmployeeDetails(request,response);
                 break;
+            case "taxrule":
+                message = setupTaxRule(request,response);
+                break;    
         }
         return message;
     }
@@ -107,6 +110,10 @@ public  class SetupRequestHandler implements HMSRequestHandler {
         return hmsRequestHandler.handleRequest(request,response);
     }
 
+    private String setupTaxRule(Request request,Response response){
+        hmsRequestHandler = new TaxRuleRequestHandler();
+        return hmsRequestHandler.handleRequest(request,response);
+    }
 
 
 }

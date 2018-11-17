@@ -11,7 +11,8 @@ public enum HMSErrorCodes implements HMSError {
 	INVALID_LOGIN_ATTRIBUTES("invalid_login_attributes","%s"),
     HOTEL_DETAILS_UNAVAILABLE("hotel_not_available","%s"),
 	INVALID_ROOM_ATTRIBUTES("invalid_room_attributes","%s"),
-
+	
+	
     INVALID_EMPLOYEE_ID("invalid_employee_id","%s"),
 	INVALID_EMPLOYEE_PHONE("invalid_employee_phone","%s"),
 
@@ -25,6 +26,7 @@ public enum HMSErrorCodes implements HMSError {
 	INVALID_EMAIL("invalid_email","%s"),
 	INVALID_MOBILE_PHONE("invalid_mobile_phone","%s"),
 
+	
 	INVALID_FEATURE_DETAILS("invalid_feature_details","%s"),
 	INVALID_FACILIY_DETAILS("invalid_facility_details","%s"),
 	INVALID_FACILITY_ID("invalid_facility_id","%s"),
@@ -56,6 +58,8 @@ public enum HMSErrorCodes implements HMSError {
 	HOTEL_REG_DATA_ADDITION_FAILED("hotel_registration_data_addition_failed","%s"),
 	INVALID_HOTEL_REGISTRATION_DATA("invalid_hotel_registration_data","%s"),
 	HOTEL_ALREADY_EXISTS ("hotel_already_exists","%s"),
+	EMPLOYEE_ALREADY_EXISTS("employee_already_exists","%s"),
+	EMPLOYEE_UPDATE_FAILED("employee_update_failed","%s"),
 	HOTEL_UPDATE_FAILED("hotel_update_failed","%s"),
 	HMS_EXCEPTION("hms_exception","%s"),
 	HMS_LENGTH_CHECK_FAILED("hms_length_check_failed","%s"),
@@ -66,9 +70,11 @@ public enum HMSErrorCodes implements HMSError {
 	AMENITY_UPDATE_FAILED("amenity_update_failed","%s"),
 	SERVICE_ADDITION_FAILED("service_addition_failed","%s"),
 	VOUCHER_ADDITION_FAILED("service_addition_failed","%s"),
-	SERVICE_UPDATE_FAILED("service_update_failed","%s");
+	SERVICE_UPDATE_FAILED("service_update_failed","%s"),
 
-
+	//added by nouman
+	TAX_RULE_FAILED("TaxRule_Failed_Toadd","%s");
+	
 	private String errorCode;
 	private String errorMessage;
 	

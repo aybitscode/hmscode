@@ -22,6 +22,8 @@
     <bean id="featureRequestHandler" class="com.aybits.hms.feature.FeatureRequestHandler"/>
     <bean id="amenityRequestHandler" class="com.aybits.hms.amenity.AmenityRequestHandler"/>
     <bean id="facilityRequestHandler" class="com.aybits.hms.facility.FacilityRequestHandler"/>
+    <bean id="taxRuleRequestHandler" class="com.aybits.hms.taxRule.TaxRuleRequestHandler"/>
+    
     <!--<bean id="hmsRequestHandler" class="com.aybits.hms.common.HMSRequestHandler"/>-->
 
 </beans>

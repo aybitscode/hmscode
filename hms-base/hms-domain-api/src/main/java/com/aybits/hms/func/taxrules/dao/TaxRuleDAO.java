@@ -1,28 +1,33 @@
 package com.aybits.hms.func.taxrules.dao;
 
+import static java.util.Objects.requireNonNull;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.aybits.hms.arch.exception.HMSErrorInfo;
 import org.apache.log4j.Logger;
 
 import com.aybits.hms.arch.dbman.DBCPConnection;
 import com.aybits.hms.arch.exception.HMSErrorCodes;
+import com.aybits.hms.arch.exception.HMSErrorInfo;
 import com.aybits.hms.arch.exception.HMSRuntimeException;
 import com.aybits.hms.arch.util.HMSRandomAPI;
 import com.aybits.hms.func.common.dao.HMSCommonDAO;
+import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.taxrules.beans.TaxRule;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TaxRuleDAO {
 
-	 Connection connection = null;
+		Connection connection = null;
 	    PreparedStatement stmt = null;
 	    ResultSet rs = null;
 
 	    private HMSCommonDAO hmsCommonDAO = new HMSCommonDAO();
-	    private HMSRandomAPI hmsRandomAPI = new HMSRandomAPI();
+	    private HMSRandomAPI hmsRandomAPI = new HMSRandomAPI(); 
+	    private TaxRuleSelectDAO taxRuleSelectDAO = new TaxRuleSelectDAO();
 
 	    static Logger Log = Logger.getLogger(TaxRuleDAO.class);
 	    
@@ -67,57 +72,50 @@ public class TaxRuleDAO {
 	        }
 	        return taxRuleId;
 	    }
-
-	    protected TaxRule getTaxRuleByHotelId(String hotelId) throws HMSRuntimeException{
-
-	    	TaxRule taxRule = new TaxRule();
-	    	
-	        try {
-	            connection = DBCPConnection.getDBConnection();
+	    
+	    
+	    public Boolean updateTaxRule(Hotel hotel,TaxRule taxRule) throws HMSRuntimeException {
+	    	Boolean updateStatus = false;
+	    	TaxRule taxRuleFromDB = taxRuleSelectDAO.getTaxRuleById(hotel.getHotelId(), taxRule.getTaxRuleId());
+	    			
+	        int i  = 1;
+	    	try {
+	    		taxRuleFromDB = requireNonNull(taxRuleFromDB);
+	    		connection = DBCPConnection.getDBConnection();
 	            connection.setAutoCommit(false);
-	            stmt = connection.prepareStatement(TaxRuleDBQueries.FETCH_ALL_TAXRULES);
-	            stmt.setString(1, hotelId);
+	        	stmt = connection.prepareStatement(TaxRuleDBQueries.UPDATE_EXISTING_TAXRULE);
+	        	stmt.setString(i++, taxRule.getTaxRuleName());
+	        	stmt.setDouble(i++, taxRule.getLowerBound());
+	        	stmt.setDouble(i++, taxRule.getUpperBound());
+	        	stmt.setDouble(i++, taxRule.getCgst());
+	        	stmt.setDouble(i++, taxRule.getSgst());
+	        	stmt.setString(i++, taxRule.getTaxCategory());
+	        	stmt.setString(i++, taxRule.getTaxRuleDescription());
+	            stmt.setString(i++, taxRuleFromDB.getTaxRuleId());
 	            stmt.setQueryTimeout(DBCPConnection.getJDBCQueryTimeOut());
-	            rs = stmt.executeQuery();
-
-	            taxRule = populateTaxRule(rs);
-
-	            if (null != taxRule) {
-	                Log.info("\nPopulating TaxRule[" + taxRule.getHotelId() + "," + taxRule.getTaxRuleId()+ "]");
-
+	            int s=stmt.executeUpdate();
+	            if(s>0){
+	                updateStatus = true;
+	                Log.info("TaxRule Record updated successfully");
+	                connection.commit();
+	                Log.info("\nTaxRule[" + taxRule.getTaxRuleId()+ "] successfully updated");
 
 	            }
-	        } catch (SQLException e) {
-	            // TODO Auto-generated catch block
-	            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
-	        } catch (NullPointerException npe) {
-	            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instantiated is null::" + npe.getMessage()));
-	        } finally {
-	            DBCPConnection.closeDBConnection(null, stmt, connection);
-	            return taxRule;
-	        }
-
+	            } catch (SQLException sqle) {
+	                // TODO Auto-generated catch block
+	                //connection.rollback();
+	                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED, "DB SQL Exception Occured"));
+	            } catch (NullPointerException npe) {
+	                //connection.rollback();
+	                throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
+	            }
+	    	
+	        finally {
+	        	DBCPConnection.closeDBConnection(null, stmt, connection);
+	        	}
+	        return updateStatus;
 	    }
 	    
-	    private TaxRule populateTaxRule(ResultSet rs) throws SQLException {
 
-	        if (rs.next() == false) {
-	            System.out.println("ResultSet is empty in Java");
-	            return null;
-	        } else {
-	            String taxRuleId = rs.getString("taxrule_id");
-	            String hotelId = rs.getString("hotel_id");
-	            String taxRuleName = rs.getString("taxrule_name");
-	            String taxRuleDescription = rs.getString("taxrule_description");
-	            Double taxLowerBound = rs.getDouble("tax_lower_bound");
-	            Double taxUpperBound = rs.getDouble("tax_upper_bound");
-	            Double cgst = rs.getDouble("tax_cgst");
-	            Double sgst = rs.getDouble("tax_sgst");
-	            Double gst = rs.getDouble("tax_gst");
-	            String taxCategory = rs.getString("tax_category");
-
-	            
-	            return new  TaxRule(hotelId, taxRuleId, taxRuleName, taxLowerBound, taxUpperBound, cgst, sgst, gst, taxCategory, taxRuleDescription); 
-	        }
-	    }
+	    
 }

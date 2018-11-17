@@ -9,10 +9,10 @@ import com.aybits.hms.func.hotel.beans.Hotel;
 import com.aybits.hms.func.hotel.beans.HotelRegistrationData;
 import com.aybits.hms.func.taxrules.beans.TaxRule;
 
-public class TaxAPIValidator {
+public class TaxRuleAPIValidator {
     HMSAPIValidator hmsapiValidator = new HMSAPIValidator();
 
-    protected void validate(TaxRule taxRule) throws HMSRuntimeException {
+    protected void validateTaxRule(TaxRule taxRule) throws HMSRuntimeException {
 
 
 

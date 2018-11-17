@@ -21,7 +21,9 @@ public class HMSJSONConstants {
     public static final String SERVICE_ID = "service_id";
     public static final String SERVICE_NAME = "service_name";
 
-
+    //added by nouman
+    public static final String TAXRULE_ID = "taxrule_id";
+    public static final String TAXRULE = "taxrule";
     
 
 

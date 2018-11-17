@@ -39,7 +39,7 @@ public class EmployeeAPIHelper {
 
         }else{
             Log.info("Exception occurred while adding employee::Employee already exists");
-            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_ALREADY_EXISTS, "Employee already exists"));
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.EMPLOYEE_ALREADY_EXISTS, "Employee already exists"));
         }
 
         return employeeId;
@@ -67,7 +67,20 @@ public class EmployeeAPIHelper {
             employee = employeeSelectDAO.getEmployeeByPhone(mobilePhone);
             		
         }catch(Exception e){
-            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_HOTEL_ATTRIBUTES,"Employee Details not available for given emploeeId"));
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_EMPLOYEE_PHONE,"Employee Details not available for given mobile Phone"));
+        }finally{
+            return employee;
+        }
+
+    }
+    
+    public Employee getEmployeeById(String employeeId) throws HMSRuntimeException{
+        Employee employee = null;
+        try{
+            employee = employeeSelectDAO.getEmployeeById(employeeId);
+            		
+        }catch(Exception e){
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_EMPLOYEE_ID,"Employee Details not available for given emploeeId"));
         }finally{
             return employee;
         }
@@ -82,13 +95,13 @@ public class EmployeeAPIHelper {
             		
         } catch (HMSRuntimeException e) {
             Log.info("Exception occured while adding employee::" + employee.getEmpId());
-            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_UPDATE_FAILED, "Adding Employee details failed"));
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.EMPLOYEE_UPDATE_FAILED, "Adding Employee details failed"));
         }
         return isEmployeeUpdateSuccessful;
 
     }
     
-    public Boolean isEmployeeAlreadyPresent(Employee employeeFromUI){
+    public Boolean isEmployeeAlreadyPresent(Employee employeeFromUI) {
 
         Employee employeeFromDB = null;
 

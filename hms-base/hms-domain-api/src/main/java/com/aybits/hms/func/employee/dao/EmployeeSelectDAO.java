@@ -23,20 +23,18 @@ import com.aybits.hms.func.employee.cache.EmployeeCache;
 public class EmployeeSelectDAO {
 
 	static Logger Log = Logger.getLogger(EmployeeSelectDAO.class);
-
+	 Connection connection = null;
+     PreparedStatement stmt = null;
+     ResultSet rs = null;
+	
     @SuppressWarnings("finally")
     public Boolean getAllEmployees(EmployeeCache employeeCache) throws HMSRuntimeException{
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+       
 
         Boolean cacheLoadStatus = false;
-
         if(employeeCache == null){
             return cacheLoadStatus;
         }
-
-
         try {
             connection = DBCPConnection.getDBConnection();
             if(connection != null)
@@ -57,6 +55,8 @@ public class EmployeeSelectDAO {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
+        }catch (NullPointerException npe) {
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         } finally{
            DBCPConnection.closeDBConnection(rs ,stmt, connection);
             return cacheLoadStatus;
@@ -92,6 +92,8 @@ public class EmployeeSelectDAO {
         } catch (SQLException e){
             //TODO - throw cache specific errorCode,message
             throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
+        } catch (NullPointerException npe) {
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         }finally{
             DBCPConnection.closeDBConnection(rs, stmt, connection);
             return employees;
@@ -100,10 +102,8 @@ public class EmployeeSelectDAO {
 
 
     @SuppressWarnings("finally")
-    public static Employee getEmployeeByPhone(String mobilePhone) throws HMSRuntimeException{
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+    public  Employee getEmployeeByPhone(String mobilePhone) throws HMSRuntimeException{
+        
         Employee employee = null;
 
         try {
@@ -125,6 +125,8 @@ public class EmployeeSelectDAO {
         }catch (SQLException e){
             //TODO - throw cache specific errorCode,message
             throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
+        }catch (NullPointerException npe) {
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         }finally{
            DBCPConnection.closeDBConnection(rs, stmt, connection);
 
@@ -132,7 +134,7 @@ public class EmployeeSelectDAO {
         }
     }
     
-    public static Employee getEmployeeById(String employeeId) {
+    public Employee getEmployeeById(String employeeId) throws HMSRuntimeException {
         if(employeeId == null || employeeId.equals("")){
             try {
                 throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_EMPLOYEE_ID,"Invalid Employee ID provided"));
@@ -144,12 +146,7 @@ public class EmployeeSelectDAO {
             }
 
         }
-
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         Employee employee = new Employee();
-
         try {
             connection = DBCPConnection.getDBConnection();
             if(connection != null)
@@ -169,6 +166,8 @@ public class EmployeeSelectDAO {
         } catch (SQLException e){
             //TODO - throw cache specific errorCode,message
             throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.DB_SQL_EXCEPTION_OCCURED,"DB SQL Exception occured"));
+        }catch (NullPointerException npe) {
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HMS_EXCEPTION, "Object instanstiated is null::" + npe.getMessage()));
         }finally{
            DBCPConnection.closeDBConnection(rs, stmt ,connection);
             return employee;

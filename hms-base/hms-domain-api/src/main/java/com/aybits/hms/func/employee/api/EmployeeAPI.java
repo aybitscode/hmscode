@@ -48,9 +48,9 @@ public class EmployeeAPI implements HmsAPI {
     public Employee getEmployeeByPhone(String mobilePhone){
         //Employee employee = HMSCache.custCache.getEmployeeByMobile(mobilePhone);
         Employee employee = null;
-
+        EmployeeSelectDAO employeeSelectDAO = null;
         try {
-            employee = EmployeeSelectDAO.getEmployeeByPhone(mobilePhone);
+            employee = employeeSelectDAO.getEmployeeByPhone(mobilePhone);
         } catch (HMSRuntimeException e) {
             e.printStackTrace();
         }
@@ -104,7 +104,8 @@ public class EmployeeAPI implements HmsAPI {
     public Employee getEmployeeById(String employeeId) {
         //Employee employee = HMSCache.custCache.getEmployeeById(employeeId);
         Employee employee = null;
-        employee = EmployeeSelectDAO.getEmployeeById(employeeId);
+        EmployeeSelectDAO employeeSelectDAO = null;
+        employee = employeeSelectDAO.getEmployeeById(employeeId);
 
         return employee;
     }
@@ -120,21 +121,23 @@ public class EmployeeAPI implements HmsAPI {
         String status = null;
         String message = null;
         String empId = null;
-
+        JSONObject responseData = new JSONObject();
+        
         Employee employee = null;
         try {
             employee = (Employee) HMSJSONParser.convertJSONToObject(data.getJSONObject(HMSJSONConstants.EMPLOYEE).toString(), Employee.class);
             empId = employeeAPIHelper.addEmployee(employee);
+            responseData.put(HMSJSONConstants.EMPLOYEE_ID,data);
             status = HMSAPIServiceConstants.HMS_RESPONSE_SUCCESS;
-            message = "Hotel with ["+empId+"] created successfully";
+            message = "Employee with ["+empId+"] created successfully";
             Log.info(message);
         }catch (HMSRuntimeException e) {
             throw e;
         }catch(Exception e){
-            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.HOTEL_SETUP_FAILED,"Hotel setup failed due to :"+e.getMessage()));
+            throw new HMSRuntimeException(HMSErrorInfo.getNewErrorInfo(HMSErrorCodes.INVALID_EMPLOYEE_DETAILS,"Invalid Employee details provided :"+e.getMessage()));
         }finally{
-            Log.info("[Exit]::hotelAPI.process");
-            return createHMSAPIResponse(status,message,empId);
+            Log.info("[Exit]::employeeAPI.process");
+            return createHMSAPIResponse(status,message,responseData);
         }
     }
 
@@ -177,23 +180,5 @@ public class EmployeeAPI implements HmsAPI {
     }
 
 
-    private String createHMSAPIResponse(String status,String message,String data) {
-        Log.info("hotelAPI.createHMSAPIResponse - Creating response string for exiting employeeAPI");
-        JSONObject json = null;
-        HMSAPIResponse hmsapiResponse = new HMSAPIResponse();
-        try {
-            json = new JSONObject();
-            json.put(HMSJSONConstants.EMPLOYEE_ID, data);
-            Log.info("employeeAPI.createHMSAPIResponse - Sending successful response string [" + message + "]  from employeeAPI");
-        } catch (JSONException e) {
-            status = HMSAPIServiceConstants.HMS_RESPONSE_FAILURE;
-            message = "Employee creation failed:" + e.getMessage();
-            Log.info("employeeAPI.createHMSAPIResponse - Sending failure response string [" + message + "]  from employeeAPI");
-        } finally {
-            hmsapiResponse.setResponseData(json.toString());
-            hmsapiResponse.setMessage(message);
-            hmsapiResponse.setStatus(status);
-            return HMSJSONParser.convertObjectToJSON(hmsapiResponse);
-        }
-    }
+    
 }
