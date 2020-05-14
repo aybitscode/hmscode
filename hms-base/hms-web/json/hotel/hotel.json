@@ -1,0 +1,42 @@
+{
+	"data": {
+		"hotel_id":"TO_BE_GEN",
+		"hotel_status":"ACTIVE",
+		"hotel_attributes": {
+			"hotel_address": {
+				"address_line1": "Thanisandra",
+				"city": "Bangalore",
+				"country": "India",
+				"state": "Karnataka"
+			},
+			"hotel_contact_details": {
+				"fax_number": "9999999999",
+				"mobile_number": "9999999999",
+				"primary_email": "mohammed@gmail.com",
+				"primary_phone": "9999999999",
+				"secondary_email": "mohammed@gmail.com",
+				"secondary_phone": "9999999999"
+			},
+			"hotel_bed_count":"200",
+			"hotel_employee_count": "10",
+			"hotel_name": "HOTEL_EMPIRE",
+			"hotel_rating": "6",
+			"hotel_room_count": "10",
+			"hotel_room_doorno_format": "RR"
+		},
+		"hotel_registration_data": {
+			"building_permit_no": "BP0909SFD",
+			"epf_reg_no": "ESPFLSDFK",
+			"esi_reg_no": "ESOISDOF",
+			"fire_safety_permit_no": "FS0LKSD",
+			"fssai_license_no": "FSSOIIOI",
+			"gst_no": "GS0990",
+			"health_trade_license_no": "ASDHOIASFD",
+			"hotel_reg_no": "RR9099",
+			"police_license_no": "PSFD09"
+		}
+	},
+	"entity": "HOTEL_SETUP",
+	"operation": "ADD_HOTEL",
+	"request_id": "HMS_REQ"
+}

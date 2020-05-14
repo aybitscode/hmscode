@@ -1,0 +1,62 @@
+{
+      "room_category_id": "",
+      "room_category_name": "",
+      "room_category_desc": "",
+      "bed_count": "",
+      "category_room_count": "",
+      "room_category_price": {
+        "room_base_price": "",
+        "room_facilities_price": "",
+        "applied_voucher_rebate": "",
+        "applied_faciliteis_charges": ""
+      },
+      "room_category_capacity": {
+        "room_category_capacity": ""
+      },
+      "adult_occupancy": "",
+      "child_occupancy": "",
+      "room_category_amenities": [
+        {
+          "amenity_id": "",
+          "amenity_name": "",
+          "amenity_description": ""
+        }
+      ],
+      "room_category_facilities": [
+        {
+          "facility_id": "",
+          "facility_name": "",
+          "facility_description": "",
+          "is_available": "",
+          "is_chargeable": "",
+          "facility_type": "",
+          "facility_price": ""
+        }
+      ],
+      "room_category_services": [
+        {
+          "service_id": "",
+          "service_name": "",
+          "service_description": "",
+          "service_availability": "",
+          "service_chargeable": "",
+          "service_charge": "",
+          "is_tax_applicable": "",
+          "tax_applicable": ""
+        }
+      ],
+      "room_category_vouchers": [
+        {
+          "voucher_id": "",
+          "voucher_name": "",
+          "voucher_description": "",
+          "voucher_start_date": "",
+          "voucher_expiry_date": "",
+          "voucher_discount": "",
+          "voucher_status": {
+            "voucher_status": ""
+          }
+        }
+      ],
+      "is_category_available": ""
+    }

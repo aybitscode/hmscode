@@ -1,0 +1,8 @@
+{"response_id:":"",
+  "operation":"add",
+  "entity":"customer",
+  "data": {
+    "status":"error",
+    "message":"Error while adding customer"
+  }
+}

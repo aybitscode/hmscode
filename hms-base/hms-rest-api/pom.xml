@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>hms.base</groupId>
+        <artifactId>hms-base</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>hms-rest-api</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <!-- <maven.compiler.target>1.8</maven.compiler.target>
+         <maven.compiler.source>1.8</maven.compiler.source>-->
+        <java.version>10</java.version>
+        <sparkjava.version>2.6.0</sparkjava.version>
+        <jackson.version>2.8.8.1</jackson.version>
+        <hms-domain-api.version>1.0</hms-domain-api.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>hms.base</groupId>
+            <artifactId>hms-domain-api</artifactId>
+            <version>${hms-domain-api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>${sparkjava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>hms-rest-api</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.aybits.hms.sparkInit.HmsRestServiceMain</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>
+                        ${project.build.directory}/lib
+                    </outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.ico</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>
